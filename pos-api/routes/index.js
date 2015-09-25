@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
-
-var currentdate = new Date();
-var datetime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+var log = require('../log');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  var currentdate = new Date();
+  var datetime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
   res.render('index', { datetime: datetime });
+  log.info('User requested time: ' + datetime);
 });
 
 var q = 'tasks';
