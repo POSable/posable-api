@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   log.info('User requested time: ' + datetime);
 });
 
-var q = 'tasks';
+var q = 'steve';
 
 function bail(err) {
   console.error(err);
