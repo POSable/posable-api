@@ -27,11 +27,11 @@ function publisher(conn) {
     console.log("sending something to do");
     setTimeout(consumer(conn), 1000); // remove - used for simple test - infinite loop with consumer function!!!
   }
-}
+};
 
-// Consumer
+ //Consumer
 function consumer(conn) {
-  var ok = conn.createChannel(on_open);
+  conn.createChannel(on_open);
   function on_open(err, ch) {
     if (err != null) bail(err);
     ch.assertQueue(q);
@@ -39,7 +39,6 @@ function consumer(conn) {
       if (msg !== null) {
         console.log("message content is", msg.content.toString());
         ch.ack(msg);
-        publisher(conn); // remove - used for simple test
       }
     });
   }
@@ -49,6 +48,7 @@ require('amqplib/callback_api')
     .connect('amqp://52.89.7.38:5672', function(err, conn) {
       if (err != null) bail(err);
       consumer(conn);
+      publisher(conn); // remove - used for simple test
     });
 
 module.exports = router;
