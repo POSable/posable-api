@@ -9,11 +9,10 @@ var RabbitMQ = function (urlPort, q) {
     this.urlPort = urlPort;
     this.q = q;
 
-    return {}
 };
         RabbitMQ.prototype.publish = function () {
             amqp.connect('amqp://' + this.urlPort, function (err, conn) {
-                if (err != null) bail(err);
+                    if (err != null) bail(err);
                 conn.createChannel(on_open);
                 function on_open(err, ch) {
                     if (err != null) bail(err);
@@ -43,4 +42,4 @@ var RabbitMQ = function (urlPort, q) {
             });
         }
 
-module.exports = new RabbitMQ(urlPort, q);
+module.exports = RabbitMQ;

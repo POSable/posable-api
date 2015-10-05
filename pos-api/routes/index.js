@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
     res.render('index', {datetime: datetime});
     log.info('User requested time: ' + datetime);
 
-    rabbitmq('testQue', '52.89.7.38:5672').publish;
-    rabbitmq('testQue', '52.89.7.38:5672').consume;
+    rabbitmq.publish();
+    rabbitmq.consume();
 
 });
 
