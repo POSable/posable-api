@@ -69,6 +69,7 @@
 {"name":"timecheck","hostname":"Davids-MacBook-Air.local","pid":19633,"level":30,"msg":"User requested time: 10:31:19","time":"2015-10-02T16:31:19.534Z","v":0}
 {"name":"timecheck","hostname":"Davids-MacBook-Air.local","pid":19633,"level":30,"msg":"User requested time: 10:31:19","time":"2015-10-02T16:31:19.711Z","v":0}
 {"name":"timecheck","hostname":"Davids-MacBook-Air.local","pid":19633,"level":30,"msg":"User requested time: 10:31:20","time":"2015-10-02T16:31:20.663Z","v":0}
+<<<<<<< HEAD
 {"name":"timecheck","hostname":"Davids-MacBook-Air-2.local","pid":27347,"level":30,"msg":"User requested time: 9:59:15","time":"2015-10-05T15:59:15.794Z","v":0}
 {"name":"timecheck","hostname":"Davids-MacBook-Air-2.local","pid":27356,"level":30,"msg":"User requested time: 10:1:53","time":"2015-10-05T16:01:53.397Z","v":0}
 {"name":"timecheck","hostname":"Davids-MacBook-Air-2.local","pid":27370,"level":30,"msg":"User requested time: 10:3:16","time":"2015-10-05T16:03:17.124Z","v":0}
@@ -94,3 +95,6 @@
 {"name":"timecheck","hostname":"Davids-Air-2","pid":27687,"level":30,"msg":"User requested time: 14:37:56","time":"2015-10-05T20:37:56.649Z","v":0}
 {"name":"timecheck","hostname":"Davids-Air-2","pid":27692,"level":30,"msg":"User requested time: 14:38:52","time":"2015-10-05T20:38:53.250Z","v":0}
 {"name":"timecheck","hostname":"Davids-Air-2","pid":27701,"level":30,"msg":"User requested time: 14:39:21","time":"2015-10-05T20:39:21.561Z","v":0}
+{"name":"timecheck","hostname":"Tristans-MacBook-Pro.local","pid":2866,"level":30,"msg":"User requested time: 9:43:0","time":"2015-10-05T15:43:00.872Z","v":0}
+{"name":"timecheck","hostname":"Tristans-MacBook-Pro.local","pid":2866,"level":30,"msg":"User requested time: 9:43:1","time":"2015-10-05T15:43:01.021Z","v":0}
+
