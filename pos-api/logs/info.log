@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {"name":"timecheck","hostname":"Nicks-Air.PK5001Z","pid":44203,"level":30,"msg":"User requested time: 12:54:57","time":"2015-09-25T18:54:58.036Z","v":0}
 {"name":"timecheck","hostname":"Nicks-Air.PK5001Z","pid":44813,"level":30,"msg":"User requested time: 13:42:59","time":"2015-09-25T19:43:00.128Z","v":0}
 {"name":"timecheck","hostname":"Nicks-Air.PK5001Z","pid":44895,"level":30,"msg":"User requested time: 13:55:3","time":"2015-09-25T19:55:04.285Z","v":0}
@@ -169,3 +170,5 @@
 {"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":30889,"level":30,"msg":"User requested time: 14:12:56","time":"2015-10-06T20:12:57.299Z","v":0}
 {"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31019,"level":30,"msg":"User requested time: 14:46:41","time":"2015-10-06T20:46:41.485Z","v":0}
 {"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31023,"level":30,"msg":"User requested time: 14:47:17","time":"2015-10-06T20:47:18.160Z","v":0}
+=======
+>>>>>>> master
