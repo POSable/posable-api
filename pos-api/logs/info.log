@@ -172,3 +172,66 @@
 {"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31023,"level":30,"msg":"User requested time: 14:47:17","time":"2015-10-06T20:47:18.160Z","v":0}
 =======
 >>>>>>> master
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31272,"level":30,"msg":"User requested time: 15:22:2","time":"2015-10-06T21:22:03.401Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31446,"level":30,"msg":"User requested time: 15:54:5","time":"2015-10-06T21:54:05.541Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31446,"level":30,"msg":"Random Token onbJfgUz4pdfSkdE","time":"2015-10-06T21:54:05.544Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31446,"level":30,"msg":"User requested time: 15:55:27","time":"2015-10-06T21:55:27.340Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31446,"level":30,"msg":"Random Token ucNkxJ09622Nv9LW","time":"2015-10-06T21:55:27.340Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31460,"level":30,"msg":"User requested time: 15:55:32","time":"2015-10-06T21:55:32.690Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31460,"level":30,"msg":"Random Token LpzdyEeEOLsHDCep","time":"2015-10-06T21:55:32.692Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31460,"level":30,"msg":"User requested time: 15:55:33","time":"2015-10-06T21:55:33.873Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31460,"level":30,"msg":"Random Token OJ1Sy5KO0MM6CP2s","time":"2015-10-06T21:55:33.873Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31468,"level":30,"msg":"User requested time: 15:57:58","time":"2015-10-06T21:57:58.622Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31468,"level":30,"msg":"Random Token vUVzEBdMN4SyCdTa","time":"2015-10-06T21:57:58.624Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"User requested time: 16:19:13","time":"2015-10-06T22:19:13.899Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"Random Token 6svFDiP4RsIvyhrr","time":"2015-10-06T22:19:13.902Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"User requested time: 16:19:18","time":"2015-10-06T22:19:18.879Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"Random Token 6svFDiP4RsIvyhrr","time":"2015-10-06T22:19:18.879Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"User requested time: 16:19:20","time":"2015-10-06T22:19:20.322Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"Random Token 6svFDiP4RsIvyhrr","time":"2015-10-06T22:19:20.322Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"User requested time: 16:19:21","time":"2015-10-06T22:19:21.024Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"Random Token 6svFDiP4RsIvyhrr","time":"2015-10-06T22:19:21.025Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"User requested time: 16:19:21","time":"2015-10-06T22:19:21.597Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"Random Token 6svFDiP4RsIvyhrr","time":"2015-10-06T22:19:21.597Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"User requested time: 16:19:22","time":"2015-10-06T22:19:22.279Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31586,"level":30,"msg":"Random Token 6svFDiP4RsIvyhrr","time":"2015-10-06T22:19:22.279Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31591,"level":30,"msg":"User requested time: 16:19:26","time":"2015-10-06T22:19:26.986Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31591,"level":30,"msg":"Random Token 7RhRz0tydPjtVvxa","time":"2015-10-06T22:19:26.988Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"User requested time: 16:36:1","time":"2015-10-06T22:36:01.355Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"Random Token yKYwnAKztsdiZdG7","time":"2015-10-06T22:36:01.357Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"User requested time: 16:36:2","time":"2015-10-06T22:36:02.993Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"Random Token yKYwnAKztsdiZdG7","time":"2015-10-06T22:36:02.993Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"User requested time: 16:36:4","time":"2015-10-06T22:36:04.730Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"Random Token yKYwnAKztsdiZdG7","time":"2015-10-06T22:36:04.730Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"User requested time: 16:38:12","time":"2015-10-06T22:38:12.439Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"Random Token yKYwnAKztsdiZdG7","time":"2015-10-06T22:38:12.440Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"User requested time: 16:38:40","time":"2015-10-06T22:38:40.679Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"Random Token yKYwnAKztsdiZdG7","time":"2015-10-06T22:38:40.679Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"User requested time: 16:39:17","time":"2015-10-06T22:39:17.056Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31691,"level":30,"msg":"Random Token yKYwnAKztsdiZdG7","time":"2015-10-06T22:39:17.056Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31722,"level":30,"msg":"User requested time: 16:39:24","time":"2015-10-06T22:39:25.140Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31722,"level":30,"msg":"Random Token w9iAcPWIPO0x75sb","time":"2015-10-06T22:39:25.142Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31767,"level":30,"msg":"User requested time: 16:47:2","time":"2015-10-06T22:47:02.668Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31767,"level":30,"msg":"Random Token JItKcTtXQx3pvgrz","time":"2015-10-06T22:47:02.670Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31767,"level":30,"msg":"User requested time: 16:47:3","time":"2015-10-06T22:47:03.806Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31767,"level":30,"msg":"Random Token JItKcTtXQx3pvgrz","time":"2015-10-06T22:47:03.806Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31774,"level":30,"msg":"User requested time: 16:47:33","time":"2015-10-06T22:47:33.546Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31774,"level":30,"msg":"Random Token dyzqnA46dWSWFsE3","time":"2015-10-06T22:47:33.548Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31774,"level":30,"msg":"User requested time: 16:47:34","time":"2015-10-06T22:47:34.244Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31774,"level":30,"msg":"Random Token dyzqnA46dWSWFsE3","time":"2015-10-06T22:47:34.245Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31774,"level":30,"msg":"User requested time: 16:47:34","time":"2015-10-06T22:47:34.613Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31774,"level":30,"msg":"Random Token dyzqnA46dWSWFsE3","time":"2015-10-06T22:47:34.613Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31788,"level":30,"msg":"User requested time: 16:48:56","time":"2015-10-06T22:48:57.317Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":31788,"level":30,"msg":"Random Token 28dt5yldqTlqCu6N","time":"2015-10-06T22:48:57.319Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33461,"level":30,"msg":"User requested time: 10:1:6","time":"2015-10-07T16:01:07.095Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33461,"level":30,"msg":"Random Token jswmA1ldzHp8dV2v","time":"2015-10-07T16:01:07.097Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33529,"level":30,"msg":"User requested time: 10:10:50","time":"2015-10-07T16:10:51.243Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33529,"level":30,"msg":"Random Token rPQ0rsv91QN1dued","time":"2015-10-07T16:10:51.245Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33545,"level":30,"msg":"User requested time: 10:12:3","time":"2015-10-07T16:12:04.145Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33545,"level":30,"msg":"Random Token MZjfQZ5W0jzcNiWW","time":"2015-10-07T16:12:04.147Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33553,"level":30,"msg":"User requested time: 10:12:57","time":"2015-10-07T16:12:57.995Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33553,"level":30,"msg":"Random Token mVuTMxQgyOLKM7UF","time":"2015-10-07T16:12:57.997Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33557,"level":30,"msg":"User requested time: 10:13:46","time":"2015-10-07T16:13:47.205Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33557,"level":30,"msg":"Random Token tkL3em1kP29NyVVE","time":"2015-10-07T16:13:47.207Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33566,"level":30,"msg":"User requested time: 10:14:38","time":"2015-10-07T16:14:38.406Z","v":0}
+{"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33566,"level":30,"msg":"Random Token AQX5eWpOXAXUeBcL","time":"2015-10-07T16:14:38.408Z","v":0}
