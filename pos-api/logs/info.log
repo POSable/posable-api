@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 {"name":"timecheck","hostname":"Nicks-Air.PK5001Z","pid":44203,"level":30,"msg":"User requested time: 12:54:57","time":"2015-09-25T18:54:58.036Z","v":0}
 {"name":"timecheck","hostname":"Nicks-Air.PK5001Z","pid":44813,"level":30,"msg":"User requested time: 13:42:59","time":"2015-09-25T19:43:00.128Z","v":0}
 {"name":"timecheck","hostname":"Nicks-Air.PK5001Z","pid":44895,"level":30,"msg":"User requested time: 13:55:3","time":"2015-09-25T19:55:04.285Z","v":0}
@@ -236,3 +234,7 @@
 {"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33557,"level":30,"msg":"Random Token tkL3em1kP29NyVVE","time":"2015-10-07T16:13:47.207Z","v":0}
 {"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33566,"level":30,"msg":"User requested time: 10:14:38","time":"2015-10-07T16:14:38.406Z","v":0}
 {"name":"timecheck","hostname":"workstation-6b.bancteksbs.local","pid":33566,"level":30,"msg":"Random Token AQX5eWpOXAXUeBcL","time":"2015-10-07T16:14:38.408Z","v":0}
+{"name":"timecheck","hostname":"Nicks-MacBook-Air.local","pid":25355,"level":30,"msg":"User requested time: 12:15:2","time":"2015-10-07T18:15:03.509Z","v":0}
+{"name":"timecheck","hostname":"Nicks-MacBook-Air.local","pid":25355,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:15:06.298Z","v":0}
+{"name":"timecheck","hostname":"Nicks-MacBook-Air.local","pid":25362,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:15:14.390Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":25382,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:17:00.299Z","v":0}

@@ -5,7 +5,6 @@ var Oauth = function () {
 
 }
 
-
 // Create a token generator with the default settings:
     var uid = require('rand-token').uid;
 
