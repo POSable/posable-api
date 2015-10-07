@@ -1,15 +1,22 @@
 var express = require('express');
 var app = express();
+var log = require('./log');
 
-var errorHandling = function () {
-
-    app.use(function(err, req, res, next) {
+var errorHandling = function(err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-};
+        log.error({err: err.message});
+
+        if (app.get('env') === 'development') {
+            res.render('error', {
+                message: err.message,
+                error: err
+            });
+        } else {
+            res.render('error', {
+                message: err.message,
+                error: {}  // <-- hides stacktrace in production
+            });
+        }
+    };
 
 module.exports = errorHandling;
