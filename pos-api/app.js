@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var transactions = require('./routes/transactions');
-var errorHandling = require('./lib/pos_modules/errorHandling')
+var errorHandling = require('./lib/pos_modules/errorHandling');
 
 var app = express();
 
@@ -34,16 +34,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
-
-// development error handler
-// will eventualy print stacktrace
-if (app.get('env') === 'development') {
-    errorHandling();
-}
-
-// production error handler
-// no stacktraces leaked to user
-errorHandling();
+app.use(errorHandling);
 
 module.exports = app;
