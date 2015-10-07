@@ -76,3 +76,27 @@
   "message" : "Too Many Requests",
   "description" : "Rejected due to Rate Limit"
 }
+
+{
+  "code" : 500,
+  "message" : "Internal Server Error",
+  "description" : "More details about the error here"
+}
+
+{
+  "code" : 501,
+  "message" : "Not Implemented",
+  "description" : "More details about the error here"
+}
+
+{
+  "code" : 502,
+  "message" : "Bad Gateway",
+  "description" : "More details about the error here"
+}
+
+{
+  "code" : 503,
+  "message" : "Service Unavailable",
+  "description" : "More details about the error here"
+}
