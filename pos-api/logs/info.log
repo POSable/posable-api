@@ -71,3 +71,4 @@
 {"name":"timecheck","hostname":"Davids-MacBook-Air.local","pid":19633,"level":30,"msg":"User requested time: 10:31:20","time":"2015-10-02T16:31:20.663Z","v":0}
 {"name":"timecheck","hostname":"Tristans-MacBook-Pro.local","pid":2866,"level":30,"msg":"User requested time: 9:43:0","time":"2015-10-05T15:43:00.872Z","v":0}
 {"name":"timecheck","hostname":"Tristans-MacBook-Pro.local","pid":2866,"level":30,"msg":"User requested time: 9:43:1","time":"2015-10-05T15:43:01.021Z","v":0}
+{"name":"timecheck","hostname":"Nicks-MacBook-Air.local","pid":24024,"level":30,"msg":"User requested time: 10:5:6","time":"2015-10-07T16:05:07.320Z","v":0}
