@@ -238,3 +238,23 @@
 {"name":"timecheck","hostname":"Nicks-MacBook-Air.local","pid":25355,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:15:06.298Z","v":0}
 {"name":"timecheck","hostname":"Nicks-MacBook-Air.local","pid":25362,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:15:14.390Z","v":0}
 {"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":25382,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:17:00.299Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:0","time":"2015-10-07T21:20:00.928Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"Random Token 8hfNbI0SubSKo1mL","time":"2015-10-07T21:20:00.929Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:1","time":"2015-10-07T21:20:01.036Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"Random Token 8hfNbI0SubSKo1mL","time":"2015-10-07T21:20:01.036Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:2","time":"2015-10-07T21:20:03.004Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"Random Token 8hfNbI0SubSKo1mL","time":"2015-10-07T21:20:03.005Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:4","time":"2015-10-07T21:20:04.084Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"Random Token 8hfNbI0SubSKo1mL","time":"2015-10-07T21:20:04.085Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:4","time":"2015-10-07T21:20:04.671Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"Random Token 8hfNbI0SubSKo1mL","time":"2015-10-07T21:20:04.671Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:5","time":"2015-10-07T21:20:05.202Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"Random Token 8hfNbI0SubSKo1mL","time":"2015-10-07T21:20:05.202Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:5","time":"2015-10-07T21:20:05.779Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"Random Token 8hfNbI0SubSKo1mL","time":"2015-10-07T21:20:05.779Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34598,"level":30,"msg":"User requested time: 15:22:10","time":"2015-10-07T21:22:11.227Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34598,"level":30,"msg":"Random Token BBKWjWOgnhkfDu7b","time":"2015-10-07T21:22:11.229Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34610,"level":30,"msg":"User requested time: 15:23:40","time":"2015-10-07T21:23:40.546Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34610,"level":30,"msg":"Random Token 33LElijY7UXuV2RF","time":"2015-10-07T21:23:40.548Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34616,"level":30,"msg":"User requested time: 15:24:31","time":"2015-10-07T21:24:31.522Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":34616,"level":30,"msg":"Random Token A4pAM7737eZTOlPf","time":"2015-10-07T21:24:31.524Z","v":0}

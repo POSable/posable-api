@@ -16,8 +16,9 @@ router.post('/', function(req, res) {
     } else if (req.headers.token === token) {
         res.json({message: 'You are here & token matched', code: res.statusCode});
     } else {
-        var errAuth2 = new Error('Unauthorized, incorrect token');
-        res.json({error: errAuth2, code: 401});
+        var errAuth2 = new Error();
+        errAuth2.message = "Unauthorized, incorrect token";
+        res.json({error: errAuth2.message, file: errAuth2.fileName, line: errAuth2.lineNumber, code: 401});
     }
 });
 
