@@ -9,6 +9,12 @@ var rabbitmq1 = new RabbitMQ ('no','52.89.7.38:5672', 'testQue1', amqp);
 var rabbitmq2 = new RabbitMQ ('thang', '52.89.7.38:5672', 'testQue2', amqp);
 var rabbitmq3 = new RabbitMQ ('but', '52.89.7.38:5672', 'testQue3', amqp);
 
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/paymentData');
+
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
