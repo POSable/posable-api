@@ -10,9 +10,18 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    var transaction = new Transaction({
-        amount: req.body.amount
-    })
+    var transaction = new Transaction();
+
+    transaction.cardType = req.body.cardType;
+    transaction.amount = req.body.amount;
+    transaction.last4OfCard = req.body.last4OfCard;
+    transaction.authorizationCode = req.body.authorizationCode;
+    transaction.tax = req.body.tax;
+    transaction.terminalID = req.body.terminalID;
+    transaction.merchantID = req.body.merchantID;
+    transaction.transactionType = req.body.transactionType;
+    transaction.netEPaySN = req.body.netEPaySN;
+    transaction.userId = req.body.userId;
 
     transaction.save(function (err, post) {
         if (err) { return next(err) }
