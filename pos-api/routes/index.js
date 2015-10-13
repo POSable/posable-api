@@ -3,6 +3,7 @@ var router = express.Router();
 var log = require('../lib/pos_modules/log');
 var RabbitMQ = require('../lib/pos_modules/rabbitmq');
 var amqp = require('amqplib/callback_api');
+var token = require ('../lib/pos_modules/Oauth');
 var rabbitmq0 = new RabbitMQ ('Aint', '52.89.7.38:5672', 'testQue', amqp);
 var rabbitmq1 = new RabbitMQ ('no','52.89.7.38:5672', 'testQue1', amqp);
 var rabbitmq2 = new RabbitMQ ('thang', '52.89.7.38:5672', 'testQue2', amqp);
@@ -17,10 +18,12 @@ mongoose.connect('mongodb://localhost/paymentData');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
     var currentdate = new Date();
     var datetime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-    res.render('index', {datetime: datetime});
+    res.render('index', {datetime: datetime, token: token});
     log.info('User requested time: ' + datetime);
+    log.info('Random Token', token);
 
     console.log(rabbitmq0.stringObject);
     console.log(rabbitmq1.stringObject);
