@@ -12,6 +12,7 @@ router.post('/', function(req, res) {
     if (req.headers.token === null || req.headers.token === undefined ){
         var errAuth1 = new Error();
         errAuth1.message = "Unauthorized, token is missing";
+        res.header.statusCode = 401;
         res.json({error: errAuth1.message, file: errAuth1.fileName, line: errAuth1.lineNumber, code: 401});
     } else if (req.headers.token === token) {
         res.json({message: 'You are here & token matched', code: res.statusCode});
