@@ -6,7 +6,12 @@ var Transaction = require('../models/transaction');
 
 
 router.get('/', function(req, res) {
-    res.json({message: 'You are here', code: res.statusCode});
+  Transaction.find(function(err, transactions) {
+    if (err)
+      res.send(err);
+
+    res.json(transactions);
+  });
 });
 
 router.post('/', function(req, res) {

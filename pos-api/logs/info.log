@@ -15,3 +15,4 @@
 {"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":34032,"level":50,"err":"Not Found","msg":"","time":"2015-10-12T20:06:12.794Z","v":0}
 {"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":34032,"level":30,"msg":"User requested time: 14:6:15","time":"2015-10-12T20:06:15.012Z","v":0}
 {"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":34032,"level":30,"msg":"User requested time: 14:34:20","time":"2015-10-12T20:34:20.548Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":35384,"level":30,"msg":"User requested time: 5:18:52","time":"2015-10-13T11:18:52.779Z","v":0}
