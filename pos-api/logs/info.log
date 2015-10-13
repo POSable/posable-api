@@ -238,6 +238,22 @@
 {"name":"timecheck","hostname":"Nicks-MacBook-Air.local","pid":25355,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:15:06.298Z","v":0}
 {"name":"timecheck","hostname":"Nicks-MacBook-Air.local","pid":25362,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:15:14.390Z","v":0}
 {"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":25382,"level":50,"err":"Not Found","msg":"","time":"2015-10-07T18:17:00.299Z","v":0}
+<<<<<<< HEAD
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":10993,"level":50,"err":"Not Found","msg":"","time":"2015-10-08T16:20:41.331Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":10993,"level":50,"err":"Not Found","msg":"","time":"2015-10-08T16:29:00.715Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":10993,"level":50,"err":"Not Found","msg":"","time":"2015-10-08T16:29:09.101Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":10993,"level":50,"err":"Not Found","msg":"","time":"2015-10-08T16:29:37.719Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":10993,"level":50,"err":"Not Found","msg":"","time":"2015-10-08T16:30:02.551Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":10993,"level":30,"msg":"User requested time: 10:30:8","time":"2015-10-08T16:30:08.953Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":10993,"level":50,"err":"Not Found","msg":"","time":"2015-10-08T16:30:23.034Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":10993,"level":50,"err":"Not Found","msg":"","time":"2015-10-08T16:31:20.670Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":34032,"level":30,"msg":"User requested time: 14:6:12","time":"2015-10-12T20:06:12.561Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":34032,"level":30,"msg":"User requested time: 14:6:12","time":"2015-10-12T20:06:12.585Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":34032,"level":50,"err":"Not Found","msg":"","time":"2015-10-12T20:06:12.794Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":34032,"level":30,"msg":"User requested time: 14:6:15","time":"2015-10-12T20:06:15.012Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":34032,"level":30,"msg":"User requested time: 14:34:20","time":"2015-10-12T20:34:20.548Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":35384,"level":30,"msg":"User requested time: 5:18:52","time":"2015-10-13T11:18:52.779Z","v":0}
+=======
 {"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:0","time":"2015-10-07T21:20:00.928Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"Random Token 8hfNbI0SubSKo1mL","time":"2015-10-07T21:20:00.929Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":34585,"level":30,"msg":"User requested time: 15:20:1","time":"2015-10-07T21:20:01.036Z","v":0}
@@ -258,3 +274,4 @@
 {"name":"test log","hostname":"Davids-Air-3","pid":34610,"level":30,"msg":"Random Token 33LElijY7UXuV2RF","time":"2015-10-07T21:23:40.548Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":34616,"level":30,"msg":"User requested time: 15:24:31","time":"2015-10-07T21:24:31.522Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":34616,"level":30,"msg":"Random Token A4pAM7737eZTOlPf","time":"2015-10-07T21:24:31.524Z","v":0}
+>>>>>>> master

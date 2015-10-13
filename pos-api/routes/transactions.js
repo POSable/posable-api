@@ -3,11 +3,38 @@ var router = express.Router();
 var log = require('../lib/pos_modules/log');
 var token = require ('../lib/pos_modules/Oauth');
 
+var Transaction = require('../models/transaction');
+
+
 router.get('/', function(req, res) {
-    res.json({message: 'You are here', code: res.statusCode});
+  Transaction.find(function(err, transactions) {
+    if (err)
+      res.send(err);
+
+    res.json(transactions);
+  });
 });
 
 router.post('/', function(req, res) {
+
+    var transaction = new Transaction();
+
+    transaction.cardType = req.body.cardType;
+    transaction.amount = req.body.amount;
+    transaction.last4OfCard = req.body.last4OfCard;
+    transaction.authorizationCode = req.body.authorizationCode;
+    transaction.tax = req.body.tax;
+    transaction.terminalID = req.body.terminalID;
+    transaction.merchantID = req.body.merchantID;
+    transaction.transactionType = req.body.transactionType;
+    transaction.netEPaySN = req.body.netEPaySN;
+    transaction.userId = req.body.userId;
+
+    transaction.save(function (err, post) {
+        if (err) { return next(err) }
+        res.json(201, post)
+    })
+})
 
     if (req.headers.token === null || req.headers.token === undefined ){
         var errAuth1 = new Error();
