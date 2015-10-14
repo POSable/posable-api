@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var log = require('../lib/pos_modules/log');
-var token = require ('../lib/pos_modules/Oauth');
+var Oauth = require ('../lib/pos_modules/Oauth');
+var uid = require('rand-token').uid
 
 var Transaction = require('../models/transaction');
-
 
 router.get('/', function(req, res) {
   Transaction.find(function(err, transactions) {
@@ -17,17 +17,17 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
 
-  if (req.headers.token === null || req.headers.token === undefined ){
-      var errAuth1 = new Error();
-      errAuth1.message = "Unauthorized, token is missing";
-      res.json({error: errAuth1.message, file: errAuth1.fileName, line: errAuth1.lineNumber, code: 401});
-  } else if (req.headers.token === token) {
-      res.json({message: 'You are here & token matched', code: res.statusCode});
-  } else {
-      var errAuth2 = new Error();
-      errAuth2.message = "Unauthorized, incorrect token";
-      res.json({error: errAuth2.message, file: errAuth2.fileName, line: errAuth2.lineNumber, code: 401});
-  }
+    var newAuth = new Oauth(req, res, uid);
+    if (!newAuth.authenticatePost()) return;
+
+    //var newVal = new Val(req, res);
+    //if (!newVal.validate()) return;
+    console.log("Keep it going");
+
+    //var newMap = new Map(req res);
+    //if (!newMap.converted()) return;
+
+
 
     var transaction = new Transaction();
 
@@ -46,9 +46,10 @@ router.post('/', function(req, res) {
         if (err) { return next(err) }
         res.json(201, post)
     })
+
+    res.json({message: 'You are here, token matched, validation passed, object mapped and saved in mongo', code: 200});
+
 });
-
-
 
 
 module.exports = router;
