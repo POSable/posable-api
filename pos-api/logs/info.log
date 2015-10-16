@@ -369,3 +369,113 @@
 {"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":2174,"level":50,"err":"res is not defined","msg":"","time":"2015-10-14T16:55:58.905Z","v":0}
 {"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":2186,"level":30,"msg":"User requested time: 10:56:45","time":"2015-10-14T16:56:45.916Z","v":0}
 {"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":2186,"level":30,"msg":"Random Token m8l0isN6m1ZK3NPX","time":"2015-10-14T16:56:45.918Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3270,"level":30,"msg":"User requested time: 13:51:23","time":"2015-10-14T19:51:23.438Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3270,"level":30,"msg":"Random Token m8l0isN6m1ZK3NPX","time":"2015-10-14T19:51:23.440Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3270,"level":50,"err":"Unexpected token W","msg":"","time":"2015-10-14T19:51:29.830Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3270,"level":50,"err":"Unexpected token W","msg":"","time":"2015-10-14T19:51:54.138Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3270,"level":50,"err":"Unexpected token W","msg":"","time":"2015-10-14T19:52:00.280Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3422,"level":30,"msg":"User requested time: 14:34:3","time":"2015-10-14T20:34:03.582Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3422,"level":30,"msg":"Random Token m8l0isN6m1ZK3NPX","time":"2015-10-14T20:34:03.584Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3422,"level":50,"err":"Unexpected token W","msg":"","time":"2015-10-14T20:34:08.942Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3428,"level":50,"err":"Unexpected token W","msg":"","time":"2015-10-14T20:34:38.189Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3435,"level":50,"err":"Unexpected token W","msg":"","time":"2015-10-14T20:35:01.247Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3435,"level":50,"err":"Unexpected token j","msg":"","time":"2015-10-14T20:37:15.650Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3435,"level":50,"err":"Unexpected token q","msg":"","time":"2015-10-14T20:37:22.914Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3435,"level":50,"err":"Unexpected token W","msg":"","time":"2015-10-14T20:38:04.635Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":3435,"level":50,"err":"Unexpected token \n","msg":"","time":"2015-10-14T20:58:14.084Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7231,"level":50,"err":"Unexpected token W","msg":"","time":"2015-10-15T15:57:55.511Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7231,"level":50,"err":"invalid json","msg":"","time":"2015-10-15T16:01:38.743Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7344,"level":50,"err":"Dto is not defined","msg":"","time":"2015-10-15T16:14:28.209Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7620,"level":50,"err":"type is not defined","msg":"","time":"2015-10-15T17:39:50.729Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7629,"level":50,"err":"type is not defined","msg":"","time":"2015-10-15T17:41:53.863Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7647,"level":50,"err":"undefined is not a function","msg":"","time":"2015-10-15T17:45:28.781Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7809,"level":50,"err":"Unexpected token o","msg":"","time":"2015-10-15T19:34:51.873Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7823,"level":50,"err":"Unexpected token o","msg":"","time":"2015-10-15T19:37:42.955Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7828,"level":50,"err":"Unexpected token o","msg":"","time":"2015-10-15T19:39:07.739Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7864,"level":50,"err":"Unexpected token o","msg":"","time":"2015-10-15T19:42:53.077Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7872,"level":50,"err":"invalid json","msg":"","time":"2015-10-15T19:47:34.707Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7887,"level":50,"err":"Unexpected token o","msg":"","time":"2015-10-15T19:50:51.728Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7903,"level":50,"err":"invalid json","msg":"","time":"2015-10-15T19:54:52.447Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7914,"level":50,"err":"cosole is not defined","msg":"","time":"2015-10-15T19:57:43.218Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":7923,"level":50,"err":"XMLSerializer is not defined","msg":"","time":"2015-10-15T19:59:07.381Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10124,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T20:11:31.812Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10124,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T20:13:16.579Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10124,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T20:15:21.564Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10147,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T20:17:56.531Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10147,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T20:21:15.485Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10178,"level":50,"err":"Unexpected token u","msg":"","time":"2015-10-15T20:27:30.896Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10249,"level":50,"err":"undefined is not a function","msg":"","time":"2015-10-15T20:39:35.444Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10287,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T20:45:10.656Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10316,"level":50,"err":"errDOT1 is not defined","msg":"","time":"2015-10-15T20:50:39.243Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10343,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T20:58:56.086Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10343,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:00:36.910Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10374,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:04:03.389Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10374,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:09:10.658Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10374,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:11:25.156Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10388,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:11:35.007Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10388,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:11:47.298Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10395,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:12:36.906Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10395,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:14:24.872Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10395,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:15:06.009Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10417,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:21:42.928Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10422,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:22:06.438Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10422,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:22:15.404Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10422,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:22:28.262Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10429,"level":50,"err":"req is not defined","msg":"","time":"2015-10-15T21:24:16.158Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10447,"level":50,"err":"invalid json","msg":"","time":"2015-10-15T21:25:58.115Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10447,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:33:46.202Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10447,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:36:23.529Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10447,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:36:45.386Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10447,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:36:55.405Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10483,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:37:58.680Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10488,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:38:19.822Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10488,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:38:35.040Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":10495,"level":50,"err":"Start tag expected, '<' not found\n","msg":"","time":"2015-10-15T21:39:04.193Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10619,"level":50,"err":"xmlparser is not defined","msg":"","time":"2015-10-16T02:28:26.287Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10629,"level":50,"err":"xmlparser is not defined","msg":"","time":"2015-10-16T02:33:07.222Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 14\nColumn: 18\nChar: >","msg":"","time":"2015-10-16T02:37:53.530Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 10\nChar: >","msg":"","time":"2015-10-16T02:38:08.921Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 10\nChar: >","msg":"","time":"2015-10-16T02:38:23.923Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 10\nChar: >","msg":"","time":"2015-10-16T02:39:09.589Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 10\nChar: >","msg":"","time":"2015-10-16T02:39:23.896Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 10\nChar: >","msg":"","time":"2015-10-16T02:40:28.198Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 10\nChar: >","msg":"","time":"2015-10-16T02:40:52.087Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 10\nChar: >","msg":"","time":"2015-10-16T02:41:11.030Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Attribute without value\nLine: 2\nColumn: 34\nChar: >","msg":"","time":"2015-10-16T02:44:54.792Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Invalid attribute name\nLine: 2\nColumn: 20\nChar: '","msg":"","time":"2015-10-16T02:52:25.580Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Invalid attribute name\nLine: 2\nColumn: 20\nChar: '","msg":"","time":"2015-10-16T02:52:34.964Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 4\nColumn: 36\nChar: >","msg":"","time":"2015-10-16T02:52:56.012Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Attribute without value\nLine: 2\nColumn: 29\nChar: s","msg":"","time":"2015-10-16T02:55:54.443Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 2\nColumn: 67\nChar: >","msg":"","time":"2015-10-16T02:57:51.099Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 2\nColumn: 68\nChar: >","msg":"","time":"2015-10-16T02:58:06.616Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10635,"level":50,"err":"Unexpected close tag\nLine: 2\nColumn: 67\nChar: >","msg":"","time":"2015-10-16T02:58:48.580Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10789,"level":50,"err":"Cannot read property 'creditcard' of undefined","msg":"","time":"2015-10-16T03:34:09.759Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10789,"level":50,"err":"Cannot read property 'creditcard' of undefined","msg":"","time":"2015-10-16T03:34:26.569Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10789,"level":50,"err":"Cannot read property 'creditcard' of undefined","msg":"","time":"2015-10-16T03:35:57.591Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10789,"level":50,"err":"Cannot read property 'creditcard' of undefined","msg":"","time":"2015-10-16T03:36:18.914Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10789,"level":50,"err":"Cannot read property 'creditcard' of undefined","msg":"","time":"2015-10-16T03:36:22.245Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10908,"level":50,"err":"Cannot read property 'cardType' of undefined","msg":"","time":"2015-10-16T04:22:35.601Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10915,"level":50,"err":"Cannot read property 'cardType' of undefined","msg":"","time":"2015-10-16T04:24:00.897Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10921,"level":50,"err":"Cannot read property 'last4' of undefined","msg":"","time":"2015-10-16T04:24:34.255Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10926,"level":50,"err":"Cannot read property '0' of undefined","msg":"","time":"2015-10-16T04:25:02.777Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10933,"level":50,"err":"Cannot read property 'last4' of undefined","msg":"","time":"2015-10-16T04:26:43.560Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10939,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:27:10.384Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10946,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:28:00.367Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10951,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:28:15.891Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10957,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:28:35.932Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10961,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:28:56.236Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10967,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:29:36.431Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10976,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:33:22.611Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10983,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:34:11.157Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10990,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:34:44.127Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10990,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:34:58.635Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":10995,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:35:36.330Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11000,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:36:11.401Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11010,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:36:55.179Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11018,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:38:38.144Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11023,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-16T04:38:58.359Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11023,"level":50,"err":"Cannot read property 'last4' of undefined","msg":"","time":"2015-10-16T04:39:35.624Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11034,"level":50,"err":"Cannot read property 'body' of undefined","msg":"","time":"2015-10-16T04:41:27.458Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11040,"level":50,"err":"Cannot read property 'body' of undefined","msg":"","time":"2015-10-16T04:42:28.730Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11050,"level":50,"err":"transaction is not defined","msg":"","time":"2015-10-16T04:46:33.992Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":11062,"level":50,"err":"Cannot set property 'cardType' of undefined","msg":"","time":"2015-10-16T04:49:41.959Z","v":0}
