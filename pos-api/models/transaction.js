@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // Define our transaction schema
-var TransactionSchema   = new mongoose.Schema({
+var TransactionSchema = new mongoose.Schema({
   cardType: String,
   amount: Number,
   last4OfCard: Number,

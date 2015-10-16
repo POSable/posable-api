@@ -36,7 +36,4 @@ var Oauth = function (req, res, uid) {
         return this.uid(16)
     }
 
-
-
-
 module.exports = Oauth;
