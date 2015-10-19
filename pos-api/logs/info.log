@@ -479,6 +479,26 @@
 {"name":"test log","hostname":"Davids-Air-3","pid":11040,"level":50,"err":"Cannot read property 'body' of undefined","msg":"","time":"2015-10-16T04:42:28.730Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":11050,"level":50,"err":"transaction is not defined","msg":"","time":"2015-10-16T04:46:33.992Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":11062,"level":50,"err":"Cannot set property 'cardType' of undefined","msg":"","time":"2015-10-16T04:49:41.959Z","v":0}
+<<<<<<< HEAD
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":14939,"level":50,"err":"Cannot read property 'cardType' of undefined","msg":"","time":"2015-10-19T15:30:49.199Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":14978,"level":50,"err":"Cannot read property 'cardType' of undefined","msg":"","time":"2015-10-19T15:34:27.065Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":15926,"level":50,"err":"xmlparser is not defined","msg":"","time":"2015-10-19T16:07:12.399Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":16137,"level":50,"err":"res is not defined","msg":"","time":"2015-10-19T16:44:04.594Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":16141,"level":50,"err":"Cannot find module 'object-to-xml'","msg":"","time":"2015-10-19T16:44:23.102Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":16402,"level":50,"err":"type is not defined","msg":"","time":"2015-10-19T16:48:55.450Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16525,"level":50,"err":"o2x is not defined","msg":"","time":"2015-10-19T19:47:04.455Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16564,"level":50,"err":"Cannot read property 'Content-Type' of undefined","msg":"","time":"2015-10-19T19:52:52.104Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16568,"level":50,"err":"Cannot read property 'content-type' of undefined","msg":"","time":"2015-10-19T19:53:07.665Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16574,"level":50,"err":"Cannot read property 'content' of undefined","msg":"","time":"2015-10-19T19:53:28.038Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16574,"level":50,"err":"Cannot read property 'content' of undefined","msg":"","time":"2015-10-19T19:53:46.351Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16585,"level":50,"err":"Cannot read property 'content' of undefined","msg":"","time":"2015-10-19T19:53:52.446Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16589,"level":50,"err":"Cannot read property 'content' of undefined","msg":"","time":"2015-10-19T19:54:14.704Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16595,"level":50,"err":"Cannot read property 'content' of undefined","msg":"","time":"2015-10-19T19:54:31.712Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16600,"level":50,"err":"Cannot read property 'content' of undefined","msg":"","time":"2015-10-19T19:54:49.668Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16605,"level":50,"err":"Cannot read property 'content' of undefined","msg":"","time":"2015-10-19T19:55:17.587Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16616,"level":50,"err":"Cannot read property 'content-type' of undefined","msg":"","time":"2015-10-19T19:55:57.998Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16649,"level":50,"err":"undefined is not a function","msg":"","time":"2015-10-19T20:04:02.349Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":16730,"level":50,"err":"type is not defined","msg":"","time":"2015-10-19T20:19:24.244Z","v":0}
 {"name":"test log","hostname":"Nicks-Air.PK5001Z","pid":53435,"level":50,"err":"invalid json","msg":"","time":"2015-10-16T13:41:26.938Z","v":0}
 {"name":"test log","hostname":"Nicks-Air.PK5001Z","pid":53435,"level":50,"err":"transactionDTO.dto is not a function","msg":"","time":"2015-10-16T13:41:44.754Z","v":0}
 {"name":"test log","hostname":"Nicks-Air.PK5001Z","pid":53511,"level":50,"err":"invalid json","msg":"","time":"2015-10-16T13:47:05.474Z","v":0}
@@ -512,3 +532,8 @@
 {"name":"test log","hostname":"Nicks-Air.PK5001Z","pid":55603,"level":50,"err":"this.message.isEmpty is not a function","msg":"","time":"2015-10-16T18:44:38.831Z","v":0}
 {"name":"test log","hostname":"Nicks-Air.PK5001Z","pid":55698,"level":50,"err":"Cannot read property 'length' of undefined","msg":"","time":"2015-10-16T18:53:59.420Z","v":0}
 {"name":"test log","hostname":"Nicks-Air.PK5001Z","pid":55705,"level":50,"err":"Cannot read property 'length' of undefined","msg":"","time":"2015-10-16T18:54:34.913Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":17139,"level":50,"err":"isString is not defined","msg":"","time":"2015-10-19T21:33:38.446Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":17169,"level":50,"err":"res is not defined","msg":"","time":"2015-10-19T21:38:33.920Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":17173,"level":50,"err":"Cannot read property 'status' of undefined","msg":"","time":"2015-10-19T21:38:50.823Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":17178,"level":50,"err":"Cannot read property 'status' of undefined","msg":"","time":"2015-10-19T21:39:36.216Z","v":0}
+{"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":17189,"level":50,"err":"Cannot read property 'status' of undefined","msg":"","time":"2015-10-19T21:41:03.190Z","v":0}

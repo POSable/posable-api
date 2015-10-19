@@ -9,7 +9,6 @@ var users = require('./routes/users');
 var xmlparser = require('express-xml-bodyparser');
 
 var api = require('./routes/api');
-var errorHandling = require('./lib/pos_modules/errorHandling');
 
 var transactions = require('./routes/transactions');
 var errorHandling = require('./lib/pos_modules/errorHandling');
@@ -24,7 +23,12 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(xmlparser());
+app.use(xmlparser({
+    explicitArray: false,
+    normalize: false,
+    normalizeTags: false,
+    trim: true
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
