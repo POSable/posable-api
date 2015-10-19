@@ -4,7 +4,7 @@ console.log(dto);
         transaction.cardType = dto.payment.creditCard.cardType;
         transaction.amount = dto.payment.amount;
         transaction.last4OfCard = dto.payment.creditCard.last4;
-        transaction.authorizationCode = dto.payment.creditCard.authCode;;
+        transaction.authorizationCode = dto.payment.creditCard.authCode;
         transaction.tax = dto.payment.tax;
         transaction.terminalID = dto.payment.terminalId;
         transaction.merchantID = dto.payment.merchantId;
@@ -13,6 +13,6 @@ console.log(dto);
         transaction.userId = dto.payment.cashierId;
 
         return true;
-    }
+    };
 
 module.exports = mapTransaction;
