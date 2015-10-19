@@ -7,6 +7,7 @@ var DTO = require('../lib/pos_modules/DTO');
 var map = require('../lib/pos_modules/transactionMap')
 var Transaction = require('../models/transaction.js');
 var transaction = new Transaction();
+var o2x = require('object-to-xml');
 
 
 router.get('/', function(req, res) {
@@ -28,18 +29,23 @@ router.post('/', function(req, res) {
 
     if (!map(transactionDTO.dto, transaction)) return;
 
-    // Nick, this is the object you want ... transactionDTO.dto
-
-    //var newVal = new Val();
-    //if (!newVal.validate(transactionDTO.dto)) return;
-
     transaction.save(function (err, post) {
         if (err) { return next(err) }
-        //this.res.status(201);
-        //this.res.json(201, post);
-    })
+    });
 
-    res.json({message: 'You are here, token matched, validation passed, object mapped and saved in mongo', code: 200});
+    if (res.req.headers['content-type'] === 'application/xml') {
+        res.send(o2x({
+            '?xml version="1.0" encoding="utf-8"?' : null,
+            message: 'You are here, token matched, validation passed, object mapped and saved in mongo',
+            code: 200
+        }))
+
+    } else {
+        res.json({
+            message: 'You are here, token matched, validation passed, object mapped and saved in mongo',
+            code: 200
+        });
+    }
 
 });
 

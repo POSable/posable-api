@@ -16,10 +16,14 @@ var DTO = function (req, res) {
 
         } else if (this.req.headers['content-type'] === "application/json") {
             this.dto = requestBody;
+            console.log('JSON', this.dto);
             return true;
         }
         else if (this.req.headers['content-type'] === "application/xml" ) {
-            this.dto = requestBody; // need to parse this further
+            this.res.set('Content-Type', 'application/xml');
+            this.res =
+            this.dto = requestBody;
+            console.log('XML', this.dto);
             return true;
         } else {
             console.log(this.req.headers['content-type']);
