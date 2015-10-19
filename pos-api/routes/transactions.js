@@ -45,19 +45,15 @@ router.post('/', function(req, res) {
         res.send(o2x({
             '?xml version="1.0" encoding="utf-8"?' : null,
             message: 'You are here, token matched, validation passed, object mapped and saved in mongo',
-            error: err,
             code: 200
         }))
 
     } else {
         res.json({
             message: 'You are here, token matched, validation passed, object mapped and saved in mongo',
-            error: err,
             code: 200
         });
     }
-
-    res.json({message: 'You are here, token matched, validation passed, object mapped and saved in mongo', code: 200});
 
 });
 

@@ -126,7 +126,8 @@ var Val = function( req, res, transactionDTO) {
         //sendMessages(valErrors);
 
         //return checkMessages(this.message);
-        if (!this.isvalid) {
+        if (!this.isValid) {
+            console.log("not Val")
             this.res.status(422);
             this.res.json(this.message);
         }
