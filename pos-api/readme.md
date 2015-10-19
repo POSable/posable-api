@@ -22,37 +22,37 @@ This section shows the JSON or XML payload definition for posting a transaction 
 JSON 
 {
     "payment:" : {
-        "uid" : "example string",
-        "transactionId" : "example string",
-         "merchantId" : "example string", 
-         "terminalId" : "example string",
-         "cashierId" : "example string",
+        "uid" : "SampleID",
+        "transactionId" : "SampleID",
+         "merchantId" : "SampleID",
+         "terminalId" : "SampleID",
+         "cashierId" : "SampleID",
          "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
-         "type" : "card",
+         "type" : "credit",
          "amount" : 100.00,
          "tax" : 15.45,
          "creditCard" : {           
-              "cardType" : "example visa",
+              "cardType" : "visa",
               "last4" : 1234,
-              "authCode" : "example string"
+              "authCode" : 123
          }                 
     }          
 }   
 
 XML
 <payment>
-    <transactionId>example string</transactionId>
-    <merchantId>example string</merchantId>
-    <terminalId>example string</terminalId>
-    <cashierId>example string</cashierId>
+    <transactionId>SampleID</transactionId>
+    <merchantId>SampleID</merchantId>
+    <terminalId>SampleID</terminalId>
+    <cashierId>SampleID</cashierId>
     <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
-    <type>card</type>
+    <type>credit</type>
     <amount>100.00</amount>
     <tax>15.45</tax>
     <creditCard>
-        <cardType>example visa</cardType>
+        <cardType>visa</cardType>
         <last4>1234</last4>
-        <authCode>example string</authCode>
+        <authCode>123</authCode>
     </creditCard>
 </payment>
 
