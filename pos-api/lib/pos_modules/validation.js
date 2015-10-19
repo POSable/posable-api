@@ -70,7 +70,7 @@ var Val = function(transactionDTO) {
     };
 
     Val.prototype.valTerminalID = function() {
-        if (validator.isAlphanumeric(this.payload.terminalID)) {
+        if (validator.isAlphanumeric(this.payload.terminalId)) {
             return true;
         } else {
             this.message.terminalID = 'Invalid terminal ID';
@@ -79,7 +79,7 @@ var Val = function(transactionDTO) {
     };
 
     Val.prototype.valMerchantID = function() {
-        if (validator.isAlphanumeric(this.payload.merchantID)) {
+        if (validator.isAlphanumeric(this.payload.merchantId)) {
             return true;
         } else {
             this.message.merchantID = 'Invalid merchant ID';
@@ -105,7 +105,7 @@ var Val = function(transactionDTO) {
     };
 
     Val.prototype.valCashierID = function() {
-        if (validator.isAlphanumeric(this.payload.cashierID)) {
+        if (validator.isAlphanumeric(this.payload.cashierId)) {
             return true;
         } else {
             this.message.cashierID = 'Invalid cashier ID';
@@ -128,7 +128,7 @@ var Val = function(transactionDTO) {
             valErrors.code = 422;
             valErrors.message = this.message;
 
-        sendMessages(valErrors);
+        //sendMessages(valErrors);
 
         return checkMessages(this.message);
     };
