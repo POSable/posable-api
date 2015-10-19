@@ -537,3 +537,16 @@
 {"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":17173,"level":50,"err":"Cannot read property 'status' of undefined","msg":"","time":"2015-10-19T21:38:50.823Z","v":0}
 {"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":17178,"level":50,"err":"Cannot read property 'status' of undefined","msg":"","time":"2015-10-19T21:39:36.216Z","v":0}
 {"name":"test log","hostname":"Davids-MacBook-Air-3.local","pid":17189,"level":50,"err":"Cannot read property 'status' of undefined","msg":"","time":"2015-10-19T21:41:03.190Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18480,"level":50,"err":"Unexpected end of input","msg":"","time":"2015-10-19T23:09:56.691Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18480,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-19T23:10:25.595Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18480,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-19T23:13:10.604Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18480,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-19T23:13:17.411Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18480,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-19T23:13:27.165Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18480,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-19T23:13:43.740Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18536,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-19T23:17:24.197Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18536,"level":50,"err":"err is not defined","msg":"","time":"2015-10-19T23:18:41.122Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18551,"level":50,"err":"err is not defined","msg":"","time":"2015-10-19T23:19:30.128Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18575,"level":50,"err":"err is not defined","msg":"","time":"2015-10-19T23:22:40.813Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18583,"level":50,"err":"Can't set headers after they are sent.","msg":"","time":"2015-10-19T23:23:27.308Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18588,"level":50,"err":"Can't set headers after they are sent.","msg":"","time":"2015-10-19T23:23:46.023Z","v":0}
+{"name":"test log","hostname":"Davids-Air-3","pid":18617,"level":50,"err":"err is not defined","msg":"","time":"2015-10-19T23:29:15.721Z","v":0}

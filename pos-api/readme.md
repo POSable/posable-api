@@ -20,38 +20,25 @@ This section shows the JSON or XML payload definition for posting a transaction 
           
           
 JSON 
-{
+
+  { 
     "payment": {
-        "uid": "example string",
-        "transactionId": "example string",
-         "merchantId": "example string", 
-         "terminalId": "example string",
-         "cashierId": "example string",
-         "dateTime":  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
-         "type": "card",
-         "amount": "100.00",
-         "tax": "15.45",
-         "creditCard": {           
-              "cardType" : "example visa",
-              "last4": "1234",
-              "authCode": "example string"
-    "payment:" : {
-        "uid" : "SampleID",
-        "transactionId" : "SampleID",
-         "merchantId" : "SampleID",
-         "terminalId" : "SampleID",
-         "cashierId" : "SampleID",
-         "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
-         "type" : "credit",
-         "amount" : 100.00,
-         "tax" : 15.45,
-         "creditCard" : {           
-              "cardType" : "visa",
-              "last4" : 1234,
-              "authCode" : 123
-         }                 
+      "uid" : "SampleID",
+      "transactionId" : "SampleID",
+       "merchantId" : "SampleID",
+       "terminalId" : "SampleID",
+       "cashierId" : "SampleID",
+       "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
+       "type" : "credit",
+       "amount" : 100.00,
+       "tax" : 15.45,
+       "creditCard": {           
+            "cardType" : "visa",
+            "last4" : 1234,
+            "authCode" : 123
+       }                 
     }          
-}  
+  }  
 
 XML
 <payment>
