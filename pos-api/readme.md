@@ -42,11 +42,7 @@ JSON
 
 XML
 <payment>
-    <uid>example string</uid>
-    <transactionId>example string</transactionId>
-    <merchantId>example string</merchantId>
-    <terminalId>example string</terminalId>
-    <cashierId>example string</cashierId>
+    <uid>SampleID</uid> 
     <transactionId>SampleID</transactionId>
     <merchantId>SampleID</merchantId>
     <terminalId>SampleID</terminalId>

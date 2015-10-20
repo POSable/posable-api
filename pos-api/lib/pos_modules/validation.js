@@ -1,5 +1,21 @@
 var validator = require('validator');
 
+var o2x = require('object-to-xml');
+
+var sendError  = function (res, message, status) {
+    res.status(status);
+    if (res.req.headers['content-type'] === 'application/xml') {
+        res.send(o2x({
+            '?xml version="1.0" encoding="utf-8"?' : null,
+            error: message,
+        }));
+    } else {
+        res.json({
+            error: message,
+        });
+    }
+};
+
 //custom extensions
 validator.extend('isAuthCode', function(str){
     return /(\d{3})/.test(str);
@@ -127,9 +143,8 @@ var Val = function( req, res, transactionDTO) {
 
         //return checkMessages(this.message);
         if (!this.isValid) {
-            console.log("not Val")
-            this.res.status(422);
-            this.res.json(this.message);
+            console.log("Failed Validation")
+            sendError(this.res, this.message, 422);
         }
         return this.isValid;
     };

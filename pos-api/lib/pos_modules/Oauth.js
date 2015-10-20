@@ -1,5 +1,18 @@
+var o2x = require('object-to-xml');
 
-
+var sendError  = function (res, message, status) {
+    res.status(status);
+    if (res.req.headers['content-type'] === 'application/xml') {
+        res.send(o2x({
+            '?xml version="1.0" encoding="utf-8"?' : null,
+            error: message,
+        }));
+    } else {
+        res.json({
+            error: message,
+        });
+    }
+};
 
 var Oauth = function (req, res, uid) {
     this.req = req;
@@ -9,20 +22,16 @@ var Oauth = function (req, res, uid) {
 }
 
     Oauth.prototype.authenticatePost = function () {
+        var message = "";
         if (this.req.headers.token === null || this.req.headers.token === undefined) {
-            var errAuth1 = new Error();
-            errAuth1.message = "Unauthorized, token is missing";
-            this.res.status(401);
-            this.res.json({error: errAuth1.message, code: 401});
+            message = "Unauthorized, token is missing";
+            sendError(this.res, message, 401);
             return false;
         } else if (this.req.headers.token === this.token) {
-            this.res.status(200);
             return true;
         } else {
-            var errAuth2 = new Error();
-            errAuth2.message = "Unauthorized, incorrect token";
-            this.res.status(401);
-            this.res.json({error: errAuth2.message, code: 401});
+            message = "Unauthorized, incorrect token";
+            sendError(this.res, message, 401);
             return false;
         }
     }

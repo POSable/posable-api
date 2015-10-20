@@ -550,3 +550,24 @@
 {"name":"test log","hostname":"Davids-Air-3","pid":18583,"level":50,"err":"Can't set headers after they are sent.","msg":"","time":"2015-10-19T23:23:27.308Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":18588,"level":50,"err":"Can't set headers after they are sent.","msg":"","time":"2015-10-19T23:23:46.023Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":18617,"level":50,"err":"err is not defined","msg":"","time":"2015-10-19T23:29:15.721Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":19062,"level":50,"err":"res is not defined","msg":"","time":"2015-10-20T17:03:42.163Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":19073,"level":50,"err":"o2x is not defined","msg":"","time":"2015-10-20T17:04:38.590Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":19112,"level":50,"err":"Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: {","msg":"","time":"2015-10-20T17:10:24.683Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":19112,"level":50,"err":"Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: .","msg":"","time":"2015-10-20T17:10:43.737Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":19166,"level":50,"err":"Unexpected close tag\nLine: 4\nColumn: 41\nChar: >","msg":"","time":"2015-10-20T17:19:18.715Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":19166,"level":50,"err":"Unexpected close tag\nLine: 13\nColumn: 35\nChar: >","msg":"","time":"2015-10-20T17:19:45.914Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":19166,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-20T17:22:39.320Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":19219,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-20T17:27:11.755Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 6\nChar: >","msg":"","time":"2015-10-20T20:32:39.508Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Not Found","msg":"","time":"2015-10-20T20:32:51.648Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Unexpected close tag\nLine: 15\nColumn: 10\nChar: >","msg":"","time":"2015-10-20T20:33:33.888Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-20T20:33:47.223Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Unexpected token b","msg":"","time":"2015-10-20T20:36:06.087Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-20T20:38:26.757Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Cannot read property 'creditCard' of undefined","msg":"","time":"2015-10-20T20:38:50.094Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Not Found","msg":"","time":"2015-10-20T20:39:19.535Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Not Found","msg":"","time":"2015-10-20T20:39:29.658Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20031,"level":50,"err":"Not Found","msg":"","time":"2015-10-20T20:40:10.407Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20059,"level":50,"err":"Not Found","msg":"","time":"2015-10-20T20:40:45.872Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20059,"level":50,"err":"Not Found","msg":"","time":"2015-10-20T20:41:59.174Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":20059,"level":50,"err":"Not Found","msg":"","time":"2015-10-20T20:42:50.218Z","v":0}
