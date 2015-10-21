@@ -3,20 +3,19 @@ POSable API Object Definition
 This section shows the JSON or XML payload definition for posting a transaction to posable-api/transactions.
 
   *payment                - object
-      *uid                - string
-      *transactionId      - string
-      *merchantId         - string
-      *MerchantKey        - string
-      *terminalId         - string
-      *cashierId          - string
+      *uid                - string  (accepts strings containing only numbers & letters, no whitespace)
+      *transactionId      - string  (accepts strings containing only numbers & letters, no whitespace)
+      *merchantId         - string  (accepts strings containing only numbers & letters, no whitespace)
+      *terminalId         - string  (accepts strings containing only numbers & letters, no whitespace)
+      *cashierId          - string  (accepts strings containing only numbers & letters, no whitespace)
       *dateTime           - UTC
-      *type               - string
-      *amount             - float
-      *tax                - float
+      *type               - string  (only accepts the following strings: cash, credit)
+      *amount             - float   (accepts strings containing only numbers)
+      *tax                - float   (accepts strings containing only numbers)
       *creditCard         - object
-          *cardType       - string
-          *last4          - integer  
-          *authCode       - string
+          *cardType       - string  (only accepts the following strings: visa, mastercard, discover, amex)
+          *last4          - integer (only accepts 4 number strings)
+          *authCode       - string  (only accepts 3 number strings)
           
           
 JSON 
