@@ -10,7 +10,7 @@ var xmlparser = require('express-xml-bodyparser');
 
 var api = require('./routes/api');
 
-var transactions = require('./routes/transactions');
+var payments = require('./routes/payments');
 var errorHandling = require('./lib/pos_modules/errorHandling');
 
 var app = express();
@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api', api);
-app.use('/transactions', transactions);
+app.use('/payments', payments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
