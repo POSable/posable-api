@@ -1,20 +1,5 @@
-var o2x = require('object-to-xml');
 
-var sendError  = function (res, message, status) {
-    res.status(status);
-    if (res.req.headers['content-type'] === 'application/xml') {
-        res.send(o2x({
-            '?xml version="1.0" encoding="utf-8"?' : null,
-            error: message,
-        }));
-    } else {
-        res.json({
-            error: message,
-        });
-    }
-};
-
-var mapTransaction = function(dto, transaction, res) {
+var mapPayment = function(dto, payment, statusObject) {
         try {
             transaction.cardType = dto.payment.creditCard.cardType;
             transaction.amount = dto.payment.amount;
@@ -27,12 +12,16 @@ var mapTransaction = function(dto, transaction, res) {
             transaction.netEPaySN = dto.payment.uid;
             transaction.userId = dto.payment.cashierId;
 
+            statusObject.success.push("mapPayment");
+
         } catch (error) {
-            console.log(error)
-            sendError(res, "Payload Body Error", 422);
+            statusObject.isOK = false;
+            statusObject[error] = {
+                module: createPaymentDTO,
+                error: {message: "Payment DTO was not successfully created from Post Body"}
+            }
         }
 
-        return true;
     };
 
-module.exports = mapTransaction;
+module.exports = mapPayment;
