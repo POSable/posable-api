@@ -1,6 +1,6 @@
  var authenticatePost = function (req, statusObject, callback) {
-     try {
-         process.nextTick(function () {
+     process.nextTick(function () {
+         try {
              var err = {};
              var token = "m8l0isN6m1ZK3NPX"; //go get this from DB
              if (req.headers.token === token) {
@@ -12,10 +12,11 @@
                  };
              }
              return callback(err, statusObject);
-         })
-     } catch (err) {
-         return callback(err, statusObject);
-     }
+
+        } catch (err) {
+        return callback(err, statusObject);
+        }
+     })
  };
 
 module.exports = authenticatePost;
