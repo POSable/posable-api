@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var log = require('./log');
 
-var errorHandling = function(err, req, res, next) {
+var errorHandling = function(err, req, res) {
         res.status(err.status || 500);
         log.error({err: err.message});
 
