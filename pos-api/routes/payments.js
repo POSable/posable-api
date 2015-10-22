@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var log = require('../lib/pos_modules/log');
-var checkcPostToken = require ('../lib/pos_modules/authenticatePost');
+var checkPostToken = require ('../lib/pos_modules/authenticatePost');
 //var uid = require('rand-token').uid;
 var DTO = require('../lib/pos_modules/DTO')
-var map = require('../lib/pos_modules/transactionMap');
+var mapPayment = require('../lib/pos_modules/paymentMap');
 var Payment = require('../models/payment');
-var payament = new Payment();
-var o2x = require('object-to-xml');
+var payment = new Payment();
 var Val = require('../lib/pos_modules/validation');
 var handleError = require('../lib/pos_modules/errorHandling');
-var savePaymentInDB = require('../lib/pos_modules/transactionSave');
+var savePaymentInDB = require('../lib/pos_modules/paymentSave');
+var sendResponse =require('../lib/pos_modules/sendResponse')
 
 
 router.get('/', function(req, res) {
@@ -28,27 +28,30 @@ router.post('/', function(req, res) {
     var newDTO = new DTO(req, res);
 
     if (statusObject.isOK) {
-        checkcPostToken(req, statusObject, continuePost);
+        checkPostToken(req, statusObject, continuePost);
     }
 
     function continuePost(err, statusObject) {
-        if (err) handleError(err, req, res);
-        console.log("Token Matched");
+        if (err) {
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                module: "checkPostToken",
+                error: {message: "System Error with Token Authentication"}
+            }
+        };
 
         if (statusObject.isOK) newDTO.createPaymentDTO(statusObject);
-        console.log("Payment DTO Created");
 
         //if (statusObject.isOK) validate(newDTO, statusObject);
         //console.log("Passed Validations");
 
-        if (statusObject.isOK) mapPayment(newDTO.paymentDTO, statusObject);
-        console.log("Payment Saved in DB");
+        if (statusObject.isOK) mapPayment(newDTO.paymentDTO, payment, statusObject);
 
-        if (statusObject.isOK) savePaymentInDB(paymentDTO, statusObject);
-        console.log("Payment Saved in DB");
-
-        sendResponse(req, res, statusObject);
-        console.log("Request Sent");
+        if (statusObject.isOK) {
+            savePaymentInDB(res, payment, statusObject, sendResponse);
+        } else {
+            sendResponse(res, statusObject)
+        };
 
     }
 
