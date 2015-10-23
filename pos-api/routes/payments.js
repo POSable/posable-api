@@ -3,14 +3,14 @@ var router = express.Router();
 var log = require('../lib/pos_modules/log');
 var checkPostToken = require ('../lib/pos_modules/authenticatePost');
 //var uid = require('rand-token').uid;
-var DTO = require('../lib/pos_modules/DTO')
+var DTO = require('../lib/pos_modules/DTO');
 var mapPayment = require('../lib/pos_modules/paymentMap');
 var Payment = require('../models/payment');
 var payment = new Payment();
 var Val = require('../lib/pos_modules/validation');
 var handleError = require('../lib/pos_modules/errorHandling');
 var savePaymentInDB = require('../lib/pos_modules/paymentSave');
-var sendResponse =require('../lib/pos_modules/sendResponse')
+var sendResponse =require('../lib/pos_modules/sendResponse');
 
 
 router.get('/', function(req, res) {
@@ -32,18 +32,19 @@ router.post('/', function(req, res) {
     }
 
     function continuePost(err, statusObject) {
+
         if (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "checkPostToken",
                 error: {message: "System Error with Token Authentication"}
             }
-        };
+        }
 
         if (statusObject.isOK) newDTO.createPaymentDTO(statusObject);
 
-        //if (statusObject.isOK) validate(newDTO, statusObject);
-        //console.log("Passed Validations");
+        var newVal = new Val(newDTO.paymentDTO.payment);
+        if (statusObject.isOK) newVal.valPayment(statusObject);
 
         if (statusObject.isOK) mapPayment(newDTO.paymentDTO, payment, statusObject);
 
@@ -51,7 +52,7 @@ router.post('/', function(req, res) {
             savePaymentInDB(res, payment, statusObject, sendResponse);
         } else {
             sendResponse(res, statusObject)
-        };
+        }
 
     }
 
