@@ -6,12 +6,12 @@ var save  = function (res, payment, statusObject, callback) {
                     module: createPaymentDTO,
                     error: {message: "DB save error", errorObject: err }
                 };
+                callback();
             } else {
                 statusObject.success.push("paymentSave'");
                 console.log("Posted", post);
             }
-
-            callback(res, statusObject);
+            callback();
         })
 
 };

@@ -3,7 +3,7 @@ var router = express.Router();
 var log = require('../lib/pos_modules/log');
 var checkPostToken = require ('../lib/pos_modules/authenticatePost');
 //var uid = require('rand-token').uid;
-var DTO = require('../lib/pos_modules/DTO')
+var createPaymentDTO = require('../lib/pos_modules/createPaymentDTO')
 var mapPayment = require('../lib/pos_modules/paymentMap');
 var Payment = require('../models/payment');
 var payment = new Payment();
@@ -23,9 +23,10 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
+
     console.log("Post received with content type of", req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
-    var newDTO = new DTO(req, res);
+    var paymentDTO;
 
     if (statusObject.isOK) {
         checkPostToken(req, statusObject, continuePost);
@@ -38,20 +39,27 @@ router.post('/', function(req, res) {
                 module: "checkPostToken",
                 error: {message: "System Error with Token Authentication"}
             }
-        };
-
-        if (statusObject.isOK) newDTO.createPaymentDTO(statusObject);
-
-        //if (statusObject.isOK) validate(newDTO, statusObject);
-        //console.log("Passed Validations");
-
-        if (statusObject.isOK) mapPayment(newDTO.paymentDTO, payment, statusObject);
+        }
 
         if (statusObject.isOK) {
-            savePaymentInDB(res, payment, statusObject, sendResponse);
+            paymentDTO = createPaymentDTO(req, statusObject);
+        }
+
+        //if (statusObject.isOK) validate(paymentDTO, statusObject);
+
+        if (statusObject.isOK) {
+            payment = mapPayment(paymentDTO, payment, statusObject);
+        }
+
+        if (statusObject.isOK) {
+            savePaymentInDB(res, payment, statusObject, finalizePost);
         } else {
-            sendResponse(res, statusObject)
-        };
+            finalizePost();
+        }
+
+        function finalizePost () {
+            sendResponse(res, statusObject);
+        }
 
     }
 
