@@ -1,11 +1,7 @@
-var DTO = function (req, res) {
-    this.req = req;
-    this.res = res;
-    this.paymentDTO = {};
-}
-    DTO.prototype.createPaymentDTO = function (statusObject) {
-        if (this.req.headers['content-type'] === "application/json"  || this.req.headers['content-type'] === "application/xml" ) {
-            this.paymentDTO = this.req.body;
+var createPaymentDTO = function (req, res, statusObject) {
+    var paymentDTO = {};
+        if (req.headers['content-type'] === "application/json"  || req.headers['content-type'] === "application/xml" ) {
+            paymentDTO = req.body;
             statusObject.success.push("createPaymentDTO");
         } else {
             statusObject.isOK = false;
@@ -14,6 +10,7 @@ var DTO = function (req, res) {
                 error: {message: "Payment DTO was not successfully created from Post Body"}
             };
         }
-    }
+        return paymentDTO;
+    };
 
-module.exports = DTO;
+module.exports = createPaymentDTO;
