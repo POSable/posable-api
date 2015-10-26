@@ -98,8 +98,8 @@ function validatePayment(DTO, statusObject) {
         if (!isValid) {
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: 'validation',
-                error: {code: 400, message: "System error caused Validation to fail"}
+                module: 'payment validation',
+                error: {code: 400, message: message}
             };
             return false;
         } else {
@@ -109,7 +109,7 @@ function validatePayment(DTO, statusObject) {
     } catch (err) {
         statusObject.isOK = false;
         statusObject['error'] = {
-            module: 'validation',
+            module: 'payment validation',
             error: {code: 400, message: "System error caused Validation to fail"}
         };
         return false;
