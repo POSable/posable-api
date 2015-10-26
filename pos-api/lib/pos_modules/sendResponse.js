@@ -50,33 +50,11 @@ var sendResponse  = function (res, statusObject) {
 module.exports = sendResponse;
 
 
-//future work to extract a responseObj
 
-//
-//var o2x = require('object-to-xml');
-//var responseObj = require(' ./responseObj')
-//
-//var sendResponse  = function (res, statusObject) {
-//
-//    var newResObj = responseObj(statusObject)
-//    try {
-//        if (res.req.headers['content-type'] === 'application/xml') {
-//            res.send(o2x({
-//                '?xml version="1.0" encoding="utf-8"?' : null,
-//                status: newResObj
-//            }));
-//            console.log("Response Returned in XML")
-//        } else {
-//            res.json({status: newResObj});
-//            console.log("Response Returned in JSON");
-//        }
-//    } catch (err) {
-//        console.log ("System Error, Response Not Sent to Post", err);
-//    }
-//};
-//
-//module.exports = sendResponse;
-//
+
+//future work to extract a responseObj.js
+
+
 //var responseObj = function (res, statusObject) {
 //    try {
 //        if (statusObject.isOK) {
