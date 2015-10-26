@@ -7,7 +7,7 @@ var createPaymentDTO = function (req, res, statusObject) {
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: createPaymentDTO,
-                error: {message: "Payment DTO was not successfully created from Post Body"}
+                error: {code: 400, message: "Payment DTO was not successfully created from Post Body"}
             };
         }
         return paymentDTO;
