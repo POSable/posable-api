@@ -1,4 +1,3 @@
-
 var mapPayment = function(dto, payment, statusObject) {
         try {
             payment.cardType = dto.payment.creditCard.cardType;
@@ -14,12 +13,15 @@ var mapPayment = function(dto, payment, statusObject) {
 
             statusObject.success.push("mapPayment");
 
+            return payment;
+
         } catch (error) {
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: "mapPaynent",
+                module: "mapPayment",
                 error: {message: "Payment DTO was not successfully created from Post Body"}
-            }
+            };
+            return payment;
         }
 
     };
