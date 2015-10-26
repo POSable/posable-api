@@ -49,8 +49,8 @@ function valTax(payload) {
 
 function valTerminalID(payload) {
     if (!validator.isAlphanumeric(payload.payment.terminalId)) {
-        this.message.terminalID = 'Invalid terminal ID';
-        this.isValid = false;
+        message.terminalID = 'Invalid terminal ID';
+        isValid = false;
     }
 }
 
