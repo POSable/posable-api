@@ -26,13 +26,12 @@ var sendResponse  = function (res, statusObject) {
                 if (res.req.headers['content-type'] === 'application/xml') {
                     res.send(o2x({
                         '?xml version="1.0" encoding="utf-8"?': null,
-                        status: 500,
+                        status: statusObject.error.error.code,
                         error: statusObject.error
                     }));
                     console.log("Response Returned in XML")
                 } else {
-                    res.status(500).json({
-                        status: 500,
+                    res.status(statusObject.error.error.code).json({
                         error: statusObject.error
                     })
                     console.log("Response Returned in JSON");

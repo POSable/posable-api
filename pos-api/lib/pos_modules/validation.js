@@ -87,7 +87,7 @@ var Val = function(DTO) {
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: 'validation',
-                error: {message: this.message}
+                error: {code: 400, message: this.message}
             }
         }
     };

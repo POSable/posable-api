@@ -4,7 +4,7 @@ var save  = function (res, payment, statusObject, callback) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: createPaymentDTO,
-                    error: {message: "DB save error", errorObject: err }
+                    error: {code: 500, message: "DB save error", errorObject: err }
                 };
                 callback();
             } else {

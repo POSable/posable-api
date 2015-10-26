@@ -8,7 +8,7 @@
                  statusObject.isOK = false;
                  statusObject['error'] = {
                      module: authenticatePost,
-                     error: {message: "Unauthorized, incorrect or missing token"}
+                     error: {code: 400, message: "Unauthorized, incorrect or missing token"}
                  };
              }
              return callback(undefined, statusObject);
