@@ -9,7 +9,7 @@ var users = require('./routes/users');
 var xmlparser = require('express-xml-bodyparser');
 
 var api = require('./routes/api');
-
+var healthcheck = require('./routes/healthcheck');
 var payments = require('./routes/payments');
 var errorHandling = require('./lib/pos_modules/errorHandling');
 
@@ -37,6 +37,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/api', api);
 app.use('/payments', payments);
+app.use('/healthcheck', healthcheck);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
