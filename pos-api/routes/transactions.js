@@ -21,14 +21,14 @@
 //  });
 //});
 //
-//router.post('/', function(req, res) {
-//    console.log("Post received with content type of", req.headers['content-type']);
-//    var statusObject = {isOK: true, success: []};
-//    var paymentDTO = {};
-//
-//    if (statusObject.isOK) {
-//        checkcPostToken(req, statusObject, continuePost);
-//    }
+router.post('/', function(req, res) {
+    console.log("Transactions Post received with content type of", req.headers['content-type']);
+    var statusObject = {isOK: true, success: []};
+    var paymentDTO = {};
+
+    if (statusObject.isOK) {
+        checkcPostToken(req, statusObject, continuePost);
+    }
 //
 //    function continuePost(err, statusObject) {
 //        if (err) handleError(err, req, res);

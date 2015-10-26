@@ -24,7 +24,7 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
 
-    console.log("Post received with content type of", req.headers['content-type']);
+    console.log("Payments Post received with content type of", req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var paymentDTO;
 

@@ -9,9 +9,6 @@ validator.extend('isLast4', function(str){
     return /(\d{4})/.test(str);
 });
 
-var message = {};
-var isValid = true;
-
 function valCardType(payload) {
     if (!validator.isIn(payload.payment.creditCard.cardType, ['visa', 'mastercard', 'discover', 'amex'])) {
         message.cardType = 'Invalid card type';
@@ -84,6 +81,8 @@ function valCashierID(payload) {
 
 function validatePayment(DTO, statusObject) {
     try {
+        var message = {};
+        var isValid = true;
         valCardType(DTO);
         valCurrency(DTO);
         valLast4(DTO);
