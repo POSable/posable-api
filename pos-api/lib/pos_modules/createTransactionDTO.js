@@ -1,33 +1,33 @@
-var createPaymentDTO = function (req, statusObject) {
-    var paymentDTO = {};
+    var createTransactionDTO = function (req, statusObject) {
+    var transactionDTO = {};
     try {
         if (req.headers['content-type'] === "application/json" || req.headers['content-type'] === "application/xml") {
             // the following adjust the xml-parsed body
             if (req.headers['content-type'] === "application/xml") {
-                paymentDTO = req.body.payment;
+                transactionDTO = req.body;
+                transactionDTO.transaction.payments = transactionDTO.transaction.payments.payment;
             } else {
-                paymentDTO = req.body;
+                transactionDTO = req.body;
             }
-            statusObject.success.push("createPaymentDTO");
+            statusObject.success.push("createTransactionDTO");
         } else {
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: createPaymentDTO,
+                module: 'createTransactionDTO',
                 error: {code: 400, message: "Payment DTO was not successfully created from Post Body"}
             }
         }
-        return paymentDTO;
+        return transactionDTO;
     } catch (err) {
         if (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: "checkPostToken",
+                module: "createTransactionDTO",
                 error: {code: 500, message: "System Error with creating a payment DTO"}
             }
         }
-        return paymentDTO;
+        return transactionDTO;
     }
 };
 
-
-module.exports = createPaymentDTO;
+module.exports = createTransactionDTO;
