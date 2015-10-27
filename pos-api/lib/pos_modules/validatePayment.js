@@ -2,118 +2,108 @@ var validator = require('validator');
 
 //custom extensions
 validator.extend('isAuthCode', function(str){
-    return /(\d{3})/.test(str);
-});
+    return /(\d{3})/.test(str); });
 
 validator.extend('isLast4', function(str){
-    return /(\d{4})/.test(str);
-});
+    return /(\d{4})/.test(str); });
 
-function valCardType(payload) {
-    if (!validator.isIn(payload.payment.creditCard.cardType, ['visa', 'mastercard', 'discover', 'amex'])) {
-        message.cardType = 'Invalid card type';
-        isValid = false;
-    }
-}
 
-function valCurrency (payload) {
-    if (!validator.isCurrency(payload.payment.amount)) {
-        message.amount = "Invalid amount";
-        isValid = false;
-    }
-}
+function createValPayObj(paymentDTO) {
+    var valObject = {
+        payload: paymentDTO,
+        message: {},
+        isValid: true
+    };
 
-function valLast4(payload) {
-    if (!validator.isLast4(payload.payment.creditCard.last4)) {
-        message.last4OfCard = 'Last 4 invalid';
-        isValid = false;
-    }
-}
+    valObject.valCardType = function() {
+        if (!validator.isIn(this.payload.creditCard.cardType, ['visa', 'mastercard', 'discover', 'amex'])) {
+            this.message.cardType = 'Invalid card type';
+            this.isValid = false; }
+        return this; };
 
-function valAuthCode(payload) {
-    if (!validator.isAuthCode(payload.payment.creditCard.authCode)) {
-        message.authCode = 'Invalid authorization code';
-        isValid = false;
-    }
-}
+    valObject.valAmount = function() {
+        if (!validator.isCurrency(this.payload.amount)) {
+            this.message.amount = 'Invalid amount';
+            this.isValid = false; }
+        return this; };
 
-function valTax(payload) {
-    if (!validator.isCurrency(payload.payment.tax)) {
-        message.tax = 'Invalid tax amount';
-        isValid = false;
-    }
-}
+    valObject.valLast4 = function() {
+        if (!validator.isLast4(this.payload.creditCard.last4)) {
+            this.message.last4 = 'Last 4 of card invalid';
+            this.isValid = false; }
+        return this; };
 
-function valTerminalID(payload) {
-    if (!validator.isAlphanumeric(payload.payment.terminalId)) {
-        message.terminalID = 'Invalid terminal ID';
-        isValid = false;
-    }
-}
+    valObject.valAuthCode = function() {
+        if (!validator.isAuthCode(this.payload.creditCard.authCode)) {
+            this.message.authCode = 'Invalid authorization code';
+            this.isValid = false; }
+        return this; };
 
-function valMerchantID(payload) {
-    if (!validator.isAlphanumeric(payload.payment.merchantId)) {
-        message.merchantID = 'Invalid merchant ID';
-        isValid = false;
-    }
-}
+    valObject.valTax = function() {
+        if (!validator.isCurrency(this.payload.tax)) {
+            this.message.tax = 'Invalid tax amount';
+            this.isValid = false; }
+        return this; };
 
-function valPaymentType(payload) {
-    if (!validator.isIn(payload.payment.type, ['cash', 'credit'])) {
-        message.type = 'Invalid payment type';
-        isValid = false;
-    }
-}
+    valObject.valTerminalID = function() {
+        if (!validator.isAlphanumeric(this.payload.terminalId)) {
+            this.message.terminalID = 'Invalid terminal ID';
+            this.isValid = false; }
+        return this; };
 
-function valUID(payload) {
-    if (!validator.isAlphanumeric(payload.payment.uid)) {
-        message.uid = 'Invalid UID';
-        isValid = false;
-    }
-}
+    valObject.valMerchantID = function() {
+        if (!validator.isAlphanumeric(this.payload.merchantId)) {
+            this.message.merchantID = 'Invalid merchant ID';
+            this.isValid = false; }
+        return this; };
 
-function valCashierID(payload) {
-    if (!validator.isAlphanumeric(payload.payment.cashierId)) {
-        message.cashierID = 'Invalid cashier ID';
-        isValid = false;
-    }
-}
+    valObject.valCashierID = function() {
+        if (!validator.isAlphanumeric(this.payload.cashierId)) {
+            this.message.cashierID = 'Invalid cashier ID';
+            this.isValid = false; }
+        return this; };
 
-function validatePayment(DTO, statusObject) {
-    try {
-        var message = {};
-        var isValid = true;
-        valCardType(DTO);
-        valCurrency(DTO);
-        valLast4(DTO);
-        valAuthCode(DTO);
-        valTax(DTO);
-        valTerminalID(DTO);
-        valMerchantID(DTO);
-        valPaymentType(DTO);
-        valUID(DTO);
-        valCashierID(DTO);
+    valObject.valPaymentType = function() {
+        if (!validator.isIn(this.payload.type, ['cash', 'credit'])) {
+            this.message.paymentType = 'Invalid payment type';
+            this.isValid = false; }
+        return this; };
 
-        if (!isValid) {
+    valObject.valUID = function() {
+        if (!validator.isAlphanumeric(this.payload.uid)) {
+            this.message.uid = 'Invalid UID';
+            this.isValid = false; }
+        return this; };
+
+    valObject.validatePayment = function(statusObject) {
+        try {
+            this.valCardType();
+            this.valAmount();
+            this.valLast4();
+            this.valAuthCode();
+            this.valTax();
+            this.valMerchantID();
+            this.valCashierID();
+            this.valUID();
+
+            if (!this.isValid) {
+                statusObject.isOK = false;
+                statusObject['error'] = {
+                    module: 'payment validation',
+                    error: {code: 400, message: this.message}
+                };
+            } else {
+                statusObject.success.push('validated');
+            }
+        } catch (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: 'payment validation',
-                error: {code: 400, message: message}
+                error: {code: 400, message: 'System error caused payment validation to fail'}
             };
-            return false;
-        } else {
-            statusObject.success.push('validated');
-            return true;
         }
-    } catch (err) {
-        statusObject.isOK = false;
-        statusObject['error'] = {
-            module: 'payment validation',
-            error: {code: 400, message: "System error caused Validation to fail"}
-        };
-        return false;
-    }
+    };
+    return valObject;
 }
 
-
-module.exports = validatePayment;
+module.exports = createValPayObj;
