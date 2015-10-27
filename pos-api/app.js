@@ -21,14 +21,27 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
+
+//Will catch any JSON syntax issues
+
+app.use(function (error, req, res, next) {
+    if (error instanceof SyntaxError) {
+        res.send("SyntaxError: Please send all values in String format")
+    } else {
+        next();
+    }
+});
+
 app.use(xmlparser({
     explicitArray: false,
     normalize: false,
     normalizeTags: false,
     trim: true
 }));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
