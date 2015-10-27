@@ -4,6 +4,7 @@ var sendResponse  = function (res, statusObject) {
     try {
         if (statusObject.isOK) {
             if (res.req.headers['content-type'] === 'application/xml') {
+                res.status(200)
                 res.send(o2x({
                     '?xml version="1.0" encoding="utf-8"?': null,
                     status: 200,
@@ -19,6 +20,7 @@ var sendResponse  = function (res, statusObject) {
             }
         } else {
             if (res.req.headers['content-type'] === 'application/xml') {
+                res.status(statusObject.error.error.code)
                 res.send(o2x({
                     '?xml version="1.0" encoding="utf-8"?': null,
                     status: statusObject.error.error.code,

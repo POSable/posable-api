@@ -1,15 +1,15 @@
 var mapPayment = function(dto, payment, statusObject) {
         try {
-            payment.cardType = dto.payment.creditCard.cardType;
-            payment.amount = dto.payment.amount;
-            payment.last4OfCard = dto.payment.creditCard.last4;
-            payment.authorizationCode = dto.payment.creditCard.authCode;
-            payment.tax = dto.payment.tax;
-            payment.terminalID = dto.payment.terminalId;
-            payment.merchantID = dto.payment.merchantId;
-            payment.transactionType = dto.payment.type;
-            payment.netEPaySN = dto.payment.uid;
-            payment.userId = dto.payment.cashierId;
+            payment.cardType = dto.creditCard.cardType;
+            payment.amount = dto.amount;
+            payment.last4OfCard = dto.creditCard.last4;
+            payment.authorizationCode = dto.creditCard.authCode;
+            payment.tax = dto.tax;
+            payment.terminalID = dto.terminalId;
+            payment.merchantID = dto.merchantId;
+            payment.transactionType = dto.type;
+            payment.netEPaySN = dto.uid;
+            payment.userId = dto.cashierId;
 
             statusObject.success.push("mapPayment");
 
@@ -18,7 +18,7 @@ var mapPayment = function(dto, payment, statusObject) {
         } catch (error) {
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: "mapPayment",
+                module: "paymentMap",
                 error: {message: "Payment DTO was not successfully created from Post Body"}
             };
             return payment;
