@@ -51,11 +51,9 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/api', api);
 app.use('/payments', payments);
-<<<<<<< HEAD
 app.use('/transactions', transactions);
-=======
 app.use('/healthcheck', healthcheck);
->>>>>>> 1a93c9d0e3bb79d249f3b302e6d136873f864cf6
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
