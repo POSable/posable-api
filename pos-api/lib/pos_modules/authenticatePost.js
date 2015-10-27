@@ -1,5 +1,6 @@
  var authenticatePost = function (req, statusObject, callback) {
      process.nextTick(function () {
+         var internalErr = undefined;
          try {
              var token = "m8l0isN6m1ZK3NPX"; //go get this from DB
              if (req.headers.token === token) {
@@ -7,14 +8,14 @@
              } else {
                  statusObject.isOK = false;
                  statusObject['error'] = {
-                     module: authenticatePost,
+                     module: 'authenticatePost',
                      error: {code: 400, message: "Unauthorized, incorrect or missing token"}
                  };
              }
-             return callback(undefined, statusObject);
         } catch(err) {
-            return callback(err, statusObject);
+             internalErr = err;
         }
+         return callback(internalErr, statusObject);
      })
  };
 

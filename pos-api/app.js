@@ -11,6 +11,7 @@ var xmlparser = require('express-xml-bodyparser');
 var api = require('./routes/api');
 
 var payments = require('./routes/payments');
+var transactions = require('./routes/transactions');
 var errorHandling = require('./lib/pos_modules/errorHandling');
 
 var app = express();
@@ -25,6 +26,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(xmlparser({
     explicitArray: false,
+    mergeAttrs: true,
+    ignoreAttrs: true,
     normalize: false,
     normalizeTags: false,
     trim: true
@@ -37,6 +40,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/api', api);
 app.use('/payments', payments);
+app.use('/transactions', transactions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
