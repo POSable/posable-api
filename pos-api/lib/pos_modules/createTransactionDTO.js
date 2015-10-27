@@ -9,7 +9,6 @@
             } else {
                 transactionDTO = req.body;
             }
-            console.log("TransDTO", transactionDTO.transaction.payments);
             statusObject.success.push("createTransactionDTO");
         } else {
             statusObject.isOK = false;

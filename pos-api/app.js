@@ -36,8 +36,6 @@ app.use(function (error, req, res, next) {
 
 app.use(xmlparser({
     explicitArray: false,
-    mergeAttrs: true,
-    ignoreAttrs: true,
     normalize: false,
     normalizeTags: false,
     trim: true

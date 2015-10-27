@@ -44,15 +44,15 @@ router.post('/', function(req, res) {
 
         //if (statusObject.isOK) validateTransaction(transactionDTO, statusObject);
 
-        //if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, transaction, statusObject);}
+        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, transaction, statusObject);};
 
-        //if (statusObject.isOK) { saveTransactionInDB(res, transaction, statusObject, finalizePost);
-        //} else {finalizePost();}
+        if (statusObject.isOK) { saveTransactionInDB(res, transaction, statusObject, finalizePost);
+        } else {finalizePost();}
 
-        //function finalizePost () {
+        function finalizePost () {
 
             sendResponse(res, statusObject);
-        //}
+        }
     }
 
 });

@@ -87,8 +87,8 @@ JSON
       "merchantId" : "SampleID",
       "terminalId" : "SampleID",
       "cashierId" : "SampleID",
-      "payments": [
-        { "uid" : "SampleID",
+      "payments": [{
+          "uid" : "SampleID",
           "transactionId" : "SampleID",
            "merchantId" : "SampleID",
            "terminalId" : "SampleID",
@@ -101,10 +101,28 @@ JSON
                 "cardType" : "visa",
                 "last4" : 1234,
                 "authCode" : 123
-        }
-      ]    
-    }
-} 
+            }
+                
+        },
+        {
+          "uid" : "SampleID",
+          "transactionId" : "SampleID",
+           "merchantId" : "SampleID",
+           "terminalId" : "SampleID",
+           "cashierId" : "SampleID",
+           "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
+           "type" : "credit",
+           "amount" : 100.00,
+           "tax" : 15.45,
+           "creditCard": {           
+                "cardType" : "visa",
+                "last4" : 1234,
+                "authCode" : 123
+            }
+        }          
+      ] 
+  }
+}
 
 XML
 
@@ -113,22 +131,38 @@ XML
     <merchantId>SampleID</merchantId>
     <terminalId>SampleID</terminalId>
     <cashierId>SampleID</cashierId>
-    <payments>
-        <payment> 
-            <uid>SampleID</uid> 
-            <transactionId>SampleID</transactionId>
-            <merchantId>SampleID</merchantId>
-            <terminalId>SampleID</terminalId>
-            <cashierId>SampleID</cashierId>
-            <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
-            <type>credit</type>
-            <amount>100.00</amount>
-            <tax>15.45</tax>
-            <creditCard>
-                <cardType>visa</cardType>
-                <last4>1234</last4>
-                <authCode>123</authCode>
-            </creditCard>
-        </payment>
-    </payments>
-</transaction>    
+        <payments>
+            <payment> 
+                <uid>SampleID</uid> 
+                <transactionId>SampleID</transactionId>
+                <merchantId>SampleID</merchantId>
+                <terminalId>SampleID</terminalId>
+                <cashierId>SampleID</cashierId>
+                <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
+                <type>credit</type>
+                <amount>100.00</amount>
+                <tax>15.45</tax>
+                <creditCard>
+                    <cardType>visa</cardType>
+                    <last4>1234</last4>
+                    <authCode>123</authCode>
+                </creditCard>
+            </payment>
+            <payment> 
+                <uid>SampleID2</uid> 
+                <transactionId>SampleID2</transactionId>
+                <merchantId>SampleID2</merchantId>
+                <terminalId>SampleID2</terminalId>
+                <cashierId>SampleID</cashierId>
+                <dateTime>Wed Oct 15 2015 11:30:50 GMT-0600 (MDT)</dateTime>
+                <type>credit</type>
+                <amount>200.00</amount>
+                <tax>25.45</tax>
+                <creditCard>
+                    <cardType>mastercard</cardType>
+                    <last4>2345</last4>
+                    <authCode>234</authCode>
+                </creditCard>
+            </payment>
+        </payments>
+</transaction>   

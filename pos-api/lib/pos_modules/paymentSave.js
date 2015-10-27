@@ -3,13 +3,13 @@ var save  = function (res, payment, statusObject, callback) {
             if (err) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
-                    module: createPaymentDTO,
+                    module: "paymentSave",
                     error: {code: 500, message: "DB save error", errorObject: err }
                 };
                 callback();
             } else {
-                statusObject.success.push("paymentSave'");
-                console.log("Request Object Posted to DB", post);
+                statusObject.success.push("paymentSave");
+                console.log("Request Payment Object Posted to DB", post);
             }
             callback();
         })
