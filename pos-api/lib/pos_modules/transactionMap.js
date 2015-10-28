@@ -32,7 +32,7 @@ var mapTransaction = function(dto, transaction, statusObject) {
 
         } catch (err) {
             statusObject.isOK = false;
-            statusObject[error] = {
+            statusObject['error'] = {
                 module: "transactionMap",
                 error: {code: 400, message: "Payment DTO was not successfully created from Post Body"}
 
