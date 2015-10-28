@@ -2,18 +2,18 @@
 var mongoose = require('mongoose');
 
 
-var TransactionPaymentSchema = new mongoose.Schema({
-    cardType: String,
-    amount: Number,
-    last4OfCard: Number,
-    authorizationCode: String,
-    tax: Number,
-    terminalID: String,
-    merchantID: String,
-    transactionType: String,
-    uid: String,
-    userId: String
-});
+//var TransactionPaymentSchema = new mongoose.Schema({
+//    cardType: String,
+//    amount: Number,
+//    last4OfCard: Number,
+//    authorizationCode: String,
+//    tax: Number,
+//    terminalID: String,
+//    merchantID: String,
+//    transactionType: String,
+//    uid: String,
+//    userId: String
+//});
 
 // Define our transaction schema
 var TransactionSchema = new mongoose.Schema({
@@ -21,7 +21,7 @@ var TransactionSchema = new mongoose.Schema({
     cashierID: String,
     terminalID: String,
     merchantID: String,
-    transactionPayments: [TransactionPaymentSchema]
+    transactionPayments: []
 
 });
 
