@@ -11,21 +11,21 @@ var TransactionPaymentSchema = new mongoose.Schema({
     terminalID: String,
     merchantID: String,
     transactionType: String,
-    netEPaySN: String,
+    uid: String,
     userId: String
 });
 
 // Define our transaction schema
 var TransactionSchema = new mongoose.Schema({
-  transactionID: String,
-  terminalID: String,
-  merchantID: String,
-  cashierID: String,
-  transactionPayment: [TransactionPaymentSchema]
+    transactionID: String,
+    cashierID: String,
+    terminalID: String,
+    merchantID: String,
+    transactionPayments: [TransactionPaymentSchema]
 
 });
 
-
-
 // Export the Mongoose model
 module.exports = mongoose.model('Transaction', TransactionSchema);
+
+

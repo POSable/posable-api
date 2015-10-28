@@ -1,4 +1,5 @@
-
+//var Transaction = require('../models/transaction');
+//var transactionPayment = new TransactionPayment();
 
 
 var mapTransaction = function(dto, transaction, statusObject) {
@@ -7,22 +8,28 @@ var mapTransaction = function(dto, transaction, statusObject) {
             transaction.merchantID = dto.transaction.merchantId;
             transaction.terminalId = dto.transaction.terminalId;
             transaction.cashierId = dto.transaction.cashierId;
-            transaction.payments = [];
+            transaction.transactionPayment = [];
             dto.transaction.payments.forEach(function(payment) {
-                var dtoPayment = {};
-                dtoPayment.uid = payment.uid;
-                dtoPayment.transactionId = payment.transactionId;
-                dtoPayment.merchantId = payment.merchantId;
-                dtoPayment.terminalId = payment.terminalId;
-                dtoPayment.cashierId = payment.cashierId;
-                dtoPayment.dateTime = payment.dateTime;
-                dtoPayment.type = payment.type;
-                dtoPayment.amount = payment.amount;
-                dtoPayment.tax = payment.tax;
-                dtoPayment.creditCard = {};
-                dtoPayment.creditCard.cardType = payment.creditCard.cardType;
-                dtoPayment.creditCard.last4 = payment.creditCard.last4;
-                dtoPayment.creditCard.authCode = payment.creditCard.authCode;
+                var transactionPayment = {};
+                transactionPayment.uid = payment.uid;
+                transactionPayment.transactionId = payment.transactionId;
+                transactionPayment.merchantId = payment.merchantId;
+                transactionPayment.terminalId = payment.terminalId;
+                transactionPayment.cashierId = payment.cashierId;
+                transactionPayment.dateTime = payment.dateTime;
+                transactionPayment.paymentType = payment.paymentType;
+                transactionPayment.amount = payment.amount;
+                transactionPayment.tax = payment.tax;
+                transactionPayment.creditCard = {};
+                transactionPayment.cardType = payment.creditCard.cardType;
+                transactionPayment.last4OfCard = payment.creditCard.last4;
+                transactionPayment.authorizationCode = payment.creditCard.authCode;
+
+
+
+                    userId: String
+
+
 
             transaction.payments.push(dtoPayment);
 
