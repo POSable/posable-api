@@ -21,7 +21,7 @@ var TransactionSchema = new mongoose.Schema({
   terminalID: String,
   merchantID: String,
   cashierID: String,
-  transactionPayment: [TransactionPaymentSchema],
+  transactionPayment: [TransactionPaymentSchema]
 
 });
 

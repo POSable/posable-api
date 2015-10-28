@@ -28,6 +28,7 @@ var mapTransaction = function(dto, transaction, statusObject) {
 
         });
             statusObject.success.push("mapPayment");
+            console.log(transaction);
 
 
         } catch (err) {
