@@ -3,16 +3,18 @@ var mongoose = require('mongoose');
 
 // Define our payment schema
 var PaymentSchema = new mongoose.Schema({
-  cardType: String,
-  amount: Number,
-  last4OfCard: Number,
-  authorizationCode: String,
-  tax: Number,
-  terminalID: String,
-  merchantID: String,
-  transactionType: String,
-  netEPaySN: String,
-  userId: String
+    uid: String,
+    transactionID: String,
+    merchantID: String,
+    terminalID: String,
+    cashierID: String,
+    dateTime: { type: Date, default: Date.now },
+    paymentType: String,
+    amount: Number,
+    tax: Number,
+    cardType: String,
+    last4: Number,
+    authCode: String
 });
 
 // Export the Mongoose model

@@ -46,25 +46,25 @@ function createValPayObj(paymentDTO) {
         return this; };
 
     valObject.valTerminalID = function() {
-        if (!validator.isAlphanumeric(this.payload.terminalId)) {
+        if (!validator.isAlphanumeric(this.payload.terminalID)) {
             this.message.terminalID = 'Invalid terminal ID';
             this.isValid = false; }
         return this; };
 
     valObject.valMerchantID = function() {
-        if (!validator.isAlphanumeric(this.payload.merchantId)) {
+        if (!validator.isAlphanumeric(this.payload.merchantID)) {
             this.message.merchantID = 'Invalid merchant ID';
             this.isValid = false; }
         return this; };
 
     valObject.valCashierID = function() {
-        if (!validator.isAlphanumeric(this.payload.cashierId)) {
+        if (!validator.isAlphanumeric(this.payload.cashierID)) {
             this.message.cashierID = 'Invalid cashier ID';
             this.isValid = false; }
         return this; };
 
     valObject.valPaymentType = function() {
-        if (!validator.isIn(this.payload.type, ['cash', 'credit'])) {
+        if (!validator.isIn(this.payload.paymentType, ['cash', 'credit'])) {
             this.message.paymentType = 'Invalid payment type';
             this.isValid = false; }
         return this; };

@@ -1,15 +1,19 @@
 var mapPayment = function(dto, payment, statusObject) {
         try {
-            payment.cardType = dto.creditCard.cardType;
+            payment.uid = dto.uid;
+            payment.transactionID = dto.transactionID;
+            payment.merchantID = dto.merchantID;
+            payment.terminalID = dto.terminalID;
+            payment.cashierID = dto.cashierID;
+            payment.dateTime = dto.dateTime;
+            payment.paymentType = dto.paymentType;
             payment.amount = dto.amount;
-            payment.last4OfCard = dto.creditCard.last4;
-            payment.authorizationCode = dto.creditCard.authCode;
             payment.tax = dto.tax;
-            payment.terminalID = dto.terminalId;
-            payment.merchantID = dto.merchantId;
-            payment.transactionType = dto.type;
-            payment.netEPaySN = dto.uid;
-            payment.userId = dto.cashierId;
+            payment.cardType = dto.creditCard.cardType;
+            payment.last4 = dto.creditCard.last4;
+            payment.authCode = dto.creditCard.authCode;
+
+            //payment.date =
 
             statusObject.success.push("mapPayment");
 

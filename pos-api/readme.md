@@ -3,12 +3,12 @@ POSable API Object Definition
 This section shows the JSON or XML payload definition for posting a payment to posable-api/payments.
 
       *uid                - string  (accepts strings containing only numbers & letters, no whitespace)
-      *transactionId      - string  (accepts strings containing only numbers & letters, no whitespace)
-      *merchantId         - string  (accepts strings containing only numbers & letters, no whitespace)
-      *terminalId         - string  (accepts strings containing only numbers & letters, no whitespace)
-      *cashierId          - string  (accepts strings containing only numbers & letters, no whitespace)
+      *transactionID      - string  (accepts strings containing only numbers & letters, no whitespace)
+      *merchantID         - string  (accepts strings containing only numbers & letters, no whitespace)
+      *terminalID         - string  (accepts strings containing only numbers & letters, no whitespace)
+      *cashierID          - string  (accepts strings containing only numbers & letters, no whitespace)
       *dateTime           - UTC
-      *type               - string  (only accepts the following strings: cash, credit)
+      *paymentType        - string  (only accepts the following strings: cash, credit)
       *amount             - float   (accepts strings containing only numbers)
       *tax                - float   (accepts strings containing only numbers)
       *creditCard         - object
@@ -26,7 +26,7 @@ JSON
        "terminalId" : "SampleID",
        "cashierId" : "SampleID",
        "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
-       "type" : "credit",
+       "paymentType" : "credit",
        "amount" : 100.00,
        "tax" : 15.45,
        "creditCard": {           
@@ -44,7 +44,7 @@ XML
     <terminalId>SampleID</terminalId>
     <cashierId>SampleID</cashierId>
     <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
-    <type>credit</type>
+    <paymentType>credit</paymentType>
     <amount>100.00</amount>
     <tax>15.45</tax>
     <creditCard>
@@ -68,7 +68,7 @@ This section shows the JSON or XML transaction definition for posting a payment 
             *terminalId         - string  (accepts strings containing only numbers & letters, no whitespace)
             *cashierId          - string  (accepts strings containing only numbers & letters, no whitespace)
             *dateTime           - UTC
-            *type               - string  (only accepts the following strings: cash, credit)
+            *paymentType        - string  (only accepts the following strings: cash, credit)
             *amount             - float   (accepts strings containing only numbers)
             *tax                - float   (accepts strings containing only numbers)
             *creditCard         - object
@@ -94,7 +94,7 @@ JSON
            "terminalId" : "SampleID",
            "cashierId" : "SampleID",
            "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
-           "type" : "credit",
+           "paymentType" : "credit",
            "amount" : 100.00,
            "tax" : 15.45,
            "creditCard": {           
@@ -111,7 +111,7 @@ JSON
            "terminalId" : "SampleID",
            "cashierId" : "SampleID",
            "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
-           "type" : "credit",
+           "paymentType" : "credit",
            "amount" : 100.00,
            "tax" : 15.45,
            "creditCard": {           
@@ -139,7 +139,7 @@ XML
                 <terminalId>SampleID</terminalId>
                 <cashierId>SampleID</cashierId>
                 <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
-                <type>credit</type>
+                <paymentType>credit</paymentType>
                 <amount>100.00</amount>
                 <tax>15.45</tax>
                 <creditCard>
@@ -155,7 +155,7 @@ XML
                 <terminalId>SampleID2</terminalId>
                 <cashierId>SampleID</cashierId>
                 <dateTime>Wed Oct 15 2015 11:30:50 GMT-0600 (MDT)</dateTime>
-                <type>credit</type>
+                <paymentType>credit</paymentType>
                 <amount>200.00</amount>
                 <tax>25.45</tax>
                 <creditCard>
