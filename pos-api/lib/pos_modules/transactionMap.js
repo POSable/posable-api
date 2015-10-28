@@ -1,3 +1,5 @@
+var mapPayment = require('./paymentMap');
+var Payment = require('../../models/payment');
 
 var mapTransaction = function(dto, transaction, statusObject) {
         try {
@@ -5,26 +7,33 @@ var mapTransaction = function(dto, transaction, statusObject) {
             transaction.merchantID = dto.transaction.merchantID;
             transaction.terminalID = dto.transaction.terminalID;
             transaction.cashierID = dto.transaction.cashierID;
-            transaction.transactionPayment = [];
-            //dto.transaction.payments.forEach(function(payment) {
-            //    var transactionPayment = {};
-            //    transactionPayment.uid = payment.uid;
-            //    transactionPayment.transactionId = payment.transactionId;
-            //    transactionPayment.merchantId = payment.merchantId;
-            //    transactionPayment.terminalId = payment.terminalId;
-            //    transactionPayment.cashierId = payment.cashierId;
-            //    transactionPayment.dateTime = payment.dateTime;
-            //    transactionPayment.paymentType = payment.paymentType;
-            //    transactionPayment.amount = payment.amount;
-            //    transactionPayment.tax = payment.tax;
-            //    transactionPayment.creditCard = {};
-            //    transactionPayment.cardType = payment.creditCard.cardType;
-            //    transactionPayment.last4OfCard = payment.creditCard.last4;
-            //    transactionPayment.authorizationCode = payment.creditCard.authCode;
-            //transaction.payments.push(dtoPayment);
+            transaction.transactionPayment = new Payment(
+                {
+                    uid : "SampleID",
+                    transactionID : "SampleID",
+                    merchantID : "SampleID",
+                    terminalID : "SampleID",
+                    cashierID : "SampleID",
+                    dateTime :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
+                    paymentType : "credit",
+                    amount : 100.00,
+                    tax : 15.45,
+                    cardType : "visa",
+                    last4 : 1234,
+                    authCode : 123
+                });
 
-            statusObject.success.push("mapPayment");
-            console.log(transaction);
+            //var count = 0;
+            //dto.transaction.payments.forEach(function(paymentdto) {
+            //
+            //    count++;
+            //    var payment = new Payment();
+            //    mapPayment(paymentdto, payment, statusObject);
+            //    transaction.transactionPayment.push(payment);
+            //
+            //    statusObject.success.push(count + " payment of " + dto.transaction.payments.length);
+            //})
+
 
         } catch (err) {
             statusObject.isOK = false;
