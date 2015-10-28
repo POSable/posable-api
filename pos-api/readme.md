@@ -20,11 +20,11 @@ This section shows the JSON or XML payload definition for posting a payment to p
 JSON 
 
   {
-      "uid" : "SampleID",
-      "transactionId" : "SampleID",
-       "merchantId" : "SampleID",
-       "terminalId" : "SampleID",
-       "cashierId" : "SampleID",
+       "uid" : "SampleID",
+       "transactionID" : "SampleID",
+       "merchantID" : "SampleID",
+       "terminalID" : "SampleID",
+       "cashierID" : "SampleID",
        "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
        "paymentType" : "credit",
        "amount" : 100.00,
@@ -39,10 +39,10 @@ JSON
 
 XML
     <uid>SampleID</uid> 
-    <transactionId>SampleID</transactionId>
-    <merchantId>SampleID</merchantId>
-    <terminalId>SampleID</terminalId>
-    <cashierId>SampleID</cashierId>
+    <transactionID>SampleID</transactionID>
+    <merchantID>SampleID</merchantID>
+    <terminalID>SampleID</terminalID>
+    <cashierID>SampleID</cashierID>
     <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
     <paymentType>credit</paymentType>
     <amount>100.00</amount>
@@ -57,16 +57,16 @@ XML
 This section shows the JSON or XML transaction definition for posting a payment to posable-api/transactions.
 
   *transaction            - object
-      *transactionId      - string  (accepts strings containing only numbers & letters, no whitespace)
-      *merchantId         - string  (accepts strings containing only numbers & letters, no whitespace)
-      *terminalId         - string  (accepts strings containing only numbers & letters, no whitespace)
-      *cashierId          - string  (accepts strings containing only numbers & letters, no whitespace)
+      *transactionID      - string  (accepts strings containing only numbers & letters, no whitespace)
+      *merchantID        - string  (accepts strings containing only numbers & letters, no whitespace)
+      *terminalID         - string  (accepts strings containing only numbers & letters, no whitespace)
+      *cashierID          - string  (accepts strings containing only numbers & letters, no whitespace)
       *payments                 - array
             *uid                - string  (accepts strings containing only numbers & letters, no whitespace)
-            *transactionId      - string  (accepts strings containing only numbers & letters, no whitespace)
-            *merchantId         - string  (accepts strings containing only numbers & letters, no whitespace)
-            *terminalId         - string  (accepts strings containing only numbers & letters, no whitespace)
-            *cashierId          - string  (accepts strings containing only numbers & letters, no whitespace)
+            *transactionID      - string  (accepts strings containing only numbers & letters, no whitespace)
+            *merchantID         - string  (accepts strings containing only numbers & letters, no whitespace)
+            *terminalID         - string  (accepts strings containing only numbers & letters, no whitespace)
+            *cashierID          - string  (accepts strings containing only numbers & letters, no whitespace)
             *dateTime           - UTC
             *paymentType        - string  (only accepts the following strings: cash, credit)
             *amount             - float   (accepts strings containing only numbers)
@@ -83,16 +83,16 @@ JSON
 
 { 
     "transaction": {
-      "transactionId" : "SampleID",
-      "merchantId" : "SampleID",
-      "terminalId" : "SampleID",
-      "cashierId" : "SampleID",
+      "transactionID" : "SampleID",
+      "merchantID" : "SampleID",
+      "terminalID" : "SampleID",
+      "cashierID" : "SampleID",
       "payments": [{
           "uid" : "SampleID",
-          "transactionId" : "SampleID",
-           "merchantId" : "SampleID",
-           "terminalId" : "SampleID",
-           "cashierId" : "SampleID",
+          "transactionID" : "SampleID",
+           "merchantID" : "SampleID",
+           "terminalID" : "SampleID",
+           "cashierID" : "SampleID",
            "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
            "paymentType" : "credit",
            "amount" : 100.00,
@@ -101,8 +101,7 @@ JSON
                 "cardType" : "visa",
                 "last4" : 1234,
                 "authCode" : 123
-            }
-                
+            }    
         },
         {
           "uid" : "SampleID",
@@ -119,25 +118,24 @@ JSON
                 "last4" : 1234,
                 "authCode" : 123
             }
-        }          
-      ] 
-  }
+        }] 
+    }
 }
 
 XML
 
 <transaction>
-    <transactionId>SampleID</transactionId>
-    <merchantId>SampleID</merchantId>
-    <terminalId>SampleID</terminalId>
-    <cashierId>SampleID</cashierId>
+    <transactionID>SampleID</transactionID>
+    <merchantID>SampleID</merchantID>
+    <terminalID>SampleID</terminalID>
+    <cashierID>SampleID</cashierID>
         <payments>
             <payment> 
                 <uid>SampleID</uid> 
-                <transactionId>SampleID</transactionId>
-                <merchantId>SampleID</merchantId>
-                <terminalId>SampleID</terminalId>
-                <cashierId>SampleID</cashierId>
+                <transactionID>SampleID</transactionID>
+                <merchantID>SampleID</merchantID>
+                <terminalID>SampleID</terminalID>
+                <cashierID>SampleID</cashierID>
                 <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
                 <paymentType>credit</paymentType>
                 <amount>100.00</amount>
@@ -150,10 +148,10 @@ XML
             </payment>
             <payment> 
                 <uid>SampleID2</uid> 
-                <transactionId>SampleID2</transactionId>
-                <merchantId>SampleID2</merchantId>
-                <terminalId>SampleID2</terminalId>
-                <cashierId>SampleID</cashierId>
+                <transactionID>SampleID2</transactionID>
+                <merchantID>SampleID2</merchantID>
+                <terminalID>SampleID2</terminalID>
+                <cashierID>SampleID</cashierID>
                 <dateTime>Wed Oct 15 2015 11:30:50 GMT-0600 (MDT)</dateTime>
                 <paymentType>credit</paymentType>
                 <amount>200.00</amount>
