@@ -1,22 +1,22 @@
 // Load required packages
 var mongoose = require('mongoose');
 
-var Payment = require('./payment');
+//require...
 
-
-
-//var TransactionPaymentSchema = new mongoose.Schema({
-//    cardType: String,
-//    amount: Number,
-//    last4OfCard: Number,
-//    authorizationCode: String,
-//    tax: Number,
-//    terminalID: String,
-//    merchantID: String,
-//    transactionType: String,
-//    uid: String,
-//    userId: String
-//});
+var PaymentSchema = new mongoose.Schema({
+    uid: String,
+    transactionID: String,
+    merchantID: String,
+    terminalID: String,
+    cashierID: String,
+    dateTime: { type: Date, default: Date.now },
+    paymentType: String,
+    amount: Number,
+    tax: Number,
+    cardType: String,
+    last4: Number,
+    authCode: String
+});
 
 // Define our transaction schema
 var TransactionSchema = new mongoose.Schema({
@@ -24,7 +24,7 @@ var TransactionSchema = new mongoose.Schema({
     cashierID: String,
     terminalID: String,
     merchantID: String,
-    transactionPayments: [Payment]
+    transactionPayments: [PaymentSchema]
 });
 
 // Export the Mongoose model
