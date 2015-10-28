@@ -1,6 +1,9 @@
 // Load required packages
 var mongoose = require('mongoose');
 
+var Payment = require('./payment');
+
+
 
 //var TransactionPaymentSchema = new mongoose.Schema({
 //    cardType: String,
@@ -21,8 +24,7 @@ var TransactionSchema = new mongoose.Schema({
     cashierID: String,
     terminalID: String,
     merchantID: String,
-    transactionPayments: []
-
+    transactionPayments: [Payment]
 });
 
 // Export the Mongoose model
