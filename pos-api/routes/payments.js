@@ -12,7 +12,6 @@ var createValPayObj = require('../lib/pos_modules/validatePayment');
 var savePaymentInDB = require('../lib/pos_modules/paymentSave');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 
-
 router.get('/', function(req, res) {
   Payment.find(function(err, payments) {
     if (err)
