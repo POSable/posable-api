@@ -18,4 +18,6 @@ var PaymentSchema = new mongoose.Schema({
 });
 
 // Export the Mongoose model
-module.exports = mongoose.model('Payment', PaymentSchema);
+module.exports = {
+    model : mongoose.model('Payment', PaymentSchema),
+}

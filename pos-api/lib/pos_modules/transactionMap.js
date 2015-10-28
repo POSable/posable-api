@@ -1,5 +1,5 @@
 var mapPayment = require('./paymentMap');
-var Payment = require('../../models/payment');
+var Payment = require('../../models/payment').model;
 
 var mapTransaction = function(dto, transaction, statusObject) {
         try {
