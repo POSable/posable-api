@@ -7,7 +7,7 @@ var createTransactionDTO = require('../lib/pos_modules/createTransactionDTO');
 var mapTransaction = require('../lib/pos_modules/transactionMap');
 var Transaction = require('../models/transaction');
 var transaction = new Transaction();
-//var validateTransaction = require('../lib/pos_modules/validateTransaction');
+var createValTransObj = require('../lib/pos_modules/validateTransaction');
 //var handleError = require('../lib/pos_modules/errorHandling');
 var saveTransactionInDB = require('../lib/pos_modules/transactionSave');
 var sendResponse =require('../lib/pos_modules/sendResponse');
@@ -42,7 +42,9 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
-        //if (statusObject.isOK) validateTransaction(transactionDTO, statusObject);
+        if (statusObject.isOK) {
+            var transactionObj = createValTransObj(transactionDTO);
+            transactionObj.validateTransaction(statusObject); }
 
         if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, transaction, statusObject);};
 
