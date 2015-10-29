@@ -9,7 +9,7 @@ var createValTransObj = require('../lib/pos_modules/validateTransaction');
 //var handleError = require('../lib/pos_modules/errorHandling');
 var saveTransactionInDB = require('../lib/pos_modules/transactionSave');
 var sendResponse =require('../lib/pos_modules/sendResponse');
-
+var Transaction = require('../models/transaction').model;
 
 router.get('/', function(req, res) {
     Transaction.find(function(err, transactions) {
