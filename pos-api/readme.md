@@ -14,7 +14,7 @@ This section shows the JSON or XML payload definition for posting a payment to p
       *creditCard         - object
           *cardType       - string  (only accepts the following strings: visa, mastercard, discover, amex)
           *last4          - integer (only accepts 4 number strings)
-          *authCode       - string  (only accepts 3 number strings)
+          *authCode       - string  (only accepts 6 number strings)
           
           
 JSON 
@@ -32,7 +32,7 @@ JSON
        "creditCard": {           
             "cardType" : "visa",
             "last4" : 1234,
-            "authCode" : 123
+            "authCode" : 123456
        }                 
    }          
  
@@ -50,7 +50,7 @@ XML
     <creditCard>
         <cardType>visa</cardType>
         <last4>1234</last4>
-        <authCode>123</authCode>
+        <authCode>123456</authCode>
     </creditCard>
 
 
@@ -74,7 +74,7 @@ This section shows the JSON or XML transaction definition for posting a payment 
             *creditCard         - object
                 *cardType       - string  (only accepts the following strings: visa, mastercard, discover, amex)
                 *last4          - integer (only accepts 4 number strings)
-                *authCode       - string  (only accepts 3 number strings)
+                *authCode       - string  (only accepts 6 number strings)
                 
        
           
@@ -100,7 +100,7 @@ JSON
            "creditCard": {           
                 "cardType" : "visa",
                 "last4" : 1234,
-                "authCode" : 123
+                "authCode" : 123456
             }    
         },
         {
@@ -116,7 +116,7 @@ JSON
            "creditCard": {           
                 "cardType" : "visa",
                 "last4" : 1234,
-                "authCode" : 123
+                "authCode" : 123456
             }
         }] 
     }
@@ -143,7 +143,7 @@ XML
                 <creditCard>
                     <cardType>visa</cardType>
                     <last4>1234</last4>
-                    <authCode>123</authCode>
+                    <authCode>123456</authCode>
                 </creditCard>
             </payment>
             <payment> 
@@ -159,7 +159,7 @@ XML
                 <creditCard>
                     <cardType>mastercard</cardType>
                     <last4>2345</last4>
-                    <authCode>234</authCode>
+                    <authCode>123456</authCode>
                 </creditCard>
             </payment>
         </payments>
