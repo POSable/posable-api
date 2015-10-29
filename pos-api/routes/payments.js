@@ -6,7 +6,6 @@ var checkPostToken = require ('../lib/pos_modules/authenticatePost');
 var createPaymentDTO = require('../lib/pos_modules/createPaymentDTO');
 var mapPayment = require('../lib/pos_modules/paymentMap');
 var Payment = require('../models/payment').model;
-var payment = new Payment();
 var createValPayObj = require('../lib/pos_modules/validatePayment');
 //var handleError = require('../lib/pos_modules/errorHandling');
 var savePaymentInDB = require('../lib/pos_modules/paymentSave');
@@ -32,6 +31,7 @@ router.post('/', function(req, res) {
     }
 
     function continuePost(err, statusObject) {
+        var payment;
 
         if (err) {
             statusObject.isOK = false;
@@ -47,7 +47,7 @@ router.post('/', function(req, res) {
             var paymentObj = createValPayObj(paymentDTO);
             paymentObj.validatePayment(statusObject); }
 
-        if (statusObject.isOK) {payment = mapPayment(paymentDTO, payment, statusObject);}
+        if (statusObject.isOK) {payment = mapPayment(paymentDTO, statusObject);}
 
         if (statusObject.isOK) {savePaymentInDB(res, payment, statusObject, finalizePost);
         } else {finalizePost();}
