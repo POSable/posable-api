@@ -12,6 +12,6 @@ var TransactionSchema = new mongoose.Schema({
 });
 
 // Export the Mongoose model
-module.exports = mongoose.model('Transaction', TransactionSchema);
-
-
+module.exports = {
+    model : mongoose.model('Transaction', TransactionSchema)
+}

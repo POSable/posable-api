@@ -5,8 +5,6 @@ var checkPostToken = require ('../lib/pos_modules/authenticatePost');
 //var uid = require('rand-token').uid;
 var createTransactionDTO = require('../lib/pos_modules/createTransactionDTO');
 var mapTransaction = require('../lib/pos_modules/transactionMap');
-var Transaction = require('../models/transaction');
-var transaction = new Transaction();
 var createValTransObj = require('../lib/pos_modules/validateTransaction');
 //var handleError = require('../lib/pos_modules/errorHandling');
 var saveTransactionInDB = require('../lib/pos_modules/transactionSave');
@@ -23,6 +21,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
+    var transaction;
     console.log("Transactions Post received with content type of", req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
@@ -46,7 +45,7 @@ router.post('/', function(req, res) {
             var transactionObj = createValTransObj(transactionDTO);
             transactionObj.validateTransaction(statusObject); }
 
-        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, transaction, statusObject);};
+        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);};
 
         if (statusObject.isOK) { saveTransactionInDB(res, transaction, statusObject, finalizePost);
         } else {finalizePost();}

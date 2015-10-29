@@ -1,7 +1,8 @@
-var Payment = require('../../models/payment').model;
+var Transaction = require('../../models/transaction').model;
 
-var mapTransaction = function(dto, transaction, statusObject) {
+var mapTransaction = function(dto, statusObject) {
         try {
+            var transaction = new Transaction();
             transaction.transactionID = dto.transaction.transactionID;
             transaction.merchantID = dto.transaction.merchantID;
             transaction.terminalID = dto.transaction.terminalID;
