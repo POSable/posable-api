@@ -2,7 +2,7 @@ var validator = require('validator');
 
 //custom extensions
 validator.extend('isAuthCode', function(str){
-    return /(\d{3})/.test(str); });
+    return /[A-Za-z0-9]{6}/.test(str); });
 
 validator.extend('isLast4', function(str){
     return /(\d{4})/.test(str); });
