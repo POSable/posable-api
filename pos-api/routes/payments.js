@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var log = require('../lib/pos_modules/log');
-var checkPostToken = require ('../lib/pos_modules/authenticatePost');
+var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
 //var uid = require('rand-token').uid;
-var createPaymentDTO = require('../lib/pos_modules/createPaymentDTO');
-var mapPayment = require('../lib/pos_modules/paymentMap');
+var createPaymentDTO = require('../lib/pos_modules/api/createPaymentDTO');
+var mapPayment = require('../lib/pos_modules/api/mapPayment');
 var Payment = require('../models/payment').model;
-var createValPayObj = require('../lib/pos_modules/validatePayment');
+var createValPayObj = require('../lib/pos_modules/api/validatePayment');
 //var handleError = require('../lib/pos_modules/errorHandling');
-var savePaymentInDB = require('../lib/pos_modules/paymentSave');
+var savePaymentInDB = require('../lib/pos_modules/api/savePayment');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 
 router.get('/', function(req, res) {
