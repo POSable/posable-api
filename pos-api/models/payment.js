@@ -1,7 +1,5 @@
-// Load required packages
 var mongoose = require('mongoose');
 
-// Define our payment schema
 var PaymentSchema = new mongoose.Schema({
     uid: String,
     transactionID: String,
@@ -17,7 +15,6 @@ var PaymentSchema = new mongoose.Schema({
     authCode: String
 });
 
-// Export the Mongoose model
 module.exports = {
-    model : mongoose.model('Payment', PaymentSchema),
-}
+    model : mongoose.model('Payment', PaymentSchema)
+};

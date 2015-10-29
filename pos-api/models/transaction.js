@@ -1,8 +1,6 @@
-// Load required packages
 var mongoose = require('mongoose');
 require('../models/payment');
 
-// Define our transaction schema
 var TransactionSchema = new mongoose.Schema({
     transactionID: String,
     cashierID: String,
@@ -11,7 +9,6 @@ var TransactionSchema = new mongoose.Schema({
     transactionPayments: [mongoose.model('Payment').schema]
 });
 
-// Export the Mongoose model
 module.exports = {
     model : mongoose.model('Transaction', TransactionSchema)
-}
+};

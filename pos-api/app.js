@@ -8,7 +8,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var xmlparser = require('express-xml-bodyparser');
 
-var api = require('./routes/api');
 var healthcheck = require('./routes/healthcheck');
 var payments = require('./routes/payments');
 var transactions = require('./routes/transactions');
@@ -47,7 +46,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/api', api);
 app.use('/payments', payments);
 app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
