@@ -1,4 +1,4 @@
-var Payment = require('../../models/payment').model;
+var Payment = require('../../../models/payment').model;
 
 var mapPayment = function(dto, statusObject) {
         try {

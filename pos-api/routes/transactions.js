@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var log = require('../lib/pos_modules/log');
-var checkPostToken = require ('../lib/pos_modules/authenticatePost');
+var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
 //var uid = require('rand-token').uid;
-var createTransactionDTO = require('../lib/pos_modules/createTransactionDTO');
-var mapTransaction = require('../lib/pos_modules/transactionMap');
-var createValTransObj = require('../lib/pos_modules/validateTransaction');
+var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
+var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
+var createValTransObj = require('../lib/pos_modules/api/validateTransaction');
 //var handleError = require('../lib/pos_modules/errorHandling');
-var saveTransactionInDB = require('../lib/pos_modules/transactionSave');
+var saveTransactionInDB = require('../lib/pos_modules/api/saveTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var Transaction = require('../models/transaction').model;
 
@@ -45,7 +45,7 @@ router.post('/', function(req, res) {
             var transactionObj = createValTransObj(transactionDTO);
             transactionObj.validateTransaction(statusObject); }
 
-        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);};
+        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
 
         if (statusObject.isOK) { saveTransactionInDB(res, transaction, statusObject, finalizePost);
         } else {finalizePost();}

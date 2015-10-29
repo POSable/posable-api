@@ -5,11 +5,11 @@ var sendError  = function (res, message, status) {
     if (res.req.headers['content-type'] === 'application/xml') {
         res.send(o2x({
             '?xml version="1.0" encoding="utf-8"?' : null,
-            error: message,
+            error: message
         }));
     } else {
         res.json({
-            error: message,
+            error: message
         });
     }
 };
