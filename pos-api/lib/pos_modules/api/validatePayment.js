@@ -75,16 +75,27 @@ function createValPayObj(paymentDTO) {
             this.isValid = false; }
         return this; };
 
+    valObject.valTransactionID = function() {
+        if (!validator.isAlphanumeric(this.payload.transactionID)) {
+            this.message.transactionID = 'Invalid transaction ID';
+            this.isValid = false; }
+        return this; };
+
     valObject.validatePayment = function(statusObject) {
         try {
-            this.valCardType();
+            this.valTerminalID();
+            this.valTransactionID();
             this.valAmount();
-            this.valLast4();
-            this.valAuthCode();
+            this.valPaymentType();
             this.valTax();
             this.valMerchantID();
             this.valCashierID();
             this.valUID();
+
+            if (this.payload.paymentType === 'credit') {
+                this.valCardType();
+                this.valLast4();
+                this.valAuthCode(); }
 
             if (!this.isValid) {
                 statusObject.isOK = false;
