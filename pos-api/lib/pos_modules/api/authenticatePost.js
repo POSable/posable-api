@@ -1,6 +1,6 @@
  var authenticatePost = function (req, statusObject, callback) {
      process.nextTick(function () {
-         var internalErr = undefined;
+         var internalErr = null;
          try {
              var token = "m8l0isN6m1ZK3NPX"; //go get this from DB
              if (req.headers.token === token) {
