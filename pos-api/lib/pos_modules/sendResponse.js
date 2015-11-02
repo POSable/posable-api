@@ -11,18 +11,18 @@ var sendResponse  = function (res, statusObject) {
                     status: 200,
                     message: "Transactions passed all internal checks and posted successfully"
                 }));
-                console.log("Response Returned in XML")
+                //console.log("Response Returned in XML")
             } else {
                 res.set('Content-Type', 'application/json');
                 res.status(200).json({
                     status: 200,
                     message: "Transactions passed all internal checks and posted successfully"
-                })
-                console.log("Response Returned in JSON");
+                });
+                //console.log("Response Returned in JSON");
             }
         } else {
             if (res.req.headers['content-type'] === 'application/xml') {
-                res.status(statusObject.error.error.code)
+                res.status(statusObject.error.error.code);
                 res.send(o2x({
                     '?xml version="1.0" encoding="utf-8"?': null,
                     status: statusObject.error.error.code,
