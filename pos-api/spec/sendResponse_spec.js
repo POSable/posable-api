@@ -1,23 +1,8 @@
 describe("sendResponse module", function(){
 
-    var testObject = {};
     var sendResponse = require('../lib/pos_modules/sendResponse');
-    var statusObject = {isOK: null, success: []};
-    //var req = {headers: {'Content-Type' : null}}
-
-    beforeEach(function(done) {
-        statusObject.success = [];
-        var callback = function(internalErr, statusObject, sendResponse) {
-            testObject =  {
-                internalErr : internalErr,
-                statusObject: statusObject,
-                sendResponse: sendResponse
-            };
-            done();
-        };
-        sendResponse(statusObject, callback);
-        statusObject.success.push("all-the-things");
-    });
+    var statusObject = { isOK: null };
+    var req = {headers: { 'Content-Type' : null }};
 
     describe("when isOK is true", function(){
 
@@ -25,25 +10,21 @@ describe("sendResponse module", function(){
 
         describe("and sent with xml", function(){
 
-            testObject.sendResponse.set['Content-Type'] = 'application/xml';
-            //.headers.put['Content-Type'] = 'application/json';
+            req.headers = {'Content-Type': 'application/xml'};
 
             it("should return success xml response", function(){
-                expect(200).toEqual(200);
+                expect(1).toEqual(1);
             });
-
         });
 
         describe("and sent with JSON", function(){
 
-            //req.set('Content-Type', 'application/json');
+            req.headers = {'Content-Type': 'application/json'};
 
             it("should return success JSON response", function(){
                 expect(1).toEqual(1);
             });
-
         });
-
     });
 
     describe("when isOK is false", function(){
@@ -52,20 +33,21 @@ describe("sendResponse module", function(){
 
         describe("and sent with xml", function(){
 
+            req.headers = {'Content-Type': 'application/xml'};
+
             it("should return error xml response", function(){
                 expect(1).toEqual(1);
             });
-
         });
 
         describe("and sent with JSON", function(){
 
+            req.headers = {'Content-Type': 'application/json'};
+
             it("should return error JSON response", function(){
                 expect(1).toEqual(1);
             });
-
         });
-
     });
 
     describe("when system error, ", function(){
@@ -73,7 +55,23 @@ describe("sendResponse module", function(){
         it("should return system err message", function(){
             expect(1).toEqual(1);
         });
-
     });
-
 });
+
+
+
+
+//
+//beforeEach(function(done) {
+//    statusObject.success = [];
+//    var callback = function(internalErr, statusObject, sendResponse) {
+//        testObject =  {
+//            internalErr : internalErr,
+//            statusObject: statusObject,
+//            sendResponse: sendResponse
+//        };
+//        done();
+//    };
+//    sendResponse(statusObject, callback);
+//    //testObject.statusObject.success.push("all-the-things");
+//});
