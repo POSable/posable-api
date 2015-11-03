@@ -83,9 +83,17 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
             checkPostToken(req, statusObject, callback);
         });
 
-        it("Should  push an error object into statusObject", function (done) {
+        it("Should push an error object into statusObject", function (done) {
             callback = function(internalErr, statusObject) {
                 expect(typeof statusObject.error).toEqual("object");
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should change state of statusObject isOK to false", function (done) {
+            callback = function(internalErr, statusObject) {
+                expect(statusObject.isOK).toEqual(false);
                 done();
             };
             checkPostToken(req, statusObject, callback);
