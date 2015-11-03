@@ -1,40 +1,110 @@
 describe("Test 'authenticatePost' module & 'checkPostToken' function", function() {
+    var checkPostToken = require('../lib/pos_modules/api/authenticatePost');
+    var statusObject = {};
+    var callback;
 
-    var testObject = {};
-    var req = {headers: {token: 'm8l0isN6m1ZK3NPX'}}; //hard coded token - in future, get from DB
-    var statusObject = {isOK: true, success: []};
+    describe("using the correct token", function() {
+        var req = {headers: {token: 'm8l0isN6m1ZK3NPX'}}; //hard coded token - in future, get from DB
 
-    beforeEach(function(done) {
-        statusObject.success = [];
-        var checkPostToken = require('../lib/pos_modules/api/authenticatePost');
-        var callback = function(internalErr, statusObject) {
-            testObject =  {
-                internalErr : internalErr,
-                statusObject: statusObject
+        beforeEach(function () {
+            statusObject = {isOK: true, success: []};
+        });
+
+        it("Should not have an internal system error", function (done) {
+            callback = function (internalErr) {
+                expect(internalErr).toEqual(null);
+                done();
             };
-            done();
-        };
-        checkPostToken(req, statusObject, callback);
-        statusObject.success.push("firstInArray-AsynchTest");
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should push one string into success array", function (done) {
+            callback = function (internalErr, statusObject) {
+                expect(statusObject.success.length).toEqual(1);
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should push 'authenticatePost' into the success array in statusObject", function (done) {
+            callback = function (internalErr, statusObject) {
+                expect(statusObject.success[0]).toEqual("authenticatePost");
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should NOT push an error object into statusObject", function (done) {
+            callback = function (internalErr, statusObject) {
+                expect(statusObject.error).toEqual(undefined);
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should be an Asynchronous function, callback executes after 'push' method ", function (done) {
+            callback = function (internalErr, statusObject) {
+                expect(statusObject.success[0]).toEqual("firstInArray-AsynchTest");
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+            statusObject.success.push("firstInArray-AsynchTest");
+        });
     });
 
-    it("Should not have an internal system error", function () {
-        expect(testObject.internalErr).toEqual(null);
+    describe("NOT using a correct token", function() {
+        var req = {headers: {token: 'badToken'}}; //hard coded token - in future, get from DB
+
+        beforeEach(function() {
+            statusObject = {isOK: true, success: []};
+        });
+
+        it("Should not have an internal system error", function (done) {
+            callback = function(internalErr) {
+                expect(internalErr).toEqual(null);
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should NOT push string into success array", function (done) {
+            callback = function(internalErr, statusObject) {
+                expect(statusObject.success.length).toEqual(0);
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should NOT push 'authenticatePost' into the success array in statusObject", function (done) {
+            callback = function(internalErr, statusObject) {
+                expect(statusObject.success[0]).toEqual(undefined);
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should  push an error object into statusObject", function (done) {
+            callback = function(internalErr, statusObject) {
+                expect(typeof statusObject.error).toEqual("object");
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
     });
 
-    it("Should push two strings into success array", function () {
-        expect(testObject.statusObject.success.length).toEqual(2);
-    });
+    describe("System Error in try-catch", function() {
+        var req = {headers: {token: 'm8l0isN6m1ZK3NPX'}}; //hard coded token - in future, get from DB
 
-    it("Should be an Asynchronous function, callback executes last ", function () {
-        expect(testObject.statusObject.success[0]).toEqual("firstInArray-AsynchTest");
-    });
+        beforeEach(function () {
+            statusObject = {isOK: true, success: "bad property"}
+        });
 
-    it("Should push 'authenticatePost' into the success array in statusObject", function () {
-        expect(testObject.statusObject.success[1]).toEqual("authenticatePost");
-    });
-
-    it("Should not push an error into statusObject", function () {
-        expect(statusObject.error).toEqual(undefined);
+        it("Should throw and catch an internal system error", function (done) {
+            callback = function (internalErr) {
+                expect(internalErr.message).toEqual("undefined is not a function");
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
     });
 });
