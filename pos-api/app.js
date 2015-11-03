@@ -30,7 +30,10 @@ app.use(bodyParser.json());
 app.use(function (error, req, res, next) {
     if (error instanceof SyntaxError) {
         res.status(400).send({error: 400, message: "SyntaxError: Please send all values in String format"})
+    } else {
+        res.status(400).send({error: 400, message: error.message });
     }
+    next(error);
 });
 
 app.use(xmlparser({
