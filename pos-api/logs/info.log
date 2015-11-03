@@ -598,3 +598,11 @@
 {"name":"test log","hostname":"Davids-Air-3","pid":24252,"level":50,"msg":"","time":"2015-10-22T17:55:12.075Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":24256,"level":50,"msg":"","time":"2015-10-22T17:55:51.803Z","v":0}
 {"name":"test log","hostname":"Davids-Air-3","pid":24267,"level":50,"msg":"","time":"2015-10-22T17:57:01.531Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59052,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:05:45.618Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59068,"level":50,"err":"res.status is not a function","msg":"","time":"2015-11-03T18:07:16.282Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59075,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:07:34.130Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59079,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:07:54.188Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59079,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:08:01.207Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59086,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:08:21.105Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59130,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:12:55.564Z","v":0}
+{"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59130,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:13:15.285Z","v":0}

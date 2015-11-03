@@ -44,20 +44,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/payments', payments);
 app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    err.status = 404;
+    errorHandling(err, res);
+    next(err);
 });
-
-app.use(errorHandling);
 
 module.exports = app;
