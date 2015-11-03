@@ -17,7 +17,6 @@
                 error: {code: 400, message: "Payment DTO was not successfully created from Post Body"}
             }
         }
-        return transactionDTO;
     } catch (err) {
         if (err) {
             statusObject.isOK = false;
@@ -28,6 +27,7 @@
         }
         return transactionDTO;
     }
+    return transactionDTO;
 };
 
 module.exports = createTransactionDTO;
