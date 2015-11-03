@@ -38,7 +38,7 @@ describe("sendResponse module", function(){
                     return test_res;
                 }, json: function(){}};
                 spyOn(test_res, "set");
-                spyOn(test_res, "status").and.returnValue(test_res);
+                spyOn(test_res, "status")
                 spyOn(test_res, "json")
             });
 
