@@ -96,12 +96,13 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
         var req = {headers: {token: 'm8l0isN6m1ZK3NPX'}}; //hard coded token - in future, get from DB
 
         beforeEach(function () {
-            statusObject = {isOK: true, success: "bad property"}
+            statusObject = {isOK: true, success: {push: function (){}}};
+            spyOn(statusObject.success, 'push').and.throwError("Catch this System Error - Pass to Callback");;
         });
 
         it("Should throw and catch an internal system error", function (done) {
             callback = function (internalErr) {
-                expect(internalErr.message).toEqual("undefined is not a function");
+                expect(internalErr.message).toEqual("Catch this System Error - Pass to Callback");
                 done();
             };
             checkPostToken(req, statusObject, callback);
