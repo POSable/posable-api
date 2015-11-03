@@ -14,7 +14,8 @@ var sendResponse  = function (res, statusObject) {
                 //console.log("Response Returned in XML")
             } else {
                 res.set('Content-Type', 'application/json');
-                res.status(200).json({
+                res.status(200)
+                res.json({
                     status: 200,
                     message: "Transactions passed all internal checks and posted successfully"
                 });
@@ -30,10 +31,11 @@ var sendResponse  = function (res, statusObject) {
                 }));
                 //console.log("Response Returned in XML")
             } else {
-                res.status(statusObject.error.error.code).json({
+                res.status(statusObject.error.error.code);
+                res.json({
                     error: statusObject.error
-                })
-                console.log("Response Returned in JSON");
+                });
+                //console.log("Response Returned in JSON");
             }
         }
     } catch (err) {

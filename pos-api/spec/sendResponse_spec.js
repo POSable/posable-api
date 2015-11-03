@@ -3,6 +3,7 @@ describe("sendResponse module", function(){
     var sendResponse = require('../lib/pos_modules/sendResponse');
     var statusObject = {};
     var test_res = {};
+    var test_err = {};
 
     describe("when isOK is true", function(){
         describe("and sent with xml", function(){
@@ -33,9 +34,11 @@ describe("sendResponse module", function(){
         describe("and sent with JSON", function(){
             beforeEach(function(){
                 statusObject = {isOK: true, success: []};
-                test_res = {req: {headers: { 'content-type' : 'application/json'}}, set: function(){}, status: function(){}, json: function(){}};
+                test_res = {req: {headers: { 'content-type' : 'application/json'}}, set: function(){}, status: function(){
+                    return test_res;
+                }, json: function(){}};
                 spyOn(test_res, "set");
-                spyOn(test_res, "status");
+                spyOn(test_res, "status").and.returnValue(test_res);
                 spyOn(test_res, "json")
             });
 
@@ -81,8 +84,11 @@ describe("sendResponse module", function(){
         describe("and sent with JSON", function(){
             beforeEach(function(){
                 statusObject = {isOK: false, error: {error: {code: 400}}};
-                test_res = {req: {headers: { 'content-type' : 'application/json'}}, status: function(){}};
-                spyOn(test_res, "status");
+                test_res = {req: {headers: { 'content-type' : 'application/json'}}, status: function(){
+                    return statusObject.error
+                }, json: function(){}};
+                spyOn(test_res, "status")
+                spyOn(test_res, "json")
             });
 
 
@@ -94,10 +100,18 @@ describe("sendResponse module", function(){
     });
 
     //describe("when system error, ", function(){
+    //    beforeEach(function(){
+    //        test_err = { status: function(){
+    //            return test_err.status;
+    //        }};
+    //        spyOn(test_err, "status").and.throwError(500);
+    //    });
     //
     //    it("should return system err message", function(){
-    //        expect(1).toEqual(1);
+    //        sendResponse(test_err, statusObject);
+    //        expect(test_err.status).toHaveBeenCalledWith(500);
     //    });
+    //
     //});
 });
 
