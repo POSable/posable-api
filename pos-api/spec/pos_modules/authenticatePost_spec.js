@@ -1,5 +1,5 @@
 describe("Test 'authenticatePost' module & 'checkPostToken' function", function() {
-    var checkPostToken = require('../lib/pos_modules/api/authenticatePost');
+    var checkPostToken = require('../../lib/pos_modules/api/authenticatePost');
     var statusObject = {};
     var callback;
 
@@ -105,7 +105,7 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
 
         beforeEach(function () {
             statusObject = {isOK: true, success: {push: function (){}}};
-            spyOn(statusObject.success, 'push').and.throwError("Catch this System Error - Pass to Callback");;
+            spyOn(statusObject.success, 'push').and.throwError("Catch this System Error - Pass to Callback");
         });
 
         it("Should throw and catch an internal system error", function (done) {

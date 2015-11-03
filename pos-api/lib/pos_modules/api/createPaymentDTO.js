@@ -16,18 +16,17 @@ var createPaymentDTO = function (req, statusObject) {
                 error: {code: 400, message: "Payment DTO was not successfully created from Post Body"}
             }
         }
-        return paymentDTO;
     } catch (err) {
         if (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: "checkPostToken",
+                module: "createPaymentDTO",
                 error: {code: 500, message: "System Error with creating a payment DTO"}
             }
         }
         return paymentDTO;
     }
+    return paymentDTO;
 };
-
 
 module.exports = createPaymentDTO;
