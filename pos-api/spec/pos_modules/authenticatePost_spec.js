@@ -1,5 +1,5 @@
 describe("Test 'authenticatePost' module & 'checkPostToken' function", function() {
-    var checkPostToken = require('../lib/pos_modules/api/authenticatePost');
+    var checkPostToken = require('../../lib/pos_modules/api/authenticatePost');
     var statusObject = {};
     var callback;
 
@@ -83,9 +83,17 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
             checkPostToken(req, statusObject, callback);
         });
 
-        it("Should  push an error object into statusObject", function (done) {
+        it("Should push an error object into statusObject", function (done) {
             callback = function(internalErr, statusObject) {
                 expect(typeof statusObject.error).toEqual("object");
+                done();
+            };
+            checkPostToken(req, statusObject, callback);
+        });
+
+        it("Should change state of statusObject isOK to false", function (done) {
+            callback = function(internalErr, statusObject) {
+                expect(statusObject.isOK).toEqual(false);
                 done();
             };
             checkPostToken(req, statusObject, callback);
@@ -96,12 +104,13 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
         var req = {headers: {token: 'm8l0isN6m1ZK3NPX'}}; //hard coded token - in future, get from DB
 
         beforeEach(function () {
-            statusObject = {isOK: true, success: "bad property"}
+            statusObject = {isOK: true, success: {push: function (){}}};
+            spyOn(statusObject.success, 'push').and.throwError("Catch this System Error - Pass to Callback");
         });
 
         it("Should throw and catch an internal system error", function (done) {
             callback = function (internalErr) {
-                expect(internalErr.message).toEqual("undefined is not a function");
+                expect(internalErr.message).toEqual("Catch this System Error - Pass to Callback");
                 done();
             };
             checkPostToken(req, statusObject, callback);
