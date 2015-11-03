@@ -28,7 +28,7 @@ var sendResponse  = function (res, statusObject) {
                     status: statusObject.error.error.code,
                     error: statusObject.error
                 }));
-                console.log("Response Returned in XML")
+                //console.log("Response Returned in XML")
             } else {
                 res.status(statusObject.error.error.code).json({
                     error: statusObject.error
