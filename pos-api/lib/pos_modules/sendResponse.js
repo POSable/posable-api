@@ -39,7 +39,8 @@ var sendResponse  = function (res, statusObject) {
             }
         }
     } catch (err) {
-        console.log (err);
+        //console.log (err);
+        res.status(500);
     }
 };
 

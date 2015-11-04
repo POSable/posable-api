@@ -3,7 +3,7 @@ describe("sendResponse module", function(){
     var sendResponse = require('../../lib/pos_modules/sendResponse');
     var statusObject = {};
     var test_res = {};
-    //var test_err = {};
+    var test_err = {};
 
     describe("when isOK is true", function(){
         describe("and sent with xml", function(){
@@ -99,20 +99,21 @@ describe("sendResponse module", function(){
         });
     });
 
-    //describe("when system error, ", function(){
-    //    beforeEach(function(){
-    //        test_err = { status: function(){
-    //            return test_err.status;
-    //        }};
-    //        spyOn(test_err, "status").and.throwError(500);
-    //    });
-    //
-    //    it("should return system err message", function(){
-    //        sendResponse(test_err, statusObject);
-    //        expect(test_err.status).toHaveBeenCalledWith(500);
-    //    });
-    //
-    //});
+    describe("when system error, ", function(){
+        beforeEach(function(){
+            statusObject = {isOK: true, success: []};
+            test_res = {req: {headers: { 'content-type' : 'application/xml'}}, set: function(){}, status: function(){}, send: function(){}};
+            spyOn(test_res, "set").and.throwError("system error");
+            spyOn(test_res, "status");
+            spyOn(test_res, "send");
+        });
+
+        it("should return system err message", function(){
+            sendResponse(test_res, statusObject);
+            expect(test_res.status).toHaveBeenCalledWith(500);
+        });
+
+    });
 });
 
 
