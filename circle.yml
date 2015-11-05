@@ -12,4 +12,4 @@ database:
     - echo "No database setup"
 test:
   override:
-    - ./node_modules/jasmine/bin/jasmine spec
+    - ./node_modules/jasmine/bin/jasmine.js
