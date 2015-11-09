@@ -34,12 +34,12 @@ var settings = {
         {
             name: 'service.logging',
             autoDelete: false,
-            subscribe: true //subscribeTo === 'logging'
+            subscribe: false //subscribeTo === 'logging'
         },
         {
             name: 'service.persistence',
             autoDelete: false,
-            subscribe: false //subscribeTo === 'persistence'
+            subscribe: true //subscribeTo === 'persistence'
         },
         {
             name: 'service.externalIntegration',
