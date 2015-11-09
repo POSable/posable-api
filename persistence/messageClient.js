@@ -5,7 +5,7 @@ var createPersistence = require('./handlers/createPersistence');
 
 function setHandlers(){
     console.log('set handlers');
-    wascally.handle( 'service.persistence.addLogEntry', createPersistence) }
+    wascally.handle( 'service.persistence', createPersistence) }
 
 function loadWascallyConfig(){
     setHandlers();
