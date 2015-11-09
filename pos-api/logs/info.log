@@ -606,3 +606,7 @@
 {"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59086,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:08:21.105Z","v":0}
 {"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59130,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:12:55.564Z","v":0}
 {"name":"test log","hostname":"Nicks-MacBook-Air.local","pid":59130,"level":50,"err":"Not Found","msg":"","time":"2015-11-03T18:13:15.285Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":81936,"level":30,"msg":"User requested time: 14:39:6","time":"2015-11-06T21:39:06.557Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":81936,"level":50,"err":"Not Found","msg":"","time":"2015-11-06T21:39:06.698Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":82077,"level":30,"msg":"User requested time: 15:48:4","time":"2015-11-06T22:48:04.845Z","v":0}
+{"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":82077,"level":50,"err":"Not Found","msg":"","time":"2015-11-06T22:48:04.915Z","v":0}

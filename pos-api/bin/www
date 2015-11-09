@@ -7,7 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('pos-api:server');
 var http = require('http');
-
+console.log('req messageClient.js');
+require('../lib/pos_modules/messageClient').getClient();
 
 /**
  * Get port from environment and store in Express.
