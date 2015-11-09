@@ -1,0 +1,1 @@
+require('./getClient').getClient();
