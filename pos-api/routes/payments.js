@@ -10,6 +10,8 @@ var createValPayObj = require('../lib/pos_modules/api/validatePayment');
 //var handleError = require('../lib/pos_modules/errorHandling');
 var savePaymentInDB = require('../lib/pos_modules/api/savePayment');
 var sendResponse =require('../lib/pos_modules/sendResponse');
+var publishAddLogEntry = require('../../commonServiceLib/publishObject').addLogEntry;
+var publishAddPaymentEntry = require('../../commonServiceLib/publishObject').addPaymentEntry;
 
 router.get('/', function(req, res) {
   Payment.find(function(err, payments) {
@@ -53,6 +55,8 @@ router.post('/', function(req, res) {
         } else {finalizePost();}
 
         function finalizePost () {
+            publishAddLogEntry(paymentDTO);
+            publishAddPaymentEntry(paymentDTO);
             sendResponse(res, statusObject);
         }
     }
