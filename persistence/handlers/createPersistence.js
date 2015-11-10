@@ -1,6 +1,6 @@
 var wascally = require('wascally');
 var mongoose = require('mongoose');
-var saveTransactionInDB = require('../lib/saveTransaction');
+//var saveTransactionInDB = require('../lib/saveTransaction');
 var Transaction = require('../models/transaction').model;
 
 mongoose.connect('mongodb://localhost/paymentData');
@@ -10,9 +10,13 @@ function createPersistence(msg) {
 
     transaction.transactionID = msg.body;
 
+    //transaction.cashierID = msg['cashierID'];
+
+
+
     transaction.save(function(err) {
          if (err) {
-             console.log('Error');
+             console.log(err);
          } else{
              console.log( 'Transaction was saved' );
          }
