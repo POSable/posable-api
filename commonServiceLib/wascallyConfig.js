@@ -1,11 +1,28 @@
+var env = process.env.ENV_VARIABLE || 'development';
+console.log('Environment =', env);
+var connection;
+
+var connDevelopemnt = {
+    user: 'david.xesllc@gmail.com',
+    pass: 'deavtdc021076',
+    server: ['52.89.7.38'],
+    port: 5672,
+    vhost: 'dave_dev'
+};
+var connProduction = {
+    user: 'guest',
+    pass: 'guest',
+    server: ['52.89.7.38'],
+    port: 5672,
+    vhost: '%2f'
+};
+
+if (env) connection = connProduction;
+if (env === 'development') connection = connDevelopemnt;
+
 var settings = {
-    connection: {
-        user: 'david.xesllc@gmail.com',
-        pass: 'deavtdc021076',
-        server: [ '52.89.7.38' ],
-        port: 5672,
-        vhost: 'dave_dev',
-    },
+
+    connection: connection,
 
     // define the exchanges
     exchanges: [
@@ -48,7 +65,7 @@ var settings = {
             name: 'service.externalIntegration',
             autoDelete: false,
             subscribe: false //subscribeTo === 'externalIntegration'
-        },
+        }
     ],
 
     // binds exchanges and queues to one another
@@ -94,10 +111,8 @@ var settings = {
             keys: []
         }
     ]
-}
-
+};
 
 module.exports = {
-    settings: settings,
-    loggerKey:  'service.logging'
-}
+    settings: settings
+};

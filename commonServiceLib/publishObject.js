@@ -1,4 +1,5 @@
 var connection = require('./messageClient').getWascally;
+var  statusObject;
 
 var publishObject = function(exchange, type, payload, key) {
     try {
@@ -11,55 +12,61 @@ var publishObject = function(exchange, type, payload, key) {
                 module: "publishObject",
                 error: {code: 500, message: "System Error with publishing object to Rabbit"}
             }
+            console.log(err);
         }
     }
 };
 
-var addLogEntry = function(payload, statusObject) {
+var addLogEntry = function(payload) {
     try {
-        buildRabbitPayload(payload);
-        console.log("setting arguments for logging entry")
+        console.log("setting arguments for logging entry");
         publishObject ('all-commands', 'logger.command.addLogEntry', payload, 'service.logging');
     } catch (err) {
         if (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "publishObject",
-                error: {code: 500, message: "System Error with setting arguments for publishObject function"}
+                error: {code: 500, message: "System Error with setting arguments for addLogEntry function"}
             }
+            console.log(err);
         }
     }
-}
+};
 
-var addDataBaseEntry = function(payload, statusObject) {
+var addTransactionEntry = function(payload) {
     try {
-        buildRabbitPayload(payload);
-        console.log("setting arguments for publishObject")
-        publishObject ('all-commands', 'logger.command.addLogEntry', payload, 'service.logging');
+        console.log("setting arguments for transaction entry");
+        publishObject ('posapi.event.receivedCreateTransactionRequest', 'posapi.event.receivedCreateTransactionRequest', payload);
     } catch (err) {
         if (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "publishObject",
-                error: {code: 500, message: "System Error with setting arguments for publishObject function"}
+                error: {code: 500, message: "System Error with setting arguments for addTransactionEntry function"}
             }
+            console.log(err);
         }
     }
-}
+};
 
-var buildRabbitPayload = function () {
-
-    var BuildPayload = function (){
-
+var addPaymentEntry = function(payload) {
+    try {
+        console.log("setting arguments for payment entry");
+        publishObject('posapi.event.receivedCreatePaymentRequest', 'posapi.event.receivedCreatePaymentRequest', payload);
+    } catch (err) {
+        if (err) {
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                module: "publishObject",
+                error: {code: 500, message: "System Error with setting arguments for addPaymentEntry function"}
+            }
+            console.log(err);
+        }
     }
-
-}
+};
 
 module.exports = {
     addLogEntry: addLogEntry,
-    addDataBaseEntry: addDataBaseEntry
+    addTransactionEntry: addTransactionEntry,
+    addPaymentEntry: addPaymentEntry
 };
-
-
-
-

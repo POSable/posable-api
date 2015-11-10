@@ -3,6 +3,8 @@ var settings = require('./wascallyConfig').settings;
 var curWascally;
 var statusObject;
 
+var os = require('os');
+console.log(os.hostname());
 
 function loadWascallyConfig(){
     try {
@@ -33,7 +35,7 @@ function setSingleton(){
         }
     } catch (err) {
         if (err) {
-            console.log(err)
+            console.log(err);
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "messageClient",
@@ -42,11 +44,10 @@ function setSingleton(){
         }
         return wascally;
     }
-
     return wascally;
 }
 
 module.exports = {
     getClient: function(){return setSingleton()},
     getWascally: wascally
-}
+};
