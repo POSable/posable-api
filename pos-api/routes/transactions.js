@@ -49,7 +49,7 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
 
-        if (statusObject.isOK) { saveTransactionInDB(res, transaction, statusObject, finalizePost);
+          if (statusObject.isOK) { saveTransactionInDB(res, transaction, statusObject, finalizePost);
         } else {finalizePost();}
 
         function finalizePost () {

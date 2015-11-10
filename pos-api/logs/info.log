@@ -610,3 +610,8 @@
 {"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":81936,"level":50,"err":"Not Found","msg":"","time":"2015-11-06T21:39:06.698Z","v":0}
 {"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":82077,"level":30,"msg":"User requested time: 15:48:4","time":"2015-11-06T22:48:04.845Z","v":0}
 {"name":"test log","hostname":"workstation-6b.bancteksbs.local","pid":82077,"level":50,"err":"Not Found","msg":"","time":"2015-11-06T22:48:04.915Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":11553,"level":30,"msg":"User requested time: 16:22:5","time":"2015-11-09T23:22:06.048Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":11553,"level":50,"err":"Not Found","msg":"","time":"2015-11-09T23:22:06.249Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":11553,"level":50,"err":"Not Found","msg":"","time":"2015-11-09T23:22:06.310Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":11553,"level":50,"err":"Not Found","msg":"","time":"2015-11-09T23:22:10.968Z","v":0}
+{"name":"test log","hostname":"Tristans-MacBook-Pro.local","pid":11553,"level":50,"err":"Not Found","msg":"","time":"2015-11-09T23:22:11.036Z","v":0}
