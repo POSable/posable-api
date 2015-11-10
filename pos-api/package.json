@@ -20,7 +20,8 @@
     "object-to-xml": "^1.0.0",
     "rand-token": "^0.2.1",
     "serve-favicon": "~2.3.0",
-    "validator": "^4.1.0"
+    "validator": "^4.1.0",
+    "wascally": "~0.2.7"
   },
   "devDependencies": {
     "jasmine": "^2.3.2"

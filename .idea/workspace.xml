@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
 <<<<<<< Updated upstream
     <list default="true" id="3a10217f-661b-48cb-a022-7e9d03fc6eae" name="Default" comment="">
+<<<<<<< HEAD
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/commonServiceLib/messageClient.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/commonServiceLib/publishObject.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pos-api/lib/pos_modules/messageClient.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pos-api/lib/pos_modules/publishObject.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos-api/package.json" afterPath="$PROJECT_DIR$/pos-api/package.json" />
+=======
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/persistence/node-modules/jasmine/node_modules/jasmine-core/images/jasmine-horizontal.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/persistence/node-modules/jasmine/node_modules/jasmine-core/images/jasmine_favicon.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/persistence/node-modules/jasmine/node_modules/exit/.jshintrc" />
@@ -125,6 +132,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
 <<<<<<< HEAD
 =======
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos-api/routes/transactions.js" afterPath="$PROJECT_DIR$/pos-api/routes/transactions.js" />
 =======
     <list default="true" id="629119ae-e6fb-4abb-9e06-a4064868c2d5" name="Default" comment="">
@@ -152,6 +160,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+<<<<<<< HEAD
+      <file leaf-file-name="messageClient.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/commonServiceLib/messageClient.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+=======
 <<<<<<< HEAD
       <file leaf-file-name="wascallyConfig.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/commonServiceLib/wascallyConfig.js">
@@ -225,61 +240,109 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="59" column="39" selection-start-line="59" selection-start-column="39" selection-end-line="59" selection-end-column="39" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pos-api/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-16.875">
+              <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
+=======
       <file leaf-file-name="jasmine.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/persistence/node-modules/jasmine/bin/jasmine.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="transactions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pos-api/routes/transactions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+=======
       <file leaf-file-name="getClient.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logger/getClient.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="publishObject.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/commonServiceLib/publishObject.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+=======
       <file leaf-file-name="start.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logger/start.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="35" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="wascallyConfig.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/commonServiceLib/wascallyConfig.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.0909091">
+              <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+=======
       <file leaf-file-name="messageClient.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/persistence/messageClient.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="www" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pos-api/bin/www">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+=======
       <file leaf-file-name="createLogEntry.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logger/handlers/createLogEntry.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="createTransactionDTO.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pos-api/lib/pos_modules/api/createTransactionDTO.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="9" selection-start-line="20" selection-start-column="6" selection-end-line="26" selection-end-column="9" />
+=======
       <file leaf-file-name="createPersistence.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/persistence/handlers/createPersistence.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -306,6 +369,7 @@
               <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
 >>>>>>> Stashed changes
 >>>>>>> master
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
               <folding />
             </state>
           </provider>
@@ -349,10 +413,16 @@
         <option value="$PROJECT_DIR$/pos-api/lib/pos_modules/wascallyPublishObject.js" />
         <option value="$PROJECT_DIR$/pos-api/app.js" />
         <option value="$PROJECT_DIR$/commonServiceLib/wascallyConfig.js" />
-        <option value="$PROJECT_DIR$/pos-api/bin/www" />
-        <option value="$PROJECT_DIR$/pos-api/lib/pos_modules/messageClient.js" />
+        <option value="$PROJECT_DIR$/pos-api/spec/pos_modules/messageClient_spec.js" />
         <option value="$PROJECT_DIR$/pos-api/lib/pos_modules/publishObject.js" />
+        <option value="$PROJECT_DIR$/pos-api/lib/pos_modules/messageClient.js" />
+        <option value="$PROJECT_DIR$/commonServiceLib/messageClient.js" />
+        <option value="$PROJECT_DIR$/pos-api/package.json" />
         <option value="$PROJECT_DIR$/pos-api/routes/transactions.js" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/pos-api/bin/www" />
+        <option value="$PROJECT_DIR$/commonServiceLib/publishObject.js" />
+=======
 <<<<<<< HEAD
         <option value="$PROJECT_DIR$/persistence/settings.js" />
         <option value="$PROJECT_DIR$/persistence/start.js" />
@@ -375,6 +445,7 @@
         <option value="$PROJECT_DIR$/logger/package.json" />
 >>>>>>> Stashed changes
 >>>>>>> master
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
       </list>
     </option>
   </component>
@@ -497,7 +568,51 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
+              <option name="myItemId" value="spec" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="posable-api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="posable-api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pos-api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spec" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pos_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="posable-api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="posable-api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pos-api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+=======
               <option name="myItemId" value="wascally" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -627,6 +742,7 @@
       <recent name="$PROJECT_DIR$/persistence/node-modules" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/commonServiceLib" />
       <recent name="$PROJECT_DIR$/pos-api/lib/pos_modules" />
     </key>
   </component>
@@ -722,9 +838,13 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
 <<<<<<< HEAD
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24553572" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+<<<<<<< HEAD
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2015504" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
 =======
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20163691" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32904148" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
 =======
@@ -906,7 +1026,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pos-api/lib/pos_modules/messageClient.js">
+    <entry file="file://$PROJECT_DIR$/commonServiceLib/messageClient.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -948,6 +1068,8 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
     <entry file="file://$PROJECT_DIR$/pos-api/lib/pos_modules/rabbitmq.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -955,6 +1077,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
     <entry file="file://$PROJECT_DIR$/pos-api/lib/pos_modules/sendError.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1043,6 +1166,8 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
     <entry file="file://$PROJECT_DIR$/pos-api/lib/pos_modules/api/createTransactionDTO.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1050,6 +1175,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
     <entry file="file://$PROJECT_DIR$/pos-api/lib/pos_modules/api/mapPayment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1220,8 +1346,12 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/pos-api/spec/pos_modules/authenticatePost_spec.js">
+=======
 <<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/commonServiceLib/wascallyConfig.js">
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1235,6 +1365,20 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/pos-api/spec/pos_modules/createPaymentDTO_spec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="89" column="3" selection-start-line="0" selection-start-column="0" selection-end-line="89" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pos-api/lib/pos_modules/rabbitmq.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03409091">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/persistence/start.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1253,10 +1397,17 @@
           <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
 >>>>>>> Stashed changes
 >>>>>>> master
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/pos-api/lib/pos_modules/api/createTransactionDTO.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="9" selection-start-line="20" selection-start-column="6" selection-end-line="26" selection-end-column="9" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/logger/start.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1280,10 +1431,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
 >>>>>>> Stashed changes
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/commonServiceLib/messageClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/logger/getClient.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1319,14 +1477,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/pos-api/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.875">
+          <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
+=======
     <entry file="file://$PROJECT_DIR$/persistence/messageClient.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
           <folding />
         </state>
       </provider>
@@ -1347,6 +1513,34 @@
 <<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/pos-api/routes/transactions.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pos-api/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commonServiceLib/publishObject.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commonServiceLib/wascallyConfig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0909091">
+          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+=======
         <state vertical-scroll-proportion="0.71590906">
           <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
 =======
@@ -1356,6 +1550,7 @@
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
 >>>>>>> Stashed changes
 >>>>>>> master
+>>>>>>> ed500a95aa823cc8e6a4675c2ba4f69596b64ea8
           <folding />
         </state>
       </provider>

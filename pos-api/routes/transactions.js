@@ -10,7 +10,8 @@ var createValTransObj = require('../lib/pos_modules/api/validateTransaction');
 var saveTransactionInDB = require('../lib/pos_modules/api/saveTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var Transaction = require('../models/transaction').model;
-var publishToLogger = require('../lib/pos_modules/publishObject').toServiceLogger;
+var publishAddLogEntry = require('../../commonServiceLib/publishObject').addLogEntry;
+var publishAddTransactionEntry = require('../../commonServiceLib/publishObject').addTransactionEntry;
 
 
 router.get('/', function(req, res) {
@@ -53,12 +54,9 @@ router.post('/', function(req, res) {
         } else {finalizePost();}
 
         function finalizePost () {
-            try {
-                publishToLogger(transactionDTO);
-                sendResponse(res, statusObject);
-            } catch (err) {
-                console.log(err);
-            }
+            publishAddLogEntry(transactionDTO);
+            publishAddTransactionEntry(transactionDTO);
+            sendResponse(res, statusObject);
         }
     }
 
