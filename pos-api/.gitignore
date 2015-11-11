@@ -10,4 +10,5 @@
 /logs/*
 !/logs/.keep
 /tmp
-pos-api/.DS_Store
+.idea
+.DS_Store
