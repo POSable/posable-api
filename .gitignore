@@ -4,3 +4,5 @@
 /logs/*
 !/logs/.keep
 /tmp
+.idea
+.DS_Store
