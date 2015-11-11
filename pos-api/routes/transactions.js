@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
         } else {finalizePost();}
 
         function finalizePost () {
-            wascallyRabbit.addLogEntry(transactionDTO);
+            //wascallyRabbit.addLogEntry(transactionDTO);
             //publishAddLogEntry(transactionDTO);
             //publishAddTransactionEntry(transactionDTO);
             sendResponse(res, statusObject);
