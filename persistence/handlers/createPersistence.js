@@ -10,8 +10,6 @@ function createPersistence(msg) {
 
     transaction.transactionID = msg.body;
 
-    //transaction.cashierID = msg['cashierID'];
-
 
 
     transaction.save(function(err) {
