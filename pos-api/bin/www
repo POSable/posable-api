@@ -7,8 +7,19 @@
 var app = require('../app');
 var debug = require('debug')('pos-api:server');
 var http = require('http');
-console.log('Create Connection to Rabbit Server - req messageClient.js');
-require('../../commonServiceLib/messageClient').getClient();
+
+console.log('Create Connection to Rabbit Server');
+
+var wascallyRabbit = require('posable-wascally-wrapper');
+var env = require('../lib/pos_modules/common').config();
+var func = function (msg) {console.log(msg)};
+var messageType = 'service.externalIntegration';
+
+
+wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
+wascallyRabbit.setQSubscription('service.externalIntegration');
+wascallyRabbit.setHandler(messageType, func);
+wascallyRabbit.setup();
 
 /**
  * Get port from environment and store in Express.
