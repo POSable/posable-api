@@ -1,5 +1,5 @@
 var connection = require('./messageClient').getWascally;
-var  statusObject;
+var statusObject;
 
 var publishObject = function(exchange, type, payload, key) {
     try {
@@ -11,7 +11,7 @@ var publishObject = function(exchange, type, payload, key) {
             statusObject['error'] = {
                 module: "publishObject",
                 error: {code: 500, message: "System Error with publishing object to Rabbit"}
-            }
+            };
             console.log(err);
         }
     }
@@ -27,7 +27,7 @@ var addLogEntry = function(payload) {
             statusObject['error'] = {
                 module: "publishObject",
                 error: {code: 500, message: "System Error with setting arguments for addLogEntry function"}
-            }
+            };
             console.log(err);
         }
     }
@@ -43,7 +43,7 @@ var addTransactionEntry = function(payload) {
             statusObject['error'] = {
                 module: "publishObject",
                 error: {code: 500, message: "System Error with setting arguments for addTransactionEntry function"}
-            }
+            };
             console.log(err);
         }
     }
@@ -59,7 +59,7 @@ var addPaymentEntry = function(payload) {
             statusObject['error'] = {
                 module: "publishObject",
                 error: {code: 500, message: "System Error with setting arguments for addPaymentEntry function"}
-            }
+            };
             console.log(err);
         }
     }

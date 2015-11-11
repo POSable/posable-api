@@ -10,8 +10,7 @@ var createValTransObj = require('../lib/pos_modules/api/validateTransaction');
 var saveTransactionInDB = require('../lib/pos_modules/api/saveTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var Transaction = require('../models/transaction').model;
-var publishAddLogEntry = require('../../commonServiceLib/publishObject').addLogEntry;
-var publishAddTransactionEntry = require('../../commonServiceLib/publishObject').addTransactionEntry;
+var wascallyRabbit = require('posable-wascally-wrapper');
 
 
 router.get('/', function(req, res) {
@@ -54,8 +53,9 @@ router.post('/', function(req, res) {
         } else {finalizePost();}
 
         function finalizePost () {
-            publishAddLogEntry(transactionDTO);
-            publishAddTransactionEntry(transactionDTO);
+            wascallyRabbit.addLogEntry(transactionDTO);
+            //publishAddLogEntry(transactionDTO);
+            //publishAddTransactionEntry(transactionDTO);
             sendResponse(res, statusObject);
         }
     }
