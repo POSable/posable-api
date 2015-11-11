@@ -6,7 +6,7 @@
   "dependencies": {
     "mongodb": "^2.0.48",
     "mongoose": "^4.2.4",
-    "wascally": "^0.2.7"
+    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
   },
   "devDependencies": {
     "jasmine": "^2.3.2"
