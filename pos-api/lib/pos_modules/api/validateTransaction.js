@@ -1,6 +1,6 @@
 var validator = require('validator');
 var createValPayObj = require('./validatePayment');
-var logPOS = require('../../../logs/sendLogMessage');
+//var logPOS = require('../../../logs/sendLogMessage');
 
 
 function createValTransObj(transactionDTO) {
@@ -61,7 +61,7 @@ function createValTransObj(transactionDTO) {
                 statusObject.success.push('transaction validated');
             }
         } catch (err) {
-            logPOS(err);
+            //logPOS(err);
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: 'transaction validation',
