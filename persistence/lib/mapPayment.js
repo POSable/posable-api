@@ -1,7 +1,8 @@
-var Payment = require('../../../models/payment').model;
+var Payment = require('../models/payment').model;
 
 var mapPayment = function(dto, statusObject) {
         try {
+
             var payment = new Payment();
             payment.uid = dto.uid;
             payment.transactionID = dto.transactionID;
