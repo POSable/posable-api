@@ -13,12 +13,12 @@ function createPersistence(msg) {
 
 
     transaction.save(function(err) {
-         if (err) {
-             console.log(err);
-         } else{
-             console.log( 'Transaction was saved' );
-         }
-     });
+        if (err) {
+            console.log(err);
+        } else{
+            console.log( 'Transaction was saved' );
+        }
+    });
 
     console.log( 'Received from rabbit: ', JSON.stringify(msg.body) );
     msg.ack();
