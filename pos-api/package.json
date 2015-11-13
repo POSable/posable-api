@@ -18,6 +18,7 @@
     "mongoose": "^4.1.10",
     "morgan": "~1.6.1",
     "object-to-xml": "^1.0.0",
+    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
     "rand-token": "^0.2.1",
     "serve-favicon": "~2.3.0",
     "validator": "^4.1.0",
