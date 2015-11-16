@@ -1,18 +1,17 @@
 var wascally = require('wascally');
 var mongoose = require('mongoose');
-//var saveTransactionInDB = require('../lib/saveTransaction');
-var Transaction = require('../models/transaction').model;
+var Transaction = require('../models/payment').model;
 
 mongoose.connect('mongodb://localhost/paymentData');
 
-function createPersistence(msg) {
-    var transaction = new Transaction();
+function createPaymentPersistence(msg) {
+    var payment = new Payment();
 
-    transaction.transactionID = msg.body;
+    payment.transactionID = msg.body;
 
 
 
-    transaction.save(function(err) {
+    payment.save(function(err) {
         if (err) {
             console.log(err);
         } else{
@@ -24,6 +23,6 @@ function createPersistence(msg) {
     msg.ack();
 }
 
-module.exports = createPersistence;
+module.exports = createPaymentPersistence;
 
 

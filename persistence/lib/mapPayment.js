@@ -17,7 +17,6 @@ var mapPayment = function(dto, statusObject) {
             payment.last4 = dto.creditCard.last4;
             payment.authCode = dto.creditCard.authCode;
 
-            //payment.date =
 
             statusObject.success.push("mapPayment");
 
