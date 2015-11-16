@@ -7,7 +7,6 @@ var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO'
 var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
 var createValTransObj = require('../lib/pos_modules/api/validateTransaction');
 //var handleError = require('../lib/pos_modules/errorHandling');
-var saveTransactionInDB = require('../lib/pos_modules/api/saveTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var Transaction = require('../models/transaction').model;
 var wascallyRabbit = require('posable-wascally-wrapper');
@@ -49,13 +48,20 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
 
-          if (statusObject.isOK) { saveTransactionInDB(res, transaction, statusObject, finalizePost);
-        } else {finalizePost();}
+        if (statusObject.isOK) {
+            wascallyRabbit.raiseNewTransactionEvent(transactionDTO).then(finalizePost, function() {
+                statusObject.isOK = false;
+                statusObject['error'] = {
+                    module: 'payment.js',
+                    error: {code: 500, message: "System Error PaymentEvent did NOT publish to Rabbit"}
+                };
+                finalizePost();
+            })
+        } else {
+            finalizePost();
+        }
 
         function finalizePost () {
-            //wascallyRabbit.addLogEntry(transactionDTO);
-            //publishAddLogEntry(transactionDTO);
-            //publishAddTransactionEntry(transactionDTO);
             sendResponse(res, statusObject);
         }
     }
