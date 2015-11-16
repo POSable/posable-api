@@ -1,13 +1,11 @@
-require('./messageClient').messageClient();
-
 var wascallyRabbit = require('posable-wascally-wrapper');
 var env = require('../pos-api/lib/pos_modules/common').config();
-var func = function (msg) {console.log(msg)};
-var messageType = 'service.persistence';
-
+var createPaymentPersistence = require('./handlers/createPaymentPersistence');
+var createTransactionPersistence = require('./handlers/createPaymentPersistence');
 
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.persistence');
-wascallyRabbit.setHandler(messageType, func);
-wascallyRabbit.setup();
+wascallyRabbit.setHandler('posapi.event.receivedCreatePaymentRequest', createPaymentPersistence);
+wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', createTransactionPersistence);
 
+wascallyRabbit.setup();
