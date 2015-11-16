@@ -1,13 +1,13 @@
 var Transaction = require('../models/transaction').model;
 
-var mapTransaction = function(dto, statusObject) {
+var mapTransaction = function(msg) {
         try {
             var transaction = new Transaction();
-            transaction.transactionID = dto.transaction.transactionID;
-            transaction.merchantID = dto.transaction.merchantID;
-            transaction.terminalID = dto.transaction.terminalID;
-            transaction.cashierID = dto.transaction.cashierID;
-            dto.transaction.payments.forEach(function(paymentdto) {
+            transaction.transactionID = msg.transaction.transactionID;
+            transaction.merchantID = msg.transaction.merchantID;
+            transaction.terminalID = msg.transaction.terminalID;
+            transaction.cashierID = msg.transaction.cashierID;
+            msg.transaction.payments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     uid : paymentdto.uid,
                     transactionID : paymentdto.transactionID,
@@ -26,11 +26,11 @@ var mapTransaction = function(dto, statusObject) {
             });
         } catch (err) {
             console.log(err);
-            statusObject.isOK = false;
-            statusObject['error'] = {
-                module: "transactionMap",
-                error: {code: 400, message: "Transaction DB Map was not successfully completed from Post Body"}
-            }
+            //statusObject.isOK = false;
+            //statusObject['error'] = {
+            //    module: "transactionMap",
+            //    error: {code: 400, message: "Transaction DB Map was not successfully completed from Post Body"}
+            //}
         }
         return transaction;
     };
