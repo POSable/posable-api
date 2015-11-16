@@ -8,6 +8,7 @@ mongoose.connect('mongodb://localhost/paymentData');
 
 function createTransactionPersistence(msg) {
 
+
     mapTransaction(msg);
 
     //var transaction = new Transaction();
