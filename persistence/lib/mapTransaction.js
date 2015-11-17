@@ -3,11 +3,11 @@ var Transaction = require('../models/transaction').model;
 var mapTransaction = function(msg) {
         try {
             var transaction = new Transaction();
-            transaction.transactionID = msg.transaction.transactionID;
-            transaction.merchantID = msg.transaction.merchantID;
-            transaction.terminalID = msg.transaction.terminalID;
-            transaction.cashierID = msg.transaction.cashierID;
-            msg.transaction.payments.forEach(function(paymentdto) {
+            transaction.transactionID = msg.body.data.transaction.transactionID;
+            transaction.merchantID = msg.body.data.transaction.merchantID;
+            transaction.terminalID = msg.body.data.transaction.terminalID;
+            transaction.cashierID = msg.body.data.transaction.cashierID;
+            msg.body.data.transaction.payments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     uid : paymentdto.uid,
                     dateTime : paymentdto.dateTime,
@@ -27,6 +27,7 @@ var mapTransaction = function(msg) {
             //    error: {code: 400, message: "Transaction DB Map was not successfully completed from Post Body"}
             //}
         }
+        //console.log(transaction);
         return transaction;
     };
 

@@ -3,13 +3,14 @@ var Transaction = require('../models/transaction').model;
 
 var mapPayment = function(msg) {
         try {
+            //console.log(msg.body.data.transaction.payments);
             var transaction = new Transaction();
             var payment = new Payment();
+            transaction.transactionID =  msg.body.data.transaction.transactionID;
+            transaction.merchantID = msg.body.data.transaction.merchantID;
+            transaction.terminalID = msg.body.data.transaction.terminalID;
+            transaction.cashierID = msg.body.data.transaction.cashierID;
             payment.uid = msg.uid;
-            transaction.transactionID = msg.transactionID;
-            transaction.merchantID = msg.merchantID;
-            transaction.terminalID = msg.terminalID;
-            transaction.cashierID = msg.cashierID;
             payment.dateTime = msg.dateTime;
             payment.paymentType = msg.paymentType;
             payment.amount = msg.amount;
