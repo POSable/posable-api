@@ -8,10 +8,8 @@ var mapPayment = require('../lib/pos_modules/api/mapPayment');
 var Payment = require('../models/payment').model;
 var createValPayObj = require('../lib/pos_modules/api/validatePayment');
 //var handleError = require('../lib/pos_modules/errorHandling');
-var savePaymentInDB = require('../lib/pos_modules/api/savePayment');
 var sendResponse =require('../lib/pos_modules/sendResponse');
-var publishAddLogEntry = require('../../commonServiceLib/publishObject').addLogEntry;
-var publishAddPaymentEntry = require('../../commonServiceLib/publishObject').addPaymentEntry;
+var wascallyRabbit = require('posable-wascally-wrapper');
 
 router.get('/', function(req, res) {
   Payment.find(function(err, payments) {
@@ -43,26 +41,34 @@ router.post('/', function(req, res) {
             }
         }
 
-        if (statusObject.isOK) {paymentDTO = createPaymentDTO(req, statusObject);}
+        if (statusObject.isOK) {paymentDTO = createPaymentDTO(req, statusObject)}
 
         if (statusObject.isOK) {
             var paymentObj = createValPayObj(paymentDTO);
-            paymentObj.validatePayment(statusObject); }
+            paymentObj.validatePayment(statusObject);
+        }
 
         if (statusObject.isOK) {payment = mapPayment(paymentDTO, statusObject);}
 
-        if (statusObject.isOK) {savePaymentInDB(res, payment, statusObject, finalizePost);
-        } else {finalizePost();}
+        if (statusObject.isOK) {
+            wascallyRabbit.raiseNewPaymentEvent(paymentDTO).then(finalizePost, function() {
+                statusObject.isOK = false;
+                statusObject['error'] = {
+                    module: 'payment.js',
+                    error: {code: 500, message: "System Error PaymentEvent did NOT publish to Rabbit"}
+                };
+                finalizePost();
+            })
+        } else {
+            finalizePost();
+        }
 
         function finalizePost () {
-            publishAddLogEntry(paymentDTO);
-            publishAddPaymentEntry(paymentDTO);
             sendResponse(res, statusObject);
         }
     }
 
 });
-
 
 module.exports = router;
 

@@ -23,7 +23,8 @@ var sendResponse  = function (res, statusObject) {
             }
         } else {
             if (res.req.headers['content-type'] === 'application/xml') {
-                res.status(statusObject.error.error.code);
+                //res.status(statusObject.error.error.code);
+                res.status(400);
                 res.send(o2x({
                     '?xml version="1.0" encoding="utf-8"?': null,
                     status: statusObject.error.error.code,
@@ -31,7 +32,8 @@ var sendResponse  = function (res, statusObject) {
                 }));
                 //console.log("Response Returned in XML")
             } else {
-                res.status(statusObject.error.error.code);
+                //res.status(statusObject.error.error.code);
+                res.status(400);
                 res.json({
                     error: statusObject.error
                 });

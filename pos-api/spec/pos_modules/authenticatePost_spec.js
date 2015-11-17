@@ -4,7 +4,8 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
     var callback;
 
     describe("using the correct token", function() {
-        var req = {headers: {token: 'm8l0isN6m1ZK3NPX'}}; //hard coded token - in future, get from DB
+        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjEwMDAwMDAxLCJpYXQiOjE0NDc3MDcyMjN9.oD-VK8gh4nvkEF2V8jigm_FzIIZ4BcW-vpKKgPlKCSg"
+        var req = {headers: {token: 'm8l0isN6m1ZK3NPX', jwtoken: jwt}}; //hard coded token
 
         beforeEach(function () {
             statusObject = {isOK: true, success: []};
@@ -53,7 +54,8 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
     });
 
     describe("NOT using a correct token", function() {
-        var req = {headers: {token: 'badToken'}}; //hard coded token - in future, get from DB
+        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjIwMDAwMDAyLCJpYXQiOjE0NDc3MDcyMjN9.OEBM4CN4hcsyjRpArPox6ipCMqx90NrzZjcw6Lw0xEw"
+        var req = {headers: {token: 'badToken',jwtoken: jwt }}; //hard coded token
 
         beforeEach(function() {
             statusObject = {isOK: true, success: []};
@@ -101,7 +103,8 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
     });
 
     describe("System Error in try-catch", function() {
-        var req = {headers: {token: 'm8l0isN6m1ZK3NPX'}}; //hard coded token - in future, get from DB
+        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjEwMDAwMDAxLCJpYXQiOjE0NDc3MDcyMjN9.oD-VK8gh4nvkEF2V8jigm_FzIIZ4BcW-vpKKgPlKCSg"
+        var req = {headers: {token: 'm8l0isN6m1ZK3NPX', jwtoken: jwt}}; //hard coded token - in future, get from DB
 
         beforeEach(function () {
             statusObject = {isOK: true, success: {push: function (){}}};

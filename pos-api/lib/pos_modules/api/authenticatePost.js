@@ -1,22 +1,53 @@
- var authenticatePost = function (req, statusObject, callback) {
-     process.nextTick(function () {
-         var internalErr = null;
+var jwt = require('jsonwebtoken');
+
+//var jwtPayload = {name: 'Data Cap', uid: 10000001};
+//
+//var makejwToken = jwt.sign(jwtPayload, "posable"); // used to generate the json web token
+//console.log(makejwToken);
+// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjEwMDAwMDAxLCJpYXQiOjE0NDc3MDcyMjN9.oD-VK8gh4nvkEF2V8jigm_FzIIZ4BcW-vpKKgPlKCSg
+
+var authenticatePost = function (req, statusObject, callback) {
+     var internalErr = null;
+     try {
+         var jwtoken = req.headers.jwtoken;
+     } catch(err) {
+         statusObject.isOK = false;
+         statusObject['error'] = {
+             module: 'authenticatePost',
+             error: {code: 400, message: "Missing json web token"}
+         };
+         internalErr = err;
+         return callback(internalErr, statusObject);
+     }
+
+     jwt.verify(jwtoken, 'posable', function(err, decoded) {
          try {
-             var token = "m8l0isN6m1ZK3NPX"; //go get this from DB
-             if (req.headers.token === token) {
+             if (err) {
+                 statusObject.isOK = false;
+                 statusObject['error'] = {
+                     module: 'authenticatePost',
+                     error: {code: 400, message: "System Error when decrypting json web token with 'verify' method"}
+                 }
+                 internalErr = err;
+             } else if (decoded.uid === 10000001)  {
                  statusObject.success.push("authenticatePost");
              } else {
                  statusObject.isOK = false;
                  statusObject['error'] = {
                      module: 'authenticatePost',
-                     error: {code: 400, message: "Unauthorized, incorrect or missing token"}
-                 };
+                     error: {code: 400, message: "Incorrect json web token secret"}
+                 }
              }
-        } catch(err) {
-             internalErr = err;
-        }
+         } catch (err) {
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                module: 'authenticatePost',
+                error: {code: 400, message: "System Error when checking json web token secret"}
+            }
+            internalErr = err;
+         }
          return callback(internalErr, statusObject);
-     })
+     });
  };
 
 module.exports = authenticatePost;
