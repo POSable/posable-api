@@ -6,10 +6,7 @@ var TransactionSchema = new mongoose.Schema({
     cashierID: String,
     terminalID: String,
     merchantID: String,
-    transactionPayments: [
-        {type: mongoose.Schema.Types.ObjectId, ref: 'Payment'}
-    ]
-    //transactionPayments: [mongoose.model('Payment').schema]
+    transactionPayments: [mongoose.model('Payment').schema]
 });
 
 module.exports = {

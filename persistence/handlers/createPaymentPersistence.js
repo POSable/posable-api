@@ -12,7 +12,7 @@ function createPaymentPersistence(msg) {
     //var payment = new Payment();
     //payment.transactionID = msg.body;
 
-    payment.save(function(err) {
+    transaction.save(function(err) {
         if (err) {
             console.log(err);
         } else{

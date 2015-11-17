@@ -10,10 +10,6 @@ var mapTransaction = function(msg) {
             msg.transaction.payments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     uid : paymentdto.uid,
-                    transactionID : paymentdto.transactionID,
-                    merchantID : paymentdto.merchantID,
-                    terminalID : paymentdto.terminalID,
-                    cashierID : paymentdto.cashierID,
                     dateTime : paymentdto.dateTime,
                     paymentType : paymentdto.paymentType,
                     amount : paymentdto.amount,
@@ -21,7 +17,6 @@ var mapTransaction = function(msg) {
                     cardType : paymentdto.creditCard.cardType,
                     last4 : paymentdto.creditCard.last4,
                     authCode : paymentdto.creditCard.authCode
-
                 })
             });
         } catch (err) {

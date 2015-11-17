@@ -1,14 +1,15 @@
 var Payment = require('../models/payment').model;
+var Transaction = require('../models/transaction').model;
 
 var mapPayment = function(msg) {
         try {
-
+            var transaction = new Transaction();
             var payment = new Payment();
             payment.uid = msg.uid;
-            payment.transactionID = msg.transactionID;
-            payment.merchantID = msg.merchantID;
-            payment.terminalID = msg.terminalID;
-            payment.cashierID = msg.cashierID;
+            transaction.transactionID = msg.transactionID;
+            transaction.merchantID = msg.merchantID;
+            transaction.terminalID = msg.terminalID;
+            transaction.cashierID = msg.cashierID;
             payment.dateTime = msg.dateTime;
             payment.paymentType = msg.paymentType;
             payment.amount = msg.amount;
@@ -16,10 +17,9 @@ var mapPayment = function(msg) {
             payment.cardType = msg.creditCard.cardType;
             payment.last4 = msg.creditCard.last4;
             payment.authCode = msg.creditCard.authCode;
+            transaction.transactionPayments.push(payment);
 
-            //statusObject.success.push("mapPayment");
-
-            return payment;
+            return transaction;
 
         } catch (err) {
             console.log(err);
@@ -29,7 +29,7 @@ var mapPayment = function(msg) {
             //    error: {code: 400, message: "Transaction DB Map was not successfully completed from Post Body"}
             //}
         }
-    return payment;
+    return transaction;
 };
 
 module.exports = mapPayment;
