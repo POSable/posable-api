@@ -1,25 +1,26 @@
 var Payment = require('../models/payment').model;
+var Transaction = require('../models/transaction').model;
 
 var mapPayment = function(msg) {
         try {
-
+            //console.log(msg.body.data.transaction.payments);
+            var transaction = new Transaction();
             var payment = new Payment();
-            payment.uid = msg.uid;
-            payment.transactionID = msg.transactionID;
-            payment.merchantID = msg.merchantID;
-            payment.terminalID = msg.terminalID;
-            payment.cashierID = msg.cashierID;
-            payment.dateTime = msg.dateTime;
-            payment.paymentType = msg.paymentType;
-            payment.amount = msg.amount;
-            payment.tax = msg.tax;
-            payment.cardType = msg.creditCard.cardType;
-            payment.last4 = msg.creditCard.last4;
-            payment.authCode = msg.creditCard.authCode;
+            transaction.transactionID =  msg.body.data.transactionID;
+            transaction.merchantID = msg.body.data.merchantID;
+            transaction.terminalID = msg.body.data.terminalID;
+            transaction.cashierID = msg.body.data.cashierID;
+            payment.uid = msg.body.data.uid;
+            payment.dateTime = msg.body.data.dateTime;
+            payment.paymentType = msg.body.data.paymentType;
+            payment.amount = msg.body.data.amount;
+            payment.tax = msg.body.data.tax;
+            payment.cardType = msg.body.data.creditCard.cardType;
+            payment.last4 = msg.body.data.creditCard.last4;
+            payment.authCode = msg.body.data.creditCard.authCode;
+            transaction.transactionPayments.push(payment);
 
-            //statusObject.success.push("mapPayment");
-
-            return payment;
+            return transaction;
 
         } catch (err) {
             console.log(err);
@@ -29,7 +30,7 @@ var mapPayment = function(msg) {
             //    error: {code: 400, message: "Transaction DB Map was not successfully completed from Post Body"}
             //}
         }
-    return payment;
+    return transaction;
 };
 
 module.exports = mapPayment;

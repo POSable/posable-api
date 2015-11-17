@@ -1,18 +1,10 @@
-var wascally = require('wascally');
 var mongoose = require('mongoose');
 var Transaction = require('../models/transaction').model;
 var mapTransaction = require('../lib/mapTransaction');
 
+var createTransactionPersistence = function(msg) {
 
-mongoose.connect('mongodb://localhost/paymentData');
-
-function createTransactionPersistence(msg) {
-
-
-    mapTransaction(msg);
-
-    //var transaction = new Transaction();
-    //transaction.transactionID = msg.body;
+    var transaction = mapTransaction(msg);
 
     transaction.save(function(err) {
         if (err) {
