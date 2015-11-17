@@ -3,20 +3,14 @@ var common = require('./common');
 var config = common.config();
 
 var log = bunyan.createLogger({
-    name: 'test log',
+    name: 'pos-api',
     serializers: bunyan.stdSerializers,
     streams: [
         {
-            type: config.logging_info_type,
-            level: 'info',
-            path: config.logging_info_path,
-            period: config.logging_info_period
-        },
-        {
-            type: config.logging_err_type,
-            level: 'error',
-            path: config.logging_err_path,
-            period: config.logging_err_period
+            type: config.logging_type,
+            level: config.logging_level,
+            path: config.logging_path,
+            period: config.logging_period
         }
     ]
 });
