@@ -5,22 +5,24 @@ describe("persistence-service", function() {
     var persistPayment = require('../handlers/createPaymentPersistence');
 
     beforeEach(function(){
-        testPaymentMsg = {
-            "uid" : "SampleID",
-            "transactionID" : "SampleID",
-            "merchantID" : "SampleID",
-            "terminalID" : "SampleID",
-            "cashierID" : "SampleID",
-            "dateTime" :  "Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)",
-            "paymentType" : "credit",
-            "amount" : 100.00,
-            "tax" : 15.45,
-            "creditCard": {
-                "cardType" : "visa",
-                "last4" : 1234,
-                "authCode" : 123123
-            }
-        };
+        testPaymentMsg = { body: {
+                                data: {
+                                    uid: '1',
+                                    transactionID: '1',
+                                    merchantID: '1',
+                                    terminalID: '1',
+                                    cashierID: '1',
+                                    amount: 5.00,
+                                    tax: 1.00,
+                                    paymentType: 'cash',
+                                    creditCard: {
+                                        cardType: '',
+                                        last4: '1234',
+                                        authCode: 'abc123'
+                                    }
+                                }
+                            }
+                        };
         testPayment = persistPayment(testPaymentMsg);
     });
 
@@ -33,6 +35,5 @@ describe("persistence-service", function() {
         });
     });
 });
-
 
 
