@@ -1,19 +1,18 @@
-describe("persistence-service", function(){
+describe("persistence-service", function() {
 
     var persistPayment = require('../handlers/createPaymentPersistence');
-    var persistTransaction = require('../handlers/createPaymentPersistence');
+    var persistTransaction = require('../handlers/createTransactionPersistence');
 
-    describe("when a payment is received", function(){
+    describe("when a payment is received", function() {
         it("maps and persists", function() {
             expect(true).toBe(true);
         });
     });
 
-    describe("when a transaction is received", function(){
+    describe("when a transaction is received", function() {
         it("maps and persists", function() {
             expect(true).toBe(true);
         });
     });
 });
 
-;
