@@ -8,6 +8,12 @@ describe("persistence-service", function(){
             expect(true).toBe(true);
         });
     });
+
+    describe("when a transaction is received", function(){
+        it("maps and persists", function() {
+            expect(true).toBe(true);
+        });
+    });
 });
 
 ;
