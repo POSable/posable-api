@@ -10,9 +10,9 @@ var PaymentSchema = new mongoose.Schema({
     paymentType: String,
     amount: Number,
     tax: Number,
-    cardType: String,
-    last4: Number,
-    authCode: String
+    cardType: { type: String, default: null },
+    last4: { type: Number, default: null },
+    authCode: { type: String, default: null }
 });
 
 module.exports = {
