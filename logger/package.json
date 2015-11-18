@@ -4,8 +4,10 @@
   "description": "logging service module",
   "main": "start.js",
   "dependencies": {
+    "bunyan": "^1.5.1",
     "mongodb": "^2.0.48",
     "mongoose": "^4.2.4",
+    "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
   },
   "devDependencies": {

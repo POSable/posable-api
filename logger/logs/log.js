@@ -1,9 +1,9 @@
 var bunyan = require('bunyan');
-var common = require('./common');
+var common = require('../common');
 var config = common.config();
 
 var log = bunyan.createLogger({
-    name: 'pos-api',
+    name: 'logger',
     serializers: bunyan.stdSerializers,
     streams: [
         {
