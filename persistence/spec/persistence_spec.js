@@ -1,3 +1,13 @@
-/**
- * Created by spartacus on 11/17/15.
- */
+describe("persistence-service", function(){
+
+    var persistPayment = require('../handlers/createPaymentPersistence');
+    var persistTransaction = require('../handlers/createPaymentPersistence');
+
+    describe("when a payment is received", function(){
+        it("maps and persists", function() {
+            expect(true).toBe(true);
+        });
+    });
+});
+
+;
