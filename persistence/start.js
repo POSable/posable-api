@@ -1,5 +1,5 @@
 var wascallyRabbit = require('posable-wascally-wrapper');
-var env = require('../pos-api/lib/pos_modules/common').config();
+var env = require('./common').config();
 var createPaymentPersistence = require('./handlers/createPaymentPersistence');
 var createTransactionPersistence = require('./handlers/createTransactionPersistence');
 var mongoose = require('mongoose');
