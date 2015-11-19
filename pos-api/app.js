@@ -4,7 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var routes = require('./routes/index');
+//var routes = require('./routes/index');
 var users = require('./routes/users');
 var xmlparser = require('express-xml-bodyparser');
 
@@ -48,7 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/', routes);
+//app.use('/', routes);
 app.use('/users', users);
 app.use('/payments', payments);
 app.use('/transactions', transactions);
