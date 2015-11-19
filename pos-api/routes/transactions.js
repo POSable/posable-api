@@ -60,7 +60,6 @@ router.post('/', function(req, res) {
         } else {
             finalizePost();
         }
-
         function finalizePost () {
             sendResponse(res, statusObject);
         }

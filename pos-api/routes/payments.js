@@ -2,12 +2,10 @@ var express = require('express');
 var router = express.Router();
 var log = require('../lib/pos_modules/log');
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
-//var uid = require('rand-token').uid;
 var createPaymentDTO = require('../lib/pos_modules/api/createPaymentDTO');
 var mapPayment = require('../lib/pos_modules/api/mapPayment');
 var Payment = require('../models/payment').model;
 var createValPayObj = require('../lib/pos_modules/api/validatePayment');
-//var handleError = require('../lib/pos_modules/errorHandling');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
 
@@ -62,13 +60,10 @@ router.post('/', function(req, res) {
         } else {
             finalizePost();
         }
-
-        function finalizePost () {
+        function finalizePost() {
             sendResponse(res, statusObject);
         }
     }
-
 });
 
 module.exports = router;
-
