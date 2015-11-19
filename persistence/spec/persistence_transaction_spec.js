@@ -1,7 +1,6 @@
 describe("persistence-service", function() {
 
     var testTransactionMsg = {};
-    var testTransaction;
     var persistTransaction = require('../handlers/createTransactionPersistence');
 
     beforeEach(function(){
@@ -21,17 +20,15 @@ describe("persistence-service", function() {
                                             authCode: 'abc123'
                                         }
                                     }
-                                }
-                            };
-        testTransaction = persistTransaction(testTransactionMsg);
+                                },
+                                ack: function(){return 'eh?';}
+        };
+        spyOn(testTransactionMsg, 'ack');
     });
 
-    //, ack: function(){}, spyOn(testTransactionMsg, 'ack');
-
-
-    describe("when a transaction is received", function() {
         it("the msg completed map, persist, and ack", function() {
-            expect(testTransaction.ack).toHaveBeenCalled();
+            persistTransaction(testTransactionMsg);
+            expect(testTransactionMsg.ack).toHaveBeenCalled();
         });
-    });
+
 });
