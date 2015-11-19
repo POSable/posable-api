@@ -1,0 +1,19 @@
+{
+  "name": "persistence",
+  "version": "1.0.0",
+  "description": "persistence module",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "posable-logging-plugin": "git+ssh://git@github.com:POSable/posable-logPlugin.git",
+    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
+    "wascally": "^0.2.7"
+  },
+  "devDependencies": {
+    "jasmine": "^2.3.2"
+  }
+}
