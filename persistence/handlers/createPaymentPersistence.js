@@ -5,6 +5,8 @@ var mapPayment = require('../lib/mapPayment');
 
 function createPaymentPersistence(msg) {
 
+    console.log(msg.body.data.creditCard);
+
     var payment = mapPayment(msg);
 
     payment.save(function(err) {
