@@ -27,7 +27,7 @@ var authenticatePost = function (req, statusObject, callback) {
                  statusObject['error'] = {
                      module: 'authenticatePost',
                      error: {code: 400, message: "System Error when decrypting json web token with 'verify' method"}
-                 }
+                 };
                  internalErr = err;
              } else if (decoded.uid === 10000001)  {
                  statusObject.success.push("authenticatePost");
@@ -43,7 +43,7 @@ var authenticatePost = function (req, statusObject, callback) {
             statusObject['error'] = {
                 module: 'authenticatePost',
                 error: {code: 400, message: "System Error when checking json web token secret"}
-            }
+            };
             internalErr = err;
          }
          return callback(internalErr, statusObject);

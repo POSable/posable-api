@@ -8,6 +8,8 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 var env = require('../lib/pos_modules/common').config();
 
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
+wascallyRabbit.setQSubscription('service.externalIntegration');
+
 wascallyRabbit.setup();
 
 console.log('Configuring Logs');

@@ -80,7 +80,6 @@ describe("sendResponse module", function(){
             });
         });
 
-
         describe("and sent with JSON", function(){
             beforeEach(function(){
                 statusObject = {isOK: false, error: {error: {code: 400}}};
@@ -90,7 +89,6 @@ describe("sendResponse module", function(){
                 spyOn(test_res, "status")
                 spyOn(test_res, "json")
             });
-
 
             it("should return error status 400", function(){
                 sendResponse(test_res, statusObject);
@@ -112,7 +110,6 @@ describe("sendResponse module", function(){
             sendResponse(test_res, statusObject);
             expect(test_res.status).toHaveBeenCalledWith(500);
         });
-
     });
 });
 
