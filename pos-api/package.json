@@ -20,6 +20,7 @@
     "morgan": "~1.6.1",
     "object-to-xml": "^1.0.0",
     "posable-logging-plugin": "git+ssh://git@github.com:POSable/posable-logPlugin.git",
+    "posable-validation-plugin": "git+ssh://git@github.com/POSable/posable-validationPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com:POSable/posable-wascally-wrapper.git",
     "rand-token": "^0.2.1",
     "serve-favicon": "~2.3.0",
