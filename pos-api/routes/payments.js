@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var log = require('../lib/pos_modules/log');
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
 var createPaymentDTO = require('../lib/pos_modules/api/createPaymentDTO');
 var mapPayment = require('../lib/pos_modules/api/mapPayment');
 var Payment = require('../models/payment').model;
-var createValPayObj = require('../lib/pos_modules/api/validatePayment');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
+var validate = require('posable-validation-plugin');
 
 router.get('/', function(req, res) {
   Payment.find(function(err, payments) {
@@ -42,8 +41,13 @@ router.post('/', function(req, res) {
         if (statusObject.isOK) {paymentDTO = createPaymentDTO(req, statusObject)}
 
         if (statusObject.isOK) {
-            var paymentObj = createValPayObj(paymentDTO);
-            paymentObj.validatePayment(statusObject);
+            var valObject = validate.validatePay(paymentDTO);
+            if (valObject.isValid == false) {
+                statusObject.isOK = false;
+                statusObject['error'] = {
+                    module: 'Payment Validation',
+                    error: {code: 400, message: valObject.message} }
+            }  else { statusObject.success.push('validated'); }
         }
 
         if (statusObject.isOK) {payment = mapPayment(paymentDTO, statusObject);}

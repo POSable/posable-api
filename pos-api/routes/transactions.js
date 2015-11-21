@@ -1,16 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var log = require('../lib/pos_modules/log');
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
-//var uid = require('rand-token').uid;
 var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
 var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
-var createValTransObj = require('../lib/pos_modules/api/validateTransaction');
-//var handleError = require('../lib/pos_modules/errorHandling');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var Transaction = require('../models/transaction').model;
 var wascallyRabbit = require('posable-wascally-wrapper');
-
+var validate = require('posable-validation-plugin');
 
 router.get('/', function(req, res) {
     Transaction.find(function(err, transactions) {
@@ -43,8 +39,14 @@ router.post('/', function(req, res) {
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
         if (statusObject.isOK) {
-            var transactionObj = createValTransObj(transactionDTO);
-            transactionObj.validateTransaction(statusObject); }
+            var valObject = validate.validateTrans(transactionDTO);
+            if (valObject.isValid == false) {
+                statusObject.isOK = false;
+                statusObject['error'] = {
+                    module: 'Transaction Validation',
+                    error: {code: 400, message: valObject.message} }
+            }  else { statusObject.success.push('validated'); }
+        }
 
         if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
 
