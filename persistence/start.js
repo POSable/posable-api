@@ -13,4 +13,4 @@ wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', creat
 
 wascallyRabbit.setup();
 
-var sum = require('./lib/paymentQuery');
+require('./lib/paymentQuery');
