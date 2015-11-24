@@ -6,7 +6,7 @@ var PaymentSchema = new mongoose.Schema({
     merchantID: String,
     terminalID: String,
     cashierID: String,
-    dateTime: String,
+    dateTime: Date,
     paymentType: String,
     amount: Number,
     tax: Number,
