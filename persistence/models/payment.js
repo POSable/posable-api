@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var PaymentSchema = new mongoose.Schema({
     uid: String,
-    dateTime: String,
+    dateTime: Date,
     paymentType: String,
     amount: Number,
     tax: Number,
