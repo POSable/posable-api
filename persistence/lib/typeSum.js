@@ -7,12 +7,11 @@ var typeSum = function() {
                     return prev.amount + curr.amount
             })
         })
-
     } catch (err) {
         console.log(err);
     }
     return result;
-//    return will be a publish event to RabbitMQ
+//    return will need to be a publish event to RabbitMQ
 };
 
 module.exports = typeSum();
