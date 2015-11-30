@@ -30,9 +30,8 @@ var authenticatePost = function (req, statusObject, callback) {
                      error: {code: 400, message: "System Error when decrypting json web token with 'verify' method"}
                  };
                  internalErr = err;
-             } else if (typeof decoded.uid%2 === 1)  { // even number uids have a response type 'email' - errors are persisted and email sent.
+             } else if (decoded.uid%2 === 1)  { // even number uids have a response type 'email' - errors are persisted and email sent.
                  statusObject.success.push("authenticatePost");
-                 console.log(decoded.uid);
              } else {
                  statusObject.responseType = "email"; // even number uids have a response type 'email' - errors are persisted and email sent.
                  statusObject.isOK = false;
