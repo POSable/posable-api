@@ -1,4 +1,5 @@
 var payments = require('./paymentQuery');
+//console.log(payments);
 
 var typeSum = function() {
     try {

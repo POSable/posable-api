@@ -8,7 +8,7 @@ var Transaction = require('../models/transaction').model;
 
 var paymentQuery = function() {
     try {
-         Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'cash'}, function (err, payments) {
+         Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit'}, function (err, payments) {
              if (err) return err;
 
              console.log(payments);
