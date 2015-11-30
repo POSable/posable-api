@@ -51,6 +51,7 @@ router.post('/', function(req, res) {
         if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
 
         if (statusObject.isOK) {
+            console.log("statusObject", statusObject);
             wascallyRabbit.raiseNewTransactionEvent(transactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
@@ -63,7 +64,18 @@ router.post('/', function(req, res) {
             finalizePost();
         }
         function finalizePost () {
-            sendResponse(res, statusObject);
+            console.log("in finalize post");
+            if (statusObject.responseType === 'email') {
+                console.log("before send to rabbit")
+                wascallyRabbit.raiseErrorResponseEmailAndPersist(transactionDTO).then(sendResponse(res, statusObject), function(){
+                    console.log("error sending to rabbit")
+                    sendResponse(res, statusObject);
+                })
+
+            } else {
+                console.log("Response Type", statusObject);
+                sendResponse(res, statusObject);
+            }
         }
     }
 

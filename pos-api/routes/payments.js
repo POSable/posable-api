@@ -64,8 +64,19 @@ router.post('/', function(req, res) {
         } else {
             finalizePost();
         }
-        function finalizePost() {
-            sendResponse(res, statusObject);
+        function finalizePost () {
+            console.log("in finalize post");
+            if (statusObject.responseType === 'email') {
+                console.log("before send to rabbit")
+                wascallyRabbit.raiseErrorResponseEmailAndPersist(transactionDTO).then(sendResponse(res, statusObject), function(){
+                    console.log("error sending to rabbit")
+                    sendResponse(res, statusObject);
+                })
+
+            } else {
+                console.log("Response Type", statusObject);
+                sendResponse(res, statusObject);
+            }
         }
     }
 });
