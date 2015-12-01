@@ -1,35 +1,28 @@
 var express = require('express');
 var router = express.Router();
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
-var createPaymentDTO = require('../lib/pos_modules/api/createPaymentDTO');
-var mapPayment = require('../lib/pos_modules/api/mapPayment');
-var Payment = require('../models/payment').model;
+var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
+var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
+var Transaction = require('../models/transaction').model;
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 
 router.get('/', function(req, res) {
-  Payment.find(function(err, payments) {
-    if (err)
-      res.send(err);
-
-    res.json(payments);
-  });
+           res.json("Collections Get End Point");
 });
 
 router.post('/', function(req, res) {
-
-    console.log("Payments Post received with content type of", req.headers['content-type']);
+    var transaction;
+    console.log("Collections Post received with content type of", req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
-    var paymentDTO;
+    var transactionDTO = {};
 
     if (statusObject.isOK) {
         checkPostToken(req, statusObject, continuePost);
     }
 
     function continuePost(err, statusObject) {
-        var payment;
-
         if (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
@@ -38,22 +31,23 @@ router.post('/', function(req, res) {
             }
         }
 
-        if (statusObject.isOK) {paymentDTO = createPaymentDTO(req, statusObject)}
+        if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
         if (statusObject.isOK) {
-            var valObject = validate.validatePay(paymentDTO);
+            var valObject = validate.validateTrans(transactionDTO);
             if (valObject.isValid == false) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
-                    module: 'Payment Validation',
+                    module: 'Transaction Validation',
                     error: {code: 400, message: valObject.message} }
             }  else { statusObject.success.push('validated'); }
         }
 
-        if (statusObject.isOK) {payment = mapPayment(paymentDTO, statusObject);}
+        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
 
         if (statusObject.isOK) {
-            wascallyRabbit.raiseNewPaymentEvent(paymentDTO).then(finalizePost, function() {
+            console.log("statusObject", statusObject);
+            wascallyRabbit.raiseNewTransactionEvent(transactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
@@ -67,9 +61,9 @@ router.post('/', function(req, res) {
         function finalizePost () {
             console.log("in finalize post");
             if (statusObject.responseType === 'alt') {
-                console.log("before send to rabbit")
+                console.log("before send to rabbit");
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(req).then(sendResponse(res, statusObject), function(){
-                    console.log("error sending req to rabbit")
+                    console.log("error sending req to rabbit");
                     sendResponse(res, statusObject);
                 })
 

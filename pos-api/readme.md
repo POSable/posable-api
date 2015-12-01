@@ -173,6 +173,42 @@ Available Methods - GET, POST
         </payments>
 </transaction> 
 
+#####This section shows the JSON or XML transaction definition for posting a payment to posableapi/collections.
+
+http://test.posableapi.io/collections
+
+Available Methods - GET, POST
+
+*transaction         - object
+*transactionID       - string  (accepts strings containing only numbers & letters, no whitespace)
+*merchantID          - string  (accepts strings containing only numbers & letters, no whitespace)
+*terminalID          - string  (accepts strings containing only numbers & letters, no whitespace)
+*cashierID           - string  (accepts strings containing only numbers & letters, no whitespace)
+*payments            - array
+*uid                 - string  (accepts strings containing only numbers & letters, no whitespace)
+*transactionID       - string  (accepts strings containing only numbers & letters, no whitespace)
+*merchantID          - string  (accepts strings containing only numbers & letters, no whitespace)
+*terminalID          - string  (accepts strings containing only numbers & letters, no whitespace)
+*cashierID           - string  (accepts strings containing only numbers & letters, no whitespace)
+*dateTime            - UTC
+*paymentType         - string  (only accepts the following strings: cash, credit)
+*amount              - float   (accepts strings containing only numbers)
+*tax                 - float   (accepts strings containing only numbers)
+*creditCard          - object
+   *cardType         - string  (accepts only following strings: visa, mastercard, discover, amex)
+   *last4            - integer (only accepts 4 number strings)
+   *authCode         - string  (only accepts 6 number strings)
+
+
+
+
+
+
+
+
+
+
+
 #####Postman Testing Info:
 
 We use a Chrome extension called Postman to test. It can be downloaded here:
