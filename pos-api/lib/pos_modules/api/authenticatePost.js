@@ -33,7 +33,7 @@ var authenticatePost = function (req, statusObject, callback) {
              } else if (decoded.uid%2 === 1)  { // even number uids have a response type 'email' - errors are persisted and email sent.
                  statusObject.success.push("authenticatePost");
              } else {
-                 statusObject.responseType = "email"; // even number uids have a response type 'email' - errors are persisted and email sent.
+                 statusObject.responseType = "alt"; // even number uids have a response type 'email' - errors are persisted and email sent.
                  statusObject.isOK = false;
                  statusObject['error'] = {
                      module: 'authenticatePost',
