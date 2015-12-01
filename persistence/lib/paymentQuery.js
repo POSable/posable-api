@@ -6,17 +6,14 @@ var Transaction = require('../models/transaction').model;
 //    return new Date();
 //}
 
-var paymentQuery = function() {
+var paymentQuery = function(callback) {
     try {
-         Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit'}, function (err, payments) {
-             if (err) return err;
-
-             console.log(payments);
-             return payments;
-        });
+         Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'cash'}, callback);
     } catch (err) {
         console.log(err);
     }
 };
 
-module.exports = paymentQuery();
+module.exports = paymentQuery;
+
+

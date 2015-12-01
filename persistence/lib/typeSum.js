@@ -1,18 +1,27 @@
-var payments = require('./paymentQuery');
+var paymentQuery = require('./paymentQuery');
 //console.log(payments);
 
 var typeSum = function() {
     try {
-        var result = payments.forEach(function(payment){
-                payment.reduce(function(prev, curr) {
-                    return prev.amount + curr.amount
-            })
-        })
+        var result = 0;
+        var callback = function(err, payments) {
+        if (err) return err;
+
+        payments.forEach(function(payment) {
+            //console.log(payment);
+            result += payment.transactionPayments.reduce(function (prev, curr) {
+                return prev + curr.amount;
+            }, 0)
+
+        });
+        //console.log(result);
+        //inside callback block return result will need push to timed service
+        };
+
+    paymentQuery(callback);
     } catch (err) {
         console.log(err);
     }
-    return result;
-//    return will need to be a publish event to RabbitMQ
 };
 
 module.exports = typeSum();
