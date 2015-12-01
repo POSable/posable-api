@@ -69,7 +69,7 @@ router.post('/', function(req, res) {
             if (statusObject.responseType === 'alt') {
                 console.log("before send to rabbit")
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(req).then(sendResponse(res, statusObject), function(){
-                    console.log("error sending to rabbit")
+                    console.log("error sending req to rabbit")
                     sendResponse(res, statusObject);
                 })
 
