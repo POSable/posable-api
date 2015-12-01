@@ -12,3 +12,6 @@ wascallyRabbit.setHandler('posapi.event.receivedCreatePaymentRequest', createPay
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', createTransactionPersistence);
 
 wascallyRabbit.setup();
+
+//require('./lib/paymentQuery');
+require('./lib/typeSum');
