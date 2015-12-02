@@ -40,20 +40,19 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {paymentDTO = createPaymentDTO(req, statusObject)}
 
+        if (statusObject.isOK) {payment = mapPayment(paymentDTO, statusObject);}
+
         if (statusObject.isOK) {
-            var valObject = validate.validatePay(paymentDTO);
+            var valObject = validate.validatePayment(payment);
             if (valObject.isValid == false) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'Payment Validation',
                     error: {code: 400, message: valObject.message} }
-            }  else { statusObject.success.push('validated'); }
-        }
-
-        if (statusObject.isOK) {payment = mapPayment(paymentDTO, statusObject);}
+            }  else { statusObject.success.push('validated'); } }
 
         if (statusObject.isOK) {
-            wascallyRabbit.raiseNewPaymentEvent(paymentDTO).then(finalizePost, function() {
+            wascallyRabbit.raiseNewPaymentEvent(payment).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',

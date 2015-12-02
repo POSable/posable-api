@@ -1,23 +1,24 @@
 var mongoose = require('mongoose');
-var Transaction = require('../models/payment').model;
 var mapPayment = require('../lib/mapPayment');
-
+var validate = require('posable-validation-plugin');
+var log = require('posable-logging-plugin');
 
 function createPaymentPersistence(msg) {
 
-    console.log(msg.body.data.creditCard);
-
     var payment = mapPayment(msg);
+
+    var valPayment = validate.validatePayment(payment);
+    if (valPayment.isValid == false) { log.error('Failed validation') }
 
     payment.save(function(err) {
         if (err) {
-            console.log(err);
-        } else{
-            console.log( 'Transaction was saved' );
+            log.error(err);
+        } else {
+            log.debug('Transaction was saved');
         }
     });
 
-    console.log( 'Received from rabbit: ', JSON.stringify(msg.body) );
+    log.debug( 'Received from rabbit: ', JSON.stringify(msg.body) );
     msg.ack();
 }
 
