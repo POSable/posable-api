@@ -38,21 +38,20 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
+        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
+
         if (statusObject.isOK) {
-            var valObject = validate.validateTrans(transactionDTO);
+            var valObject = validate.validateTransaction(transaction);
             if (valObject.isValid == false) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'Transaction Validation',
                     error: {code: 400, message: valObject.message} }
-            }  else { statusObject.success.push('validated'); }
-        }
-
-        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
+            }  else { statusObject.success.push('validated'); } }
 
         if (statusObject.isOK) {
             console.log("statusObject", statusObject);
-            wascallyRabbit.raiseNewTransactionEvent(transactionDTO).then(finalizePost, function() {
+            wascallyRabbit.raiseNewTransactionEvent(transaction).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
@@ -66,9 +65,9 @@ router.post('/', function(req, res) {
         function finalizePost () {
             console.log("in finalize post");
             if (statusObject.responseType === 'alt') {
-                console.log("before send to rabbit")
+                console.log("before send to rabbit");
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(req).then(sendResponse(res, statusObject), function(){
-                    console.log("error sending req to rabbit")
+                    console.log("error sending req to rabbit");
                     sendResponse(res, statusObject);
                 })
 
