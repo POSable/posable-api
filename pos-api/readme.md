@@ -201,14 +201,6 @@ Available Methods - GET, POST
 
 
 
-
-
-
-
-
-
-
-
 #####Postman Testing Info:
 
 We use a Chrome extension called Postman to test. It can be downloaded here:
