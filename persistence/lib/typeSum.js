@@ -24,4 +24,4 @@ var typeSum = function() {
     }
 };
 
-module.exports = typeSum();
+module.exports = typeSum;
