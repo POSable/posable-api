@@ -11,6 +11,8 @@
   "dependencies": {
     "mongo": "^0.1.0",
     "mongoose": "^4.2.5",
+    "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
+    "posable-validation-plugin": "git+ssh://git@github.com/POSable/posable-validationPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
     "wascally": "^0.2.7"
   },

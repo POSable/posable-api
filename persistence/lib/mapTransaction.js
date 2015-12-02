@@ -3,20 +3,20 @@ var Transaction = require('../models/transaction').model;
 var mapTransaction = function(msg) {
         try {
             var transaction = new Transaction();
-            transaction.transactionID = msg.body.data.transaction.transactionID;
-            transaction.merchantID = msg.body.data.transaction.merchantID;
-            transaction.terminalID = msg.body.data.transaction.terminalID;
-            transaction.cashierID = msg.body.data.transaction.cashierID;
-            msg.body.data.transaction.payments.forEach(function(paymentdto) {
+            transaction.transactionID = msg.body.data.transactionID;
+            transaction.merchantID = msg.body.data.merchantID;
+            transaction.terminalID = msg.body.data.terminalID;
+            transaction.cashierID = msg.body.data.cashierID;
+            msg.body.data.transactionPayments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     uid : paymentdto.uid,
                     dateTime : paymentdto.dateTime,
                     paymentType : paymentdto.paymentType,
                     amount : paymentdto.amount,
                     tax : paymentdto.tax,
-                    cardType : paymentdto.creditCard.cardType,
-                    last4 : paymentdto.creditCard.last4,
-                    authCode : paymentdto.creditCard.authCode
+                    cardType : paymentdto.cardType,
+                    last4 : paymentdto.last4,
+                    authCode : paymentdto.authCode
                 })
             });
         } catch (err) {

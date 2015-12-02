@@ -15,9 +15,12 @@ var mapPayment = function(msg) {
             payment.paymentType = msg.body.data.paymentType;
             payment.amount = msg.body.data.amount;
             payment.tax = msg.body.data.tax;
-            payment.cardType = msg.body.data.creditCard.cardType;
-            payment.last4 = msg.body.data.creditCard.last4;
-            payment.authCode = msg.body.data.creditCard.authCode;
+
+            if (msg.body.data.paymentType === 'credit') {
+                payment.cardType = msg.body.data.creditCard.cardType;
+                payment.last4 = msg.body.data.creditCard.last4;
+                payment.authCode = msg.body.data.creditCard.authCode; }
+
             transaction.transactionPayments.push(payment);
 
             return transaction;
