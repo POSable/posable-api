@@ -1,9 +1,8 @@
+var nodemailer = require('nodemailer');
+
 var sendMail = function (msg) {
-    console.log ("in sendMail")
+    console.log("this is the msg", msg);
 
-    var nodemailer = require('nodemailer');
-
-    // create reusable transporter object using SMTP transport
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -11,20 +10,17 @@ var sendMail = function (msg) {
             pass: 'POSable123!'
         }
     });
-
-    // NB! No need to recreate the transporter object. You can use
-    // the same transporter object for all e-mails
-
-    // setup e-mail data with unicode symbols
+    var error = JSON.stringify(msg);
     var mailOptions = {
         from: 'Posable.io ✔ <posable.io@gmail.com>', // sender address
-        to: 'Steve Spohr <steve@posable.io>', // list of receivers
-        subject: 'Hello ✔', // Subject line
-        text: 'Hello world ✔' + msg + 'end of plain text', // plaintext body
-        html: '<b>Hello world ✔</b>' // html body
+        to: '', // list of receivers
+        subject: 'Test Email Service ✔', // Subject line
+        text: 'This will eventually pass an error msg ✔' + error , // plaintext body
+        html: '<b> Hello world ✔' + error + '</b>' // html body
     };
 
-    // send mail with defined transport object
+    //  'Steve Spohr <steve@posable.io>' - need to insert email address in to the to line
+
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
             return console.log(error);
@@ -32,7 +28,6 @@ var sendMail = function (msg) {
         console.log('Message sent: ' + info.response);
         msg.ack();
     });
-
 };
 
 module.exports = {
