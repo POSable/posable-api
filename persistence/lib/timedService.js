@@ -8,7 +8,9 @@ var timedService = function() {
             var hours = d.getHours();
             var mins = d.getMinutes();
 
-            if (hours >= 12 && hours <= 13) {
+            //console.log(hours);
+
+            if (hours >= 12 && hours <= 14) {
                 console.log("in the range");
                 typeSum();
             } else {
