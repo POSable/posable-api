@@ -7,11 +7,11 @@ var bodyParser = require('body-parser');
 //var routes = require('./routes/index');
 var users = require('./routes/users');
 var xmlparser = require('express-xml-bodyparser');
-
 var healthcheck = require('./routes/healthcheck');
 var payments = require('./routes/payments');
 var transactions = require('./routes/transactions');
 var errorHandling = require('./lib/pos_modules/errorHandling');
+var collections = require('./routes/collections');
 
 var app = express();
 
@@ -53,6 +53,7 @@ app.use('/users', users);
 app.use('/payments', payments);
 app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
+app.use('/collections', collections);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
