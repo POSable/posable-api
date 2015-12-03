@@ -17,7 +17,7 @@ var typeSum = function() {
         console.log(result);
         //inside callback block return result will need push to timed service
         //Publish msg to Rabbit using the wascally wrapper
-        raise event - Persist - customer, time/date, batch amount
+
         };
 
     paymentQuery(callback);

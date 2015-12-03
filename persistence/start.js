@@ -15,4 +15,4 @@ wascallyRabbit.setup();
 
 //require('./lib/paymentQuery');
 //require('./lib/typeSum');
-require('./lib/timedService');
+//require('./lib/timedService');
