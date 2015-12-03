@@ -10,7 +10,7 @@ var timedService = function() {
 
             //console.log(hours);
 
-            if (hours >= 12 && hours <= 14) {
+            if (hours >= 10 && hours <= 14) {
                 console.log("in the range");
                 typeSum();
             } else {
