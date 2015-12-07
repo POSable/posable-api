@@ -251,45 +251,101 @@ Available Methods - GET, POST
 #####XML         
      
 <transaction>
-   <transactionID>SampleID</transactionID>
-   <merchantID>SampleID</merchantID>
-   <terminalID>SampleID</terminalID>
-   <cashierID>SampleID</cashierID>
-       <payments>
-           <payment> 
-               <uid>SampleID</uid> 
-               <transactionID>SampleID</transactionID>
-               <merchantID>SampleID</merchantID>
-               <terminalID>SampleID</terminalID>
-               <cashierID>SampleID</cashierID>
-               <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
-               <paymentType>credit</paymentType>
-               <amount>100.00</amount>
-               <tax>15.45</tax>
-               <creditCard>
-                   <cardType>visa</cardType>
-                   <last4>1234</last4>
-                   <authCode>123456</authCode>
-               </creditCard>
-           </payment>
-           <payment> 
-               <uid>SampleID2</uid> 
-               <transactionID>SampleID2</transactionID>
-               <merchantID>SampleID2</merchantID>
-               <terminalID>SampleID2</terminalID>
-               <cashierID>SampleID</cashierID>
-               <dateTime>Wed Oct 15 2015 11:30:50 GMT-0600 (MDT)</dateTime>
-               <paymentType>credit</paymentType>
-               <amount>200.00</amount>
-               <tax>25.45</tax>
-               <creditCard>
-                   <cardType>mastercard</cardType>
-                   <last4>2345</last4>
-                   <authCode>234567</authCode>
-               </creditCard>
-           </payment>
-       </payments>
-</transaction> 
+    <transactionID>SampleID</transactionID>
+    <merchantID>SampleID</merchantID>
+    <terminalID>SampleID</terminalID>
+    <cashierID>SampleID</cashierID>
+    <TransactionDateTime/>
+    <Customer>
+        <FirstName/>
+        <LastName/>
+        <Title/>
+        <Gender/>
+        <Address>
+            <AddressType/>
+            <Street1/>
+            <Street2/>
+            <City/>
+            <StateProvinceRegion/>
+            <PostalCode/>
+            <Country/>
+        </Address>
+    <Phone>
+        <PhoneType/>
+        <PhoneNumber/>
+    </Phone>
+    <EmailAddress>
+        <EmailType/>
+        <EmailAddress/>
+    </EmailAddress>
+    <CustomField>
+      <FieldName/>
+      <FieldValue/>
+    </CustomField>
+    </Customer>
+    <Inventory>
+        <ItemName/>
+        <ItemDescription/>
+        <ItemNumber/>
+        <Quantity/>
+        <Vendor/>
+        <Size/>
+        <Attribute/>
+        <TaxAmount/>
+        <UPC/>
+        <UnitOfMeasure/>
+        <Manufacturer/>
+        <UnitCost/>
+        <SerialNumber/>
+        <ShippingWeight/>
+        <ShippingHeight/>
+        <ShippingLength/>
+        <ShippingWidth/>
+        <Comments/>
+        <TrackingNumber/>
+        <ShippingCarrier/>
+        <OrderDate/>
+        <ReceivedDate/>
+        <CustomField>
+            <FieldName/>
+            <FieldValue/>
+        </CustomField>
+    </Inventory>
+        <payments>
+            <payment> 
+                <uid>SampleID</uid> 
+                <transactionID>SampleID</transactionID>
+                <merchantID>SampleID</merchantID>
+                <terminalID>SampleID</terminalID>
+                <cashierID>SampleID</cashierID>
+                <dateTime>Wed Oct 14 2015 11:30:50 GMT-0600 (MDT)</dateTime>
+                <paymentType>credit</paymentType>
+                <amount>100.00</amount>
+                <tax>15.45</tax>
+                <creditCard>
+                    <cardType>visa</cardType>
+                    <last4>1234</last4>
+                    <authCode>123456</authCode>
+                </creditCard>
+            </payment>
+            <payment> 
+                <uid>SampleID2</uid> 
+                <transactionID>SampleID2</transactionID>
+                <merchantID>SampleID2</merchantID>
+                <terminalID>SampleID2</terminalID>
+                <cashierID>SampleID</cashierID>
+                <dateTime>Wed Oct 15 2015 11:30:50 GMT-0600 (MDT)</dateTime>
+                <paymentType>credit</paymentType>
+                <amount>200.00</amount>
+                <tax>25.45</tax>
+                <creditCard>
+                    <cardType>mastercard</cardType>
+                    <last4>2345</last4>
+                    <authCode>234567</authCode>
+                </creditCard>
+            </payment>
+        </payments>
+</transaction>  
 
 #####JSON - We expect all JSON values to be in String format
 
@@ -389,7 +445,6 @@ Available Methods - GET, POST
         }
       }
     ]
-
   }
 }
  
