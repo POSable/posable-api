@@ -25,7 +25,7 @@ function callback(error, response, body) {
         var info = JSON.parse(body);
         console.log(info);
 
-    }else {
+    } else {
         console.log(body)
     }
 }
