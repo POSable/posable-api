@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+var logPlugin = require('posable-logging-plugin');
 
 //var jwtPayload = {name: 'Data Cap', uid: 10000001};
 //
@@ -12,6 +13,7 @@ var authenticatePost = function (req, statusObject, callback) {
      try {
          var jwtoken = req.headers.jwtoken;
      } catch(err) {
+         logPlugin.error(err);
          statusObject.isOK = false;
          statusObject['error'] = {
              module: 'authenticatePost',
@@ -24,6 +26,7 @@ var authenticatePost = function (req, statusObject, callback) {
      jwt.verify(jwtoken, 'posable', function(err, decoded) {
          try {
              if (err) {
+                 logPlugin.error(err);
                  statusObject.isOK = false;
                  statusObject['error'] = {
                      module: 'authenticatePost',
@@ -41,8 +44,9 @@ var authenticatePost = function (req, statusObject, callback) {
                  }
              }
          } catch (err) {
-            statusObject.isOK = false;
-            statusObject['error'] = {
+             logPlugin.error(err);
+             statusObject.isOK = false;
+             statusObject['error'] = {
                 module: 'authenticatePost',
                 error: {code: 400, message: "System Error when checking json web token secret"}
             };

@@ -9,7 +9,7 @@ var env = require('../lib/pos_modules/common').config();
 
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 
-wascallyRabbit.setup();
+wascallyRabbit.setup('pos-api');
 
 console.log('Configuring Logs');
 var logPlugin = require('posable-logging-plugin');
