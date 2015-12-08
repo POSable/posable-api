@@ -5,6 +5,6 @@ var handleSummary = require('./handlers/consumeSummaryEvent').handleSummary;
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.externalIntegration');
 wascallyRabbit.setHandler('persistence.event.receivedCreateDailySumRequest', handleSummary);
-wascallyRabbit.setup();
+wascallyRabbit.setup('external-integration');
 
 require('./lib/cloudElementsClient');
