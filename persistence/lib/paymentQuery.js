@@ -8,7 +8,7 @@ var Transaction = require('../models/transaction').model;
 
 var paymentQuery = function(callback) {
     try {
-         Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit'}, callback);
+         Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'cash'}, callback);
     } catch (err) {
         console.log(err);
     }

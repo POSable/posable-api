@@ -9,26 +9,20 @@ wascallyRabbit.setHandler('posapi.event.receivedCreatePaymentRequest', handlePay
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleTransaction);
 wascallyRabbit.setup();
 
+var salesReceipt = require('./models/salesReceipt');
 
 var request = require('request');
 
-var options = {
+request({
     url: 'https://qa.cloud-elements.com:443/elements/api-v2/hubs/finance/sales-receipts',
     headers: {
         'User-Agent': 'request',
         'Authorization': 'User jui2aVPk3A3usYuKNwbfgVx905i3hA/hQZU6OH0mR0c=, Organization 421ce6cc2d25b88f268dd1ee7c49cea8, Element UTyJ/2y61Pi4rnE7ahTGXnT5MUayiTNhliSuY6zFhOI='
     }
-};
-
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        var info = JSON.parse(body);
-        console.log(info);
-
+}, function(error, response, salesReceipt){
+    if(error) {
+        console.log(error);
     } else {
-        console.log(body)
+        console.log(response.statusCode, salesReceipt);
     }
-}
-
-request(options, callback);
-
+});
