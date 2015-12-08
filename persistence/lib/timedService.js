@@ -7,10 +7,11 @@ var timedService = function() {
             var d = new Date();
             var hours = d.getHours();
             var mins = d.getMinutes();
+            var time = "" + hours + mins;
 
-            //console.log(hours);
+            console.log(time);
 
-            if (hours >= 10 && hours <= 14) {
+            if (time >= 1030 && time <= 1500) {
                 console.log("in the range");
                 typeSum();
             } else {

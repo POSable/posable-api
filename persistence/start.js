@@ -25,4 +25,4 @@ logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
 console.log('Logging Setup Complete');
 //require('./lib/paymentQuery');
 //require('./lib/typeSum');
-//require('./lib/timedService');
+require('./lib/timedService');
