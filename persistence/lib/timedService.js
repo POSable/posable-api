@@ -7,10 +7,11 @@ var timedService = function() {
             var d = new Date();
             var hours = d.getHours();
             var mins = d.getMinutes();
+            var time = "" + hours + mins;
 
-            //console.log(hours);
+            console.log(time);
 
-            if (hours >= 23 && hours <= 23) {
+            if (time >= 1030 && time <= 1500) {
                 console.log("in the range");
                 typeSum();
             } else {
@@ -19,7 +20,7 @@ var timedService = function() {
             }
         }
 
-        setInterval(function(){ checkTime() }, 300000);
+        setInterval(function(){ checkTime() }, 3000);
 
     } catch (err) {
         console.log(err)
