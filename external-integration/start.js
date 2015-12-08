@@ -8,3 +8,12 @@ wascallyRabbit.setHandler('persistence.event.receivedCreateDailySumRequest', han
 wascallyRabbit.setup('external-integration');
 
 require('./lib/cloudElementsClient');
+
+
+console.log('Configuring Logs');
+var logPlugin = require('posable-logging-plugin');
+var bunyanLogger = require('./logs/log');
+
+logPlugin.setFileLogger(bunyanLogger);
+logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
+console.log('Logging Setup Complete');
