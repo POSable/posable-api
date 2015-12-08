@@ -1,4 +1,6 @@
-    var createTransactionDTO = function (req, statusObject) {
+var logPlugin = require('posable-logging-plugin');
+
+var createTransactionDTO = function (req, statusObject) {
     var transactionDTO = {};
     try {
         if (req.headers['content-type'] === "application/json" || req.headers['content-type'] === "application/xml") {
@@ -19,6 +21,7 @@
         }
     } catch (err) {
         if (err) {
+            logPlugin.error(err);
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "createTransactionDTO",

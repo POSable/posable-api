@@ -7,11 +7,13 @@ var Payment = require('../models/payment').model;
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
+var logPlugin = require('posable-logging-plugin');
 
 router.get('/', function(req, res) {
   Payment.find(function(err, payments) {
     if (err)
-      res.send(err);
+        logPlugin.error(err);
+        res.send(err);
 
     res.json(payments);
   });
@@ -31,6 +33,7 @@ router.post('/', function(req, res) {
         var payment;
 
         if (err) {
+            logPlugin.error(err);
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "checkPostToken",
@@ -66,9 +69,9 @@ router.post('/', function(req, res) {
         function finalizePost () {
             console.log("in finalize post");
             if (statusObject.responseType === 'alt') {
-                console.log("before send to rabbit")
+                console.log("before send to rabbit");
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(req.body).then(sendResponse(res, statusObject), function(){
-                    console.log("error sending req to rabbit")
+                    console.log("error sending req to rabbit");
                     sendResponse(res, statusObject);
                 })
 

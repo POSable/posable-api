@@ -1,3 +1,5 @@
+var logPlugin = require('posable-logging-plugin');
+
 var createPaymentDTO = function (req, statusObject) {
     var paymentDTO = {};
     try {
@@ -18,6 +20,7 @@ var createPaymentDTO = function (req, statusObject) {
         }
     } catch (err) {
         if (err) {
+            logPlugin.error(err);
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "createPaymentDTO",

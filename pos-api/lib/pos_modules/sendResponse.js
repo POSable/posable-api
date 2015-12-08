@@ -1,4 +1,5 @@
 var o2x = require('object-to-xml');
+var logPlugin = require('posable-logging-plugin');
 
 var sendResponse  = function (res, statusObject) {
     try {
@@ -35,7 +36,7 @@ var sendResponse  = function (res, statusObject) {
             }
         }
     } catch (err) {
-        //console.log("Error is not being returned to requester ", err)
+        logPlugin.error(err);
         res.status(500);
     }
 };

@@ -1,4 +1,6 @@
 var Payment = require('../../../models/payment').model;
+var logPlugin = require('posable-logging-plugin');
+
 var payment = {};
 
 var mapPayment = function(dto, statusObject) {
@@ -17,7 +19,8 @@ var mapPayment = function(dto, statusObject) {
 
         statusObject.success.push("mapPayment");
 
-    } catch (error) {
+    } catch (err) {
+        logPlugin.error(err);
         statusObject.isOK = false;
         statusObject['error'] = {
             module: "paymentMap",
