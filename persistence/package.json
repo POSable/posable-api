@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bunyan": "^1.5.1",
     "mongo": "^0.1.0",
     "mongoose": "^4.2.5",
     "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
