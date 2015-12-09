@@ -26,6 +26,7 @@ var paymentQuery = function(callback) {
          };
 
         return batch
+
     } catch (err) {
         console.log(err);
     }
