@@ -11,7 +11,7 @@ var timedService = function() {
 
             console.log(time);
 
-            if (time >= 1030 && time <= 1500) {
+            if (time >= 2230 && time <= 2249) {
                 console.log("in the range");
                 typeSum();
             } else {
