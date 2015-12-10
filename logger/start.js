@@ -1,23 +1,31 @@
-console.log('Create Connection to Rabbit Server');
+//LogPlugin Setup
+console.log('Configuring Logs');
+var bunyanLogger = require('./logs/log');
+bunyanLogger.info('Started Logging');
+
+var logPlugin = require('posable-logging-plugin');
+logPlugin.setFileLogger(bunyanLogger);
+console.log('logPlugin Initialized');
+
 var wascallyRabbit = require('posable-wascally-wrapper');
-var env = require('./common').config();
+logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
+console.log('Logging Setup Complete');
+
+//Require Handlers
 var createLogEntry = require('./handlers/createLogEntry');
 
+//Setup Database Connection
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/logData');
 
+//Setup RabbitMQ
+console.log('Starting Connection to RabbitMQ');
+var env = require('./common').config();
 wascallyRabbit.setEnvConnectionValues(env["wascally_connection_parameters"]);
 wascallyRabbit.setQSubscription('service.logging');
 wascallyRabbit.setHandler('logger.command.addLogEntry', createLogEntry);
-wascallyRabbit.setup();
+wascallyRabbit.setup('logger');
 
-console.log('Configuring Logs');
-var logPlugin = require('posable-logging-plugin');
-var bunyanLogger = require('./logs/log');
-
-logPlugin.setFileLogger(bunyanLogger);
-logPlugin.setMsgLogger(wascallyRabbit, 'error');
-console.log('Logging Setup Complete');
 
 
 

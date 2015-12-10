@@ -3,21 +3,26 @@
 /**
  * Module dependencies.
  */
-console.log('Create Connection to Rabbit Server');
-var wascallyRabbit = require('posable-wascally-wrapper');
-var env = require('../lib/pos_modules/common').config();
-
-wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
-
-wascallyRabbit.setup('pos-api');
-
+//LogPlugin Setup
 console.log('Configuring Logs');
-var logPlugin = require('posable-logging-plugin');
 var bunyanLogger = require('../lib/pos_modules/log');
+bunyanLogger.info('Started Logging');
 
+var logPlugin = require('posable-logging-plugin');
 logPlugin.setFileLogger(bunyanLogger);
+console.log('logPlugin Initialized');
+
+var wascallyRabbit = require('posable-wascally-wrapper');
 logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
 console.log('Logging Setup Complete');
+
+//Setup RabbitMQ
+console.log('Starting Connection to RabbitMQ');
+var env = require('../lib/pos_modules/common').config();
+wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
+wascallyRabbit.setup('pos-api');
+
+
 
 var app = require('../app');
 var debug = require('debug')('pos-api:server');
