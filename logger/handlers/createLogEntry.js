@@ -27,7 +27,7 @@ var createLogEntry = function(msg){
         if (err) {
             logPlugin.error(err);
         } else {
-            console.log('Log saved successfully');
+            logPlugin.debug('Log saved successfully');
         }
     });
     console.log( 'Received from rabbit: ', JSON.stringify(msg.body) );
@@ -35,5 +35,8 @@ var createLogEntry = function(msg){
 };
 
 
-module.exports = createLogEntry;
+module.exports = {
+    createLogEntry: createLogEntry,
+    mapLogEntry: mapLogEntry
+};
 
