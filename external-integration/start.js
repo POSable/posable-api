@@ -19,7 +19,7 @@ console.log('Starting Connection to RabbitMQ');
 var env = require('./common').config();
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.externalIntegration');
-wascallyRabbit.setHandler('persistence.event.receivedCreateDailySumRequest', handleSummary);
+wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleSummary);
 wascallyRabbit.setup('external-integration');
 
 require('./lib/cloudElementsClient');

@@ -12,7 +12,7 @@ logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
 console.log('Logging Setup Complete');
 
 //Require Handlers
-var createLogEntry = require('./handlers/createLogEntry');
+var createLogEntry = require('./handlers/createLogEntry').createLogEntry;
 
 //Setup Database Connection
 var mongoose = require('mongoose');
