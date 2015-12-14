@@ -54,7 +54,7 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {
             console.log("statusObject", statusObject);
-            wascallyRabbit.raiseNewTransactionEvent(transaction).then(finalizePost, function() {
+            wascallyRabbit.raiseNewTransactionEvent(customerID, transaction).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',

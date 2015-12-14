@@ -33,7 +33,13 @@ var authenticatePost = function (req, statusObject, callback) {
                      error: {code: 400, message: "System Error when decrypting json web token with 'verify' method"}
                  };
                  internalErr = err;
+
              } else if (decoded.uid%2 === 1)  { // even number uids have a response type 'email' - errors are persisted and email sent.
+                 //var merchant = Merchant.find(decoded.internalID)
+                 //if(merchant)
+                 //statusObject.merchant = merchant;
+                 //else
+                 //statusObject['error'] = 'cant find merchant'
                  statusObject.success.push("authenticatePost");
              } else {
                  statusObject.responseType = "alt"; // even number uids have a response type 'email' - errors are persisted and email sent.
