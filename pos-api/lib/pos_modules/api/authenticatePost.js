@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
 var logPlugin = require('posable-logging-plugin');
+//var configPlugin = require('posable-config-plugin');
 
 //var jwtPayload = {name: 'Data Cap', uid: 10000001};
 //
@@ -25,6 +26,8 @@ var authenticatePost = function (req, statusObject, callback) {
 
      jwt.verify(jwtoken, 'posable', function(err, decoded) {
          try {
+             var merchant = configPlugin.merchantLookup(decoded.internalID);
+
              if (err) {
                  logPlugin.error(err);
                  statusObject.isOK = false;
@@ -33,10 +36,10 @@ var authenticatePost = function (req, statusObject, callback) {
                      error: {code: 400, message: "System Error when decrypting json web token with 'verify' method"}
                  };
                  internalErr = err;
-             } else if (decoded.uid%2 === 1)  { // even number uids have a response type 'email' - errors are persisted and email sent.
+             } else if (merchant) {
+                 statusObject.merchant = merchant;
                  statusObject.success.push("authenticatePost");
              } else {
-                 statusObject.responseType = "alt"; // even number uids have a response type 'email' - errors are persisted and email sent.
                  statusObject.isOK = false;
                  statusObject['error'] = {
                      module: 'authenticatePost',
