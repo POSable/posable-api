@@ -19,6 +19,7 @@
     "mongoose": "^4.1.10",
     "morgan": "~1.6.1",
     "object-to-xml": "^1.0.0",
+    "posable-customer-config-plugin": "git+ssh://git@github.com/POSable/posable-customerConfigPlugin.git",
     "posable-logging-plugin": "git+ssh://git@github.com:POSable/posable-logPlugin.git",
     "posable-validation-plugin": "git+ssh://git@github.com/POSable/posable-validationPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com:POSable/posable-wascally-wrapper.git",
