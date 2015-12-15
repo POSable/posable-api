@@ -1,15 +1,16 @@
 var jwt = require('jsonwebtoken');
 var logPlugin = require('posable-logging-plugin');
+var configPlugin = require('posable-customer-config-plugin');
 
-//var jwtPayload = {name: 'Data Cap', uid: 10000001};
-//
+//var jwtPayload = {name: 'Posable', internalID: 4};
+
 //var makejwToken = jwt.sign(jwtPayload, "posable"); // used to generate the json web token
 //console.log(makejwToken);
 // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjEwMDAwMDAxLCJpYXQiOjE0NDc3MDcyMjN9.oD-VK8gh4nvkEF2V8jigm_FzIIZ4BcW-vpKKgPlKCSg
 
 var authenticatePost = function (req, statusObject, callback) {
      var internalErr = null;
-    statusObject.responseType = "http";
+
      try {
          var jwtoken = req.headers.jwtoken;
      } catch(err) {
@@ -30,24 +31,25 @@ var authenticatePost = function (req, statusObject, callback) {
                  statusObject.isOK = false;
                  statusObject['error'] = {
                      module: 'authenticatePost',
-                     error: {code: 400, message: "System Error when decrypting json web token with 'verify' method"}
+                     error: {code: 400, message: "System Error when decrypting json web token"}
                  };
                  internalErr = err;
-
-             } else if (decoded.uid%2 === 1)  { // even number uids have a response type 'email' - errors are persisted and email sent.
-                 //var merchant = Merchant.find(decoded.internalID)
-                 //if(merchant)
-                 //statusObject.merchant = merchant;
-                 //else
-                 //statusObject['error'] = 'cant find merchant'
-                 statusObject.success.push("authenticatePost");
+                 return callback(internalErr);
              } else {
-                 statusObject.responseType = "alt"; // even number uids have a response type 'email' - errors are persisted and email sent.
-                 statusObject.isOK = false;
-                 statusObject['error'] = {
-                     module: 'authenticatePost',
-                     error: {code: 400, message: "Incorrect json web token secret"}
-                 }
+                 configPlugin.merchantLookup(decoded.internalID, function(err, merchant){
+                     if (err) {
+                         statusObject.isOK = false;
+                         statusObject['error'] = {
+                             module: 'authenticatePost',
+                             error: {code: 400, message: 'Unable to find merchant record'}
+                         };
+                         internalErr = err;
+                     } else {
+                         statusObject.merchant = merchant;
+                         statusObject.success.push("authenticatePost");
+                     }
+                     return callback(internalErr, statusObject);
+                 });
              }
          } catch (err) {
              logPlugin.error(err);
@@ -56,9 +58,9 @@ var authenticatePost = function (req, statusObject, callback) {
                 module: 'authenticatePost',
                 error: {code: 400, message: "System Error when checking json web token secret"}
             };
-            internalErr = err;
+             internalErr = err;
+             return callback(internalErr, statusObject);
          }
-         return callback(internalErr, statusObject);
      });
  };
 

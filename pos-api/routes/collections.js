@@ -33,8 +33,10 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
+        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
+
         if (statusObject.isOK) {
-            var valObject = validate.validateTrans(transactionDTO);
+            var valObject = validate.validateTransaction(transaction);
             if (valObject.isValid == false) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
@@ -43,11 +45,9 @@ router.post('/', function(req, res) {
             }  else { statusObject.success.push('validated'); }
         }
 
-        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
-
         if (statusObject.isOK) {
             console.log("statusObject", statusObject);
-            wascallyRabbit.raiseNewTransactionEvent(transactionDTO).then(finalizePost, function() {
+            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, transaction).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
@@ -60,9 +60,9 @@ router.post('/', function(req, res) {
         }
         function finalizePost () {
             console.log("in finalize post");
-            if (statusObject.responseType === 'alt') {
+            if (statusObject.merchant.responseType === 'alt') {
                 console.log("before send to rabbit");
-                wascallyRabbit.raiseErrorResponseEmailAndPersist(req).then(sendResponse(res, statusObject), function(){
+                wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req).then(sendResponse(res, statusObject), function(){
                     console.log("error sending req to rabbit");
                     sendResponse(res, statusObject);
                 })
