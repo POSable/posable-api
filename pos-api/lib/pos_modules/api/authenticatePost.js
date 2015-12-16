@@ -37,17 +37,29 @@ var authenticatePost = function (req, statusObject, callback) {
                  return callback(internalErr);
              } else {
                  configPlugin.merchantLookup(decoded.internalID, function(err, merchant){
-                     if (err) {
+                     try {
+                         if (err) {
+                             statusObject.isOK = false;
+                             statusObject['error'] = {
+                                 module: 'authenticatePost',
+                                 error: {code: 400, message: 'Unable to find merchant record'}
+                             };
+                             internalErr = err;
+                         } else {
+                             statusObject.merchant = merchant;
+                             statusObject.success.push("authenticatePost");
+                         }
+                     } catch (err) {
+                         logPlugin.error(err);
                          statusObject.isOK = false;
                          statusObject['error'] = {
                              module: 'authenticatePost',
-                             error: {code: 400, message: 'Unable to find merchant record'}
+                             error: {code: 400, message: "System Error when checking json web token secret"}
                          };
                          internalErr = err;
-                     } else {
-                         statusObject.merchant = merchant;
-                         statusObject.success.push("authenticatePost");
+                         return callback(internalErr);
                      }
+
                      return callback(internalErr, statusObject);
                  });
              }
