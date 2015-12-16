@@ -3,15 +3,17 @@ var nodemailer = require('nodemailer');
 var env = require('./env.json');
 
 var node_env = process.env.NODE_ENV || 'development';
-var setEnv =env[node_env];
+var setEnv = env[node_env];
 
 var sendMail = function (msg, statusObject, callback, to) {
+    if (!statusObject) statusObject = {};
+    if (!callback) callback = function(){};
     var internalErr;
     var emailTO = function() {
         if (setEnv !== "production") {
             return to || 'david.xesllc@gmail.com'; //Steve Spohr <steve@posable.io>
         } else {
-           return to || '';
+           return to || ''; // this should be the client email set by production and internal ID
         }
 
     };
