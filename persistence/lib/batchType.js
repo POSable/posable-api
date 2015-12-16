@@ -4,10 +4,10 @@ var realTime = require('./realTime');
 
 var batchType = function(msg) {
     try {
-        var type = msg.body.data.batchType;
-        var lookup = configPlugin.merchantLookup(decoded.internalID, function(err, merchant){
+        var id = msg.body.internalID;
+        configPlugin.merchantLookup(id, function(err, merchant){
 
-            if (type == "real-time") {
+            if (merchant.batchType == "real-time") {
                 console.log("Real-time merchant");
                 realTime();
             } else {
