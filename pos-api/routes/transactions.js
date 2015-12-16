@@ -51,7 +51,7 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {
             console.log("statusObject", statusObject);
-            wascallyRabbit.raiseNewTransactionEvent(transaction).then(finalizePost, function() {
+            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, transaction).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
@@ -64,10 +64,11 @@ router.post('/', function(req, res) {
         }
         function finalizePost () {
             console.log("in finalize post");
-            if (statusObject.responseType === 'alt') {
+            if (statusObject.merchant.responseType === 'alt') {
                 console.log("before send to rabbit");
-                wascallyRabbit.raiseErrorResponseEmailAndPersist(req.body).then(sendResponse(res, statusObject), function(){
-                    console.log("error sending req to rabbit");
+
+                wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).then(sendResponse(res, statusObject), function(err){
+                    console.log("error sending req to rabbit", err);
                     sendResponse(res, statusObject);
                 })
 
