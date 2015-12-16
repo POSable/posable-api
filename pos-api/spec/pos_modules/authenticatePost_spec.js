@@ -4,8 +4,8 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
     var callback;
 
     describe("using the correct token", function() {
-        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjEwMDAwMDAxLCJpYXQiOjE0NDc3MDcyMjN9.oD-VK8gh4nvkEF2V8jigm_FzIIZ4BcW-vpKKgPlKCSg"
-        var req = {headers: {token: 'm8l0isN6m1ZK3NPX', jwtoken: jwt}}; //hard coded token
+        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YUNhcCIsImludGVybmFsSUQiOjEsImlhdCI6MTQ1MDE5NjY3OH0.I1r9k_-20pTiAYrEo3LZ1BUPqbtG8fP4hRZe1gC_RE8";
+        var req = {headers: {jwtoken: jwt}}; //hard coded token
 
         beforeEach(function () {
             statusObject = {isOK: true, success: []};
@@ -53,17 +53,17 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
         });
     });
 
-    describe("NOT using a correct token", function() {
-        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjIwMDAwMDAyLCJpYXQiOjE0NDc3MDcyMjN9.OEBM4CN4hcsyjRpArPox6ipCMqx90NrzZjcw6Lw0xEw"
+    describe("NOT using a properly formatted token", function() {
+        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJYUzI1NiJ9.eyJuYW1lIjoiRGF0YUNhcCIsImludGVybmFsSUQiOjEsImhhdCI6MTQ1MDE5NjY3OH0.I1r9k_-20pTiAYrE3LZ1BUPqbtG8fP4hRZe1gC_RE8";
         var req = {headers: {token: 'badToken',jwtoken: jwt }}; //hard coded token
 
         beforeEach(function() {
             statusObject = {isOK: true, success: []};
         });
 
-        it("Should not have an internal system error", function (done) {
+        it("Should return jwt parsing error", function (done) {
             callback = function(internalErr) {
-                expect(internalErr).toEqual(null);
+                expect(internalErr.message).toEqual('invalid algorithm');
                 done();
             };
             checkPostToken(req, statusObject, callback);
@@ -103,7 +103,7 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
     });
 
     describe("System Error in try-catch", function() {
-        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjEwMDAwMDAxLCJpYXQiOjE0NDc3MDcyMjN9.oD-VK8gh4nvkEF2V8jigm_FzIIZ4BcW-vpKKgPlKCSg"
+        var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YUNhcCIsImludGVybmFsSUQiOjEsImlhdCI6MTQ1MDE5NjY3OH0.I1r9k_-20pTiAYrEo3LZ1BUPqbtG8fP4hRZe1gC_RE8";
         var req = {headers: {token: 'm8l0isN6m1ZK3NPX', jwtoken: jwt}}; //hard coded token - in future, get from DB
 
         beforeEach(function () {

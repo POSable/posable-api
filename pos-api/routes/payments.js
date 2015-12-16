@@ -55,7 +55,7 @@ router.post('/', function(req, res) {
             }  else { statusObject.success.push('validated'); } }
 
         if (statusObject.isOK) {
-            wascallyRabbit.raiseNewPaymentEvent(payment).then(finalizePost, function() {
+            wascallyRabbit.raiseNewPaymentEvent(statusObject.merchant.internalID, payment).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
@@ -68,9 +68,9 @@ router.post('/', function(req, res) {
         }
         function finalizePost () {
             console.log("in finalize post");
-            if (statusObject.responseType === 'alt') {
+            if (statusObject.merchant.responseType === 'alt') {
                 console.log("before send to rabbit");
-                wascallyRabbit.raiseErrorResponseEmailAndPersist(req.body).then(sendResponse(res, statusObject), function(){
+                wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).then(sendResponse(res, statusObject), function(){
                     console.log("error sending req to rabbit");
                     sendResponse(res, statusObject);
                 })
