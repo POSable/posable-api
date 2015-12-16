@@ -9,7 +9,7 @@ var sendMail = function (msg, statusObject, callback, to) {
     var internalErr;
     var emailTO = function() {
         if (setEnv !== "production") {
-            return to || ''; //Steve Spohr <steve@posable.io>
+            return to || 'david.xesllc@gmail.com'; //Steve Spohr <steve@posable.io>
         } else {
            return to || '';
         }
