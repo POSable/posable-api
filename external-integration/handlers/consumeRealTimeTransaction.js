@@ -1,7 +1,7 @@
 var post = require('../lib/cloudElementsClient');
 var configPlugin = require('posable-customer-config-plugin');
 
-var handleRealTime = function(msg) {
+var handleRealTimeTransaction = function(msg) {
 
     console.log(msg);
 
@@ -23,6 +23,6 @@ var handleRealTime = function(msg) {
 
 module.exports = {
 
-    handleRealTime: handleRealTime
+    handleRealTimeTransaction: handleRealTimeTransaction()
 
 };
