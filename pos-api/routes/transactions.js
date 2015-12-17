@@ -4,20 +4,20 @@ var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
 var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
 var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
-var Transaction = require('../models/transaction').model;
+//var Transaction = require('../models/transaction').model;
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 
-router.get('/', function(req, res) {
-    Transaction.find(function(err, transactions) {
-        if (err)
-            logPlugin.error(err);
-            res.send(err);
-
-        res.json(transactions);
-    });
-});
+//router.get('/', function(req, res) {
+//    Transaction.find(function(err, transactions) {
+//        if (err)
+//            logPlugin.error(err);
+//            res.send(err);
+//
+//        res.json(transactions);
+//    });
+//});
 
 router.post('/', function(req, res) {
     var transaction;
@@ -29,7 +29,10 @@ router.post('/', function(req, res) {
         checkPostToken(req, statusObject, continuePost);
     }
 
+
+
     function continuePost(err, statusObject) {
+
         if (err) {
             logPlugin.error(err);
             statusObject.isOK = false;

@@ -1,9 +1,10 @@
-var Transaction = require('../../../models/transaction').model;
+//var Transaction = require('../../../models/transaction').model;
 var logPlugin = require('posable-logging-plugin');
 
 var mapTransaction = function(dto, statusObject) {
         try {
-            var transaction = new Transaction();
+            var transaction = {transactionPayments: []};
+            //var transaction = new Transaction();
             var dateTime;
             if (dto.transaction.transactionDateTime.date) {
                 dateTime = dto.transaction.transactionDateTime.date + " " + dto.transaction.transactionDateTime.time;

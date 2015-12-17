@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var mapTransaction = require('../lib/mapTransaction');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
+var batchType = require('../lib/batchType');
 
 function createTransactionPersistence(msg) {
 
@@ -24,6 +25,7 @@ function createTransactionPersistence(msg) {
 
     logPlugin.debug( 'Received from rabbit: ', JSON.stringify(msg.body) );
     msg.ack();
+    //batchType(msg);
 }
 
 module.exports = createTransactionPersistence;

@@ -1,5 +1,3 @@
-//var salesReceipt = require('./typeSum');
-
 var salesReceipt = {
     "line": [
         {

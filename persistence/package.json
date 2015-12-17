@@ -12,6 +12,7 @@
     "bunyan": "^1.5.1",
     "mongo": "^0.1.0",
     "mongoose": "^4.2.5",
+    "posable-customer-config-plugin": "git+ssh://git@github.com/POSable/posable-customerConfigPlugin.git",
     "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
     "posable-validation-plugin": "git+ssh://git@github.com/POSable/posable-validationPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
