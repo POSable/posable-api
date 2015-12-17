@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 
 var PaymentSchema = new mongoose.Schema({
     uid: String,
-    dateTime: Date,
+    dateTime: String,
     paymentType: String,
     amount: Number,
     tax: Number,
     cardType: String,
-    last4: Number,
+    last4: String,
     authCode: String
 });
 

@@ -6,7 +6,7 @@ var TransactionSchema = new mongoose.Schema({
     cashierID: String,
     terminalID: String,
     merchantID: String,
-    dateTime: Date,
+    dateTime: String,
     internalID: String,
     transactionPayments: [mongoose.model('Payment').schema]
 });

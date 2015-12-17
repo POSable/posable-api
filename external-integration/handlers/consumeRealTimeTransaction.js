@@ -9,6 +9,7 @@ var handleRealTimeTransaction = function(msg) {
     console.log(id);
     configPlugin.merchantLookup(id, function(err, merchant){
 
+        //console.log(merchant);
         if (merchant.batchType == "real-time") {
             console.log("Real-time merchant");
             post();

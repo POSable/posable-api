@@ -5,11 +5,13 @@ var logPlugin = require('posable-logging-plugin');
 var batchType = require('../lib/batchType');
 
 function createTransactionPersistence(msg) {
+    //console.log(msg);
 
     var transaction = mapTransaction(msg);
 
     try { var valTransaction = validate.validateTransaction(transaction); }
     catch (err) { logPlugin.error(err); }
+    console.log('after validation');
 
     if (!valTransaction.isValid) { console.log('Failed Validation')}
 
