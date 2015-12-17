@@ -7,6 +7,7 @@ var mapTransaction = function(msg) {
             transaction.merchantID = msg.body.data.merchantID;
             transaction.terminalID = msg.body.data.terminalID;
             transaction.cashierID = msg.body.data.cashierID;
+            transaction.dateTime = msg.body.data.dateTime;
             msg.body.data.transactionPayments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     uid : paymentdto.uid,

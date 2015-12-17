@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var ErrorSchema = new mongoose.Schema({
     server: String,
     application: String,
-    data: String
+    data: Object
 });
 
 module.exports = {
