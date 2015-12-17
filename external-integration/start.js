@@ -13,13 +13,15 @@ console.log('Logging Setup Complete');
 
 //Require Handlers
 var handleSummary = require('./handlers/consumeSummaryEvent').handleSummary;
+var handleRealTime = require('./handlers/consumeRealTimeEvent').handleRealTime;
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
 var env = require('./common').config();
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.externalIntegration');
+wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTime);
 wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleSummary);
 wascallyRabbit.setup('external-integration');
 
-require('./lib/cloudElementsClient');
+
