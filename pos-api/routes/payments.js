@@ -3,21 +3,21 @@ var router = express.Router();
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
 var createPaymentDTO = require('../lib/pos_modules/api/createPaymentDTO');
 var mapPayment = require('../lib/pos_modules/api/mapPayment');
-var Payment = require('../models/payment').model;
+//var Payment = require('../models/payment').model;
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 
-router.get('/', function(req, res) {
-  Payment.find(function(err, payments) {
-    if (err)
-        logPlugin.error(err);
-        res.send(err);
-
-    res.json(payments);
-  });
-});
+//router.get('/', function(req, res) {
+//  Payment.find(function(err, payments) {
+//    if (err)
+//        logPlugin.error(err);
+//        res.send(err);
+//
+//    res.json(payments);
+//  });
+//});
 
 router.post('/', function(req, res) {
 

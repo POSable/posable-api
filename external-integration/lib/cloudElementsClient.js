@@ -23,4 +23,4 @@ var cloudElementsClient = function() {
     }
 };
 
-module.exports = cloudElementsClient();
+module.exports = cloudElementsClient;

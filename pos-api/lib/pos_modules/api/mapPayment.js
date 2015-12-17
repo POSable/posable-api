@@ -1,11 +1,11 @@
-var Payment = require('../../../models/payment').model;
+//var Payment = require('../../../models/payment').model;
 var logPlugin = require('posable-logging-plugin');
 
-var payment = {};
 
 var mapPayment = function(dto, statusObject) {
     try {
-        payment = new Payment();
+        var payment = {};
+        //payment = new Payment();
         payment.uid = dto.uid;
         payment.dateTime = dto.dateTime;
         payment.amount = dto.amount;

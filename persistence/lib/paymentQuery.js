@@ -6,7 +6,6 @@ var Transaction = require('../models/transaction').model;
 //    return new Date();
 //}
 
-//this prolly turns into mastercardQuery and then gets pushed into a summayObject for rabbit publish
 
 var paymentQuery = function(callback) {
     try {

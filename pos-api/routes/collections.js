@@ -4,7 +4,7 @@ var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
 var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
 var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
-var Transaction = require('../models/transaction').model;
+//var Transaction = require('../models/transaction').model;
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 

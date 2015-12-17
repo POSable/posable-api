@@ -10,8 +10,6 @@ var mapPayment = function(msg) {
             transaction.merchantID = msg.body.data.merchantID;
             transaction.terminalID = msg.body.data.terminalID;
             transaction.cashierID = msg.body.data.cashierID;
-            //transaction.customerID = msg.body;
-            //Need to console the msg and see where this lives
             payment.uid = msg.body.data.uid;
             payment.dateTime = msg.body.data.dateTime;
             payment.paymentType = msg.body.data.paymentType;
