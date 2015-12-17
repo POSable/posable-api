@@ -21,9 +21,6 @@ console.log('Starting Connection to RabbitMQ');
 var env = require('../lib/pos_modules/common').config();
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setup('pos-api');
-
-
-
 var app = require('../app');
 var debug = require('debug')('pos-api:server');
 var http = require('http');

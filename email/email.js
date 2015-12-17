@@ -3,15 +3,17 @@ var nodemailer = require('nodemailer');
 var env = require('./env.json');
 
 var node_env = process.env.NODE_ENV || 'development';
-var setEnv =env[node_env];
+var setEnv = env[node_env];
 
 var sendMail = function (msg, statusObject, callback, to) {
+    if (!statusObject) statusObject = {};
+    if (!callback) callback = function(){};
     var internalErr;
     var emailTO = function() {
         if (setEnv !== "production") {
-            return to || ''; //Steve Spohr <steve@posable.io>
+            return to || 'david.xesllc@gmail.com'; //Steve Spohr <steve@posable.io>
         } else {
-           return to || '';
+           return to || ''; // this should be the client email set by production and internal ID
         }
 
     };
@@ -26,12 +28,12 @@ var sendMail = function (msg, statusObject, callback, to) {
     var msgString = JSON.stringify(msg);
     var mailOptions = {
         from: 'Posable.io ✔ <posable.io@gmail.com>',
-        to: emailTO,   // emails here
+        to: emailTO(),   // emails here
         subject: 'Test Email Service ✔', // Subject line
         text: 'This will eventually pass an error msg ✔' + msgString ,
         html: '<b> Hello world ✔' + msgString + '</b>'
     };
-
+    console.log(transporter);
     return transporter.sendMail(mailOptions, function(error, info){
         if(error){
             console.log("Error", error);
@@ -40,7 +42,10 @@ var sendMail = function (msg, statusObject, callback, to) {
             return callback(internalErr, statusObject);
         }
         console.log('Message sent: ' + info.response);
-        if (msg.ack) msg.ack();
+
+        if (msg.reject) {
+            msg.reject();
+        }
         return callback(internalErr, statusObject);
     });
 };
