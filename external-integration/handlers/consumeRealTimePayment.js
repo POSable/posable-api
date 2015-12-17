@@ -23,6 +23,6 @@ var handleRealTimePayment = function(msg) {
 
 module.exports = {
 
-    handleRealTimePayment: handleRealTimePayment()
+    handleRealTimePayment: handleRealTimePayment
 
 };

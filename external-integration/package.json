@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.5.1",
+    "posable-customer-config-plugin": "git+ssh://git@github.com/POSable/posable-customerConfigPlugin.git",
     "posable-logging-plugin": "git+ssh://git@github.com:POSable/posable-logPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
     "request": "^2.67.0",

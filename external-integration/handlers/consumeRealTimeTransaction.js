@@ -6,6 +6,7 @@ var handleRealTimeTransaction = function(msg) {
     console.log(msg);
 
     var id = msg.body.internalID;
+    console.log(id);
     configPlugin.merchantLookup(id, function(err, merchant){
 
         if (merchant.batchType == "real-time") {
@@ -13,7 +14,7 @@ var handleRealTimeTransaction = function(msg) {
             post();
         } else {
             console.log("Daily batch merchant");
-            //what to do here?
+            //what to do here? This is goin nowhere
         }
     });
 
@@ -23,6 +24,6 @@ var handleRealTimeTransaction = function(msg) {
 
 module.exports = {
 
-    handleRealTimeTransaction: handleRealTimeTransaction()
+    handleRealTimeTransaction: handleRealTimeTransaction
 
 };
