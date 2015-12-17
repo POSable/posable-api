@@ -25,7 +25,7 @@ function createTransactionPersistence(msg) {
 
     logPlugin.debug( 'Received from rabbit: ', JSON.stringify(msg.body) );
     msg.ack();
-    batchType(msg);
+    //batchType(msg);
 }
 
 module.exports = createTransactionPersistence;
