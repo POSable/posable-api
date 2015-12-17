@@ -68,7 +68,7 @@ router.post('/', function(req, res) {
         }
         function finalizePost () {
             console.log("in finalize post");
-            if (statusObject.merchant.responseType === 'alt') {
+            if (true) {
                 console.log("before send to rabbit");
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).then(sendResponse(res, statusObject), function(){
                     console.log("error sending req to rabbit");

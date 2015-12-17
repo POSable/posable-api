@@ -46,7 +46,7 @@ var authenticatePost = function (req, statusObject, callback) {
                              };
                              internalErr = err;
                          } else {
-                             statusObject.merchant = merchant;
+                             statusObject.merchant = merchant || "no ID";
                              statusObject.success.push("authenticatePost");
                          }
                      } catch (err) {

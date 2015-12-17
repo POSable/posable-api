@@ -25,7 +25,7 @@ var createTransactionDTO = function (req, statusObject) {
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "createTransactionDTO",
-                error: {code: 500, message: "System Error with creating a payment DTO"}
+                error: {code: 500, message: "System Error with creating a Transaction DTO"}
             }
         }
         return transactionDTO;

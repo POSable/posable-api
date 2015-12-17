@@ -28,12 +28,12 @@ var sendMail = function (msg, statusObject, callback, to) {
     var msgString = JSON.stringify(msg);
     var mailOptions = {
         from: 'Posable.io ✔ <posable.io@gmail.com>',
-        to: emailTO,   // emails here
+        to: emailTO(),   // emails here
         subject: 'Test Email Service ✔', // Subject line
         text: 'This will eventually pass an error msg ✔' + msgString ,
         html: '<b> Hello world ✔' + msgString + '</b>'
     };
-
+    console.log(transporter);
     return transporter.sendMail(mailOptions, function(error, info){
         if(error){
             console.log("Error", error);
@@ -42,7 +42,10 @@ var sendMail = function (msg, statusObject, callback, to) {
             return callback(internalErr, statusObject);
         }
         console.log('Message sent: ' + info.response);
-        if (msg.ack) msg.ack();
+
+        if (msg.reject) {
+            msg.reject();
+        }
         return callback(internalErr, statusObject);
     });
 };
