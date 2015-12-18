@@ -3,10 +3,8 @@ var configPlugin = require('posable-customer-config-plugin');
 
 var handleRealTimeTransaction = function(msg) {
 
-    console.log(msg);
-
     var id = msg.body.internalID;
-    console.log(id);
+
     configPlugin.merchantLookup(id, function(err, merchant){
 
         //console.log(merchant);
@@ -21,7 +19,6 @@ var handleRealTimeTransaction = function(msg) {
 
     msg.ack();
 };
-
 
 module.exports = {
 

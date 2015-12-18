@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "jasmine": "^2.3.2",
-    "nodemailer": "^1.10.0"
+    "nodemailer": "^1.10.0",
     "posable-logging-plugin": "git+ssh://git@github.com:POSable/posable-logPlugin.git",
-    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
+    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
   }
 }
