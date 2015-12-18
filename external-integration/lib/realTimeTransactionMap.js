@@ -1,4 +1,4 @@
-var salesReceipt = require('../models/salesReceipt');
+
 var post = require('./cloudElementsClient');
 
 var realTimeTransactionMap = function(msg) {
@@ -6,10 +6,65 @@ var realTimeTransactionMap = function(msg) {
 
         var array = msg.body.data.transactionPayments;
 
-        var lineItems = array;
+        var sale = {};
+        var line = [];
+        var total = 0;
+        array.forEach(function(payment){
+
+            console.log(payment.amount);
+
+            total += payment.amount;
+
+            sale = {
+                "detailType": "SALES_ITEM_LINE_DETAIL",
+                "amount": payment.amount,
+                "salesItemLineDetail": {
+                    "unitPrice": payment.amount,
+                    "itemRef": {
+                        "name": payment.paymentType,
+                        "value": "23"
+                    },
+                    "taxCodeRef": {
+                        "value": "NON"
+                    },
+                    "qty": 1
+                },
+                "lineNum": 1,
+                //need to increment this id.
+                "id": "2001",
+                "linkedTxn": [],
+                "customField": []
+            };
+
+            line.push(sale);
+
+        });
+
+        line.push({
+            "detailType": "SUB_TOTAL_LINE_DETAIL",
+            "amount": total,
+            "linkedTxn": [],
+            "customField": []
+        });
 
 
-        post();
+
+        var salesReceipt = {
+            "line": line,
+            "depositToAccountRef": {
+                "name": "Undeposited Funds2",
+                "value": "4"
+            },
+            "totalAmt": total,
+            "balance": 0,
+            "sparse": true,
+            "applyTaxAfterDiscount": false,
+            "txnDate": "2015-12-7T00:00:00Z"
+        };
+
+
+
+        post(salesReceipt);
 
     } catch (err) {
         console.log(err);
