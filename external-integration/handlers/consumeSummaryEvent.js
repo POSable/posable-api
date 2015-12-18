@@ -5,10 +5,9 @@ var handleSummary = function(msg) {
     console.log(msg);
 
     //map to CE Client
-    //post();
+    post();
     msg.ack();
 };
-
 
 module.exports = {
 

@@ -7,7 +7,7 @@ var handleRealTimePayment = function(msg) {
 
     var id = msg.body.internalID;
     configPlugin.merchantLookup(id, function(err, merchant){
-console.log(err);
+
         if (merchant.batchType == "real-time") {
             console.log("Real-time merchant");
             post();
