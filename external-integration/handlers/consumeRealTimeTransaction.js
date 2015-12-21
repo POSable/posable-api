@@ -1,4 +1,4 @@
-var post = require('../lib/cloudElementsClient');
+var realTimeTransactionMap = require('../lib/realTimeTransactionMap');
 var configPlugin = require('posable-customer-config-plugin');
 
 var handleRealTimeTransaction = function(msg) {
@@ -10,10 +10,10 @@ var handleRealTimeTransaction = function(msg) {
         //console.log(merchant);
         if (merchant.batchType == "real-time") {
             console.log("Real-time merchant");
-            post();
+            realTimeTransactionMap(msg);
         } else {
             console.log("Daily batch merchant");
-            //what to do here? This is goin nowhere
+            //what to do here? This is goin nowhere fast
         }
     });
 
