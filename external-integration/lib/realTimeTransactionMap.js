@@ -1,5 +1,5 @@
-
 var post = require('./cloudElementsClient');
+var increment = require('./idIncrement');
 
 var realTimeTransactionMap = function(msg) {
     try {
@@ -9,6 +9,7 @@ var realTimeTransactionMap = function(msg) {
         var sale = {};
         var line = [];
         var total = 0;
+
         array.forEach(function(payment){
 
             console.log(payment.amount);
@@ -31,7 +32,7 @@ var realTimeTransactionMap = function(msg) {
                 },
                 "lineNum": 1,
                 //need to increment this id.
-                "id": "2001",
+                "id": increment(),
                 "linkedTxn": [],
                 "customField": []
             };
