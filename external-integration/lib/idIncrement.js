@@ -11,12 +11,9 @@ var idIncrement = function() {
             }
         }());
 
-
-
         //console.log(increment());
         //console.log(increment());
         //console.log(increment());
-
 
     } catch (err) {
         console.log(err);
