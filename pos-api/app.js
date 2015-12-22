@@ -55,12 +55,12 @@ app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
 app.use('/collections', collections);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-    err.status = 404;
-    errorHandling(err, res);
-    next(err);
-});
+// catch 404 and forward to error handler - this crashed Elastic Beanstalk!!!
+//app.use(function(req, res, next) {
+//  var err = new Error('Not Found');
+//    err.status = 404;
+//    errorHandling(err, res);
+//    next(err);
+//});
 
 module.exports = app;
