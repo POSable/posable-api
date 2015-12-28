@@ -1,7 +1,7 @@
 var configPlugin = require('posable-customer-config-plugin');
 
 var merchantConfigLookup = function() {
-    configPlugin.merchantLookup(decoded.internalID, function (err, merchant) {
+    configPlugin.merchantLookup(internalID, function (err, merchant) {
 
         try {
 
