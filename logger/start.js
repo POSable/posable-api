@@ -21,11 +21,15 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
     console.log('connected');
 });
+var env = require('./common').config();
+mongoose.connect(env['mongoose_log_connection']);
+//console.log(env['mongoose_log_connection']);
+
 mongoose.connect('mongodb://localhost/logData');
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
-var env = require('./common').config();
+
 wascallyRabbit.setEnvConnectionValues(env["wascally_connection_parameters"]);
 wascallyRabbit.setQSubscription('service.logging');
 wascallyRabbit.setHandler('logger.command.addLogEntry', createLogEntry);

@@ -12,12 +12,9 @@ var idIncrement = function() {
             }
         }());
 
-
-
         //console.log(increment());
         //console.log(increment());
         //console.log(increment());
-
 
     } catch (err) {
         logPlugin.debug(err);
