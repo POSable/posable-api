@@ -25,7 +25,6 @@ var env = require('./common').config();
 mongoose.connect(env['mongoose_log_connection']);
 //console.log(env['mongoose_log_connection']);
 
-mongoose.connect('mongodb://localhost/logData');
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
