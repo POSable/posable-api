@@ -1,19 +1,20 @@
 var post = require('../lib/cloudElementsClient');
 var configPlugin = require('posable-customer-config-plugin');
+var logPlugin = require('posable-logging-plugin');
 
 var handleRealTimePayment = function(msg) {
 
-    console.log(msg);
+    logPlugin.debug(msg);
 
     var id = msg.body.internalID;
-    console.log(id);
+    logPlugin.debug(id);
     configPlugin.merchantLookup(id, function(err, merchant){
 
         if (merchant.batchType == "real-time") {
-            console.log("Real-time merchant");
+            logPlugin.debug("Real-time merchant");
             post();
         } else {
-            console.log("Daily batch merchant");
+            logPlugin.debug("Daily batch merchant");
             //what to do here?
         }
     });
