@@ -46,6 +46,7 @@ var sendMail = function (msg, statusObject, callback, to) {
         if (msg.reject) {
             msg.reject();
         }
+        console.log('finished transporter');
         return callback(internalErr, statusObject);
     });
 };
