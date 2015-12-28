@@ -1,5 +1,6 @@
 var realTimeTransactionMap = require('../lib/realTimeTransactionMap');
 var configPlugin = require('posable-customer-config-plugin');
+var logPlugin = require('posable-logging-plugin');
 
 var handleRealTimeTransaction = function(msg) {
 
@@ -9,10 +10,10 @@ var handleRealTimeTransaction = function(msg) {
 
         //console.log(merchant);
         if (merchant.batchType == "real-time") {
-            console.log("Real-time merchant");
+            logPlugin.debug("Real-time merchant");
             realTimeTransactionMap(msg);
         } else {
-            console.log("Daily batch merchant");
+            logPlugin.debug("Daily batch merchant");
             //what to do here? This is goin nowhere fast
         }
     });

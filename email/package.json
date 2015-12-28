@@ -9,10 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "posable-logging-plugin": "git+ssh://git@github.com:POSable/posable-logPlugin.git",
+    "bunyan": "^1.5.1",
+    "nodemailer": "^1.10.0",
+    "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
-    "wascally": "^0.2.7",
-    "nodemailer": "^1.10.0"
+    "wascally": "^0.2.7"
   },
   "devDependencies": {
     "jasmine": "^2.3.2",

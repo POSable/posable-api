@@ -1,4 +1,5 @@
 //var salesReceipt = require('./realTimeTransactionMap');
+var logPlugin = require('posable-logging-plugin');
 
 var request = require('request');
 
@@ -13,14 +14,14 @@ var cloudElementsClient = function(salesReceipt) {
             body: JSON.stringify(salesReceipt)
         }, function(error, response, salesReceipt){
             if(error) {
-                console.log(error);
+                logPlugin.debug(error);
             } else {
-                console.log(response.statusCode, salesReceipt);
+                logPlugin.debug(response.statusCode, salesReceipt);
             }
         });
 
     } catch (err) {
-        console.log(err);
+        logPlugin.debug(err);
     }
 };
 

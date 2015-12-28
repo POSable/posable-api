@@ -1,4 +1,5 @@
 var nodemailer = require('nodemailer');
+var logPlugin = require('posable-logging-plugin');
 
 var env = require('./env.json');
 
@@ -33,20 +34,20 @@ var sendMail = function (msg, statusObject, callback, to) {
         text: 'This will eventually pass an error msg ✔' + msgString ,
         html: '<b> Hello world ✔' + msgString + '</b>'
     };
-    console.log(transporter);
+    logPlugin.debug(transporter);
     return transporter.sendMail(mailOptions, function(error, info){
         if(error){
-            console.log("Error", error);
+            logPlugin.debug("Error", error);
             internalErr = error;
             statusObject.success.push('mailSender');
             return callback(internalErr, statusObject);
         }
-        console.log('Message sent: ' + info.response);
+        logPlugin.debug('Message sent: ' + info.response);
 
         if (msg.reject) {
             msg.reject();
         }
-        console.log('finished transporter');
+        logPlugin.debug('finished transporter');
         return callback(internalErr, statusObject);
     });
 };
