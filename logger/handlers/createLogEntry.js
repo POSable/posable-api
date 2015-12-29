@@ -1,6 +1,10 @@
 var Log = require('../models/log').model;
-var mongoose = require('mongoose');
 var logPlugin = require('posable-logging-plugin');
+
+var testSetup = function(testLogPlugin) {
+    logPlugin = testLogPlugin;
+    return testLogPlugin;
+};
 
 var mapLogEntry = function(msg) {
     try {
@@ -18,25 +22,34 @@ var mapLogEntry = function(msg) {
 
     } catch (err) {
         logPlugin.error(err);
+        //msg.nack();
     }
 };
 
 var createLogEntry = function(msg){
-    var newLog = mapLogEntry(msg.body);
-    newLog.save(function(err) {
-        if (err) {
-            logPlugin.error(err);
-        } else {
-            logPlugin.debug('Log saved successfully');
-        }
-    });
-    console.log( 'Received from rabbit: ', JSON.stringify(msg.body) );
-    msg.ack();
+    try {
+        var newLog = mapLogEntry(msg.body);
+        newLog.save(function (err) {
+            if (err) {
+                logPlugin.error(err);
+                //msg.nack();
+            } else {
+                logPlugin.debug('Log saved successfully');
+                //msg.ack();
+            }
+        });
+        console.log('Received from rabbit: ', JSON.stringify(msg.body));
+        msg.ack(); // <- will eventually move to else block above
+    } catch (err){
+        logPlugin.error(err);
+        //msg.nack();
+    }
 };
 
 
 module.exports = {
     createLogEntry: createLogEntry,
-    mapLogEntry: mapLogEntry
+    mapLogEntry: mapLogEntry,
+    testSetup: testSetup
 };
 
