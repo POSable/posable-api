@@ -9,7 +9,6 @@ describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction'
         });
 
         it("Should not have an internal error", function (done) {
-            console.log("in the it");
             callback = function (err) {
                 expect(err).toEqual(null);
                 done();
@@ -18,7 +17,6 @@ describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction'
         });
 
         it("Should parse the msg and use 1 for the internalID", function (done) {
-            console.log("in the it");
             callback = function (err, id) {
                 expect(id).toEqual(1);
                 done();
@@ -27,8 +25,7 @@ describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction'
         });
 
         it("Should call ack method on msg object.", function (done) {
-            console.log("in the it");
-            callback = function (err, id) {
+            callback = function () {
                 expect(msg.ack).toHaveBeenCalled();
                 done();
             };
@@ -44,7 +41,6 @@ describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction'
         });
 
         it("Should have an internal error", function (done) {
-            console.log("in the it");
             callback = function (err) {
                 expect(err).not.toBeFalsy();
                 done();
@@ -53,7 +49,6 @@ describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction'
         });
 
         it("Should parse the msg and use undefined for the internalID", function (done) {
-            console.log("in the it");
             callback = function (err, id) {
                 expect(id).toEqual(undefined);
                 done();
@@ -62,7 +57,6 @@ describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction'
         });
 
         it("Should call nack method on msg object.", function (done) {
-            console.log("in the it");
             callback = function () {
                 expect(msg.nack).toHaveBeenCalled();
                 done();
