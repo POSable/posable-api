@@ -1,7 +1,7 @@
 {
-  "name": "persistence",
+  "name": "email",
   "version": "1.0.0",
-  "description": "persistence module",
+  "description": "email module",
   "main": "start.js",
   "scripts": {
     "start": "node start.js"
