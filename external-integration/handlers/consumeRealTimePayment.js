@@ -20,7 +20,7 @@ var handleRealTimePayment = function(msg, callback) {
                 logPlugin.debug("Real-time merchant");
                 post();
             } else {
-                console.log("Daily batch merchant");
+                logPlugin.debug("Daily batch merchant");
                 //what to do here?
             }
         } catch (err) {
