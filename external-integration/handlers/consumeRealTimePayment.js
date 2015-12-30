@@ -1,12 +1,14 @@
 var post = require('../lib/cloudElementsClient');
 var configPlugin = require('posable-customer-config-plugin');
 var err = null;
+var logPlugin = require('posable-logging-plugin');
 
 var handleRealTimePayment = function(msg, callback) {
     try {
         var id = msg.body.internalID;
+        logPlugin.debug(id);
     } catch (err) {
-        console.log('HandleRealTimePayment MSG ID Parsing', err);
+        logPlugin.debug('HandleRealTimePayment MSG ID Parsing', err);
         msg.nack();
         return callback(err);
     }
@@ -15,14 +17,14 @@ var handleRealTimePayment = function(msg, callback) {
             if (err) throw err;
             if (merchant == undefined) var merchant = {}; // for testing only
             if (merchant.batchType === "real-time") {
-                console.log("Real-time merchant");
+                logPlugin.debug("Real-time merchant");
                 post();
             } else {
                 console.log("Daily batch merchant");
                 //what to do here?
             }
         } catch (err) {
-            console.log('HandleRealTimePayment Merchant Lookup System Error', err);
+            logPlugin.debug('HandleRealTimePayment Merchant Lookup System Error', err);
             msg.nack();
             return callback(err);
         }

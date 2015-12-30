@@ -1,5 +1,6 @@
 var post = require('./cloudElementsClient');
 var increment = require('./idIncrement');
+var logPlugin = require('posable-logging-plugin');
 
 var realTimeTransactionMap = function(msg) {
     try {
@@ -12,7 +13,7 @@ var realTimeTransactionMap = function(msg) {
 
         array.forEach(function(payment){
 
-            console.log(payment.amount);
+            logPlugin.debug(payment.amount);
 
             total += payment.amount;
 
@@ -68,7 +69,7 @@ var realTimeTransactionMap = function(msg) {
         post(salesReceipt);
 
     } catch (err) {
-        console.log(err);
+        logPlugin.debug(err);
     }
 };
 

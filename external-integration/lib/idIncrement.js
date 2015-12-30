@@ -1,3 +1,4 @@
+var logPlugin = require('posable-logging-plugin');
 
 var idIncrement = function() {
     try {
@@ -11,15 +12,12 @@ var idIncrement = function() {
             }
         }());
 
-
-
         //console.log(increment());
         //console.log(increment());
         //console.log(increment());
-
 
     } catch (err) {
-        console.log(err);
+        logPlugin.debug(err);
     }
 
 };
