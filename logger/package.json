@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "logging service module",
   "main": "start.js",
+  "scripts": {
+    "start": "node start.js"
+  },
   "dependencies": {
     "body-parser": "^1.14.2",
     "bunyan": "^1.5.1",
