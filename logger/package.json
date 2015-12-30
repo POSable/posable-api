@@ -4,18 +4,23 @@
   "description": "logging service module",
   "main": "start.js",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "bunyan": "^1.5.1",
+    "cookie-parser": "^1.4.0",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
     "mongodb": "^2.0.48",
     "mongoose": "^4.2.4",
+    "path": "^0.12.7",
     "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
-    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
-    "posable-validation-plugin": "git+ssh://git@github.com:POSable/posable-validationPlugin.git"
+    "posable-validation-plugin": "git+ssh://git@github.com:POSable/posable-validationPlugin.git",
+    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
   },
   "devDependencies": {
     "jasmine": "^2.3.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1" 
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC"
