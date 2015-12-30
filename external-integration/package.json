@@ -1,7 +1,7 @@
 {
-  "name": "persistence",
+  "name": "external-integration",
   "version": "1.0.0",
-  "description": "persistence module",
+  "description": "external-integration module",
   "main": "start.js",
   "scripts": {
     "start": "node start.js"
