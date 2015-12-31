@@ -1,4 +1,5 @@
 var Transaction = require('../models/transaction').model;
+var logPlugin = require('posable-logging-plugin');
 
 var mapTransaction = function(msg) {
         try {
@@ -21,7 +22,8 @@ var mapTransaction = function(msg) {
                 })
             });
         } catch (err) {
-            console.log(err);
+           logPlugin.error(err);
+            return undefined;
             //statusObject.isOK = false;
             //statusObject['error'] = {
             //    module: "transactionMap",

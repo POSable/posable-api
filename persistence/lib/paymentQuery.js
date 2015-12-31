@@ -1,12 +1,10 @@
 var Payment = require('../models/payment').model;
 var Transaction = require('../models/transaction').model;
-
+var logPlugin = require('posable-logging-plugin');
 //Need to filter by today's transactions only
 //function today() {
 //    return new Date();
 //}
-
-
 var paymentQuery = function(callback) {
     try {
          var visa = Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'visa'}, callback);
@@ -23,14 +21,12 @@ var paymentQuery = function(callback) {
              cash: cash,
              total: visa + amex + amex + discover + cash
          };
-
         return batch
 
     } catch (err) {
-        console.log(err);
+       logPlugin.error(err);
+        return undefined;
     }
 };
 
 module.exports = paymentQuery;
-
-

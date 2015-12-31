@@ -1,21 +1,19 @@
 var post = require('./cloudElementsClient');
-var increment = require('./idIncrement');
 var logPlugin = require('posable-logging-plugin');
 
 var realTimeTransactionMap = function(msg) {
     try {
 
         var array = msg.body.data.transactionPayments;
-
         var sale = {};
         var line = [];
         var total = 0;
+        var incremented = 0
 
         array.forEach(function(payment){
-
             logPlugin.debug(payment.amount);
-
             total += payment.amount;
+            ++incremented;
 
             sale = {
                 "detailType": "SALES_ITEM_LINE_DETAIL",
@@ -33,13 +31,11 @@ var realTimeTransactionMap = function(msg) {
                 },
                 "lineNum": 1,
                 //need to increment this id.
-                "id": increment(),
+                "id": incremented,
                 "linkedTxn": [],
                 "customField": []
             };
-
             line.push(sale);
-
         });
 
         line.push({
@@ -63,11 +59,7 @@ var realTimeTransactionMap = function(msg) {
             "applyTaxAfterDiscount": false,
             "txnDate": "2015-12-7T00:00:00Z"
         };
-
-
-
         post(salesReceipt);
-
     } catch (err) {
         logPlugin.debug(err);
     }

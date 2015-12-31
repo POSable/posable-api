@@ -22,7 +22,7 @@ var mapLogEntry = function(msg) {
 
     } catch (err) {
         logPlugin.error(err);
-        //msg.nack();
+        msg.reject();
     }
 };
 
@@ -42,7 +42,7 @@ var createLogEntry = function(msg){
         msg.ack(); // <- will eventually move to else block above
     } catch (err){
         logPlugin.error(err);
-        //msg.nack();
+        msg.reject();
     }
 };
 

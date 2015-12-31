@@ -1,4 +1,5 @@
 var typeSum = require('./typeSum');
+var logPlugin = require('posable-logging-plugin');
 
 var timedService = function() {
     try {
@@ -9,21 +10,20 @@ var timedService = function() {
             var mins = d.getMinutes();
             var time = "" + hours + mins;
 
-            console.log(time);
+            logPlugin.info(time);
 
             if (time >= 2353 && time <= 2359) {
-                console.log("in the range");
+                logPlugin.info("in the range");
                 typeSum();
             } else {
-                console.log("not in the range");
-
+                logPlugin.info("not in the range");
             }
         }
 
         setInterval(function(){ checkTime() }, 300000);
 
     } catch (err) {
-        console.log(err)
+        logPlugin.error(err);
     }
 };
 
