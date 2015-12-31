@@ -1,6 +1,7 @@
 var configPlugin = require('posable-customer-config-plugin');
 var timedService = require('./timedService');
 var realTime = require('./realTime');
+var logPlugin = require('posable-logging-plugin');
 
 var batchType = function(msg) {
     try {
@@ -8,16 +9,19 @@ var batchType = function(msg) {
         configPlugin.merchantLookup(id, function(err, merchant){
 
             if (merchant.batchType == "real-time") {
-                console.log("Real-time merchant");
+                logPlugin.info("Real-time merchant");
                 realTime();
+                msg.ack();
             } else {
-                console.log("Daily batch merchant");
+                logPlugin.info("Daily batch merchant");
                 timedService();
+                msg.ack();
             }
         });
 
     } catch (err) {
-        console.log(err);
+        logPlugin.error(err);
+        msg.reject();
     }
 };
 

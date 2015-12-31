@@ -1,10 +1,10 @@
 {
-  "name": "persistence",
+  "name": "external-integration",
   "version": "1.0.0",
-  "description": "persistence module",
+  "description": "external-integration module",
   "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node start.js"
   },
   "author": "",
   "license": "ISC",

@@ -13,21 +13,26 @@ var mapError = function(msg) {
 
     } catch (err) {
         logPlugin.error(err);
+        msg.reject();
     }
 };
 
 var createErrorPersist = function(msg){
-    var newError = mapError(msg.body);
-    newError.save(function(err) {
-        if (err) {
-            logPlugin.error(err);
-        } else {
-            logPlugin.debug('Error saved successfully');
-        }
-    });
-    logPlugin.debug( 'Received from rabbit: ', JSON.stringify(msg.body) );
-    msg.ack();
+    try {
+        var newError = mapError(msg.body);
+        newError.save(function(err) {
+            if (err) {
+                logPlugin.error(err);
+            } else {
+                logPlugin.debug('Error saved successfully');
+            }
+        });
+        logPlugin.debug( 'Received from rabbit: ', JSON.stringify(msg.body) );
+        msg.ack();
+    } catch (err) {
+        logPlugin.error('System Error in Error Persist', err);
+        msg.reject();
+    }
 };
-
 
 module.exports = createErrorPersist;
