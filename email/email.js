@@ -57,8 +57,9 @@ var sendMail = function (msg, statusObject, callback, to) {
            if(error){
                logPlugin.debug("Error in Emailer", error);
                internalErr = error;
-               if (msg.reject) {
-                   msg.reject();
+               if (msg.nack) {
+                   //msg.nack(delivery-tag delivery-tag, bit multiple, bit requeue)
+                   msg.nack("", 0, false);
                }
                return callback(internalErr, statusObject);
            }
