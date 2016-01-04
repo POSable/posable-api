@@ -1,0 +1,1 @@
+//var salesReceipt = require('./realTimeTransactionMap');
