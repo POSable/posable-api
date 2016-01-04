@@ -9,7 +9,7 @@ var realTimeTransactionMap = function(msg) {
         var sale = {};
         var line = [];
         var total = 0;
-        //var incremented = 0;
+        var incremented = 0;
 
         array.forEach(function(payment){
             logPlugin.debug(payment.amount);
@@ -61,6 +61,7 @@ var realTimeTransactionMap = function(msg) {
             "txnDate": "2015-12-7T00:00:00Z"
         };
         post(salesReceipt);
+
     } catch (err) {
         logPlugin.debug(err);
     }
