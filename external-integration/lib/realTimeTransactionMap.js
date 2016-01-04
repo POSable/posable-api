@@ -1,8 +1,9 @@
 var post = require('./cloudElementsClient');
 var logPlugin = require('posable-logging-plugin');
 var incremented = require('./idIncrement');
+var deposit = require ('./depositAccount');
 
-var realTimeTransactionMap = function(msg) {
+var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
     try {
 
         var array = msg.body.data.transactionPayments;
@@ -51,8 +52,8 @@ var realTimeTransactionMap = function(msg) {
         var salesReceipt = {
             "line": line,
             "depositToAccountRef": {
-                "name": "Undeposited Funds2",
-                "value": "4"
+                "name": depositObj.depositAccountName,
+                "value": depositObj.depositAccountID
             },
             "totalAmt": total,
             "balance": 0,
@@ -60,7 +61,8 @@ var realTimeTransactionMap = function(msg) {
             "applyTaxAfterDiscount": false,
             "txnDate": "2015-12-7T00:00:00Z"
         };
-        post(salesReceipt);
+        return salesReceipt;
+        //console.log(salesReceipt);
 
     } catch (err) {
         logPlugin.debug(err);
