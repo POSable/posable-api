@@ -1,6 +1,7 @@
 var realTimeTransactionMap = require('../lib/realTimeTransactionMap');
 var configPlugin = require('posable-customer-config-plugin');
 var logPlugin = require('posable-logging-plugin');
+var paymentTypeMap = require('../lib/paymentTypeMap');
 
 var handleRealTimeTransaction = function(msg) {
     try {
@@ -18,12 +19,15 @@ var handleRealTimeTransaction = function(msg) {
             if (merchant.batchType === "real-time") {
                 logPlugin.debug("Real-time merchant");
                 realTimeTransactionMap(msg);
+                console.log("sending to type as a real time");
+                paymentTypeMap(msg);
             } else {
-                logPlugin.debug("Daily batch merchant");
+                console.log("sending to type as a batch merchant");
+                paymentTypeMap(msg);
                 //what to do here?
             }
         } catch (err) {
-            logPlugin.debug('HandleRealTimePayment Merchant Lookup System Error', err);
+            logPlugin.debug('HandleRealTimeTransaction Merchant Lookup System Error', err);
             msg.nack();
         }
         msg.ack();

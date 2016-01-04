@@ -2,6 +2,7 @@ var post = require('../lib/cloudElementsClient');
 var configPlugin = require('posable-customer-config-plugin');
 var err = null;
 var logPlugin = require('posable-logging-plugin');
+var paymentTypeMap = require('../lib/paymentTypeMap');
 
 var handleRealTimePayment = function(msg) {
     try {
@@ -19,9 +20,13 @@ var handleRealTimePayment = function(msg) {
             if (merchant.batchType === "real-time") {
                 logPlugin.debug("Real-time merchant");
                 post();
+                console.log("sending to type as a real time");
+                paymentTypeMap(msg);
             } else {
                 logPlugin.debug("Daily batch merchant");
                 //what to do here?
+                console.log("sending to type as a batch merchant");
+                paymentTypeMap(msg);
             }
         } catch (err) {
             logPlugin.debug('HandleRealTimePayment Merchant Lookup System Error', err);
