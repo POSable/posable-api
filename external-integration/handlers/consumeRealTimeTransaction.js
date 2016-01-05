@@ -40,7 +40,7 @@ var handleRealTimeTransaction = function(msg) {
 
 
 
-        post(cloudElemSR, function(err, salesReceipt){
+        post(cloudElemSR, merchant, function(err, salesReceipt){
             if(err) {
                 msg.nack();
 
