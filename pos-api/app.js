@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var xmlparser = require('express-xml-bodyparser');
 //Routes
 var healthcheck = require('./routes/healthcheck');
-var payments = require('./routes/payments');
+//var payments = require('./routes/payments');
 var transactions = require('./routes/transactions');
 var collections = require('./routes/collections');
 //var errorHandling = require('./lib/pos_modules/errorHandling');
@@ -38,7 +38,7 @@ app.use(xmlparser({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/payments', payments);
+//app.use('/payments', payments);
 app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
 app.use('/collections', collections);

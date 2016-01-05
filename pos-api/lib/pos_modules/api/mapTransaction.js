@@ -1,10 +1,9 @@
-//var Transaction = require('../../../models/transaction').model;
 var logPlugin = require('posable-logging-plugin');
 
 var mapTransaction = function(dto, statusObject) {
         try {
-            var transaction = {transactionPayments: []};
-            //var transaction = new Transaction();
+            logPlugin.debug('Starting Property Mapping');
+            var transaction = {};
             var dateTime;
             if (dto.transaction.transactionDateTime.date) {
                 dateTime = dto.transaction.transactionDateTime.date + " " + dto.transaction.transactionDateTime.time;
@@ -16,6 +15,7 @@ var mapTransaction = function(dto, statusObject) {
             transaction.terminalID = dto.transaction.terminalID;
             transaction.cashierID = dto.transaction.cashierID;
             transaction.dateTime = dateTime;
+            transaction.transactionPayments = [];
             dto.transaction.payments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     uid : paymentdto.uid,
@@ -28,12 +28,13 @@ var mapTransaction = function(dto, statusObject) {
                     authCode : paymentdto.creditCard.authCode
                 })
             });
+            logPlugin.debug('Transaction Property Mapping was Successful');
         } catch (err) {
             logPlugin.error(err);
             statusObject.isOK = false;
             statusObject['error'] = {
                 module: "transactionMap",
-                error: {code: 400, message: "Transaction DB Map was not successfully completed from Post Body"}
+                error: {code: 400, message: "Transaction Map was not successfully completed from Post Body"}
             }
         }
         return transaction;

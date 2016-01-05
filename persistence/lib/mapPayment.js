@@ -4,6 +4,7 @@ var logPlugin = require('posable-logging-plugin');
 
 var mapPayment = function(msg) {
     try {
+        logPlugin.debug('Start Payment Mapping')
         //console.log(msg.body.data.transaction.payments);
         var transaction = new Transaction();
         var payment = new Payment();
@@ -18,15 +19,17 @@ var mapPayment = function(msg) {
         payment.tax = msg.body.data.tax;
 
         if (msg.body.data.paymentType === 'credit') {
-            payment.cardType = msg.body.data.creditCard.cardType;
-            payment.last4 = msg.body.data.creditCard.last4;
-            payment.authCode = msg.body.data.creditCard.authCode; }
+            console.log(msg.body);
+            payment.cardType = msg.body.data.cardType;
+            payment.last4 = msg.body.data.last4;
+            payment.authCode = msg.body.data.authCode; }
 
         transaction.transactionPayments.push(payment);
-
+        logPlugin.debug('Successful Mapping');
         return transaction;
 
     } catch (err) {
+        logPlugin.debug('Failed Mapping');
         logPlugin.error(err);
        return undefined;
     }
