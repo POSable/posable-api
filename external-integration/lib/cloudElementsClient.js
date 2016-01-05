@@ -1,6 +1,4 @@
-//var salesReceipt = require('./realTimeTransactionMap');
 var logPlugin = require('posable-logging-plugin');
-
 var request = require('request');
 
 var cloudElementsClient = function(salesReceipt) {

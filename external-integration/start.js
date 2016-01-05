@@ -122,5 +122,3 @@ wascallyRabbit.setHandler('posapi.event.receivedCreatePaymentRequest', handleRea
 wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleSummary);
 wascallyRabbit.setup('external-integration');
 
-
-//require('./lib/idIncrement');
