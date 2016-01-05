@@ -9,7 +9,7 @@ var depositAccount = require('../lib/depositAccount');
 var handleRealTimePayment = function(msg) {
     try {
         var id = msg.body.internalID;
-        logPlugin.debug(id);
+        // logPlugin.debug(id);
     } catch (err) {
         logPlugin.debug('HandleRealTimePayment MSG ID Parsing', err);
         msg.nack();

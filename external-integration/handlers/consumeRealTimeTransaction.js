@@ -9,7 +9,7 @@ var post = require('../lib/cloudElementsClient');
 var handleRealTimeTransaction = function(msg) {
     try {
         var id = msg.body.internalID;
-        logPlugin.debug(id);
+        // logPlugin.debug(id);
     } catch (err) {
         logPlugin.debug('HandleRealTimeTransaction MSG ID Parsing', err);
         msg.nack();
@@ -26,9 +26,9 @@ var handleRealTimeTransaction = function(msg) {
                 var typeMap = cardTypeMap(merchant);
                 var depositObj = depositAccount(merchant);
 
-                console.log("ok", depositObj);
+                //console.log("ok", depositObj);
                 var cloudElemSR = realTimeTransactionMap(msg, typeMap, depositObj);
-                console.log(cloudElemSR);
+
             } else {
                 console.log("batch merchant found");
             }
@@ -38,13 +38,16 @@ var handleRealTimeTransaction = function(msg) {
             return
         }
 
+
+
         post(cloudElemSR, function(err, salesReceipt){
-            if(err)
+            if(err) {
                 msg.nack();
-            else
+
+            } else {
                 msg.ack();
                 console.log("the msg made it through post and ack");
-        });
+            }});
 
     });
 };

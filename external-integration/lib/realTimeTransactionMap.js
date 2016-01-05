@@ -13,7 +13,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
         var incremented = 0;
 
         array.forEach(function(payment){
-            logPlugin.debug(payment.amount);
+            //logPlugin.debug(payment.amount);
             total += payment.amount;
             //++incremented;
 
@@ -23,7 +23,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
                 "salesItemLineDetail": {
                     "unitPrice": payment.amount,
                     "itemRef": {
-                        "name": "mastercard",
+                        "name": "MasterCard",
                         "value": "23"
                     },
                     "taxCodeRef": {
@@ -33,7 +33,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
                 },
                 "lineNum": 1,
                 //need to increment this id.
-                "id": 1598,
+                //"id": 1598,
                 "linkedTxn": [],
                 "customField": []
             };
