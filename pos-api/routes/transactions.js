@@ -7,6 +7,7 @@ var sendResponse =require('../lib/pos_modules/sendResponse');
 //var Transaction = require('../models/transaction').model;
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
+var logPlugin = require('posable-logging-plugin');
 
 //router.get('/', function(req, res) {
 //    Transaction.find(function(err, transactions) {
@@ -20,16 +21,11 @@ var validate = require('posable-validation-plugin');
 
 
 router.post('/', function(req, res) {
-    var transaction;
-    console.log("Transactions Post received with content type of", req.headers['content-type']);
+    logPlugin.debug("Transactions Post received with content type of", req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
 
-    if (statusObject.isOK) {
-        checkPostToken(req, statusObject, continuePost);
-    }
-
-
+    if (statusObject.isOK) {checkPostToken(req, statusObject, continuePost);}
 
     function continuePost(err, statusObject) {
 
@@ -43,10 +39,8 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
-        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);} // delete
-
         if (statusObject.isOK) {
-            var valObject = validate.validateTransaction(transaction);
+            var valObject = validate.validateTransaction(transactionDTO);
             if (valObject.isValid == false) {
                 statusObject.isOK = false;
                 statusObject['error'] = {

@@ -1,8 +1,11 @@
 var logPlugin = require('posable-logging-plugin');
+var mapTransaction = require('/mapTransaction');
+
 
 var createTransactionDTO = function (req, statusObject) {
-    var transactionDTO = {};
     try {
+        var transactionDTO = {};
+        logPlugin.debug('Starting Transaction Request Mapping');
         if (req.headers['content-type'] === "application/json" || req.headers['content-type'] === "application/xml") {
             // the following adjust the xml-parsed body
             if (req.headers['content-type'] === "application/xml") {
@@ -19,6 +22,7 @@ var createTransactionDTO = function (req, statusObject) {
                 error: {code: 400, message: "Payment DTO was not successfully created from Post Body"}
             }
         }
+        logPlugin.debug('Transaction Request Mapping Successful');
     } catch (err) {
         if (err) {
             logPlugin.error(err);
@@ -28,9 +32,12 @@ var createTransactionDTO = function (req, statusObject) {
                 error: {code: 500, message: "System Error with creating a Transaction DTO"}
             }
         }
-        return transactionDTO;
     }
-    return transactionDTO;
+    if (statusObject.isOk === false) {
+        return transactionDTO;
+    } else {
+        return mapTransaction(transactionDTO, statusObject);
+    }
 };
 
 module.exports = createTransactionDTO;
