@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
-        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
+        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);} // delete
 
         if (statusObject.isOK) {
             var valObject = validate.validateTransaction(transaction);

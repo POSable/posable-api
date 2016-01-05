@@ -1,35 +1,35 @@
-var mongoose = require('mongoose');
 var mapPayment = require('../lib/mapPayment');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
-var err = null;
+var rabbitDispose = require('../lib/messageDispose');
 
-function createPaymentPersistence(msg, callback, testMapPayment) {
+var createPaymentPersistence = function(msg) {
     try {
-        var payment = testMapPayment || mapPayment(msg);
+        logPlugin.debug('started Payment Persistence Plugin');
+        logPlugin.debug('Received from rabbit: ', JSON.stringify(msg.body));
+        var payment = mapPayment(msg);
         var valPayment = validate.validatePayment(payment);
-        if (valPayment.isValid == false) {
-            logPlugin.error('Failed validation');
+
+        if (valPayment.isValid === false) {
+            var error = new Error('Failed Validation');
+           throw error
+        } else {
+            payment.save(function (err) {
+                if (err) {
+                    logPlugin.error(err);
+                } else {
+                    logPlugin.debug('Payment was saved');
+                }
+                rabbitDispose(msg, err);
+            });
         }
     } catch (err) {
+        logPlugin.debug('System Error in CreatePaymentPersistence');
         logPlugin.error(err);
-        msg.reject();
-        return callback(err, "reject")
+        err.deadLetter = true;
+        rabbitDispose(msg, err);
+        throw err;
     }
-
-    payment.save(function(err) {
-        if (err) {
-            logPlugin.error(err);
-            msg.reject();
-            return callback(err, "reject");
-        } else {
-            logPlugin.debug('Transaction was saved');
-            msg.ack();
-            return callback(err, "ack");
-        }
-    });
-
-    logPlugin.debug( 'Received from rabbit: ', JSON.stringify(msg.body) );
-}
+};
 
 module.exports = createPaymentPersistence;
