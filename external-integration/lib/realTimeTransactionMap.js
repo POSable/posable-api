@@ -1,6 +1,6 @@
 var post = require('./cloudElementsClient');
 var logPlugin = require('posable-logging-plugin');
-var incremented = require('./idIncrement');
+//var incremented = require('./idIncrement');
 var deposit = require ('./depositAccount');
 
 var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
@@ -15,7 +15,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
         array.forEach(function(payment){
             logPlugin.debug(payment.amount);
             total += payment.amount;
-            ++incremented;
+            //++incremented;
 
             sale = {
                 "detailType": "SALES_ITEM_LINE_DETAIL",
@@ -23,7 +23,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
                 "salesItemLineDetail": {
                     "unitPrice": payment.amount,
                     "itemRef": {
-                        "name": payment.paymentType,
+                        "name": "mastercard",
                         "value": "23"
                     },
                     "taxCodeRef": {
@@ -33,7 +33,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
                 },
                 "lineNum": 1,
                 //need to increment this id.
-                "id": incremented,
+                "id": 1598,
                 "linkedTxn": [],
                 "customField": []
             };
@@ -48,8 +48,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
         });
 
 
-
-        var salesReceipt = {
+        salesReceipt = {
             "line": line,
             "depositToAccountRef": {
                 "name": depositObj.depositAccountName,

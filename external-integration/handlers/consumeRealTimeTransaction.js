@@ -1,7 +1,7 @@
 var realTimeTransactionMap = require('../lib/realTimeTransactionMap');
 var configPlugin = require('posable-customer-config-plugin');
 var logPlugin = require('posable-logging-plugin');
-var paymentTypeMap = require('../lib/paymentTypeMap');
+var cardTypeMap = require('../lib/cardTypeMap');
 var depositAccount = require('../lib/depositAccount');
 var post = require('../lib/cloudElementsClient');
 
@@ -21,24 +21,29 @@ var handleRealTimeTransaction = function(msg) {
             if (merchant == undefined) merchant = {batchType: "fake"}; // for testing only
             if (merchant.batchType === "real-time") {
                 logPlugin.debug("Real-time merchant");
-                var paymentMap = paymentTypeMap(merchant);
+
+
+                var typeMap = cardTypeMap(merchant);
                 var depositObj = depositAccount(merchant);
 
-                var cloudElemSR = realTimeTransactionMap(msg, paymentMap, depositObj);
+                console.log("ok", depositObj);
+                var cloudElemSR = realTimeTransactionMap(msg, typeMap, depositObj);
+                console.log(cloudElemSR);
             } else {
                 console.log("batch merchant found");
             }
         } catch (err) {
             logPlugin.debug('HandleRealTimeTransaction Merchant Lookup System Error', err);
             msg.nack();
+            return
         }
 
-        post(cloudElemSR, function(err){
+        post(cloudElemSR, function(err, salesReceipt){
             if(err)
                 msg.nack();
             else
                 msg.ack();
-            console.log("the msg made it through post and ack");
+                console.log("the msg made it through post and ack");
         });
 
     });

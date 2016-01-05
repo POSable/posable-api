@@ -1,6 +1,6 @@
-var salesReceipt = require('./realTimeTransactionMap');
+//var salesReceipt = require('./realTimeTransactionMap');
 
-var paymentTypeMap = function(merchant) {
+var cardTypeMap = function(merchant) {
 
         try {
             var paymentTypes = {};
@@ -20,4 +20,4 @@ var paymentTypeMap = function(merchant) {
 
 };
 
-module.exports = paymentTypeMap;
+module.exports = cardTypeMap;
