@@ -1,5 +1,5 @@
 var logPlugin = require('posable-logging-plugin');
-var mapTransaction = require('/mapTransaction');
+var mapTransaction = require('./mapTransaction');
 
 
 var createTransactionDTO = function (req, statusObject) {

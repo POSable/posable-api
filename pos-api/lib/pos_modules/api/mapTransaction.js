@@ -3,7 +3,7 @@ var logPlugin = require('posable-logging-plugin');
 var mapTransaction = function(dto, statusObject) {
         try {
             logPlugin.debug('Starting Property Mapping');
-            var transaction = {transactionPayments: []};
+            var transaction = {};
             var dateTime;
             if (dto.transaction.transactionDateTime.date) {
                 dateTime = dto.transaction.transactionDateTime.date + " " + dto.transaction.transactionDateTime.time;
@@ -15,6 +15,7 @@ var mapTransaction = function(dto, statusObject) {
             transaction.terminalID = dto.transaction.terminalID;
             transaction.cashierID = dto.transaction.cashierID;
             transaction.dateTime = dateTime;
+            transaction.transactionPayments = [];
             dto.transaction.payments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     uid : paymentdto.uid,
