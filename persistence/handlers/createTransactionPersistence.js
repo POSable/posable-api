@@ -2,7 +2,7 @@ var mapTransaction = require('../lib/mapTransaction');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 var batchType = require('../lib/batchType');
-var rabbitDispose = require('../lib/messageDispose');
+var rabbitDispose = require('../lib/rabbitMsgDispose');
 
 function createTransactionPersistence(msg) {
     try {
@@ -37,7 +37,6 @@ function createTransactionPersistence(msg) {
                 rabbitDispose(msg, err);
             });
         }
-
     } catch (err) {
         logPlugin.debug('System Error in Transaction Persistence Handler');
         logPlugin.error(err);
