@@ -3,6 +3,7 @@ var logPlugin = require('posable-logging-plugin');
 
 var mapTransaction = function(msg) {
         try {
+            logPlugin.debug('Starting Transaction Property Mapping');
             var transaction = new Transaction();
             transaction.transactionID = msg.body.data.transactionID;
             transaction.merchantID = msg.body.data.merchantID;
@@ -22,15 +23,11 @@ var mapTransaction = function(msg) {
                 })
             });
         } catch (err) {
-           logPlugin.error(err);
+            logPlugin.debug('System error in mapTransaction');
+            logPlugin.error(err);
             return undefined;
-            //statusObject.isOK = false;
-            //statusObject['error'] = {
-            //    module: "transactionMap",
-            //    error: {code: 400, message: "Transaction DB Map was not successfully completed from Post Body"}
-            //}
         }
-        //console.log(transaction);
+        logPlugin.debug('Transaction Property Mapping Finished');
         return transaction;
     };
 

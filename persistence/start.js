@@ -126,7 +126,6 @@ console.log('Starting Connection to RabbitMQ');
 
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.persistence');
-wascallyRabbit.setHandler('posapi.event.receivedCreatePaymentRequest', createPaymentPersistence);
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', createTransactionPersistence);
 wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', createErrorPersist);
 wascallyRabbit.setup('persistence');
