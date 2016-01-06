@@ -1,4 +1,5 @@
-var configPlugin = require('posable-customer-config-plugin');
+var env = require('../common').config();
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 var timedService = require('./timedService');
 var realTime = require('./realTime');
 var logPlugin = require('posable-logging-plugin');
