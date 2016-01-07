@@ -2,22 +2,20 @@ var express = require('express');
 var router = express.Router();
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
 var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
-var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
+var logPlugin = require('posable-logging-plugin');
 
 router.post('/', function(req, res) {
-    console.log(" Starting fullTransactions, Post received with content type of", req.headers['content-type']);
-    var transaction;
+    logPlugin.debug("fullTransactions Post received with content type of" + " " + req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
 
-    if (statusObject.isOK) {
-        checkPostToken(req, statusObject, continuePost);
-    }
+    if (statusObject.isOK) {checkPostToken(req, statusObject, continuePost);}
 
     function continuePost(err, statusObject) {
+
         if (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
@@ -28,21 +26,24 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
-        if (statusObject.isOK) {transaction = mapTransaction(transactionDTO, statusObject);}
-
         if (statusObject.isOK) {
-            var valObject = validate.validateTransaction(transaction);
+            logPlugin.debug('Starting Validation');
+            var valObject = validate.validateTransaction(transactionDTO);
             if (valObject.isValid == false) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'Transaction Validation',
-                    error: {code: 400, message: valObject.message} }
-            }  else { statusObject.success.push('validated'); }
+                    error: {code: 400, message: valObject.message}
+                }
+            } else {
+                logPlugin.debug('Successful Validation');
+                statusObject.success.push('validated');
+            }
         }
 
         if (statusObject.isOK) {
-            console.log("statusObject", statusObject);
-            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, transaction).then(finalizePost, function() {
+            logPlugin.debug('Sending Transaction Event to Rabbit');
+            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, transactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
@@ -53,18 +54,17 @@ router.post('/', function(req, res) {
         } else {
             finalizePost();
         }
-        function finalizePost () {
-            console.log("in fullTransactions finalize post");
-            if (statusObject.merchant.responseType === 'alt') {
-                wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).then(sendResponse(res, statusObject), function(){
-                    console.log("Error sending fullTransactions to rabbit");
-                    sendResponse(res, statusObject);
-                })
 
-            } else {
-                sendResponse(res, statusObject);
-                console.log('fullTransactions Finished')
+        function finalizePost() {
+            logPlugin.debug("Starting Finalize Post");
+            if (!statusObject.isOK && statusObject.merchant.responseType === 'alt') {
+                logPlugin.debug("Sending Response to Alt Path");
+                wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).catch(function () {
+                    logPlugin.error("Error sending Request to Rabbit", err);
+                })
             }
+            logPlugin.debug("Sending HTTP Response");
+            sendResponse(res, statusObject);
         }
     }
 });
