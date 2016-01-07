@@ -9,10 +9,14 @@ var post = require('../lib/cloudElementsClient');
 var handleRealTimeTransaction = function(msg) {
     try {
         var id = msg.body.internalID;
-        // logPlugin.debug(id);
+        if(id == undefined){
+            logPlugin.debug('Msg internalID is undefined.  Msg is rejected');
+            msg.reject();
+            return
+        }
     } catch (err) {
         logPlugin.debug('HandleRealTimeTransaction MSG ID Parsing', err);
-        msg.nack();
+        msg.reject();
         return err;
     }
     configPlugin.merchantLookup(id, function(err, merchant){
