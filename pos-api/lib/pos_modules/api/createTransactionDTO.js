@@ -33,7 +33,7 @@ var createTransactionDTO = function (req, statusObject) {
             }
         }
     }
-    if (statusObject.isOk === false) {
+    if (statusObject.isOK === false) {
         return transactionDTO;
     } else {
         return mapTransaction(transactionDTO, statusObject);
