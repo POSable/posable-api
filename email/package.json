@@ -11,14 +11,12 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "bunyan": "^1.5.1",
-    "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
     "express": "^4.13.3",
     "nodemailer": "^1.10.0",
     "path": "^0.12.7",
     "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
-    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git",
-    "wascally": "^0.2.7"
+    "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
   },
   "devDependencies": {
     "jasmine": "^2.3.2",
