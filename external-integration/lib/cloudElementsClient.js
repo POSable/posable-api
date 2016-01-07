@@ -14,8 +14,7 @@ var cloudElementsClient = function(salesReceipt, merchant, callback) {
             },
             body: JSON.stringify(salesReceipt)
         }, function(error, response, salesReceipt){
-            //if()
-            console.log(response.statusCode);
+            logPlugin.debug("CloudElem response code: " + response.statusCode);
             if(error) {
                 logPlugin.debug(error);
                 callback(error);
@@ -24,7 +23,7 @@ var cloudElementsClient = function(salesReceipt, merchant, callback) {
                 callback(null, salesReceipt);
             } else {
                 //console.log(callback);
-                logPlugin.debug(response.statusCode, salesReceipt);
+                logPlugin.debug("CloudElem response code: " + response.statusCode);
                 //callback(null, salesReceipt);
                 console.log(salesReceipt);
                 console.log("things went poorly");

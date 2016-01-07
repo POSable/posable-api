@@ -1,6 +1,7 @@
 var realTimeTransactionMap = require('../lib/realTimeTransactionMap');
-var configPlugin = require('posable-customer-config-plugin');
+var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 var cardTypeMap = require('../lib/cardTypeMap');
 var depositAccount = require('../lib/depositAccount');
 var post = require('../lib/cloudElementsClient');
@@ -16,7 +17,7 @@ var handleRealTimeTransaction = function(msg) {
         rabbitDispose(msg, idErr);
     } else {
         logPlugin.debug("Found merchant ID " + id);
-        configPlugin.merchantLookup(id, function(err, merchant) { //pass logger
+        configPlugin.merchantLookup(id, logPlugin, function(err, merchant) { //pass logger
             if (err) {
                 logPlugin.error(err);
                 rabbitDispose(msg, err);
