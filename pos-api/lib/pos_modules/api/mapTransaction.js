@@ -2,7 +2,6 @@ var logPlugin = require('posable-logging-plugin');
 
 var mapTransaction = function(dto, statusObject) {
         try {
-            console.log('****************', dto.transaction.transactionDateTime.date)
             logPlugin.debug('Starting Property Mapping');
             var transaction = {};
             var dateTime;
