@@ -15,7 +15,7 @@ var handleRealTimePayment = function(msg) {
         msg.nack();
         return err;
     }
-    configPlugin.merchantLookup(id, function(err, merchant){
+    configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
         try {
 
             if (err) throw err;

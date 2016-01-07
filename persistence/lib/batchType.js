@@ -7,7 +7,7 @@ var logPlugin = require('posable-logging-plugin');
 var batchType = function(msg) {
     try {
         var id = msg.body.internalID;
-        configPlugin.merchantLookup(id, function(err, merchant){
+        configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
 
             if (merchant.batchType == "real-time") {
                 logPlugin.info("Real-time merchant");
