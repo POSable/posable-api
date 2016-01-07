@@ -7,12 +7,8 @@ var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 
-router.get('/', function(req, res) {
-           res.json("Collections Get End Point");
-});
-
 router.post('/', function(req, res) {
-    console.log(" Starting fullTransaction, Post received with content type of", req.headers['content-type']);
+    console.log(" Starting fullTransactions, Post received with content type of", req.headers['content-type']);
     var transaction;
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
@@ -50,7 +46,7 @@ router.post('/', function(req, res) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
-                    error: {code: 500, message: "System Error fullTransaction did NOT publish to Rabbit"}
+                    error: {code: 500, message: "System Error fullTransactions did NOT publish to Rabbit"}
                 };
                 finalizePost();
             })
@@ -58,16 +54,16 @@ router.post('/', function(req, res) {
             finalizePost();
         }
         function finalizePost () {
-            console.log("in fullTransaction finalize post");
+            console.log("in fullTransactions finalize post");
             if (statusObject.merchant.responseType === 'alt') {
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).then(sendResponse(res, statusObject), function(){
-                    console.log("Error sending fullTransaction to rabbit");
+                    console.log("Error sending fullTransactions to rabbit");
                     sendResponse(res, statusObject);
                 })
 
             } else {
                 sendResponse(res, statusObject);
-                console.log('fullTransaction Finished')
+                console.log('fullTransactions Finished')
             }
         }
     }
