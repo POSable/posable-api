@@ -6,7 +6,7 @@ var xmlparser = require('express-xml-bodyparser');
 var healthcheck = require('./routes/healthcheck');
 //var payments = require('./routes/payments');
 var transactions = require('./routes/transactions');
-var collections = require('./routes/collections');
+var fullTransaction = require('./routes/fullTransaction');
 //var errorHandling = require('./lib/pos_modules/errorHandling');
 
 var app = express();
@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/payments', payments);
 app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
-app.use('/collections', collections);
+app.use('/fullTransaction', fullTransaction);
 
 // catch 404 and forward to error handler - this crashed Elastic Beanstalk!!!
 //app.use(function(req, res, next) {

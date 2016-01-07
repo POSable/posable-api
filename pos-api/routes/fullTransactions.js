@@ -4,7 +4,6 @@ var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
 var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
 var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
 var sendResponse =require('../lib/pos_modules/sendResponse');
-//var Transaction = require('../models/transaction').model;
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 
@@ -13,8 +12,8 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
+    console.log(" Starting fullTransaction, Post received with content type of", req.headers['content-type']);
     var transaction;
-    console.log("Collections Post received with content type of", req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
 
@@ -51,7 +50,7 @@ router.post('/', function(req, res) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
-                    error: {code: 500, message: "System Error PaymentEvent did NOT publish to Rabbit"}
+                    error: {code: 500, message: "System Error fullTransaction did NOT publish to Rabbit"}
                 };
                 finalizePost();
             })
@@ -59,17 +58,16 @@ router.post('/', function(req, res) {
             finalizePost();
         }
         function finalizePost () {
-            console.log("in finalize post");
+            console.log("in fullTransaction finalize post");
             if (statusObject.merchant.responseType === 'alt') {
-                console.log("before send to rabbit");
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).then(sendResponse(res, statusObject), function(){
-                    console.log("error sending req to rabbit");
+                    console.log("Error sending fullTransaction to rabbit");
                     sendResponse(res, statusObject);
                 })
 
             } else {
-                console.log("Response Type", statusObject);
                 sendResponse(res, statusObject);
+                console.log('fullTransaction Finished')
             }
         }
     }

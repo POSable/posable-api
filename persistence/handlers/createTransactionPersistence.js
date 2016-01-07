@@ -1,12 +1,10 @@
 var mapTransaction = require('../lib/mapTransaction');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
-var batchType = require('../lib/batchType');
 var rabbitDispose = require('../lib/rabbitMsgDispose');
 
 function createTransactionPersistence(msg) {
     try {
-        console.log(rabbitDispose);
         logPlugin.debug('Received message from Rabbit, Starting Transaction Persistence Handler');
         var valTransaction = {};
         var transaction = mapTransaction(msg);
