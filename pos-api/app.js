@@ -27,13 +27,16 @@ app.use(function (error, req, res, next) {
     }
     next(error);
 });
-
-app.use(xmlparser({
-    explicitArray: false,
-    normalize: false,
-    normalizeTags: false,
-    trim: true
-}));
+try {
+    app.use(xmlparser({
+        explicitArray: false,
+        normalize: false,
+        normalizeTags: false,
+        trim: true
+    }));
+} catch (err) {
+    console.log(err);
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));

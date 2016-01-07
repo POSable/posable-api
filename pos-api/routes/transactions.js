@@ -33,8 +33,9 @@ router.post('/', function(req, res) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'Transaction Validation',
-                    error: {code: 400, message: valObject.message} }
-            }  else {
+                    error: {code: 400, message: valObject.message}
+                }
+            } else {
                 logPlugin.debug('Successful Validation');
                 statusObject.success.push('validated');
             }
@@ -54,7 +55,7 @@ router.post('/', function(req, res) {
             finalizePost();
         }
 
-        function finalizePost () {
+        function finalizePost() {
             logPlugin.debug("Starting Finalize Post");
             if (!statusObject.isOK && statusObject.merchant.responseType === 'alt') {
                 logPlugin.debug("Sending Response to Alt Path");
