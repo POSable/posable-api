@@ -1,6 +1,5 @@
 var jwt = require('jsonwebtoken');
 var env = require('../common').config();
-console.log(env);
 var logPlugin = require('posable-logging-plugin');
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 
