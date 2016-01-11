@@ -6,9 +6,11 @@ var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
+var uuid = require('node-uuid');
 
 router.post('/', function(req, res) {
-    logPlugin.debug("Transactions Post received with content type of" + " " + req.headers['content-type']);
+    var requestID = uuid.v4();
+    logPlugin.debug(requestID + " -Transactions Post received with content type of " + req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
 
@@ -43,7 +45,7 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {
             logPlugin.debug('Sending Transaction Event to Rabbit');
-            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, transactionDTO).then(finalizePost, function() {
+            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, transactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
@@ -60,7 +62,7 @@ router.post('/', function(req, res) {
             if (!statusObject.isOK && statusObject.merchant.responseType === 'alt') {
                 logPlugin.debug("Sending Response to Alt Path");
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).catch(function(err){
-                    logPlugin.error("Error sending Request to Rabbit", err);
+                    logPlugin.error("Error sending Request to Rabbit" + err);
                 })
             }
             logPlugin.debug("Sending HTTP Response");
