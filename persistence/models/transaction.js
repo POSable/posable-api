@@ -8,6 +8,7 @@ var TransactionSchema = new mongoose.Schema({
     merchantID: String,
     dateTime: String,
     internalID: String,
+    requestID: String,
     transactionPayments: [mongoose.model('Payment').schema]
 });
 
