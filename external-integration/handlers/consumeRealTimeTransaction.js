@@ -7,20 +7,23 @@ var depositAccount = require('../lib/depositAccount');
 var post = require('../lib/cloudElementsClient');
 var rabbitDispose = require('../lib/rabbitMsgDispose');
 
+var handleSyncError = function(err){
+    err.deadLetter = true;
+    logPlugin.error(err);
+    rabbitDispose(msg, err);
+};
+
 
 var handleRealTimeTransaction = function(msg) {
     var id = msg.body.internalID;
     if(id == undefined){
         var idErr = new Error('Msg internalID is undefined.  Msg is rejected');
-        idErr.deadLetter = true;
-        logPlugin.error(idErr);
-        rabbitDispose(msg, idErr);
+        handleSyncError(idErr);
     } else {
         logPlugin.debug("Found merchant ID " + id);
-        configPlugin.merchantLookup(id, logPlugin, function(err, merchant) { //pass logger
+        configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
             if (err) {
-                logPlugin.error(err);
-                rabbitDispose(msg, err);
+                handleSyncError(err);
             } else {
                 logPlugin.debug('Merchant Lookup finished');
                 processMerchant(merchant)
@@ -29,19 +32,24 @@ var handleRealTimeTransaction = function(msg) {
     }
 
     function processMerchant(merchant){
-        if (merchant == undefined) merchant = {batchType: "fake"}; // for testing only
-        if (merchant.batchType === "real-time") {
-            logPlugin.debug("Real-time merchant");
+        try {
+            if (merchant == undefined) throw new Error("Merchant not found");
+            if (merchant.batchType === "real-time") {
+                logPlugin.debug("Real-time merchant");
 
-            var typeMap = cardTypeMap(merchant);
-            var depositObj = depositAccount(merchant);
+                var typeMap = cardTypeMap(merchant);
+                var depositObj = depositAccount(merchant);
 
-            //console.log("ok", depositObj);
-            var cloudElemSR = realTimeTransactionMap(msg, typeMap, depositObj);
+                var cloudElemSR = realTimeTransactionMap(msg, typeMap, depositObj);
 
-            postToCE(cloudElemSR, merchant);
-        } else {
-            console.log("batch merchant found");
+                postToCE(cloudElemSR, merchant);
+
+            } else {
+                logPlugin.debug("batch merchant found");
+                rabbitDispose(msg, err);
+            }
+        } catch(err) {
+            handleSyncError(err);
         }
     }
 
@@ -55,7 +63,7 @@ var handleRealTimeTransaction = function(msg) {
             rabbitDispose(msg, err);
         });
     }
-}
+};
 
 module.exports = {
 
