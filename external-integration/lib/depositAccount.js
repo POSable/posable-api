@@ -1,5 +1,3 @@
-var salesReceipt = require('./realTimeTransactionMap');
-
 var depositAccount = function(merchant) {
 
     var depositDetails = {};

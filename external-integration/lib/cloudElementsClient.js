@@ -22,12 +22,9 @@ var cloudElementsClient = function(salesReceipt, merchant, callback) {
                 logPlugin.debug('Finish Cloud Elements Client posting function');
                 callback(null, salesReceipt);
             } else {
-                //console.log(callback);
                 logPlugin.debug("CloudElem response code: " + response.statusCode);
-                //callback(null, salesReceipt);
-                console.log(salesReceipt);
-                console.log("things went poorly");
-                var newError = new Error("poorly");
+                //console.log(salesReceipt);
+                var newError = new Error("Cloud Elements has rejected the POST");
                 callback(newError);
             }
         });
