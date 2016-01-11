@@ -3,6 +3,7 @@ var request = require('request');
 
 var cloudElementsClient = function(salesReceipt, merchant, callback) {
     try {
+        logPlugin.debug('Start Cloud Elements Client posting function');
         request({
             url: 'https://qa.cloud-elements.com:443/elements/api-v2/hubs/finance/sales-receipts',
             method: 'POST',
@@ -13,17 +14,16 @@ var cloudElementsClient = function(salesReceipt, merchant, callback) {
             },
             body: JSON.stringify(salesReceipt)
         }, function(error, response, salesReceipt){
-            //if()
-            console.log(response.statusCode);
+            logPlugin.debug("CloudElem response code: " + response.statusCode);
             if(error) {
                 logPlugin.debug(error);
                 callback(error);
             } if(response.statusCode == 200) {
-                console.log("things went well");
+                logPlugin.debug('Finish Cloud Elements Client posting function');
                 callback(null, salesReceipt);
             } else {
                 //console.log(callback);
-                logPlugin.debug(response.statusCode, salesReceipt);
+                logPlugin.debug("CloudElem response code: " + response.statusCode);
                 //callback(null, salesReceipt);
                 console.log(salesReceipt);
                 console.log("things went poorly");

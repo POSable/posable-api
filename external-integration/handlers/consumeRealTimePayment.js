@@ -1,8 +1,9 @@
 var realTimePaymentMap = require('../lib/realTimeTransactionMap');
 var post = require('../lib/cloudElementsClient');
-var configPlugin = require('posable-customer-config-plugin');
-var err = null;
+var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
+var err = null;
 var cardTypeMap = require('../lib/cardTypeMap');
 var depositAccount = require('../lib/depositAccount');
 
@@ -15,7 +16,7 @@ var handleRealTimePayment = function(msg) {
         msg.nack();
         return err;
     }
-    configPlugin.merchantLookup(id, function(err, merchant){
+    configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
         try {
 
             if (err) throw err;
