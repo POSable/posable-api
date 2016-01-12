@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 
-var healthcheck = require('./routes/healthcheck');
+var healthcheck = require('./routes/healthcheck').router;
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -105,8 +105,8 @@ console.log('Logging Setup Complete');
 
 //Require Handlers
 var createPaymentPersistence = require('./handlers/createPaymentPersistence');
-var createTransactionPersistence = require('./handlers/createTransactionPersistence');
-var createErrorPersist = require('./handlers/createErrorPersist');
+var createTransactionPersistence = require('./handlers/createTransactionPersistence').createTransactionPersistence;
+var createErrorPersist = require('./handlers/createErrorPersist').createErrorPersist;
 
 //Setup Database Connection
 var mongoose = require('mongoose');
@@ -124,6 +124,7 @@ console.log('Starting Connection to RabbitMQ');
 
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.persistence');
+console.log(createTransactionPersistence);
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', createTransactionPersistence);
 wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', createErrorPersist);
 wascallyRabbit.setup('persistence');

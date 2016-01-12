@@ -1,4 +1,4 @@
-describe("test persistence-service", function() {
+describe("test transaction persistence-service", function() {
 
     var persistTransaction = require('../handlers/createTransactionPersistence').createTransactionPersistence;
     var testTransactionMsg = {};
