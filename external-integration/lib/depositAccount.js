@@ -1,20 +1,13 @@
-var salesReceipt = require('./realTimeTransactionMap');
-
 var depositAccount = function(merchant) {
 
-    try {
-        var depositDetails = {};
+    var depositDetails = {};
 
-            depositDetails.depositAccountID = merchant.depositAccountID;
-            depositDetails.depositAccountName = merchant.depositAccountName;
+    depositDetails.depositAccountID = merchant.depositAccountID;
+    depositDetails.depositAccountName = merchant.depositAccountName;
 
-            //console.log("ok", depositDetails);
+    //console.log("ok", depositDetails);
 
-            return depositDetails;
-
-    } catch (err) {
-        console.log(err);
-    }
+    return depositDetails;
 
 };
 

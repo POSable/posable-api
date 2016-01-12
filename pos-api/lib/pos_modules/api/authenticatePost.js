@@ -37,7 +37,7 @@ var authenticatePost = function (req, statusObject, callback) {
                  internalErr = err;
                  return callback(internalErr);
              } else {
-                 configPlugin.merchantLookup(decoded.internalID, function(err, merchant){
+                 configPlugin.merchantLookup(decoded.internalID, logPlugin, function(err, merchant) {
                      try {
                          if (err) {
                              statusObject.isOK = false;

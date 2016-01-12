@@ -16,6 +16,7 @@
     "jsonwebtoken": "^5.4.1",
     "mongo": "^0.1.0",
     "mongoose": "^4.1.10",
+    "node-uuid": "^1.4.7",
     "object-to-xml": "^1.0.0",
     "posable-customer-config-plugin": "git+ssh://git@github.com/POSable/posable-customerConfigPlugin.git",
     "posable-logging-plugin": "git+ssh://git@github.com:POSable/posable-logPlugin.git",

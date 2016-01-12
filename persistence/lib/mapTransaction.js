@@ -5,6 +5,7 @@ var mapTransaction = function(msg) {
         try {
             logPlugin.debug('Starting Transaction Property Mapping');
             var transaction = new Transaction();
+            transaction.requestID = msg.correlationId;
             transaction.transactionID = msg.body.data.transactionID;
             transaction.merchantID = msg.body.data.merchantID;
             transaction.terminalID = msg.body.data.terminalID;

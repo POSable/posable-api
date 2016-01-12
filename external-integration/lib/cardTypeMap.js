@@ -2,21 +2,14 @@
 
 var cardTypeMap = function(merchant) {
 
-        try {
-            var paymentTypes = {};
+    var paymentTypes = {};
 
-                paymentTypes.visaID = merchant.visaID;
-                paymentTypes.mastercardID = merchant.mastercardID;
-                paymentTypes.amexID = merchant.amexID;
-                paymentTypes.discoverID = merchant.discoverID;
+    paymentTypes.visaID = merchant.visaID;
+    paymentTypes.mastercardID = merchant.mastercardID;
+    paymentTypes.amexID = merchant.amexID;
+    paymentTypes.discoverID = merchant.discoverID;
 
-                //console.log("ok", paymentTypes);
-
-                return paymentTypes;
-
-        } catch (err) {
-            console.log(err);
-        }
+    return paymentTypes;
 
 };
 
