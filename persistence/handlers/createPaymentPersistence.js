@@ -1,3 +1,5 @@
+// This file is not tested, currently ignored.
+
 var mapPayment = require('../lib/mapPayment');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
