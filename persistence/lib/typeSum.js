@@ -3,8 +3,9 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 //console.log(payments);
 
-var typeSum = function() {
+var typeSum = function(id) {
     try {
+        var internalID = id;
         var result = 0;
         var callback = function(err, payments) {
         if (err) return err;
@@ -14,7 +15,7 @@ var typeSum = function() {
                     return prev + curr.amount;
                 }, 0)
             });
-        logPlugin.info(result);
+        logPlugin.debug("this is the result of the typeSum: " + result);
         //inside callback block return result will need push to timed service
         //Publish msg to Rabbit using the wascally wrapper
         // Also need to handle error returned from wascally. If one.

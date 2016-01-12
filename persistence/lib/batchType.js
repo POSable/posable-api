@@ -15,7 +15,7 @@ var batchType = function(msg) {
                 msg.ack();
             } else {
                 logPlugin.info("Daily batch merchant");
-                timedService();
+                timedService(id);
                 msg.ack();
             }
         });
