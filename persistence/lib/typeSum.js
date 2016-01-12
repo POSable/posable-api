@@ -18,7 +18,7 @@ var typeSum = function() {
         //inside callback block return result will need push to timed service
         //Publish msg to Rabbit using the wascally wrapper
         // Also need to handle error returned from wascally. If one.
-        wascallyRabbit.raiseNewDailySumEvent(result).then(console.log('Summation sent to RabbitMQ'))
+        wascallyRabbit.raiseNewDailySumEvent(internalID, result).then(console.log('Summation sent to RabbitMQ'))
         };
     paymentQuery(callback);
     } catch (err) {

@@ -1,6 +1,11 @@
 var Payment = require('../models/payment').model;
 var Transaction = require('../models/transaction').model;
 var logPlugin = require('posable-logging-plugin');
+var env = require('../common').config();
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
+
+
+
 //Need to filter by today's transactions only
 //function today() {
 //    return new Date();
