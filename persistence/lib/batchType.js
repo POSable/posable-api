@@ -4,19 +4,18 @@ var timedService = require('./timedService');
 var realTime = require('./realTime');
 var logPlugin = require('posable-logging-plugin');
 
-var batchType = function(msg) {
+var batchType = function() {
     try {
-        var id = msg.body.internalID;
+        var id;
         configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
 
             if (merchant.batchType == "real-time") {
                 logPlugin.info("Real-time merchant");
-                realTime();
-                msg.ack();
+
             } else {
                 logPlugin.info("Daily batch merchant");
-                timedService(id);
-                msg.ack();
+
+
             }
         });
 

@@ -1,7 +1,9 @@
 var typeSum = require('./typeSum');
 var logPlugin = require('posable-logging-plugin');
+var lookup = require('posable-customer-config-plugin');
+var batchMerchantsArray = [];
 
-var timedService = function(id) {
+var timedService = function() {
     try {
 
         function checkTime() {
@@ -12,9 +14,15 @@ var timedService = function(id) {
 
             logPlugin.debug(time);
 
-            if (time >= 1214 && time <= 1420) {
+            if (time >= 1143 && time <= 1148) {
                 logPlugin.debug("in the range");
-                typeSum(id);
+                console.log();
+                lookup().merchantBatchLookup(function (err, docs) {
+                    batchMerchantsArray = docs;
+                    typeSum(batchMerchantsArray);
+                });
+
+
             } else {
                 logPlugin.debug("not in the range");
             }
