@@ -42,17 +42,18 @@ var typeSum = function(batchMerchantsArray) {
 var visaResult = 0;
 
 var callback = function(err, batchArray) {
-
+    console.log(batchArray);
     var visaArray = batchArray.visa;
-    visaArray.forEach(function(visaTransaction){
-        visaResult += visaTransaction.transactionPayments.reduce(function (prev, curr) {
-            return prev + curr.amount;
-        }, 0)
-    });
+    //console.log(visaArray);
+    //visaArray.forEach(function(visaTransaction){
+    //    visaResult += visaTransaction.transactionPayments.reduce(function (prev, curr) {
+    //        return prev + curr.amount;
+    //    }, 0)
+    //});
 
-    logPlugin.debug("this is the result of the typeSum: " + batchObj);
+    //logPlugin.debug("this is the result of the typeSum: " + batchObj);
 
-    wascallyRabbit.raiseNewDailySumEvent(internalID, batchObj).then(console.log('Summation sent to RabbitMQ'));
+    //wascallyRabbit.raiseNewDailySumEvent(internalID, batchObj).then(console.log('Summation sent to RabbitMQ'));
 
 
 

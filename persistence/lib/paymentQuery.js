@@ -7,6 +7,7 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var visaArray;
 
 var visaCallback = function(err, docs) {
+    console.log(docs);
     visaArray = docs;
     console.log("i'm in the visa callback", visaArray);
 };
@@ -14,7 +15,8 @@ var visaCallback = function(err, docs) {
 var paymentQuery = function(internalID, callback) {
     try {
 
-        Transaction.find({internalID: internalID}).where({cardType: "visa"}).exec(visaCallback);
+        console.log("Query: ", Transaction.find({internalID: internalID}, {'transactionPayments.cardType': "visa"}, {}, visaCallback));
+
 
          //var visa = Transactions.find({'merchantID': 'merchantID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'visa'}, callback);
          //var mastercard = Transactions.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'mastercard'}, callback);
