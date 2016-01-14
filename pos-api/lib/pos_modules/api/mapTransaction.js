@@ -6,7 +6,7 @@ var mapTransaction = function(dto, statusObject) {
             var transaction = {};
             var dateTime;
             if (dto.transaction.transactionDateTime.date) {
-                dateTime = dto.transaction.transactionDateTime.date + " " + dto.transaction.transactionDateTime.time;
+                dateTime = dto.transaction.transactionDateTime.date + dto.transaction.transactionDateTime.time;
             } else {
                 dateTime = dto.transaction.transactionDateTime.combinedDateTime;
             }

@@ -45,6 +45,7 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {
             logPlugin.debug('Sending Transaction Event to Rabbit');
+            console.log("&&&&&&&&&&&", transactionDTO);
             wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, transactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {

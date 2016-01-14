@@ -34,7 +34,7 @@ var typeSum = function(batchMerchantsArray) {
     //paymentQuery(callback);
 
     } catch (err) {
-        logPlugin.error(err);
+        //logPlugin.error(err);
         return err;
     }
 };
@@ -42,7 +42,7 @@ var typeSum = function(batchMerchantsArray) {
 var visaResult = 0;
 
 var callback = function(err, batchArray) {
-    console.log(batchArray);
+    //console.log(batchArray);
     var visaArray = batchArray.visa;
     //console.log(visaArray);
     //visaArray.forEach(function(visaTransaction){

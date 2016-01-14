@@ -10,6 +10,7 @@ var deadLetterErrorHandling = function (msg, error) {
 };
 
 function createTransactionPersistence(msg) {
+
     try {
         logPlugin.debug('Received message from Rabbit, Starting Transaction Persistence Handler');
         var valTransaction;

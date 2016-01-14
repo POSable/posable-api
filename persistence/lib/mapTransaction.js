@@ -3,6 +3,11 @@ var logPlugin = require('posable-logging-plugin');
 
 var mapTransaction = function(msg) {
         try {
+            var dateObject = function (stringDate) {
+
+                return new Date(stringDate)
+            };
+
             logPlugin.debug('Starting Transaction Property Mapping');
             var transaction = new Transaction();
             transaction.requestID = msg.correlationId;
@@ -10,7 +15,7 @@ var mapTransaction = function(msg) {
             transaction.merchantID = msg.body.data.merchantID;
             transaction.terminalID = msg.body.data.terminalID;
             transaction.cashierID = msg.body.data.cashierID;
-            transaction.dateTime = msg.body.data.dateTime;
+            transaction.dateTime = dateObject(msg.body.data.dateTime);
             msg.body.data.transactionPayments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     uid : paymentdto.uid,

@@ -7,15 +7,30 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var visaArray;
 
 var visaCallback = function(err, docs) {
-    console.log(docs);
+    //console.log(docs);
     visaArray = docs;
-    console.log("i'm in the visa callback", visaArray);
+    //console.log("i'm in the visa callback", visaArray);
 };
 
 var paymentQuery = function(internalID, callback) {
     try {
 
-        console.log("Query: ", Transaction.find({internalID: internalID}, {'transactionPayments.cardType': "visa"}, {}, visaCallback));
+        //var startDate = function(){
+        //    '2015/01/24 22:14:44'
+        //    //new Date(2015, 1, 24)
+        //};
+        //
+        //var endDate = function() {
+        //    '2016/01/25 22:14:44'
+        //    //new Date(2015, 1, 26)
+        //};
+
+        //Transaction.find(function (err, docs) { console.log(docs) });
+
+        //Transaction.find({"dateTime": {"$gte": '2015/01/24 22:14:44', "$lt": '2016/01/25 22:14:44'}}, function (err, docs) { console.log(docs) });
+
+
+        //Transaction.find({internalID: internalID}, {'transactionPayments.cardType': "visa"}, {}, visaCallback);
 
 
          //var visa = Transactions.find({'merchantID': 'merchantID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'visa'}, callback);
@@ -41,3 +56,5 @@ var paymentQuery = function(internalID, callback) {
 };
 
 module.exports = paymentQuery;
+
+

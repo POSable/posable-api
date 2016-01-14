@@ -14,9 +14,9 @@ var timedService = function() {
 
             logPlugin.debug(time);
 
-            if (time >= 2026 && time <= 2055) {
+            if (time >= 150 && time <= 180) {
                 logPlugin.debug("in the range");
-                console.log();
+                //console.log();
                 lookup().merchantBatchLookup(function (err, docs) {
                     batchMerchantsArray = docs;
                     typeSum(batchMerchantsArray);
