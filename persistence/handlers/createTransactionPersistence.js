@@ -1,12 +1,12 @@
 var mapTransaction = require('../lib/mapTransaction');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
-var rabbitDispose = require('../lib/rabbitMsgDispose');
+var wascallyRabbit = require('posable-wascally-wrapper');
 
 var deadLetterErrorHandling = function (msg, error) {
     logPlugin.error(error);
     error.deadLetter = true;
-    rabbitDispose(msg, error);
+    wascallyRabbit.rabbitDispose(msg, error);
 };
 
 function createTransactionPersistence(msg) {
@@ -30,7 +30,7 @@ function createTransactionPersistence(msg) {
                 } else {
                     logPlugin.debug('Transaction was saved');
                 }
-                rabbitDispose(msg, err);
+                wascallyRabbit.rabbitDispose(msg, err);
             });
         } else if (valTransaction && !valTransaction.isValid) {
             var valError = new Error('Failed Transaction Persistence Validation');
@@ -46,15 +46,10 @@ var testingStub = function (testMapTransaction, testValidate, testLogPlugin, tes
     mapTransaction = testMapTransaction.testMapTransaction;
     validate = testValidate;
     logPlugin = testLogPlugin;
-    rabbitDispose = testRabbitDispose.testRabbitDispose;
+    wascallyRabbit.rabbitDispose = testRabbitDispose.testRabbitDispose;
 };
-
-var testFailStub = function(){
-    throw new Error('BOOM!');
-}
 
 module.exports = {
     createTransactionPersistence: createTransactionPersistence,
     testingStub: testingStub,
-    testFailStub: testFailStub
 };

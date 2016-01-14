@@ -5,12 +5,12 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var cardTypeMap = require('../lib/cardTypeMap');
 var depositAccount = require('../lib/depositAccount');
 var post = require('../lib/cloudElementsClient');
-var rabbitDispose = require('../lib/rabbitMsgDispose');
+var wascallyRabbit = require('posable-wascally-wrapper');
 
 var handleSyncError = function(err){
     err.deadLetter = true;
     logPlugin.error(err);
-    rabbitDispose(msg, err);
+    wascallyRabbit.rabbitDispose(msg, err);
 };
 
 
@@ -46,7 +46,7 @@ var handleRealTimeTransaction = function(msg) {
 
             } else {
                 logPlugin.debug("batch merchant found");
-                rabbitDispose(msg, err);
+                wascallyRabbit.rabbitDispose(msg, err);
             }
         } catch(err) {
             handleSyncError(err);
@@ -60,7 +60,7 @@ var handleRealTimeTransaction = function(msg) {
             } else {
                 logPlugin.debug("the msg made it through post and ack");
             }
-            rabbitDispose(msg, err);
+            wascallyRabbit.rabbitDispose(msg, err);
         });
     }
 };
