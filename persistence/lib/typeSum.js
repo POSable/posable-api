@@ -41,15 +41,17 @@ var typeSum = function(batchMerchantsArray) {
 
 var visaResult = 0;
 
-var callback = function(err, batchArray) {
+var callback = function(err, batchObject) {
     //console.log(batchArray);
-    var visaArray = batchArray.visa;
+    //var visaArray = batchArray.visa;
     //console.log(visaArray);
     //visaArray.forEach(function(visaTransaction){
     //    visaResult += visaTransaction.transactionPayments.reduce(function (prev, curr) {
     //        return prev + curr.amount;
     //    }, 0)
     //});
+
+    console.log(batchObject);
 
     //logPlugin.debug("this is the result of the typeSum: " + batchObj);
 

@@ -4,13 +4,13 @@ var logPlugin = require('posable-logging-plugin');
 var env = require('../common').config();
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 
-var visaArray;
-
-var visaCallback = function(err, docs) {
-    //console.log(docs);
-    visaArray = docs;
-    //console.log("i'm in the visa callback", visaArray);
-};
+//var visaArray;
+//
+//var visaCallback = function(err, docs) {
+//    //console.log(docs);
+//    visaArray = docs;
+//    //console.log("i'm in the visa callback", visaArray);
+//};
 
 var paymentQuery = function(internalID, callback) {
     try {
@@ -25,9 +25,43 @@ var paymentQuery = function(internalID, callback) {
         //    //new Date(2015, 1, 26)
         //};
 
-        //Transaction.find(function (err, docs) { console.log(docs) });
+        var batchObject = {
+            visa: 0,
+            mastercard: 0,
+            amex: 0,
+            discover: 0,
+            cash: 0,
+            total: 0
+        };
 
-        //Transaction.find({"dateTime": {"$gte": '2015/01/24 22:14:44', "$lt": '2016/01/25 22:14:44'}}, function (err, docs) { console.log(docs) });
+        var paymentCallback = function (err, docs) {
+
+            docs.forEach(function(payment){
+
+
+
+
+                    if(payment.cardType === 'visa') {
+                        batchObject.visa += payment.amount;
+                    } if(payment.cardType === 'mastercard') {
+                        batchObject.mastercard += payment.amount;
+                    } if(payment.cardType === 'amex') {
+                        batchObject.amex += payment.amount;
+                    } if(payment.cardType === 'discover') {
+                        batchObject.discover += payment.amount;
+                    }
+
+
+            });
+
+            //console.log(docs);
+
+            callback(err, batchObject);
+
+        };
+
+        Payment.find({"dateTime": {"$gte": '1995-11-17T03:24:00', "$lt": '1995-13-17T03:24:00'}}).where({internalID: internalID}).exec(paymentCallback);
+
 
 
         //Transaction.find({internalID: internalID}, {'transactionPayments.cardType': "visa"}, {}, visaCallback);
@@ -39,15 +73,8 @@ var paymentQuery = function(internalID, callback) {
          //var discover = Transactions.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'discover'}, callback);
          //var cash = Transactions.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'cash'}, callback);
 
-         var batchArray = {
-             visa: visaArray
-             //mastercard: mastercard,
-             //amex: amex,
-             //discover: discover,
-             //cash: cash,
-             //total: visa + amex + amex + discover + cash
-         };
-        return callback(undefined, batchArray);
+
+        //return callback(undefined, batchArray);
 
     } catch (err) {
        logPlugin.error(err);

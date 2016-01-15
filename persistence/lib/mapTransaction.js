@@ -1,4 +1,5 @@
 var Transaction = require('../models/transaction').model;
+var Payment = require('../models/payment').model;
 var logPlugin = require('posable-logging-plugin');
 
 var mapTransaction = function(msg) {
@@ -10,6 +11,8 @@ var mapTransaction = function(msg) {
 
             logPlugin.debug('Starting Transaction Property Mapping');
             var transaction = new Transaction();
+
+
             transaction.requestID = msg.correlationId;
             transaction.transactionID = msg.body.data.transactionID;
             transaction.merchantID = msg.body.data.merchantID;
@@ -17,17 +20,32 @@ var mapTransaction = function(msg) {
             transaction.cashierID = msg.body.data.cashierID;
             transaction.dateTime = dateObject(msg.body.data.dateTime);
             msg.body.data.transactionPayments.forEach(function(paymentdto) {
-                transaction.transactionPayments.push({
-                    uid : paymentdto.uid,
-                    dateTime : paymentdto.dateTime,
-                    paymentType : paymentdto.paymentType,
-                    amount : paymentdto.amount,
-                    tax : paymentdto.tax,
-                    cardType : paymentdto.cardType,
-                    last4 : paymentdto.last4,
-                    authCode : paymentdto.authCode
-                })
-            });
+
+
+                var payment = new Payment();
+
+                    payment.uid = paymentdto.uid;
+                    payment.dateTime = paymentdto.dateTime;
+                    payment.paymentType = paymentdto.paymentType;
+                    payment.amount = paymentdto.amount;
+                    payment.tax = paymentdto.tax;
+                    payment.cardType = paymentdto.cardType;
+                    payment.last4 = paymentdto.last4;
+                    payment.authCode = paymentdto.authCode;
+                    payment.transaction_id = transaction._id;
+                    payment.internalID = msg.body.internalID;
+
+                payment.save(function (err) {
+                    if (err) {
+                        logPlugin.error(err);
+                    } else {
+                        logPlugin.debug('Payment was saved');
+                    }
+
+                    //transaction.transactionPayments.push(payment);
+                });
+
+            })
         } catch (err) {
             logPlugin.debug('System error in mapTransaction');
             logPlugin.error(err);
