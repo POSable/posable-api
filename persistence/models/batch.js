@@ -9,5 +9,5 @@ var BatchSchema = new mongoose.Schema({
 });
 
 module.exports = {
-    model : mongoose.model('batch', BatchSchema)
+    model : mongoose.model('Batch', BatchSchema)
 };

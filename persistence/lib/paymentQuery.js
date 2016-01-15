@@ -9,7 +9,7 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var paymentQuery = function(internalID, callback) {
     try {
 
-         var batch = new Batch;
+         var batch = new Batch();
          batch = {
             visa: 0,
             mastercard: 0,
@@ -24,20 +24,30 @@ var paymentQuery = function(internalID, callback) {
 
                 if(payment.cardType === 'visa') {
                     batch.visa += payment.amount;
-                    batch.total +=payment.amount;
+                    batch.total += payment.amount;
                 } if(payment.cardType === 'mastercard') {
                     batch.mastercard += payment.amount;
-                    batch.total +=payment.amount;
+                    batch.total += payment.amount;
                 } if(payment.cardType === 'amex') {
                     batch.amex += payment.amount;
-                    batch.total +=payment.amount;
+                    batch.total += payment.amount;
                 } if(payment.cardType === 'discover') {
                     batch.discover += payment.amount;
-                    batch.total +=payment.amount;
+                    batch.total += payment.amount;
                 }
             });
+
             callback(err, batch);
-            wascallyRabbit.raiseNewDailySumEvent(internalID, batch).then(console.log('Summation sent to RabbitMQ'))
+            wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
+                .then(console.log('Summation sent to RabbitMQ'));
+
+            //batch.save(function (err) {
+            //    if (err) {
+            //        logPlugin.error(err);
+            //    } else {
+            //        logPlugin.debug('Batch was saved successfully');
+            //    }
+            //});
         };
 
         //var startDate = function(){
