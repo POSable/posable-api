@@ -1,39 +1,43 @@
 var Payment = require('../models/payment').model;
 var Transaction = require('../models/transaction').model;
+var Batch = require('../models/batch').model;
 var logPlugin = require('posable-logging-plugin');
 var env = require('../common').config();
+var wascallyRabbit = require('posable-wascally-wrapper');
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 
 var paymentQuery = function(internalID, callback) {
     try {
 
-        var batchObject = {
+         var batch = new Batch;
+         batch = {
             visa: 0,
             mastercard: 0,
             amex: 0,
             discover: 0,
             total: 0
-        };
+         };
 
         var paymentCallback = function (err, docs) {
 
             docs.forEach(function(payment){
 
                 if(payment.cardType === 'visa') {
-                    batchObject.visa += payment.amount;
-                    batchObject.total +=payment.amount;
+                    batch.visa += payment.amount;
+                    batch.total +=payment.amount;
                 } if(payment.cardType === 'mastercard') {
-                    batchObject.mastercard += payment.amount;
-                    batchObject.total +=payment.amount;
+                    batch.mastercard += payment.amount;
+                    batch.total +=payment.amount;
                 } if(payment.cardType === 'amex') {
-                    batchObject.amex += payment.amount;
-                    batchObject.total +=payment.amount;
+                    batch.amex += payment.amount;
+                    batch.total +=payment.amount;
                 } if(payment.cardType === 'discover') {
-                    batchObject.discover += payment.amount;
-                    batchObject.total +=payment.amount;
+                    batch.discover += payment.amount;
+                    batch.total +=payment.amount;
                 }
             });
-            callback(err, batchObject);
+            callback(err, batch);
+            wascallyRabbit.raiseNewDailySumEvent(internalID, batch).then(console.log('Summation sent to RabbitMQ'))
         };
 
         //var startDate = function(){

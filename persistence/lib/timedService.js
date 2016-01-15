@@ -5,7 +5,6 @@ var batchMerchantsArray = [];
 
 var timedService = function() {
     try {
-
         function checkTime() {
             var d = new Date();
             var hours = d.getHours();
@@ -14,14 +13,13 @@ var timedService = function() {
 
             logPlugin.debug(time);
 
-            if (time >= 0 && time <= 100000) {
+            if (time >= 0 && time <= 2359) {
                 logPlugin.debug("in the range");
                 //console.log();
                 lookup().merchantBatchLookup(function (err, docs) {
                     batchMerchantsArray = docs;
                     typeSum(batchMerchantsArray);
                 });
-
 
             } else {
                 logPlugin.debug("not in the range");
