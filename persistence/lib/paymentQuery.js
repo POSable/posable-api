@@ -1,5 +1,4 @@
 var Payment = require('../models/payment').model;
-var Transaction = require('../models/transaction').model;
 var Batch = require('../models/batch').model;
 var logPlugin = require('posable-logging-plugin');
 var env = require('../common').config();
@@ -21,7 +20,6 @@ var paymentQuery = function(internalID, callback) {
         var paymentCallback = function (err, docs) {
 
             docs.forEach(function(payment){
-
                 if(payment.cardType === 'visa') {
                     batch.visa += payment.amount;
                     batch.total += payment.amount;
