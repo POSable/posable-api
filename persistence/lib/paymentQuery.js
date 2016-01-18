@@ -8,8 +8,7 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var paymentQuery = function(internalID, callback) {
     try {
 
-         var batch = new Batch();
-         batch = {
+         var batch = {
             visa: 0,
             mastercard: 0,
             amex: 0,
@@ -39,13 +38,6 @@ var paymentQuery = function(internalID, callback) {
             wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
                 .then(console.log('Summation sent to RabbitMQ'));
 
-            //batch.save(function (err) {
-            //    if (err) {
-            //        logPlugin.error(err);
-            //    } else {
-            //        logPlugin.debug('Batch was saved successfully');
-            //    }
-            //});
         };
 
         //var startDate = function(){
