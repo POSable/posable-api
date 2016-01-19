@@ -7,23 +7,22 @@ var depositAccount = require('../lib/depositAccount');
 var post = require('../lib/cloudElementsClient');
 var wascallyRabbit = require('posable-wascally-wrapper');
 
-var handleSyncError = function(err){
+var handleSyncError = function(msg, err){
     err.deadLetter = true;
     logPlugin.error(err);
     wascallyRabbit.rabbitDispose(msg, err);
 };
 
-
 var handleRealTimeTransaction = function(msg) {
     var id = msg.body.internalID;
     if(id == undefined){
         var idErr = new Error('Msg internalID is undefined.  Msg is rejected');
-        handleSyncError(idErr);
+        handleSyncError(msg, idErr);
     } else {
         logPlugin.debug("Found merchant ID " + id);
         configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
             if (err) {
-                handleSyncError(err);
+                handleSyncError(msg, err);
             } else {
                 logPlugin.debug('Merchant Lookup finished');
                 processMerchant(merchant)
@@ -49,7 +48,7 @@ var handleRealTimeTransaction = function(msg) {
                 wascallyRabbit.rabbitDispose(msg, err);
             }
         } catch(err) {
-            handleSyncError(err);
+            handleSyncError(msg, err);
         }
     }
 
