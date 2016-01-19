@@ -9,7 +9,7 @@ var PaymentSchema = new mongoose.Schema({
     cardType: String,
     last4: String,
     authCode: String,
-    transaction_id: String,
+    //transaction_id: String,
     internalID: String
 });
 

@@ -34,17 +34,18 @@ var mapTransaction = function(msg) {
                 payment.transaction_id = transaction._id;
                 payment.internalID = msg.body.internalID;
 
-                transaction.save(function (err) {
-                    if (err) {
-                        logPlugin.error(err);
-                    } else {
-                        logPlugin.debug('Transaction was saved');
-                    }
+                transaction.transactionPayments.push(payment);
 
-                    transaction.transactionPayments.push(payment);
-                });
+            });
 
-            })
+            //transaction.save(function (err) {
+            //    if (err) {
+            //        logPlugin.error(err);
+            //    } else {
+            //        logPlugin.debug('Transaction was saved in map');
+            //    }
+            //});
+
         } catch (err) {
             logPlugin.debug('System error in mapTransaction');
             logPlugin.error(err);
