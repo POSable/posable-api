@@ -1,7 +1,7 @@
 var o2x = require('object-to-xml');
 var logPlugin = require('posable-logging-plugin');
 
-var sendResponse  = function (res, statusObject) {
+var sendResponse = function (res, statusObject, requestID) {
     try {
         if (statusObject.isOK) {
             if (res.req.headers['content-type'] === 'application/xml') {
@@ -10,6 +10,7 @@ var sendResponse  = function (res, statusObject) {
                 res.send(o2x({
                     '?xml version="1.0" encoding="utf-8"?': null,
                     status: 200,
+                    requestID: requestID,
                     message: "Transactions passed all internal checks and posted successfully"
                 }));
             } else {
@@ -17,6 +18,7 @@ var sendResponse  = function (res, statusObject) {
                 res.status(200);
                 res.json({
                     status: 200,
+                    requestID: requestID,
                     message: "Transactions passed all internal checks and posted successfully"
                 });
             }
