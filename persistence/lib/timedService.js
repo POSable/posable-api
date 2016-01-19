@@ -13,7 +13,7 @@ var timedService = function() {
 
             logPlugin.debug(time);
 
-            if (time >= 2358 && time <= 2359) {
+            if (time >= 1030 && time <= 1150) {
                 logPlugin.debug("in the range");
                 //console.log();
                 lookup().merchantBatchLookup(function (err, docs) {
@@ -26,7 +26,7 @@ var timedService = function() {
             }
         }
 
-        setInterval(function(){ checkTime() }, 300000);
+        setInterval(function(){ checkTime() }, 3000);
 
     } catch (err) {
         logPlugin.error(err);

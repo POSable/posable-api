@@ -19,6 +19,7 @@ var mapTransaction = function(msg) {
             transaction.terminalID = msg.body.data.terminalID;
             transaction.cashierID = msg.body.data.cashierID;
             transaction.dateTime = dateObject(msg.body.data.dateTime);
+            transaction.internalID = msg.body.internalID;
             msg.body.data.transactionPayments.forEach(function(paymentdto) {
 
                 var payment = new Payment();
