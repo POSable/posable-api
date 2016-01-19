@@ -52,7 +52,7 @@ var testingStub = function (testMapTransaction, testValidate, testLogPlugin, tes
 
 var testFailStub = function(){
     throw new Error('BOOM!');
-}
+};
 
 module.exports = {
     createTransactionPersistence: createTransactionPersistence,

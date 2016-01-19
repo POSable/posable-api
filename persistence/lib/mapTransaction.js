@@ -21,28 +21,27 @@ var mapTransaction = function(msg) {
             transaction.dateTime = dateObject(msg.body.data.dateTime);
             msg.body.data.transactionPayments.forEach(function(paymentdto) {
 
-
                 var payment = new Payment();
 
-                    payment.uid = paymentdto.uid;
-                    payment.dateTime = paymentdto.dateTime;
-                    payment.paymentType = paymentdto.paymentType;
-                    payment.amount = paymentdto.amount;
-                    payment.tax = paymentdto.tax;
-                    payment.cardType = paymentdto.cardType;
-                    payment.last4 = paymentdto.last4;
-                    payment.authCode = paymentdto.authCode;
-                    payment.transaction_id = transaction._id;
-                    payment.internalID = msg.body.internalID;
+                payment.uid = paymentdto.uid;
+                payment.dateTime = paymentdto.dateTime;
+                payment.paymentType = paymentdto.paymentType;
+                payment.amount = paymentdto.amount;
+                payment.tax = paymentdto.tax;
+                payment.cardType = paymentdto.cardType;
+                payment.last4 = paymentdto.last4;
+                payment.authCode = paymentdto.authCode;
+                payment.transaction_id = transaction._id;
+                payment.internalID = msg.body.internalID;
 
-                payment.save(function (err) {
+                transaction.save(function (err) {
                     if (err) {
                         logPlugin.error(err);
                     } else {
-                        logPlugin.debug('Payment was saved');
+                        logPlugin.debug('Transaction was saved');
                     }
 
-                    //transaction.transactionPayments.push(payment);
+                    transaction.transactionPayments.push(payment);
                 });
 
             })
