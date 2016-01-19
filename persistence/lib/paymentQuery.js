@@ -4,6 +4,7 @@ var logPlugin = require('posable-logging-plugin');
 var env = require('../common').config();
 var wascallyRabbit = require('posable-wascally-wrapper');
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
+var getBatchResults = require('./mongoAgg');
 
 var paymentQuery = function(internalID, callback) {
     try {
@@ -16,30 +17,31 @@ var paymentQuery = function(internalID, callback) {
             total: 0
          };
 
-        var paymentCallback = function (err, docs) {
+        var paymentCallback = function (err, result) {
 
-            //console.log(docs);
+            console.log("callback: ", result);
+            console.log("LAtttttteeeeeeee");
 
-            docs.forEach(function(transaction){
-                transaction.transactionPayments.forEach(function(payment){
-                    if(payment.cardType === 'visa') {
-                        batch.visa += payment.amount;
-                        batch.total += payment.amount;
-                    } if(payment.cardType === 'mastercard') {
-                        batch.mastercard += payment.amount;
-                        batch.total += payment.amount;
-                    } if(payment.cardType === 'amex') {
-                        batch.amex += payment.amount;
-                        batch.total += payment.amount;
-                    } if(payment.cardType === 'discover') {
-                        batch.discover += payment.amount;
-                        batch.total += payment.amount;
-                    }
-                });
+            //docs.forEach(function(transaction){
+            //    transaction.transactionPayments.forEach(function(payment){
+            //        if(payment.cardType === 'visa') {
+            //            batch.visa += payment.amount;
+            //            batch.total += payment.amount;
+            //        } if(payment.cardType === 'mastercard') {
+            //            batch.mastercard += payment.amount;
+            //            batch.total += payment.amount;
+            //        } if(payment.cardType === 'amex') {
+            //            batch.amex += payment.amount;
+            //            batch.total += payment.amount;
+            //        } if(payment.cardType === 'discover') {
+            //            batch.discover += payment.amount;
+            //            batch.total += payment.amount;
+            //        }
+            //    });
+            //
+            //});
 
-            });
-
-            console.log(batch);
+            //console.log("Batch for ID:",internalID," : ", batch);
 
             callback(err, batch);
             //wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
@@ -57,8 +59,14 @@ var paymentQuery = function(internalID, callback) {
         //    //new Date(2015, 1, 26)
         //};
 
-        Transaction.find({"dateTime": {"$gte": '1995-11-17T03:24:00', "$lt": '1995-12-18T03:24:00'}})
-            .where({internalID: internalID}).exec(paymentCallback);
+        //Transaction.find({"dateTime": {"$gte": '1995-11-17T03:24:00', "$lt": '1995-12-18T03:24:00'}})
+        //    .where({internalID: internalID}).exec(paymentCallback);
+
+
+
+        //fire off a sum event
+
+        getBatchResults(internalID);
 
     } catch (err) {
        logPlugin.error(err);
