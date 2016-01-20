@@ -7,6 +7,7 @@ var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/healthcheck', healthcheck);
 
+var debug = require('debug')('email:server');
 var http = require('http');
 
 /**
@@ -87,7 +88,7 @@ function onListening() {
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    console.log('Listening on ' + bind);
+    debug('Listening on ' + bind);
 }
 
 
