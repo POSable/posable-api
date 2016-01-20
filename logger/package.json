@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bunyan": "^1.5.1",
+    "debug": "^2.2.0",
     "express": "^4.13.3",
     "mongodb": "^2.0.48",
     "mongoose": "^4.2.4",
