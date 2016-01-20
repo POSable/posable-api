@@ -68,7 +68,7 @@ router.post('/', function(req, res) {
                 })
             }
             logPlugin.debug("Sending HTTP Response");
-            sendResponse(res, statusObject);
+            sendResponse(res, statusObject, requestID);
         }
     }
 });

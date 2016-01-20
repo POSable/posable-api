@@ -1,12 +1,12 @@
 var mapError = require('../lib/mapError');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
-var rabbitDispose = require('../lib/rabbitMsgDispose');
+var wascallyRabbit = require('posable-wascally-wrapper');
 
 var deadLetterErrorHandling = function (msg, error) {
     logPlugin.error(error);
     error.deadLetter = true;
-    rabbitDispose(msg, error);
+    wascallyRabbit.rabbitDispose(msg, error);
 };
 
 var createErrorPersist = function(msg){
@@ -28,7 +28,7 @@ var createErrorPersist = function(msg){
                 } else {
                     logPlugin.debug('Error saved successfully');
                 }
-                rabbitDispose(msg, err)
+                wascallyRabbit.rabbitDispose(msg, err)
             });
         }
     } catch (err) {
@@ -40,7 +40,7 @@ var createErrorPersist = function(msg){
 var testingStub = function (testMapError, testLogPlugin, testRabbitDispose) {
     mapError = testMapError.testMapError;
     logPlugin = testLogPlugin;
-    rabbitDispose = testRabbitDispose.testRabbitDispose;
+    wascallyRabbit.rabbitDispose = testRabbitDispose.testRabbitDispose;
 };
 
 module.exports = {
