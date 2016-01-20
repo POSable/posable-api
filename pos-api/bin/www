@@ -22,7 +22,6 @@ var env = require('../lib/pos_modules/common').config();
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setup('pos-api');
 var app = require('../app');
-var debug = require('debug')('pos-api:server');
 var http = require('http');
 
 /**
@@ -103,5 +102,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }

@@ -1,15 +1,12 @@
 var express = require('express');
 var path = require('path');
-var bodyParser = require('body-parser');
 
 var healthcheck = require('./routes/healthcheck');
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/healthcheck', healthcheck);
 
-var debug = require('debug')('pos-api:server');
 var http = require('http');
 
 /**
@@ -90,7 +87,7 @@ function onListening() {
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    console.log('Listening on ' + bind);
 }
 
 
