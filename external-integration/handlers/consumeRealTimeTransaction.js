@@ -46,7 +46,7 @@ var handleRealTimeTransaction = function(msg) {
 
             } else {
                 logPlugin.debug("batch merchant found");
-                rabbitDispose(msg, err);
+                msg.ack();
             }
         } catch(err) {
             handleSyncError(err);

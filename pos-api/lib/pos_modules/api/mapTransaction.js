@@ -5,11 +5,11 @@ var mapTransaction = function(dto, statusObject) {
             logPlugin.debug('Starting Property Mapping');
             var transaction = {};
             var dateTime;
-            if (dto.transaction.transactionDateTime.date) {
-                dateTime = dto.transaction.transactionDateTime.date + " " + dto.transaction.transactionDateTime.time;
-            } else {
+            //if (dto.transaction.transactionDateTime.date) {
+                //dateTime = dto.transaction.transactionDateTime.date + dto.transaction.transactionDateTime.time;
+            //} else {
                 dateTime = dto.transaction.transactionDateTime.combinedDateTime;
-            }
+            //}
             transaction.transactionID = dto.transaction.transactionID;
             transaction.merchantID = dto.transaction.merchantID;
             transaction.terminalID = dto.transaction.terminalID;

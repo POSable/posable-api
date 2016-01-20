@@ -132,3 +132,4 @@ wascallyRabbit.setup('persistence');
 //require('./lib/paymentQuery');
 //require('./lib/typeSum');
 require('./lib/timedService');
+//require('posable-customer-config-plugin')().merchantBatchLookup();

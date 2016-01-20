@@ -1,32 +1,61 @@
-var Payment = require('../models/payment').model;
 var Transaction = require('../models/transaction').model;
+var Batch = require('../models/batch').model;
 var logPlugin = require('posable-logging-plugin');
-//Need to filter by today's transactions only
-//function today() {
-//    return new Date();
-//}
-var paymentQuery = function(callback) {
+var env = require('../common').config();
+var wascallyRabbit = require('posable-wascally-wrapper');
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
+var getBatchResults = require('./mongoAgg');
+
+var paymentQuery = function(internalID, callback) {
     try {
-         var visa = Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'visa'}, callback);
-         var mastercard = Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'mastercard'}, callback);
-         var amex = Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'amex'}, callback);
-         var discover = Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'credit', 'transactionPayments.cardType': 'discover'}, callback);
-         var cash = Transaction.find({'merchantID': 'SampleID', 'transactionPayments.paymentType': 'cash'}, callback);
 
          var batch = {
-             visa: visa,
-             mastercard: mastercard,
-             amex: amex,
-             discover: discover,
-             cash: cash,
-             total: visa + amex + amex + discover + cash
+            visa: 0,
+            mastercard: 0,
+            amex: 0,
+            discover: 0,
+            total: 0
          };
-        return batch
+
+        var paymentCallback = function (err, result) {
+
+            if (err) {
+                logPlugin.error(err);
+            } else {
+                result.forEach(function(sum){
+
+                    if(sum._id.cardType === 'visa') {
+                        batch.visa += sum.amount;
+                        batch.total += sum.amount;
+                    } if(sum._id.cardType === 'mastercard') {
+                        batch.mastercard += sum.amount;
+                        batch.total += sum.amount;
+                    } if(sum._id.cardType === 'amex') {
+                        batch.amex += sum.amount;
+                        batch.total += sum.amount;
+                    } if(sum._id.cardType === 'discover') {
+                        batch.discover += sum.amount;
+                        batch.total += sum.amount;
+                    }
+
+                });
+                console.log("Batch for ID: ",internalID," : ", batch);
+
+                //wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
+                //    .then(console.log('Summation sent to RabbitMQ'));
+
+            }
+            callback(err, batch);
+        };
+
+        getBatchResults(internalID, paymentCallback);
 
     } catch (err) {
        logPlugin.error(err);
-        return undefined;
+        return callback(err, undefined);
     }
 };
 
 module.exports = paymentQuery;
+
+

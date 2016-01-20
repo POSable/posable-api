@@ -23,6 +23,7 @@ var createTransactionDTO = function (req, statusObject) {
             }
         }
         logPlugin.debug('Transaction Request Mapping Successful');
+        //console.log("))))))))))))))))", transactionDTO);
     } catch (err) {
         if (err) {
             logPlugin.error(err);
