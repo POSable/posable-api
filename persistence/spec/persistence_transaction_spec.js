@@ -98,6 +98,7 @@ describe("test persistence-service", function() {
         it("when LogPlugin.debug fails", function () {
             try {
                 persistTransaction(testTransactionMsg);
+                throw new Error('Stop changing my code!')
             } catch (err) {
                 expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testTransactionMsg, new Error( 'This is a testing Error - Please Catch Me!'));
                 expect(testLogPlugin.error).toHaveBeenCalled();

@@ -1,55 +1,59 @@
 var Log = require('../models/log').model;
 var logPlugin = require('posable-logging-plugin');
+var rabbitDispose = require('../lib/rabbitMsgDispose');
 
-var testSetup = function(testLogPlugin) {
+var testingStub = function(testLogPlugin, testLog, testRabbitDispose) {
     logPlugin = testLogPlugin;
-    return testLogPlugin;
+    Log = testLog;
+    rabbitDispose = testRabbitDispose
 };
 
 var mapLogEntry = function(msg) {
-    try {
+
+        logPlugin.debug('Starting to map log entry to Log model');
         var logEntry = new Log();
+    console.log("here", logEntry);
         logEntry.server = msg.server;
         logEntry.application = msg.application;
+
         logEntry.level = msg.logLevel;
         logEntry.message = msg.message;
-        if (typeof(msg) == 'string') {
+
+
+        if (typeof(msg) === 'string') {
             logEntry.stack = 'No Error Trace';
         } else {
             logEntry.stack = msg.stack;
         }
+        logPlugin.debug('Finished mapping log entry to Log model');
         return logEntry;
-
-    } catch (err) {
-        logPlugin.error(err);
-        msg.reject();
-    }
 };
 
 var createLogEntry = function(msg){
     try {
+
+        logPlugin.debug('Starting createLogEntry function - handler');
+        logPlugin.debug('Received from rabbit: ', JSON.stringify(msg.body));
         var newLog = mapLogEntry(msg.body);
         newLog.save(function (err) {
             if (err) {
                 logPlugin.error(err);
-                //msg.nack();
             } else {
                 logPlugin.debug('Log saved successfully');
-                //msg.ack();
             }
+            rabbitDispose(msg, err)
         });
-        console.log('Received from rabbit: ', JSON.stringify(msg.body));
-        msg.ack(); // <- will eventually move to else block above
+
     } catch (err){
+        err.deadLetter = true;
         logPlugin.error(err);
-        msg.reject();
+        rabbitDispose(msg, err);
+        throw err;
     }
 };
-
 
 module.exports = {
     createLogEntry: createLogEntry,
     mapLogEntry: mapLogEntry,
-    testSetup: testSetup
+    testingStub: testingStub
 };
-

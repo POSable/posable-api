@@ -1,45 +1,70 @@
 describe('Logging service', function() {
 
+
+    var TestLogConstructor = function(){
+
+    };
+
     var createLogEntry = require('../handlers/createLogEntry').createLogEntry;
-    var mapLogEntry = require('../handlers/createLogEntry').mapLogEntry;
-    var testSetup = require('../handlers/createLogEntry').testSetup;
-    var logPlugin;
+    var testMsg = {body: {}};
+    var testLogPlugin = {error: function (text) {console.log(text)}, debug: function (text) {console.log(text)}};
+    var testDispose = {testRabbitDispose: function (arg1, arg2) {return {msg: arg1, error: arg2}}};
+    var testLog = TestLogConstructor;
+
+    describe('when handling a proper message from rabbit ', function() {
+
+        beforeEach(function () {
+            spyOn(testMsg, 'body');
+            spyOn(testLogPlugin, 'error');
+            spyOn(testLogPlugin, 'debug');
+            spyOn(testDispose, 'testRabbitDispose');
+
+            var setTestStubs = require('../handlers/createLogEntry').testingStub;
+            setTestStubs(testLogPlugin, testLog, testRabbitDispose);
+        });
 
 
-    describe('calls mapLogEntry and assigns log.stack', function() {
+        it('creates a new Log model', function() {
+            createLogEntry(testMsg);
 
-        it('to msg.stack when passed an error message', function() {
-            var testMsg = { body: { stack: 'testErrorStack'} };
-            var testLogMap = mapLogEntry(testMsg.body);
-            expect(testLogMap.stack).toEqual(testMsg.body.stack);
+
         });
 
         it('to "No Error Trace" when passed a string message', function() {
+
             var testMsg = { body: 'testMessage' };
             var testLogMap = mapLogEntry(testMsg.body);
             expect(testLogMap.stack).toEqual('No Error Trace');
+
         });
     });
 
     describe('catches errors', function(){
-        var testLogPlugin, testMsg;
+        var logPlugin, testMsg;
 
         beforeEach(function(){
             logPlugin = {error: function(){}};
             spyOn(logPlugin, 'error');
-            testLogPlugin = testSetup(logPlugin);
+            testSetup(logPlugin);
         });
 
         it('when mapLogEntry is passed a bad message', function(){
-            testMsg = null;
-            mapLogEntry(testMsg);
-            expect(testLogPlugin.error).toHaveBeenCalled();
+            testMsg = {body: null};
+            try {
+                createLogEntry(testMsg)
+            } catch (err) {
+                expect(logPlugin.error).toHaveBeenCalled();
+            }
+
         });
 
         it('when createLogEntry is passed a bad message', function(){
             testMsg = {};
-            createLogEntry(testMsg);
-            expect(testLogPlugin.error).toHaveBeenCalled();
+            try {
+                createLogEntry(testMsg);
+            } catch (err) {
+                expect(logPlugin.error).toHaveBeenCalled();
+            }
         });
     });
 

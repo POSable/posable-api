@@ -49,12 +49,7 @@ var testingStub = function (testMapTransaction, testValidate, testLogPlugin, tes
     rabbitDispose = testRabbitDispose.testRabbitDispose;
 };
 
-var testFailStub = function(){
-    throw new Error('BOOM!');
-}
-
 module.exports = {
     createTransactionPersistence: createTransactionPersistence,
     testingStub: testingStub,
-    testFailStub: testFailStub
 };
