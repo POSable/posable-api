@@ -19,54 +19,36 @@ var paymentQuery = function(internalID, callback) {
 
         var paymentCallback = function (err, result) {
 
-            console.log("callback: ", result);
-            console.log("LAtttttteeeeeeee");
+            if (err) {
+                logPlugin.error(err);
+            } else {
+                result.forEach(function(sum){
 
-            //docs.forEach(function(transaction){
-            //    transaction.transactionPayments.forEach(function(payment){
-            //        if(payment.cardType === 'visa') {
-            //            batch.visa += payment.amount;
-            //            batch.total += payment.amount;
-            //        } if(payment.cardType === 'mastercard') {
-            //            batch.mastercard += payment.amount;
-            //            batch.total += payment.amount;
-            //        } if(payment.cardType === 'amex') {
-            //            batch.amex += payment.amount;
-            //            batch.total += payment.amount;
-            //        } if(payment.cardType === 'discover') {
-            //            batch.discover += payment.amount;
-            //            batch.total += payment.amount;
-            //        }
-            //    });
-            //
-            //});
+                    if(sum._id.cardType === 'visa') {
+                        batch.visa += sum.amount;
+                        batch.total += sum.amount;
+                    } if(sum._id.cardType === 'mastercard') {
+                        batch.mastercard += sum.amount;
+                        batch.total += sum.amount;
+                    } if(sum._id.cardType === 'amex') {
+                        batch.amex += sum.amount;
+                        batch.total += sum.amount;
+                    } if(sum._id.cardType === 'discover') {
+                        batch.discover += sum.amount;
+                        batch.total += sum.amount;
+                    }
 
-            //console.log("Batch for ID:",internalID," : ", batch);
+                });
+                console.log("Batch for ID: ",internalID," : ", batch);
 
+                //wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
+                //    .then(console.log('Summation sent to RabbitMQ'));
+
+            }
             callback(err, batch);
-            //wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
-            //    .then(console.log('Summation sent to RabbitMQ'));
-
         };
 
-        //var startDate = function(){
-        //    '2015/01/24 22:14:44'
-        //    //new Date(2015, 1, 24)
-        //};
-        //
-        //var endDate = function() {
-        //    '2016/01/25 22:14:44'
-        //    //new Date(2015, 1, 26)
-        //};
-
-        //Transaction.find({"dateTime": {"$gte": '1995-11-17T03:24:00', "$lt": '1995-12-18T03:24:00'}})
-        //    .where({internalID: internalID}).exec(paymentCallback);
-
-
-
-        //fire off a sum event
-
-        getBatchResults(internalID);
+        getBatchResults(internalID, paymentCallback);
 
     } catch (err) {
        logPlugin.error(err);

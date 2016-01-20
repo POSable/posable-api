@@ -1,27 +1,22 @@
 var Transaction = require('../models/transaction').model;
 
-var getResults = function(internalID) {
+var getResults = function(internalID, paymentCallback) {
     Transaction.aggregate(
         [
             {
+                $match:
+                {
+                    "dateTime":
+                    {
+                        "$gte": new Date("1995-11-17T03:24:00Z"),
+                        "$lt": new Date("1995-12-18T03:24:00Z")
+                    },
+                    "internalID": internalID.toString()
+                }
+            },
+            {
                 $unwind : "$transactionPayments"
             },
-            //{
-            //    $match:
-            //    {
-            //        "dateTime":
-            //        {
-            //            "$gte": "1995-11-17T03:24:00Z",
-            //            "$lt": "1995-12-18T03:24:00Z"
-            //        }
-            //    }
-            //},
-            //{
-            //    $match:
-            //    {
-            //        internalID: internalID
-            //    }
-            //},
             {
                 $project :
                 {
@@ -48,14 +43,7 @@ var getResults = function(internalID) {
                     }
                 }
             }
-        ], function(err, result) {
-            if (err) {
-                console.log("whoops");
-            } else {
-                console.log("queryresult : ", result);
-
-            }
-        }
+        ], paymentCallback
 
     );
 
