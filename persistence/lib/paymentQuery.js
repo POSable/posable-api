@@ -39,10 +39,13 @@ var paymentQuery = function(internalID, callback) {
                     }
 
                 });
-                console.log("Batch for ID: ",internalID," : ", batch);
+                //console.log("Batch for ID: ",internalID," : ", batch);
 
-                //wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
-                //    .then(console.log('Summation sent to RabbitMQ'));
+                var uuid = require('node-uuid');
+                var requestID = uuid.v4();
+
+                wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
+                    .then(console.log('Summation sent to RabbitMQ'));
 
             }
             callback(err, batch);

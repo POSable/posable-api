@@ -9,6 +9,8 @@ var cardTypeMap = function(merchant) {
     paymentTypes.amexID = merchant.amexID;
     paymentTypes.discoverID = merchant.discoverID;
 
+    //console.log(paymentTypes);
+
     return paymentTypes;
 
 };
