@@ -5,17 +5,12 @@ var getCardID = require('./getCardID');
 
 var batchMap = function(msg, paymentMap, depositObj) {
 
-    //console.log("**************", msg.body.data);
-
     var batch = msg.body.data;
 
     //var cardID = getCardID(batch, paymentMap);
     //if(!Number.isSafeInteger(cardID)) {
     //    throw new Error("Unknown Card Type Found for : " + batch);
     //}
-
-    //console.log("&&&&&&&&&", paymentMap);
-    //console.log("$$$$$$$$$", batch.visa);
 
     salesReceipt = {
             "line": [
@@ -113,11 +108,8 @@ var batchMap = function(msg, paymentMap, depositObj) {
             "txnDate": "2015-12-7T00:00:00Z"
         };
 
-    //console.log(salesReceipt);
-
 
     return salesReceipt;
-
 
 };
 

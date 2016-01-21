@@ -14,6 +14,7 @@
     "express": "^4.13.3",
     "mongo": "^0.1.0",
     "mongoose": "^4.2.5",
+    "node-uuid": "^1.4.7",
     "path": "^0.12.7",
     "posable-customer-config-plugin": "git+ssh://git@github.com/POSable/posable-customerConfigPlugin.git",
     "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
