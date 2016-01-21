@@ -41,8 +41,8 @@ var paymentQuery = function(internalID, callback) {
                 });
                 console.log("Batch for ID: ",internalID," : ", batch);
 
-                //wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
-                //    .then(console.log('Summation sent to RabbitMQ'));
+                wascallyRabbit.raiseNewDailySumEvent(internalID, batch)
+                    .then(console.log('Summation sent to RabbitMQ'));
 
             }
             callback(err, batch);
