@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 
 var BatchSchema = new mongoose.Schema({
-    //visa: Number,
-    //mastercard: Number,
-    //amex: Number,
-    //discover: Number,
-    //total: Number
+
+    createdAt: Date,
+    internalID: String,
+    requestID: String
+
 });
 
 module.exports = {

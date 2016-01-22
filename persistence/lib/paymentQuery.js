@@ -1,10 +1,11 @@
 var Transaction = require('../models/transaction').model;
-var Batch = require('../models/batch').model;
 var logPlugin = require('posable-logging-plugin');
 var env = require('../common').config();
 var wascallyRabbit = require('posable-wascally-wrapper');
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 var getBatchResults = require('./mongoAgg');
+var persistBatch = require('../lib/persistBatch');
+var uuid = require('node-uuid');
 
 var paymentQuery = function(internalID, callback) {
     try {
@@ -41,11 +42,12 @@ var paymentQuery = function(internalID, callback) {
                 });
                 //console.log("Batch for ID: ",internalID," : ", batch);
 
-                var uuid = require('node-uuid');
                 var requestID = uuid.v4();
 
-                wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
-                    .then(console.log('Summation sent to RabbitMQ'));
+                //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
+                //    .then(console.log('Summation sent to RabbitMQ'));
+
+                persistBatch(internalID, requestID, batch);
 
             }
             callback(err, batch);
