@@ -1,24 +1,21 @@
 var Log = require('../models/log').model;
 var logPlugin = require('posable-logging-plugin');
-var rabbitDispose = require('../lib/rabbitMsgDispose');
+var wascallyRabbit = require('posable-wascally-wrapper');
 
-var testingStub = function(testLogPlugin, testLog, testRabbitDispose) {
-    logPlugin = testLogPlugin;
+var testingStub = function(testingStub, testLog, testDispose) {
+    logPlugin = testingStub;
     Log = testLog;
-    rabbitDispose = testRabbitDispose
+    wascallyRabbit = testDispose;
 };
 
 var mapLogEntry = function(msg) {
-
         logPlugin.debug('Starting to map log entry to Log model');
+
         var logEntry = new Log();
-    console.log("here", logEntry);
         logEntry.server = msg.server;
         logEntry.application = msg.application;
-
         logEntry.level = msg.logLevel;
         logEntry.message = msg.message;
-
 
         if (typeof(msg) === 'string') {
             logEntry.stack = 'No Error Trace';
@@ -26,28 +23,30 @@ var mapLogEntry = function(msg) {
             logEntry.stack = msg.stack;
         }
         logPlugin.debug('Finished mapping log entry to Log model');
+
         return logEntry;
+
 };
 
 var createLogEntry = function(msg){
     try {
-
         logPlugin.debug('Starting createLogEntry function - handler');
         logPlugin.debug('Received from rabbit: ', JSON.stringify(msg.body));
         var newLog = mapLogEntry(msg.body);
+
         newLog.save(function (err) {
             if (err) {
                 logPlugin.error(err);
             } else {
                 logPlugin.debug('Log saved successfully');
             }
-            rabbitDispose(msg, err)
+            wascallyRabbit.rabbitDispose(msg, err);
         });
 
     } catch (err){
         err.deadLetter = true;
         logPlugin.error(err);
-        rabbitDispose(msg, err);
+        wascallyRabbit.rabbitDispose(msg, err);
         throw err;
     }
 };
