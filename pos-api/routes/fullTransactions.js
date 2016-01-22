@@ -6,9 +6,11 @@ var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
+var uuid = require('node-uuid');
 
 router.post('/', function(req, res) {
-    logPlugin.debug("fullTransactions Post received with content type of" + " " + req.headers['content-type']);
+    var requestID = uuid.v4();
+    logPlugin.debug(requestID + " - fullTransactions Post received with content type of" + " " + req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
 
@@ -43,7 +45,7 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {
             logPlugin.debug('Sending Transaction Event to Rabbit');
-            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, transactionDTO).then(finalizePost, function() {
+            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, transactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     module: 'payment.js',
@@ -64,7 +66,7 @@ router.post('/', function(req, res) {
                 })
             }
             logPlugin.debug("Sending HTTP Response");
-            sendResponse(res, statusObject);
+            sendResponse(res, statusObject, requestID);
         }
     }
 });

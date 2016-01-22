@@ -8,7 +8,9 @@ var PaymentSchema = new mongoose.Schema({
     tax: Number,
     cardType: String,
     last4: String,
-    authCode: String
+    authCode: String,
+    //transaction_id: String,
+    internalID: String
 });
 
 module.exports = {

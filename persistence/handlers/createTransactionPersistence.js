@@ -10,6 +10,7 @@ var deadLetterErrorHandling = function (msg, error) {
 };
 
 function createTransactionPersistence(msg) {
+
     try {
         logPlugin.debug('Received message from Rabbit, Starting Transaction Persistence Handler');
         var valTransaction;
@@ -49,7 +50,12 @@ var testingStub = function (testMapTransaction, testValidate, testLogPlugin, tes
     wascallyRabbit.rabbitDispose = testRabbitDispose.testRabbitDispose;
 };
 
+//
+// var testFailStub = function(){
+//     throw new Error('BOOM!');
+// };
+
 module.exports = {
     createTransactionPersistence: createTransactionPersistence,
-    testingStub: testingStub,
+    testingStub: testingStub
 };

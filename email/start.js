@@ -1,15 +1,13 @@
 var express = require('express');
 var path = require('path');
-var bodyParser = require('body-parser');
 
 var healthcheck = require('./routes/healthcheck');
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/healthcheck', healthcheck);
 
-var debug = require('debug')('pos-api:server');
+var debug = require('debug')('email:server');
 var http = require('http');
 
 /**
