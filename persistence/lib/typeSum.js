@@ -1,10 +1,21 @@
 var paymentQuery = require('./paymentQuery');
 var logPlugin = require('posable-logging-plugin');
+var createBatch = require('./createBatch');
+
+var batchID = {};
+
 
 var typeSum = function(batchMerchantsArray) {
     try {
         batchMerchantsArray.forEach(function(merchant){
-            paymentQuery(merchant.internalID, callback);
+
+
+            createBatch(merchant.internalID);
+
+
+            paymentQuery(merchant.internalID, batchID, callback);
+
+
         });
     } catch (err) {
         logPlugin.error(err);
@@ -12,8 +23,10 @@ var typeSum = function(batchMerchantsArray) {
     }
 };
 
-var callback = function(err, batchObject) {
-    //console.log(batchObject);
+var callback = function(err, batchID, batchObject) {
+    console.log(batchObject);
+    batchObject.batchID = batchID;
+    batchObject.status = "complete";
 };
 
 module.exports = typeSum;

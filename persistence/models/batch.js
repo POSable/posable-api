@@ -4,7 +4,9 @@ var BatchSchema = new mongoose.Schema({
 
     createdAt: Date,
     internalID: String,
-    requestID: String
+    requestID: String,
+    status: String
+
 
 });
 

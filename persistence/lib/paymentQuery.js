@@ -7,20 +7,21 @@ var getBatchResults = require('./mongoAgg');
 var persistBatch = require('../lib/persistBatch');
 var uuid = require('node-uuid');
 
-var paymentQuery = function(internalID, callback) {
+var paymentQuery = function(internalID, batchID, callback) { //function(interrnalID, batchID, callbac k)
     try {
 
          var batch = {
-            visa: 0,
-            mastercard: 0,
-            amex: 0,
-            discover: 0,
-            total: 0
+             visa: 0,
+             mastercard: 0,
+             amex: 0,
+             discover: 0,
+             total: 0,
+             batchID: batchID
          };
 
         var paymentCallback = function (err, result) {
 
-            console.log(result);
+            //console.log(result);
 
             if (err) {
                 logPlugin.error(err);
@@ -49,13 +50,14 @@ var paymentQuery = function(internalID, callback) {
                 //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
                 //    .then(console.log('Summation sent to RabbitMQ'));
 
-                persistBatch(internalID, requestID, batch);
+                //persistBatch(internalID, requestID, batch);
+            //    finalize batch here
 
             }
-            callback(err, batch);
+            callback(err, batchID, batch);
         };
 
-        getBatchResults(internalID, paymentCallback);
+        getBatchResults(internalID, batchID, paymentCallback); //(internalID, batchID, paymentCallback)
 
     } catch (err) {
         logPlugin.error(err);

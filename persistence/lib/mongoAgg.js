@@ -1,10 +1,12 @@
 var Transaction = require('../models/transaction').model;
 
-var getResults = function(internalID, paymentCallback) {
+var getResults = function(internalID, batchID, paymentCallback) { //function(internalID, batchID, paymentCallback)
+    //Transaction.update( batchID = batchID).where(merchID = internalID, batchID = null/undef)
+
     Transaction.aggregate(
         [
             {
-                $match:
+                $match: //change to "batchID": batchID
                 {
                     "dateTime":
                     {
