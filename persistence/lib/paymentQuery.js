@@ -20,6 +20,8 @@ var paymentQuery = function(internalID, callback) {
 
         var paymentCallback = function (err, result) {
 
+            console.log(result);
+
             if (err) {
                 logPlugin.error(err);
             } else {
@@ -47,7 +49,7 @@ var paymentQuery = function(internalID, callback) {
                 //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
                 //    .then(console.log('Summation sent to RabbitMQ'));
 
-                persistBatch(internalID, requestID, batch);
+                //persistBatch(internalID, requestID, batch);
 
             }
             callback(err, batch);
