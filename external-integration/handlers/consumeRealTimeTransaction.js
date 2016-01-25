@@ -45,7 +45,7 @@ var handleRealTimeTransaction = function(msg) {
 
             } else {
                 logPlugin.debug("batch merchant found");
-                wascallyRabbit.rabbitDispose(msg, err);
+                wascallyRabbit.rabbitDispose(msg, null);
             }
         } catch(err) {
             handleSyncError(msg, err);

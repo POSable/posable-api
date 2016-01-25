@@ -49,7 +49,7 @@ var paymentQuery = function(internalID, callback) {
                 //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
                 //    .then(console.log('Summation sent to RabbitMQ'));
 
-                //persistBatch(internalID, requestID, batch);
+                persistBatch(internalID, requestID, batch);
 
             }
             callback(err, batch);
@@ -58,7 +58,7 @@ var paymentQuery = function(internalID, callback) {
         getBatchResults(internalID, paymentCallback);
 
     } catch (err) {
-       logPlugin.error(err);
+        logPlugin.error(err);
         return callback(err, undefined);
     }
 };
