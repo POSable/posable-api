@@ -1,19 +1,27 @@
 var Transaction = require('../models/transaction').model;
 
-var getResults = function(internalID, batchID, paymentCallback) { //function(internalID, batchID, paymentCallback)
-    //Transaction.update( batchID = batchID).where(merchID = internalID, batchID = null/undef)
+var getResults = function(internalID, batchID, paymentCallback) {
+
+    Transaction.update({ internalID: internalID, batchID: null }, { $set: {batchID: batchID} }, { multi: true }, function(err, raw) {
+        if (err) logPlugin.error("The response Error from mongo is : " + err);
+        console.log("The transactions have been updated for ID : " + internalID + " and batchID : " + batchID);
+    });
+
 
     Transaction.aggregate(
         [
             {
                 $match: //change to "batchID": batchID
                 {
-                    "dateTime":
-                    {
-                        "$gte": new Date("1995-11-17T03:24:00Z"),
-                        "$lt": new Date("1995-12-18T03:24:00Z")
-                    },
-                    "internalID": internalID.toString()
+
+                    batchID: batchID
+
+                    //"dateTime":
+                    //{
+                    //    "$gte": new Date("1995-11-17T03:24:00Z"),
+                    //    "$lt": new Date("1995-12-18T03:24:00Z")
+                    //},
+                    //"internalID": internalID.toString()
                 }
             },
             {

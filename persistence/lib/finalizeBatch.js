@@ -7,7 +7,7 @@ var persistBatch = function(internalID, requestID, batch) {
         logPlugin.debug('Updating record for : ' + batch.batchID);
 
         Batch.update({ _id: batch.batchID }, {requestID: requestID, status: "Complete"}, function(err, raw) {
-            if (err) logPlugin.error("The response Error from mongo is : " + err);
+            if (err) logPlugin.error("The batch update response Error from mongo is : " + err);
             logPlugin.debug("The batch " + batch.batchID + " has been successfully updated");
         });
 

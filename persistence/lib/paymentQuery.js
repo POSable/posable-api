@@ -54,11 +54,10 @@ var paymentQuery = function(internalID, batchID, callback) {
 
                 finalizeBatch(internalID, requestID, batch);
 
-
             }
             callback(err, batchID, batch);
         };
-
+        logPlugin.debug('Starting mongo update and Query for :' + internalID);
         getBatchResults(internalID, batchID, paymentCallback);
 
     } catch (err) {
