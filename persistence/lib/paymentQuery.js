@@ -21,36 +21,44 @@ var paymentQuery = function(internalID, batchID, callback) {
 
         var paymentCallback = function (err, result) {
 
-            //console.log(result);
 
             if (err) {
                 logPlugin.error(err);
             } else {
-                result.forEach(function(sum){
-
-                    batch.batchID = batchID;
-
-                    if(sum._id.cardType === 'visa') {
-                        batch.visa += sum.amount;
-                        batch.total += sum.amount;
-                    } if(sum._id.cardType === 'mastercard') {
-                        batch.mastercard += sum.amount;
-                        batch.total += sum.amount;
-                    } if(sum._id.cardType === 'amex') {
-                        batch.amex += sum.amount;
-                        batch.total += sum.amount;
-                    } if(sum._id.cardType === 'discover') {
-                        batch.discover += sum.amount;
-                        batch.total += sum.amount;
-                    }
-
-                });
-                //console.log("Batch for ID: ",internalID," : ", batch);
-
+                batch.batchID = batchID;
                 var requestID = uuid.v4();
 
-                //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
-                //    .then(console.log('Summation sent to RabbitMQ'));
+                if(result.length > 0) {
+
+
+                    result.forEach(function (sum) {
+
+
+
+                        if (sum._id.cardType === 'visa') {
+                            batch.visa += sum.amount;
+                            batch.total += sum.amount;
+                        }
+                        if (sum._id.cardType === 'mastercard') {
+                            batch.mastercard += sum.amount;
+                            batch.total += sum.amount;
+                        }
+                        if (sum._id.cardType === 'amex') {
+                            batch.amex += sum.amount;
+                            batch.total += sum.amount;
+                        }
+                        if (sum._id.cardType === 'discover') {
+                            batch.discover += sum.amount;
+                            batch.total += sum.amount;
+                        }
+
+                    });
+
+
+                    //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
+                    //    .then(console.log('Summation sent to RabbitMQ'));
+
+                }
 
                 finalizeBatch(internalID, requestID, batch);
 
