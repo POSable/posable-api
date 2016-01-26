@@ -1,12 +1,18 @@
 var Batch = require('../models/batch').model;
 var logPlugin = require('posable-logging-plugin');
+var paymentQuery = require('./paymentQuery');
 
 var createBatch = function(internalID) {
 
     try {
-        logPlugin.debug('Starting createBatch and Save');
+
+        logPlugin.debug('Starting createBatch process for internalID : ' + internalID);
 
         var mongooseBatch = new Batch();
+
+        var tempBatchID;
+
+        tempBatchID = mongooseBatch._id;
 
         mongooseBatch.internalID = internalID;
         mongooseBatch.createdAt = new Date();
@@ -16,9 +22,9 @@ var createBatch = function(internalID) {
             if (err) {
                 logPlugin.error(err);
             } else {
-                console.log(mongooseBatch._id);
-                logPlugin.debug('Batch was saved as inProgress');
-                return mongooseBatch
+                logPlugin.debug('Batch : ' + mongooseBatch._id + 'was saved as inProgress');
+
+                paymentQuery(internalID, tempBatchID, callback);
             }
         });
 
@@ -28,6 +34,10 @@ var createBatch = function(internalID) {
         return undefined;
     }
 
+};
+
+var callback = function(err, batchID, batchObject) {
+    console.log(batchObject);
 };
 
 module.exports = createBatch;

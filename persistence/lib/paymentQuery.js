@@ -4,10 +4,10 @@ var env = require('../common').config();
 var wascallyRabbit = require('posable-wascally-wrapper');
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 var getBatchResults = require('./mongoAgg');
-var persistBatch = require('../lib/persistBatch');
+var finalizeBatch = require('./finalizeBatch');
 var uuid = require('node-uuid');
 
-var paymentQuery = function(internalID, batchID, callback) { //function(interrnalID, batchID, callbac k)
+var paymentQuery = function(internalID, batchID, callback) {
     try {
 
          var batch = {
@@ -16,7 +16,7 @@ var paymentQuery = function(internalID, batchID, callback) { //function(interrna
              amex: 0,
              discover: 0,
              total: 0,
-             batchID: batchID
+             batchID: 0
          };
 
         var paymentCallback = function (err, result) {
@@ -27,6 +27,8 @@ var paymentQuery = function(internalID, batchID, callback) { //function(interrna
                 logPlugin.error(err);
             } else {
                 result.forEach(function(sum){
+
+                    batch.batchID = batchID;
 
                     if(sum._id.cardType === 'visa') {
                         batch.visa += sum.amount;
@@ -50,14 +52,14 @@ var paymentQuery = function(internalID, batchID, callback) { //function(interrna
                 //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
                 //    .then(console.log('Summation sent to RabbitMQ'));
 
-                //persistBatch(internalID, requestID, batch);
-            //    finalize batch here
+                finalizeBatch(internalID, requestID, batch);
+
 
             }
             callback(err, batchID, batch);
         };
 
-        getBatchResults(internalID, batchID, paymentCallback); //(internalID, batchID, paymentCallback)
+        getBatchResults(internalID, batchID, paymentCallback);
 
     } catch (err) {
         logPlugin.error(err);
