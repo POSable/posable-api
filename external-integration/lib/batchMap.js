@@ -105,7 +105,7 @@ var batchMap = function(msg, paymentMap, depositObj) {
             "balance": 0,
             "sparse": true,
             "applyTaxAfterDiscount": false,
-            "txnDate": "2015-12-7T00:00:00Z"
+            "txnDate": new Date()
         };
 
 
