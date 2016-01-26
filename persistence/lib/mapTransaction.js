@@ -20,6 +20,7 @@ var mapTransaction = function(msg) {
             transaction.cashierID = msg.body.data.cashierID;
             transaction.dateTime = dateObject(msg.body.data.dateTime);
             transaction.internalID = msg.body.internalID;
+            transaction.batchID = null;
             msg.body.data.transactionPayments.forEach(function(paymentdto) {
 
                 var payment = new Payment();

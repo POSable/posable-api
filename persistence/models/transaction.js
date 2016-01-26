@@ -9,6 +9,7 @@ var TransactionSchema = new mongoose.Schema({
     dateTime: Date,
     internalID: String,
     requestID: String,
+    batchID: String,
     transactionPayments: [mongoose.model('Payment').schema]
 });
 
