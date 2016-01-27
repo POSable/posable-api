@@ -1,7 +1,7 @@
 var logPlugin = require('posable-logging-plugin');
 var request = require('request');
 
-var cloudElementsClient = function(salesReceipt, merchant, callback) {
+var cloudElementsClient = function(salesReceipt, merchant, externalPost, callback) {
     try {
         logPlugin.debug('Start Cloud Elements Client posting function');
         request({
@@ -13,19 +13,18 @@ var cloudElementsClient = function(salesReceipt, merchant, callback) {
                 'Authorization': merchant.cloudElemAPIKey
             },
             body: JSON.stringify(salesReceipt)
-        }, function(error, response, salesReceipt){
-            logPlugin.debug("CloudElem response code: " + response.statusCode);
-            if(error) {
-                logPlugin.debug(error);
-                callback(error);
-            } if(response.statusCode == 200) {
-                logPlugin.debug('Finish Cloud Elements Client posting function');
-                callback(null, salesReceipt);
+        }, function(err, response, salesReceipt){
+            logPlugin.debug("CE response code: " + response.statusCode);
+            if (err) {
+                logPlugin.debug(err);
+                callback(err, null, null, null);
+            } else if (response.statusCode === 200) {
+                logPlugin.debug('Successful post to CE');
+                callback(null, response, externalPost, salesReceipt);
             } else {
                 logPlugin.debug("CloudElem response code: " + response.statusCode);
-                //console.log(salesReceipt);
-                var newError = new Error("Cloud Elements has rejected the POST");
-                callback(newError);
+                var newError = new Error("Failed post to CE");
+                callback(newError, response, externalPost, null);
             }
         });
 
