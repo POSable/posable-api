@@ -48,7 +48,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
     });
 
 
-    salesReceipt = {
+    var salesReceipt = {
         "line": line,
         "depositToAccountRef": {
             "name": depositObj.depositAccountName,
