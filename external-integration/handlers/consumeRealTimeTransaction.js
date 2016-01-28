@@ -15,7 +15,7 @@ var handleSyncError = function(msg, err){
 
 var handleRealTimeTransaction = function(msg) {
     var id = msg.body.internalID;
-    if(id == undefined){
+    if(id === undefined){
         var idErr = new Error('Msg internalID is undefined.  Msg is rejected from Real Time msg Handler');
         handleSyncError(msg, idErr);
     } else {
@@ -32,7 +32,7 @@ var handleRealTimeTransaction = function(msg) {
 
     function processMerchant(merchant){
         try {
-            if (merchant == undefined) throw new Error("Merchant not found");
+            if (merchant === undefined) throw new Error("Merchant not found");
             if (merchant.batchType === "real-time") {
                 logPlugin.debug("Real-time merchant");
 
