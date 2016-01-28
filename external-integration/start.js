@@ -106,7 +106,6 @@ console.log('Logging Setup Complete');
 //Require Handlers
 var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
 var handleRealTimeTransaction = require('./handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
-var handleRealTimePayment = require('./handlers/consumeRealTimePayment').handleRealTimePayment;
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
@@ -114,7 +113,15 @@ var env = require('./common').config();
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.externalIntegration');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
-wascallyRabbit.setHandler('posapi.event.receivedCreatePaymentRequest', handleRealTimePayment);
 wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
 wascallyRabbit.setup('external-integration');
+
+//Setup Database Connection
+var mongoose = require('mongoose');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+    console.log('connected');
+});
+mongoose.connect(env['mongoose_connection']);
 
