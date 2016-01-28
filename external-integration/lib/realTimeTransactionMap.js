@@ -11,7 +11,6 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
     var total = 0;
 
     array.forEach(function(payment){
-
         var cardID = getCardID(payment, paymentMap);
         if(!Number.isSafeInteger(cardID)) {
             throw new Error("Unknown Card Type Found for : " + payment.cardType);
@@ -49,7 +48,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
     });
 
 
-    salesReceipt = {
+    var salesReceipt = {
         "line": line,
         "depositToAccountRef": {
             "name": depositObj.depositAccountName,
@@ -59,7 +58,7 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
         "balance": 0,
         "sparse": true,
         "applyTaxAfterDiscount": false,
-        "txnDate": "2015-12-7T00:00:00Z"
+        "txnDate": new Date()
     };
     return salesReceipt;
 

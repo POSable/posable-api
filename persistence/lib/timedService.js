@@ -3,9 +3,13 @@ var logPlugin = require('posable-logging-plugin');
 var lookup = require('posable-customer-config-plugin');
 var batchMerchantsArray = [];
 
+
 var timedService = function() {
     try {
+
         function checkTime() {
+
+
             var d = new Date();
             var hours = d.getHours();
             var mins = d.getMinutes();
@@ -15,7 +19,6 @@ var timedService = function() {
 
             if (time >= 1 && time <= 2359) {
                 logPlugin.debug("in the range");
-                //console.log();
                 lookup().merchantBatchLookup(function (err, docs) {
                     batchMerchantsArray = docs;
                     typeSum(batchMerchantsArray);
@@ -26,7 +29,7 @@ var timedService = function() {
             }
         }
 
-        setInterval(function(){ checkTime() }, 3000);
+        //setInterval(function(){ checkTime() }, 3000);
 
     } catch (err) {
         logPlugin.error(err);

@@ -1,13 +1,8 @@
-var realTimeTransactionMap = require('../lib/realTimeTransactionMap');
-var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
-var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
-var cardTypeMap = require('../lib/cardTypeMap');
-var depositAccount = require('../lib/depositAccount');
-var post = require('../lib/cloudElementsClient');
 var wascallyRabbit = require('posable-wascally-wrapper');
+var postProcedure = require('../lib/postProcedure');
 
-var handleSyncError = function(msg, err){
+var handleError = function(msg, err){
     err.deadLetter = true;
     logPlugin.error(err);
     wascallyRabbit.rabbitDispose(msg, err);
@@ -21,13 +16,19 @@ var handleRealTimeTransaction = function(msg) {
     } else {
         logPlugin.debug("Found internal ID : " + id);
         configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
-            if (err) {
-                handleSyncError(msg, err);
-            } else {
-                logPlugin.debug('Merchant Lookup finished');
-                processMerchant(merchant)
+            try {
+                postProcedure(msg, function (err) {
+                    if (err) {
+                        handleError(msg, err);
+                    } else {
+                        wascallyRabbit.rabbitDispose(msg, null);
+                    }
+                });
+            } catch (err) {
+                logPlugin.error(err);
             }
-        });
+        });    
+
     }
 
     function processMerchant(merchant){
@@ -65,7 +66,6 @@ var handleRealTimeTransaction = function(msg) {
 };
 
 module.exports = {
-
     handleRealTimeTransaction: handleRealTimeTransaction
-
 };
+

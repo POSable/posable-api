@@ -1,51 +1,62 @@
 var Transaction = require('../models/transaction').model;
 
-var getResults = function(internalID, paymentCallback) {
-    Transaction.aggregate(
-        [
-            {
-                $match:
+var getResults = function(internalID, batchID, paymentCallback) {
+
+    Transaction.update({ internalID: internalID, batchID: null }, { $set: {batchID: batchID} }, { multi: true }, function(err, raw) {
+        if (err) {logPlugin.error("The transaction update response Error from mongo is : " + err)}
+        else {
+            console.log("The transactions have been updated for ID : " + internalID + " and batchID : " + batchID + " raw : " + JSON.stringify(raw));
+            mongoAgg(batchID, paymentCallback);
+        }
+    });
+
+    var mongoAgg = function(batchID, paymentCallback) {
+
+
+        Transaction.aggregate(
+            [
                 {
-                    "dateTime":
+                    $match:
                     {
-                        "$gte": new Date("1995-11-17T03:24:00Z"),
-                        "$lt": new Date("1995-12-18T03:24:00Z")
-                    },
-                    "internalID": internalID.toString()
-                }
-            },
-            {
-                $unwind : "$transactionPayments"
-            },
-            {
-                $project :
+                        "batchID" : batchID.toString()
+                    }
+                },
                 {
-                    "transactionPayments.paymentType" : true,
-                    "transactionPayments.cardType" : true,
-                    "transactionPayments.amount" : true
-                }
-            },
-            {
-                $group :
+                    $unwind : "$transactionPayments"
+                },
                 {
-                    _id:
+                    $project :
                     {
-                        paymentType : "$transactionPayments.paymentType",
-                        cardType : "$transactionPayments.cardType"
-                    },
-                    //count :
-                    //{
-                    //    $sum : 1
-                    //},
-                    amount :
+                        "transactionPayments.paymentType" : true,
+                        "transactionPayments.cardType" : true,
+                        "transactionPayments.amount" : true
+                    }
+                },
+                {
+                    $group :
                     {
-                        $sum : "$transactionPayments.amount"
+                        _id:
+                        {
+                            paymentType : "$transactionPayments.paymentType",
+                            cardType : "$transactionPayments.cardType"
+                        },
+                        //count :
+                        //{
+                        //    $sum : 1
+                        //},
+                        amount :
+                        {
+                            $sum : "$transactionPayments.amount"
+                        }
                     }
                 }
-            }
-        ], paymentCallback
+            ], paymentCallback
 
-    );
+        );
+
+    };
+
+
 
 };
 

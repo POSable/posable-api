@@ -19,7 +19,7 @@ describe("Test 'consumeBatchEvent' module & 'handleBatch' function", function() 
             setTestStubs(testLogPlugin, testDispose, testMsg, testConfigPlugin);
         });
 
-        it('logs the id found', function() {    
+        it('logs the id found', function() {
             handleBatchEvent(testMsg);
             expect(testLogPlugin).to.beCalledWith(logPlugin.debug("Found Internal ID : " + 1));
         });
