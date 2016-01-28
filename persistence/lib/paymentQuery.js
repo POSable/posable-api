@@ -33,8 +33,6 @@ var paymentQuery = function(internalID, batchID, callback) {
 
                     result.forEach(function (sum) {
 
-
-
                         if (sum._id.cardType === 'visa') {
                             batch.visa += sum.amount;
                             batch.total += sum.amount;
