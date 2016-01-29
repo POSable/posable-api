@@ -1,26 +1,45 @@
+var env = require('./common').config();
+var logPlugin = require('posable-logging-plugin');
+var wascallyRabbit = require('posable-wascally-wrapper');
+
 var AWS = require('aws-sdk');
-var sns = new AWS.SNS({region: 'us-west-2'});
+var sns = new AWS.SNS({region: env['AWS_region']});
+
 
 var sendMail = function(msg) {
     try {
-        var testObject = {
-            Message: 'hello world', /* required */
-            Subject: 'aws error subject',
-            TopicArn: 'arn:aws:sns:us-west-2:788743476555:TestStage'
+        var rawRequest = msg.body.data;
+        var errorStatus = msg.body.error;
+        var snsMessage = {
+            Message: 'Error processing post with requestID: ' + msg.properties.correlationId + '\n' +
+                'Error: ' + errorStatus + '\n' +
+                'Raw request: ' + rawRequest,
+            Subject: 'API error for internalID: ' + msg.body.internalID,
+            TopicArn: env['SNS_TopicArn']
         };
 
-        sns.publish(testObject, function(err, data) {
-            if (err) {
-                console.log(err, err.stack);
-                msg.reject();
-            } else {
-                console.log(data);
-                msg.ack();
-            }
-        });
+        if(env['sendSNS'] === true) {
+            sns.publish(snsMessage, function(err, data) {
+                if (err) {
+                    logPlugin.error(err);
+                } else {
+                    logPlugin.debug(data);
+                }
+
+                disposeMsg(msg, err);
+            });
+        } else {
+            logPlugin.debug(snsMessage);
+            disposeMsg(msg, null);
+        }
+
     } catch(err) {
-        console.log(err);
+        logPlugin.error(err);
+        disposeMsg(msg, err);
     }
+
+
+    function disposeMsg(msg, err) { wascallyRabbit.rabbitDispose(msg, err);}
 };
 
 
