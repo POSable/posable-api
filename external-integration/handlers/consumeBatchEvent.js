@@ -11,7 +11,7 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 var testingStub = function(testLodPlugin, testDispose, testmsg, testConfigPlugin) {
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
-    msg = testmsg
+    msg = testmsg;
     batchMap = {};
     env = {};
     configPlugin = testConfigPlugin;
@@ -34,6 +34,7 @@ var handleBatch = function(msg) {
         handleSyncError(msg, idErr);
     } else {
         logPlugin.debug("Found Internal ID : " + id);
+        console.log('before Merchant Lookup');
         configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
             if (err) {
                 console.log('bad path');
@@ -46,42 +47,42 @@ var handleBatch = function(msg) {
             }
         });
     }
-
-    function processBatch(merchant){
-        try {
-            if (merchant === undefined) throw new Error("Merchant not found");
-            if (merchant.batchType === "batch") {
-                console.log('happy path ###')
-                logPlugin.debug("batch merchant found");
-
-                var typeMap = cardTypeMap(merchant);
-
-                var depositObj = depositAccount(merchant);
-
-                var cloudElemSR = batchMap(msg, typeMap, depositObj);
-
-                postBatchToCE(cloudElemSR, merchant);
-
-            } else {
-                logPlugin.debug("Batch merchant not found");
-                wascallyRabbit.rabbitDispose(msg, err);
-            }
-        } catch(err) {
-            handleSyncError(msg, err);
-        }
-    }
-
-    function postBatchToCE(cloudElemSR, merchant){
-        post(cloudElemSR, merchant, function (err, salesReceipt) {
-            if (err) {
-                logPlugin.error(err);
-            } else {
-                logPlugin.debug("the msg made it through post and ack");
-            }
-            wascallyRabbit.rabbitDispose(msg, err);
-        });
-    }
 };
+
+function processBatch(merchant){
+    try {
+        if (merchant === undefined) throw new Error("Merchant not found");
+        if (merchant.batchType === "batch") {
+            console.log('happy path ###')
+            logPlugin.debug("batch merchant found");
+
+            var typeMap = cardTypeMap(merchant);
+
+            var depositObj = depositAccount(merchant);
+
+            var cloudElemSR = batchMap(msg, typeMap, depositObj);
+
+            postBatchToCE(cloudElemSR, merchant);
+
+        } else {
+            logPlugin.debug("Batch merchant not found");
+            wascallyRabbit.rabbitDispose(msg, err);
+        }
+    } catch(err) {
+        handleSyncError(msg, err);
+    }
+}
+
+function postBatchToCE(cloudElemSR, merchant){
+    post(cloudElemSR, merchant, function (err, salesReceipt) {
+        if (err) {
+            logPlugin.error(err);
+        } else {
+            logPlugin.debug("the msg made it through post and ack");
+        }
+        wascallyRabbit.rabbitDispose(msg, err);
+    });
+}
 
 module.exports = {
 

@@ -10,6 +10,7 @@ app.use('/healthcheck', healthcheck);
 var debug = require('debug')('externalIntegration:server');
 var http = require('http');
 
+
 /**
  * Get port from environment and store in Express.
  */
@@ -88,8 +89,6 @@ function onListening() {
     debug('Listening on ' + bind);
 }
 
-
-
 //LogPlugin Setup
 console.log('Configuring Logs');
 var bunyanLogger = require('./logs/log');
@@ -115,13 +114,15 @@ wascallyRabbit.setQSubscription('service.externalIntegration');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
 wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
 wascallyRabbit.setup('external-integration');
+console.log('Waiting on Connection to RabbitMQ');
 
 //Setup Database Connection
+console.log('Starting Connection to Mongoose DB');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-    console.log('connected');
-});
+//db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    console.log('Mongoose DB connected');
+})
 mongoose.connect(env['mongoose_connection']);
 
