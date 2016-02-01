@@ -1,88 +1,49 @@
-var nodemailer = require('nodemailer');
+var env = require('./common').config();
 var logPlugin = require('posable-logging-plugin');
+var wascallyRabbit = require('posable-wascally-wrapper');
 
-var env = require('./env.json');
+var AWS = require('aws-sdk');
+var sns = new AWS.SNS({region: env['AWS_region']});
 
-var node_env = process.env.NODE_ENV || 'development';
-var setEnv = env[node_env];
 
-var sendMail = function (msg, statusObject, callback, to) {
+var sendMail = function(msg) {
     try {
-        if (!statusObject) statusObject = {};
-        if (!callback) callback = function(){console.log(err);};
-        var internalErr;
-        var emailTO = function() {
-            if (setEnv !== "production") {
-                return to || 'david.xesllc@gmail.com'; //Steve Spohr <steve@posable.io>
-            } else {
-                return to || ''; // this should be the client email set by production and internal ID
-            }
+        var rawRequest = msg.body.data;
+        var errorStatus = msg.body.error;
+        var snsMessage = {
+            Message: 'Error processing post with requestID: ' + msg.properties.correlationId + '\n' +
+                'Error: ' + errorStatus + '\n' +
+                'Raw request: ' + rawRequest,
+            Subject: 'API error for internalID: ' + msg.body.internalID,
+            TopicArn: env['SNS_TopicArn']
         };
-    } catch (err) {
-        logPlugin.debug("System Error in Emailer", err);
-        internalErr = err;
-        if (msg.reject) {
-            msg.reject();
+
+        if(env['sendSNS'] === true) {
+            sns.publish(snsMessage, function(err, data) {
+                if (err) {
+                    logPlugin.error(err);
+                } else {
+                    logPlugin.debug(data);
+                }
+
+                disposeMsg(msg, err);
+            });
+        } else {
+            logPlugin.debug(snsMessage);
+            disposeMsg(msg, null);
         }
-        return callback(internalErr, statusObject);
-    }
-    var transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'posable.io@gmail.com',
-            pass: 'POSable123!'
-        }
-    });
-    try {
-        var msgString = JSON.stringify(msg);
-        var mailOptions = {
-            from: 'Posable.io ✔ <posable.io@gmail.com>',
-            to: emailTO(),   // emails here
-            subject: 'Test Email Service ✔', // Subject line
-            text: 'This will eventually pass an error msg ✔' + msgString ,
-            html: '<b> Hello world ✔' + msgString + '</b>'
-        };
-        logPlugin.debug(transporter);
-    } catch (err) {
-        logPlugin.debug("System Error in Email Setup", err);
-        internalErr = err;
-        if (msg.reject) {
-            msg.reject();
-        }
-        return callback(internalErr, statusObject);
+
+    } catch(err) {
+        logPlugin.error(err);
+        disposeMsg(msg, err);
     }
 
-    return transporter.sendMail(mailOptions, function(error, info){
-       try {
-           if(error){
-               logPlugin.debug("Error in Emailer", error);
-               internalErr = error;
-               if (msg.nack) {
-                   //msg.nack(delivery-tag delivery-tag, bit multiple, bit requeue)
-                   msg.nack("", 0, false);
-               }
-               return callback(internalErr, statusObject);
-           }
-           logPlugin.debug('Message sent: ' + info.response);
-           statusObject.success.push('mailSender');
-           logPlugin.debug('finished transporter');
-           if (msg.ack) {
-               msg.ack();
-           }
-           return callback(internalErr, statusObject);
-       } catch (err) {
-           if(err){
-               logPlugin.debug("System Error in Emailer", err);
-               internalErr = err;
-               if (msg.reject) {
-                   msg.reject();
-               }
-               return callback(internalErr, statusObject);
-           }
-       }
-    });
+
+    function disposeMsg(msg, err) { wascallyRabbit.rabbitDispose(msg, err);}
 };
+
 
 module.exports = {
     sendMail: sendMail
 };
+
