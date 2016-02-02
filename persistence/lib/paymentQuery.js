@@ -15,6 +15,7 @@ var paymentQuery = function(internalID, batchID, callback) {
              mastercard: 0,
              amex: 0,
              discover: 0,
+             cash: 0,
              total: 0,
              batchID: 0
          };
@@ -47,6 +48,10 @@ var paymentQuery = function(internalID, batchID, callback) {
                         }
                         if (sum._id.cardType === 'discover') {
                             batch.discover += sum.amount;
+                            batch.total += sum.amount;
+                        }
+                        if (sum._id.cardType === 'cash') {
+                            batch.cash += sum.amount;
                             batch.total += sum.amount;
                         }
 
