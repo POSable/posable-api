@@ -2,8 +2,8 @@ var Log = require('../models/log').model;
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 
-var testingStub = function(testingStub, testLog, testDispose) {
-    logPlugin = testingStub;
+var testingStub = function(testLogPlugin, testLog, testDispose) {
+    logPlugin = testLogPlugin;
     Log = testLog;
     wascallyRabbit = testDispose;
 };

@@ -1,67 +1,98 @@
 describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction' function", function() {
     var handleRealTimeTransaction = require('../handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
-    var msg = {};
-    describe("A valid message id", function() {
+    var setTestStubs = require('../handlers/consumeRealTimeTransaction').testingStub;
+    var testLogPlugin = {error: function (text) {console.log(text)}, debug: function (text) {console.log(text)}};;
+    var testDispose ={rabbitDispose: function (arg1, arg2) {return {msg: arg1, error: arg2}}};
+    var testObject = {testPostProcedure: function (msg, callback) {callback()}};
+    var testMsg = {}
 
+    describe("should properly execute postProcedure function", function() {
         beforeEach(function () {
-            msg = {body : {internalID: 1}, ack: function() {}};
-            spyOn(msg, "ack")
+            spyOn(testObject, 'testPostProcedure').and.callThrough();
+            spyOn(testLogPlugin, 'debug');
+            spyOn(testDispose, 'rabbitDispose');
+            setTestStubs(testLogPlugin, testDispose, testObject.testPostProcedure, testMsg);
         });
 
-        it("Should not have an internal error", function (done) {
-            callback = function (err) {
-                expect(err).toEqual(null);
-                done();
-            };
-            handleRealTimeTransaction(msg, callback);
+        it("function is called msg", function () {
+            handleRealTimeTransaction(testMsg);
+            expect(testObject.testPostProcedure).toHaveBeenCalled();
+
         });
 
-        it("Should parse the msg and use 1 for the internalID", function (done) {
-            callback = function (err, id) {
-                expect(id).toEqual(1);
-                done();
-            };
-            handleRealTimeTransaction(msg, callback);
+        it("Should dispose of the message without an error argument", function () {
+            handleRealTimeTransaction(testMsg);
+            expect(testDispose.rabbitDispose).toHaveBeenCalledWith(testMsg, null);
+
         });
 
-        it("Should call ack method on msg object.", function (done) {
-            callback = function () {
-                expect(msg.ack).toHaveBeenCalled();
-                done();
-            };
-            handleRealTimeTransaction(msg, callback);
+        it("Should log the handler - finished successfully", function () {
+            handleRealTimeTransaction(testMsg);
+            expect(testLogPlugin.debug).toHaveBeenCalledWith('handleRealTimeTransaction successfully finished');
         });
     });
 
-    describe("An improper message id, text - creating this error - Cast to number failed for value hello at path internalID", function(){
-
+    describe("when postProcedure does not execute properly", function() {
+        var err;
         beforeEach(function () {
-            msg = {body : {internalID: "hello"}, nack: function() {}};
-            spyOn(msg, "nack")
+            err = new Error('Error Test Message');
+            var testObject = {testPostProcedure: function (msg, callback) {callback(err)}};
+            spyOn(testObject, 'testPostProcedure').and.callThrough();
+            spyOn(testLogPlugin, 'debug');
+            spyOn(testLogPlugin, 'error');
+            spyOn(testDispose, 'rabbitDispose');
+            setTestStubs(testLogPlugin, testDispose, testObject.testPostProcedure, testMsg);
         });
 
-        it("Should have an internal error", function (done) {
-            callback = function (err) {
-                expect(err).not.toBeFalsy();
-                done();
-            };
-            handleRealTimeTransaction(msg, callback);
+        it("returns an err object with a deadLetter property set to true", function () {
+            handleRealTimeTransaction(testMsg);
+            expect(err.deadLetter).toBe(true);
         });
 
-        it("Should parse the msg and use undefined for the internalID", function (done) {
-            callback = function (err, id) {
-                expect(id).toEqual(undefined);
-                done();
-            };
-            handleRealTimeTransaction(msg, callback);
+        it("disposes the message with an error", function () {
+            handleRealTimeTransaction(testMsg);
+            expect(testDispose.rabbitDispose).toHaveBeenCalledWith(testMsg, err);
         });
 
-        it("Should call nack method on msg object.", function (done) {
-            callback = function () {
-                expect(msg.nack).toHaveBeenCalled();
-                done();
-            };
-            handleRealTimeTransaction(msg, callback);
+        it("logs the error.", function () {
+            handleRealTimeTransaction(testMsg);
+            expect(testLogPlugin.error).toHaveBeenCalledWith(err);
+        });
+    });
+    describe("when a system error is raised", function() {
+            var err;
+        beforeEach(function () {
+            err = new Error('Test System Error');
+            var testObject = {testPostProcedure: function () {throw err}};
+            spyOn(testObject, 'testPostProcedure').and.callThrough();
+            spyOn(testLogPlugin, 'debug');
+            spyOn(testLogPlugin, 'error');
+            spyOn(testDispose, 'rabbitDispose');
+            setTestStubs(testLogPlugin, testDispose, testObject.testPostProcedure, testMsg);
+        });
+
+        it("catches the error then throws it to the calling code", function () {
+            try {
+                handleRealTimeTransaction(testMsg);
+            } catch (err) {
+                expect(err).not.toBeNull();
+            }
+        });
+
+        it("disposes the message with dead letter set to true", function () {
+            try {
+                handleRealTimeTransaction(testMsg);
+            } catch (err) {
+                expect(err.deadLetter).toBe(true);
+            }
+        });
+
+        it("logs the system error.", function () {
+            try {
+                handleRealTimeTransaction(testMsg);
+            } catch (err) {
+                expect(testLogPlugin.error).toHaveBeenCalledWith(err);
+            }
         });
     });
 });
