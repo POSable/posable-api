@@ -8,77 +8,72 @@ var post = require('../lib/cloudElementsClient');
 var wascallyRabbit = require('posable-wascally-wrapper');
 
 
-var testingStub = function(testLodPlugin, testDispose, testmsg, testConfigPlugin) {
+var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testPost) {
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
-    msg = testmsg;
-    batchMap = {};
     env = {};
     configPlugin = testConfigPlugin;
-    cardTypeMap = {};
-    depositAccount = {};
-    post = {};
+    cardTypeMap = function () {};
+    depositAccount = function () {};
+    batchMap = function () {return {}};
+    post = testPost;
 };
 
 var handleSyncError = function(msg, err){
-    err.deadLetter = true;
     logPlugin.error(err);
     wascallyRabbit.rabbitDispose(msg, err);
 };
 
 var handleBatch = function(msg) {
-    logPlugin.debug('Starting handleBatch Module')
+    try {
+        logPlugin.debug('Starting handleBatch Module')
         var id = msg.body.internalID;
-    if(id === undefined){
-        var idErr = new Error('Msg internalID is undefined. Msg is rejected from Batch msg Handler');
-        handleSyncError(msg, idErr);
-    } else {
-        logPlugin.debug("Found Internal ID : " + id);
-        console.log('before Merchant Lookup');
-        configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
-            if (err) {
-                console.log('bad path');
-                handleSyncError(msg, err);
-            } else {
-                console.log(merchant);
-                logPlugin.debug('Merchant Lookup finished');
-                processBatch(merchant);
-                console.log('happy path');
-            }
-        });
+        if(id === undefined){
+            var idErr = new Error('Msg internalID is undefined. Msg is rejected from Batch msg Handler');
+            idErr.deadLetter = true;
+            handleSyncError(msg, idErr);
+        } else {
+            logPlugin.debug("Found Internal ID : " + id);
+            configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
+                if (err) {
+                    handleSyncError(msg, err);
+                } else {
+                    logPlugin.debug('Merchant lookup finished');
+                    processBatch(merchant, msg);
+                }
+            });
+        }
+    } catch (err) {
+        err.deadLetter = true;
+        handleSyncError(msg, err);
+        throw err
     }
+
 };
 
-function processBatch(merchant){
-    try {
-        if (merchant === undefined) throw new Error("Merchant not found");
-        if (merchant.batchType === "batch") {
-            console.log('happy path ###')
-            logPlugin.debug("batch merchant found");
+function processBatch(merchant, msg){
+    if (merchant === undefined) throw new Error("Merchant not found");
+    if (merchant.batchType === "batch") {
+        logPlugin.debug("Batch merchant found");
 
-            var typeMap = cardTypeMap(merchant);
+        var typeMap = cardTypeMap(merchant);
+        var depositObj = depositAccount(merchant);
+        var cloudElemSR = batchMap(msg, typeMap, depositObj);
+        postBatchToCE(cloudElemSR, merchant, msg);
 
-            var depositObj = depositAccount(merchant);
-
-            var cloudElemSR = batchMap(msg, typeMap, depositObj);
-
-            postBatchToCE(cloudElemSR, merchant);
-
-        } else {
-            logPlugin.debug("Batch merchant not found");
-            wascallyRabbit.rabbitDispose(msg, err);
-        }
-    } catch(err) {
-        handleSyncError(msg, err);
+    } else {
+        logPlugin.debug("Batch merchant not found");
+        wascallyRabbit.rabbitDispose(msg, err);
     }
 }
 
-function postBatchToCE(cloudElemSR, merchant){
+function postBatchToCE(cloudElemSR, merchant, msg){
+    logPlugin.debug("Starting post to Cloud Elements");
     post(cloudElemSR, merchant, function (err, salesReceipt) {
         if (err) {
             logPlugin.error(err);
         } else {
-            logPlugin.debug("the msg made it through post and ack");
+            logPlugin.debug("Successful post to Cloud Elements");
         }
         wascallyRabbit.rabbitDispose(msg, err);
     });
