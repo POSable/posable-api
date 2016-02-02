@@ -40,13 +40,6 @@ var mapTransaction = function(msg) {
 
             });
 
-            //transaction.save(function (err) {
-            //    if (err) {
-            //        logPlugin.error(err);
-            //    } else {
-            //        logPlugin.debug('Transaction was saved in map');
-            //    }
-            //});
 
         } catch (err) {
             logPlugin.debug('System error in mapTransaction');
