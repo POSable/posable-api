@@ -7,7 +7,6 @@ var BatchSchema = new mongoose.Schema({
     requestID: String,
     status: String
 
-
 });
 
 module.exports = {
