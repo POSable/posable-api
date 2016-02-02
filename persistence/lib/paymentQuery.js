@@ -25,11 +25,11 @@ var paymentQuery = function(internalID, batchID, callback) {
             if (err) {
                 logPlugin.error(err);
             } else {
+
                 batch.batchID = batchID;
                 var requestID = uuid.v4();
 
                 if(result.length > 0) {
-
 
                     result.forEach(function (sum) {
 
@@ -51,7 +51,6 @@ var paymentQuery = function(internalID, batchID, callback) {
                         }
 
                     });
-
 
                     //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
                     //    .then(console.log('Summation sent to RabbitMQ'));

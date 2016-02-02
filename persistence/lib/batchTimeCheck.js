@@ -5,10 +5,6 @@ var batchTimeLookup = function(batchMerchantsArray) {
     try {
         batchMerchantsArray.forEach(function(merchant){
 
-
-
-
-
             typeSum(merchant.internalID);
 
         });
