@@ -8,6 +8,7 @@ var cardTypeMap = function(merchant) {
     paymentTypes.mastercardID = merchant.mastercardID;
     paymentTypes.amexID = merchant.amexID;
     paymentTypes.discoverID = merchant.discoverID;
+    paymentTypes.cashID = merchant.cashID;
 
     //console.log(paymentTypes);
 

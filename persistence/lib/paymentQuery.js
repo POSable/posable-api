@@ -15,6 +15,7 @@ var paymentQuery = function(internalID, batchID, callback) {
              mastercard: 0,
              amex: 0,
              discover: 0,
+             cash: 0,
              total: 0,
              batchID: 0
          };
@@ -49,11 +50,15 @@ var paymentQuery = function(internalID, batchID, callback) {
                             batch.discover += sum.amount;
                             batch.total += sum.amount;
                         }
+                        if (sum._id.cardType === 'cash') {
+                            batch.cash += sum.amount;
+                            batch.total += sum.amount;
+                        }
 
                     });
 
-                    //wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
-                    //    .then(console.log('Summation sent to RabbitMQ'));
+                    wascallyRabbit.raiseNewDailySumEvent(internalID, requestID, batch)
+                        .then(console.log('Summation sent to RabbitMQ'));
 
                 }
 
