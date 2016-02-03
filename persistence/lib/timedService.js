@@ -31,7 +31,7 @@ var timedService = function() {
             }
         }
 
-        setInterval(function(){ checkTime() }, 3000);
+        //setInterval(function(){ checkTime() }, 3000);
 
     } catch (err) {
         logPlugin.error(err);
