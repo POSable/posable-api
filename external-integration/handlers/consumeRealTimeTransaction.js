@@ -22,11 +22,12 @@ var handleRealTimeTransaction = function(msg) {
         });
 
     } catch(err) {
-        logPlugin.error(err);
+        handleError(msg, err);
+        throw err;
     }
-
 };
 
 module.exports = {
     handleRealTimeTransaction: handleRealTimeTransaction
+    //testingStub: testingStub
 };

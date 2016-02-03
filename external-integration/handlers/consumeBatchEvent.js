@@ -6,8 +6,19 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var wascallyRabbit = require('posable-wascally-wrapper');
 var postProcedure = require('../lib/postProcedure');
 
+
+//var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testPost) {
+//    logPlugin = testLodPlugin;
+//    wascallyRabbit = testDispose;
+//    env = {};
+//    configPlugin = testConfigPlugin;
+//    cardTypeMap = function () {};
+//    depositAccount = function () {};
+//    batchMap = function () {return {}};
+//    post = testPost;
+//};
+
 var handleSyncError = function(msg, err){
-    err.deadLetter = true;
     logPlugin.error(err);
     wascallyRabbit.rabbitDispose(msg, err);
 };
@@ -24,11 +35,23 @@ var handleBatch = function(msg) {
             batchRequestMap(msg, merchant);
         }
     });
-
 };
+
+function postBatchToCE(cloudElemSR, merchant, msg){
+    logPlugin.debug("Starting post to Cloud Elements");
+    post(cloudElemSR, merchant, function (err, salesReceipt) {
+        if (err) {
+            logPlugin.error(err);
+        } else {
+            logPlugin.debug("Successful post to Cloud Elements");
+        }
+        wascallyRabbit.rabbitDispose(msg, err);
+    });
+}
 
 module.exports = {
 
     handleBatch: handleBatch
+    //testingStub: testingStub
 
 };
