@@ -1,5 +1,6 @@
 var merchantSearch = require('./merchantSearch');
 var requestMap = require('./requestMap');
+//var batchMap
 var logPlugin = require('posable-logging-plugin');
 var persistRequest = require('./persistRequest').persistRequest;
 var updateRequest = require('./persistRequest').updateRequest;
@@ -24,6 +25,7 @@ var postProcedure = function(msg, callback) {
             return callback(err); // Stops procedure if merchant is NOT found
         } else {
             try {
+                //if merchant.batchType === 'batch'
                 var salesReceipt = requestMap(msg, merchant);
             } catch(err) {
                 logPlugin.error(err);

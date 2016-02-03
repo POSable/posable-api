@@ -22,7 +22,8 @@ var timedService = function() {
                 logPlugin.debug("in the range");
                 lookup().merchantBatchLookup(function (err, docs) {
                     batchMerchantsArray = docs;
-                    batchTimeCheck(batchMerchantsArray);
+                    typeSum(batchMerchantsArray);
+                    //batchTimeCheck(batchMerchantsArray);
                 });
 
             } else {
@@ -30,7 +31,7 @@ var timedService = function() {
             }
         }
 
-        //setInterval(function(){ checkTime() }, 3000);
+        setInterval(function(){ checkTime() }, 3000);
 
     } catch (err) {
         logPlugin.error(err);

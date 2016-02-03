@@ -55,7 +55,7 @@ var handleBatch = function(msg) {
     }
 
     function postBatchToCE(cloudElemSR, merchant){
-        post(cloudElemSR, merchant, function (err, salesReceipt) {
+        post(cloudElemSR, merchant, ,function (err, salesReceipt) {
             if (err) {
                 logPlugin.error(err);
             } else {
