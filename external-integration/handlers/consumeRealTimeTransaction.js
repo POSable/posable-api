@@ -1,22 +1,26 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var postProcedure = require('../lib/postProcedure');
-
-var handleError = function(msg, err){
-    err.deadLetter = true;
-    logPlugin.error(err);
-    wascallyRabbit.rabbitDispose(msg, err);
-};
+var merchantSearch = require('../lib/merchantSearch');
+var requestMap = require('../lib/requestMap');
 
 var handleRealTimeTransaction = function(msg) {
     try {
-        postProcedure(msg, function(err) {
-            if (err) {
-                handleError(msg, err);
+        var id = msg.body.internalID;
+
+        merchantSearch(id, function(err, merchant){
+
+            if(err) {
+                wascallyRabbit.rabbitDispose(msg, err);
             } else {
-                wascallyRabbit.rabbitDispose(msg, null);
+                if(merchant.batchType === 'batch') {
+                    wascallyRabbit.rabbitDispose(msg, err);
+                } else {
+                    requestMap(msg, merchant);
+                }
             }
         });
+
     } catch(err) {
         logPlugin.error(err);
     }
