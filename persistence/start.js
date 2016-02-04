@@ -111,11 +111,11 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
-    //console.log('connected');
+    console.log('connected');
 });
 var env = require('./common').config();
 mongoose.connect(env['mongoose_connection']);
-//console.log(env['mongoose_connection']);
+
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
@@ -124,9 +124,19 @@ wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.persistence');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', createTransactionPersistence);
 wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', createErrorPersist);
-wascallyRabbit.setup('persistence');
+wascallyRabbit.setup('persistence', rabbitCallback);
 
 //require('./lib/paymentQuery');
 //require('./lib/typeSum');
 require('./lib/timedService');
 //require('posable-customer-config-plugin')().merchantBatchLookup();
+
+
+function rabbitCallback(err, res) {
+    if (err) {
+        logPlugin.error(err);
+        throw err;
+    } else {
+        logPlugin.debug(res);
+    }
+}
