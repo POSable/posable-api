@@ -21,7 +21,6 @@ router.post('/', function(req, res) {
         if (err) {
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: "checkPostToken",
                 error: {message: "System Error with Token Authentication"}
             }
         }
@@ -34,7 +33,6 @@ router.post('/', function(req, res) {
             if (valObject.isValid == false) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
-                    module: 'Transaction Validation',
                     error: {code: 400, message: valObject.message}
                 }
             } else {
@@ -48,8 +46,7 @@ router.post('/', function(req, res) {
             wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, transactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
-                    module: 'payment.js',
-                    error: {code: 500, message: "System Error fullTransactions did NOT publish to Rabbit"}
+                    error: {code: 500, message: "Internal error processing transaction"}
                 };
                 finalizePost();
             })

@@ -18,7 +18,6 @@ var authenticatePost = function (req, statusObject, callback) {
          logPlugin.error(err);
          statusObject.isOK = false;
          statusObject['error'] = {
-             module: 'authenticatePost',
              error: {code: 400, message: "Missing json web token"}
          };
          internalErr = err;
@@ -31,7 +30,6 @@ var authenticatePost = function (req, statusObject, callback) {
                  logPlugin.error(err);
                  statusObject.isOK = false;
                  statusObject['error'] = {
-                     module: 'authenticatePost',
                      error: {code: 400, message: "System Error when decrypting json web token"}
                  };
                  internalErr = err;
@@ -42,7 +40,6 @@ var authenticatePost = function (req, statusObject, callback) {
                          if (err) {
                              statusObject.isOK = false;
                              statusObject['error'] = {
-                                 module: 'authenticatePost',
                                  error: {code: 400, message: 'Unable to find merchant record'}
                              };
                              internalErr = err;
@@ -54,7 +51,6 @@ var authenticatePost = function (req, statusObject, callback) {
                          logPlugin.error(err);
                          statusObject.isOK = false;
                          statusObject['error'] = {
-                             module: 'authenticatePost',
                              error: {code: 400, message: "System Error when checking json web token secret"}
                          };
                          internalErr = err;
@@ -68,7 +64,6 @@ var authenticatePost = function (req, statusObject, callback) {
              logPlugin.error(err);
              statusObject.isOK = false;
              statusObject['error'] = {
-                module: 'authenticatePost',
                 error: {code: 400, message: "System Error when checking json web token secret"}
             };
              internalErr = err;

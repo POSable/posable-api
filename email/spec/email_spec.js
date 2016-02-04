@@ -69,7 +69,7 @@ describe("Email service", function(){
         });
     });
 
-    describe("is NOT function when env['sendSNS'] === false and", function() {
+    describe("is NOT enabled when env['sendSNS'] === false and", function() {
         beforeEach(function() {
             setTestStubs(testDispose, testLogPlugin, testSNS, false);
             spyOn(testSNS, 'publish');
