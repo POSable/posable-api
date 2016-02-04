@@ -113,8 +113,7 @@ wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.externalIntegration');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
 wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
-wascallyRabbit.setup('external-integration');
-console.log('Waiting on Connection to RabbitMQ');
+wascallyRabbit.setup('external-integration', rabbitCallback);
 
 //Setup Database Connection
 console.log('Starting Connection to Mongoose DB');
@@ -123,6 +122,16 @@ var db = mongoose.connection;
 //db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     console.log('Mongoose DB connected');
-})
+});
 mongoose.connect(env['mongoose_connection']);
+
+
+function rabbitCallback(err, res) {
+    if (err) {
+        logPlugin.error(err);
+        throw err;
+    } else {
+        logPlugin.debug(res);
+    }
+}
 

@@ -17,10 +17,19 @@ logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
 console.log('Logging Setup Complete');
 
 //Setup RabbitMQ
+function rabbitCallback(err, res) {
+  if (err) {
+    logPlugin.error(err);
+    throw err;
+  } else {
+    logPlugin.debug(res);
+  }
+}
+
 console.log('Starting Connection to RabbitMQ');
 var env = require('../lib/pos_modules/common').config();
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
-wascallyRabbit.setup('pos-api');
+wascallyRabbit.setup('pos-api', rabbitCallback);
 
 var app = require('../app');
 var debug = require('debug')('pos-api:server');
