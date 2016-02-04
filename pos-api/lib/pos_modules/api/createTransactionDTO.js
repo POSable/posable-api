@@ -18,19 +18,16 @@ var createTransactionDTO = function (req, statusObject) {
         } else {
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: 'createTransactionDTO',
-                error: {code: 400, message: "Payment DTO was not successfully created from Post Body"}
+                error: {code: 400, message: "Cannot read content-type in headers"}
             }
         }
         logPlugin.debug('Transaction Request Mapping Successful');
-        //console.log("))))))))))))))))", transactionDTO);
     } catch (err) {
         if (err) {
             logPlugin.error(err);
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: "createTransactionDTO",
-                error: {code: 500, message: "System Error with creating a Transaction DTO"}
+                error: {code: 500, message: "System error processing transaction"}
             }
         }
     }

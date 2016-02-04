@@ -33,7 +33,6 @@ var mapTransaction = function(dto, statusObject) {
             logPlugin.error(err);
             statusObject.isOK = false;
             statusObject['error'] = {
-                module: "transactionMap",
                 error: {code: 400, message: "Transaction Map was not successfully completed from Post Body"}
             }
         }
