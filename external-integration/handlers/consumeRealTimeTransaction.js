@@ -1,11 +1,22 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
-var postProcedure = require('../lib/postProcedure');
 var merchantSearch = require('../lib/merchantSearch');
 var requestMap = require('../lib/requestMap');
 
+var testingStub = function(testLodPlugin, testDispose) {
+    logPlugin = testLodPlugin;
+    wascallyRabbit = testDispose;
+    requestMap = function () {};
+};
+
+var handleError = function(msg, err){
+    logPlugin.error(err);
+    wascallyRabbit.rabbitDispose(msg, err);
+};
+
 var handleRealTimeTransaction = function(msg) {
     try {
+        logPlugin.debug('Starting Real Time Transaction Handler');
         var id = msg.body.internalID;
 
         merchantSearch(id, function(err, merchant){
@@ -28,6 +39,6 @@ var handleRealTimeTransaction = function(msg) {
 };
 
 module.exports = {
-    handleRealTimeTransaction: handleRealTimeTransaction
-    //testingStub: testingStub
+    handleRealTimeTransaction: handleRealTimeTransaction,
+    testingStub: testingStub
 };
