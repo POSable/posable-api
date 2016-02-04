@@ -6,17 +6,12 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var wascallyRabbit = require('posable-wascally-wrapper');
 var postProcedure = require('../lib/postProcedure');
 
-
-//var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testPost) {
-//    logPlugin = testLodPlugin;
-//    wascallyRabbit = testDispose;
-//    env = {};
-//    configPlugin = testConfigPlugin;
-//    cardTypeMap = function () {};
-//    depositAccount = function () {};
-//    batchMap = function () {return {}};
-//    post = testPost;
-//};
+var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testBatchRequestMap) {
+    logPlugin = testLodPlugin;
+    wascallyRabbit = testDispose;
+    merchantSearch = testConfigPlugin.merchantSearch;
+    batchRequestMap = testBatchRequestMap;
+};
 
 var handleSyncError = function(msg, err){
     logPlugin.error(err);
@@ -24,34 +19,28 @@ var handleSyncError = function(msg, err){
 };
 
 var handleBatch = function(msg) {
-
-    var id = msg.body.internalID;
-
-    merchantSearch(id, function(err, merchant){
-
-        if(err) {
-            wascallyRabbit.rabbitDispose(msg, err);
-        } else {
-            batchRequestMap(msg, merchant);
-        }
-    });
+    try {
+        logPlugin.debug("Starting Batch Handler");
+        var id = msg.body.internalID;
+        logPlugin.debug("Found Internal ID : " + id);
+        merchantSearch(id, function(err, merchant){
+            if(err) {
+                wascallyRabbit.rabbitDispose(msg, err);
+            } else {
+                logPlugin.debug('Merchant search finished');
+                batchRequestMap(msg, merchant);
+            }
+        });
+    } catch(err) {
+        err.deadLetter = true;
+        handleSyncError(msg, err);
+        throw err;
+    }
 };
-
-function postBatchToCE(cloudElemSR, merchant, msg){
-    logPlugin.debug("Starting post to Cloud Elements");
-    post(cloudElemSR, merchant, function (err, salesReceipt) {
-        if (err) {
-            logPlugin.error(err);
-        } else {
-            logPlugin.debug("Successful post to Cloud Elements");
-        }
-        wascallyRabbit.rabbitDispose(msg, err);
-    });
-}
 
 module.exports = {
 
-    handleBatch: handleBatch
-    //testingStub: testingStub
+    handleBatch: handleBatch,
+    testingStub: testingStub
 
 };
