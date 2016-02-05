@@ -7,7 +7,6 @@ var depositAccount = require('../lib/depositAccount');
 var post = require('../lib/cloudElementsClient');
 var wascallyRabbit = require('posable-wascally-wrapper');
 
-
 var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testPost) {
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
@@ -26,7 +25,7 @@ var handleSyncError = function(msg, err){
 
 var handleBatch = function(msg) {
     try {
-        logPlugin.debug('Starting handleBatch Module')
+        logPlugin.debug('Starting handleBatch Module');
         var id = msg.body.internalID;
         if(id === undefined){
             var idErr = new Error('Msg internalID is undefined. Msg is rejected from Batch msg Handler');
@@ -48,7 +47,6 @@ var handleBatch = function(msg) {
         handleSyncError(msg, err);
         throw err
     }
-
 };
 
 function processBatch(merchant, msg){
