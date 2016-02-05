@@ -3,11 +3,6 @@ var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 
-//var jwtPayload = {name: 'Posable', internalID: 4};
-
-//var makejwToken = jwt.sign(jwtPayload, "posable"); // used to generate the json web token
-//console.log(makejwToken);
-// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YSBDYXAiLCJ1aWQiOjEwMDAwMDAxLCJpYXQiOjE0NDc3MDcyMjN9.oD-VK8gh4nvkEF2V8jigm_FzIIZ4BcW-vpKKgPlKCSg
 
 var authenticatePost = function (req, statusObject, callback) {
      var internalErr = null;
@@ -30,21 +25,26 @@ var authenticatePost = function (req, statusObject, callback) {
                  logPlugin.error(err);
                  statusObject.isOK = false;
                  statusObject['error'] = {
-                     error: {code: 400, message: "System Error when decrypting json web token"}
+                     error: {code: 400, message: "System error decrypting json web token"}
                  };
                  internalErr = err;
-                 return callback(internalErr);
+                 return callback(internalErr, statusObject);
              } else {
                  configPlugin.merchantLookup(decoded.internalID, logPlugin, function(err, merchant) {
                      try {
                          if (err) {
                              statusObject.isOK = false;
                              statusObject['error'] = {
-                                 error: {code: 400, message: 'Unable to find merchant record'}
+                                 error: {code: 500, message: 'System error searching merchant records'}
                              };
                              internalErr = err;
+                         } else if (merchant === null) {
+                             statusObject.isOK = false;
+                             statusObject['error'] = {
+                                 error: {code: 400, message: 'No merchant record found'}
+                             };
                          } else {
-                             statusObject.merchant = merchant || "no ID";
+                             statusObject.merchant = merchant;
                              statusObject.success.push("authenticatePost");
                          }
                      } catch (err) {
@@ -54,7 +54,7 @@ var authenticatePost = function (req, statusObject, callback) {
                              error: {code: 400, message: "System Error when checking json web token secret"}
                          };
                          internalErr = err;
-                         return callback(internalErr);
+                         return callback(internalErr, statusObject);
                      }
 
                      return callback(internalErr, statusObject);
