@@ -6,11 +6,7 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var wascallyRabbit = require('posable-wascally-wrapper');
 var postProcedure = require('../lib/postProcedure');
 
-<<<<<<< HEAD
-var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testPost) {
-=======
 var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testBatchRequestMap) {
->>>>>>> 6f2d93aa08709d5c7b01be9cd23f27326fdbe40a
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
     merchantSearch = testConfigPlugin.merchantSearch;
