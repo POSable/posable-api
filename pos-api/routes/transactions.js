@@ -57,7 +57,7 @@ router.post('/', function(req, res) {
 
         function finalizePost() {
             logPlugin.debug("Starting Finalize Post");
-            if (!statusObject.isOK && statusObject.merchant.responseType === 'alt') {
+            if (!statusObject.isOK && statusObject.merchant && statusObject.merchant.responseType === 'alt') {
                 logPlugin.debug("Sending Response to Alt Path");
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, requestID, statusObject['error'], req.body).catch(function(err){
                     logPlugin.error("Error sending Request to Rabbit" + err);
