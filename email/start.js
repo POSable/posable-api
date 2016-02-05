@@ -92,7 +92,6 @@ function onListening() {
 }
 
 
-
 //LogPlugin Setup
 console.log('Configuring Logs');
 var bunyanLogger = require('./logs/log');
@@ -114,4 +113,15 @@ console.log('after sendMail');
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.email');
 wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', sendMail);
-wascallyRabbit.setup('email');
+wascallyRabbit.setup('email', rabbitCallback);
+
+
+
+function rabbitCallback(err, res) {
+    if (err) {
+        logPlugin.error(err);
+        throw err;
+    } else {
+        logPlugin.debug(res);
+    }
+}

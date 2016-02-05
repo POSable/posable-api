@@ -22,7 +22,8 @@ var timedService = function() {
                 logPlugin.debug("in the range");
                 lookup().merchantBatchLookup(function (err, docs) {
                     batchMerchantsArray = docs;
-                    batchTimeCheck(batchMerchantsArray);
+                    typeSum(batchMerchantsArray);
+                    //batchTimeCheck(batchMerchantsArray);
                 });
 
             } else {

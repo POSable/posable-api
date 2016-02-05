@@ -114,7 +114,6 @@ db.once('open', function (callback) {
 });
 var env = require('./common').config();
 mongoose.connect(env['mongoose_log_connection']);
-//console.log(env['mongoose_log_connection']);
 
 
 //Setup RabbitMQ
@@ -123,8 +122,17 @@ console.log('Starting Connection to RabbitMQ');
 wascallyRabbit.setEnvConnectionValues(env["wascally_connection_parameters"]);
 wascallyRabbit.setQSubscription('service.logging');
 wascallyRabbit.setHandler('logger.command.addLogEntry', createLogEntry);
-wascallyRabbit.setup('logger');
+wascallyRabbit.setup('logger', rabbitCallback);
 
 
+
+function rabbitCallback(err, res) {
+    if (err) {
+        logPlugin.error(err);
+        throw err;
+    } else {
+        logPlugin.debug(res);
+    }
+}
 
 

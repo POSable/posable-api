@@ -1,31 +1,37 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
-var postProcedure = require('../lib/postProcedure');
+var merchantSearch = require('../lib/merchantSearch');
+var requestMap = require('../lib/requestMap');
 
-var testingStub = function(testLodPlugin, testDispose, testPostProcedure, testmsg) {
+var testingStub = function(testLodPlugin, testDispose) {
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
-    postProcedure = testPostProcedure;
-    msg = testmsg;
+    requestMap = function () {};
 };
 
 var handleError = function(msg, err){
-    err.deadLetter = true;
     logPlugin.error(err);
     wascallyRabbit.rabbitDispose(msg, err);
 };
 
 var handleRealTimeTransaction = function(msg) {
     try {
-        logPlugin.debug('Starting handleRealTimeTransaction handler');
-        postProcedure(msg, function(err) {
-            if (err) {
-                handleError(msg, err);
+        logPlugin.debug('Starting Real Time Transaction Handler');
+        var id = msg.body.internalID;
+
+        merchantSearch(id, function(err, merchant){
+
+            if(err) {
+                wascallyRabbit.rabbitDispose(msg, err);
             } else {
-                logPlugin.debug('handleRealTimeTransaction successfully finished');
-                wascallyRabbit.rabbitDispose(msg, null);
+                if(merchant.batchType === 'batch') {
+                    wascallyRabbit.rabbitDispose(msg, err);
+                } else {
+                    requestMap(msg, merchant);
+                }
             }
         });
+
     } catch(err) {
         handleError(msg, err);
         throw err;

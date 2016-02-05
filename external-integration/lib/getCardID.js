@@ -10,6 +10,8 @@ var getCardID = function(payment, paymentMap) {
         tempId =  paymentMap.amexID;
     } if(payment.cardType === 'discover') {
         tempId =  paymentMap.discoverID;
+    } if(payment.cardType === 'cash') {
+        tempId =  paymentMap.cashID;
     }
     return parseInt(tempId);
 };

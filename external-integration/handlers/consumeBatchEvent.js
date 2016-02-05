@@ -1,21 +1,20 @@
-var batchMap = require('../lib/batchMap');
+var batchRequestMap = require('../lib/batchRequestMap');
+var merchantSearch = require('../lib/merchantSearch');
 var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
-var cardTypeMap = require('../lib/cardTypeMap');
-var depositAccount = require('../lib/depositAccount');
-var post = require('../lib/cloudElementsClient');
 var wascallyRabbit = require('posable-wascally-wrapper');
+var postProcedure = require('../lib/postProcedure');
 
+<<<<<<< HEAD
 var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testPost) {
+=======
+var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testBatchRequestMap) {
+>>>>>>> 6f2d93aa08709d5c7b01be9cd23f27326fdbe40a
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
-    env = {};
-    configPlugin = testConfigPlugin;
-    cardTypeMap = function () {};
-    depositAccount = function () {};
-    batchMap = function () {return {}};
-    post = testPost;
+    merchantSearch = testConfigPlugin.merchantSearch;
+    batchRequestMap = testBatchRequestMap;
 };
 
 var handleSyncError = function(msg, err){
@@ -25,57 +24,24 @@ var handleSyncError = function(msg, err){
 
 var handleBatch = function(msg) {
     try {
+
         logPlugin.debug('Starting handleBatch Module');
         var id = msg.body.internalID;
-        if(id === undefined){
-            var idErr = new Error('Msg internalID is undefined. Msg is rejected from Batch msg Handler');
-            idErr.deadLetter = true;
-            handleSyncError(msg, idErr);
-        } else {
-            logPlugin.debug("Found Internal ID : " + id);
-            configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
-                if (err) {
-                    handleSyncError(msg, err);
-                } else {
-                    logPlugin.debug('Merchant lookup finished');
-                    processBatch(merchant, msg);
-                }
-            });
-        }
-    } catch (err) {
+        logPlugin.debug("Found Internal ID : " + id);
+        merchantSearch(id, function(err, merchant){
+            if(err) {
+                wascallyRabbit.rabbitDispose(msg, err);
+            } else {
+                logPlugin.debug('Merchant search finished');
+                batchRequestMap(msg, merchant);
+            }
+        });
+    } catch(err) {
         err.deadLetter = true;
         handleSyncError(msg, err);
-        throw err
+        throw err;
     }
 };
-
-function processBatch(merchant, msg){
-    if (merchant === undefined) throw new Error("Merchant not found");
-    if (merchant.batchType === "batch") {
-        logPlugin.debug("Batch merchant found");
-
-        var typeMap = cardTypeMap(merchant);
-        var depositObj = depositAccount(merchant);
-        var cloudElemSR = batchMap(msg, typeMap, depositObj);
-        postBatchToCE(cloudElemSR, merchant, msg);
-
-    } else {
-        logPlugin.debug("Batch merchant not found");
-        wascallyRabbit.rabbitDispose(msg, err);
-    }
-}
-
-function postBatchToCE(cloudElemSR, merchant, msg){
-    logPlugin.debug("Starting post to Cloud Elements");
-    post(cloudElemSR, merchant, function (err, salesReceipt) {
-        if (err) {
-            logPlugin.error(err);
-        } else {
-            logPlugin.debug("Successful post to Cloud Elements");
-        }
-        wascallyRabbit.rabbitDispose(msg, err);
-    });
-}
 
 module.exports = {
 
