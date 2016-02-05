@@ -15,4 +15,4 @@ var batchTimeLookup = function(batchMerchantsArray) {
 };
 
 
-module.exports = typeSum;
+module.exports = batchTimeLookup;

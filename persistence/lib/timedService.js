@@ -4,12 +4,10 @@ var logPlugin = require('posable-logging-plugin');
 var lookup = require('posable-customer-config-plugin');
 var batchMerchantsArray = [];
 
-
 var timedService = function() {
     try {
 
         function checkTime() {
-
 
             var d = new Date();
             var hours = d.getHours();
@@ -18,7 +16,7 @@ var timedService = function() {
 
             logPlugin.debug(time);
 
-            if (time >= 1 && time <= 2359) {
+            if (time >= 2355 && time <= 2359) {
                 logPlugin.debug("in the range");
                 lookup().merchantBatchLookup(function (err, docs) {
                     batchMerchantsArray = docs;
