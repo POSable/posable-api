@@ -3,6 +3,7 @@ var router = express.Router();
 var logPlugin = require('posable-logging-plugin');
 var lookup = require('posable-customer-config-plugin');
 var typeSum = require('../lib/typeSum');
+var wascallyRabbit = require('posable-wascally-wrapper');
 var resultsArray = [];
 
 router.get('/', function(req, res) {
@@ -11,9 +12,15 @@ router.get('/', function(req, res) {
     lookup().merchantBatchTrigger(function (err, docs) {
         resultsArray = docs;
         console.log(resultsArray);
-        //publish to rabbit
-        //in handler fire type sum
-        typeSum(resultsArray);
+
+
+        resultsArray.forEach(function(merchant){
+            var internalID = merchant.internalID;
+            wascallyRabbit.raiseNewBatchCommand(internalID, internalID);
+            logPlugin.debug('Sending Batch Command to Rabbit');
+        });
+
+
 
     });
 });
