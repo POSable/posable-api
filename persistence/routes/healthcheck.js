@@ -7,21 +7,19 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 var resultsArray = [];
 
 router.get('/', function(req, res) {
+
     res.status(200).send('status: 200');
+
     logPlugin.debug("Lets do this thing!");
     lookup().merchantBatchTrigger(function (err, docs) {
         resultsArray = docs;
-        console.log(resultsArray);
-
+        //console.log(resultsArray);
 
         resultsArray.forEach(function(merchant){
             var internalID = merchant.internalID;
-            wascallyRabbit.raiseNewBatchCommand(internalID, internalID);
             logPlugin.debug('Sending Batch Command to Rabbit');
+            wascallyRabbit.raiseNewBatchCommand(internalID, internalID);
         });
-
-
-
     });
 });
 
