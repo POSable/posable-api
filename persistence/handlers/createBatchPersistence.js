@@ -8,6 +8,11 @@ var deadLetterErrorHandling = function (msg, error) {
     wascallyRabbit.rabbitDispose(msg, error);
 };
 
+var handleError = function(msg, err){
+    logPlugin.error(err);
+    wascallyRabbit.rabbitDispose(msg, err);
+};
+
 function createBatchPersistence(msg) {
     try {
         logPlugin.debug('Received message from Rabbit, Starting Batch Persistence Handler');
@@ -17,10 +22,12 @@ function createBatchPersistence(msg) {
             deadLetterErrorHandling(msg, batchHandlerError);
         } else {
             logPlugin.debug('Message starting batch procedure');
-            createBatch(merchant.internalID);
+            createBatch(id);
+            msg.ack;
         }
 
     } catch (err) {
+        handleError(msg, err);
         throw err;
     }
 }

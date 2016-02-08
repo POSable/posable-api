@@ -105,6 +105,7 @@ console.log('Logging Setup Complete');
 var createPaymentPersistence = require('./handlers/createPaymentPersistence');
 var createTransactionPersistence = require('./handlers/createTransactionPersistence').createTransactionPersistence;
 var createErrorPersist = require('./handlers/createErrorPersist').createErrorPersist;
+var createBatchPersistence = require('./handlers/createBatchPersistence').createBatchPersistence;
 
 //Setup Database Connection
 var mongoose = require('mongoose');
@@ -124,12 +125,8 @@ wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.persistence');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', createTransactionPersistence);
 wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', createErrorPersist);
+wascallyRabbit.setHandler('persistence.command.calculateBatchTotals', createBatchPersistence);
 wascallyRabbit.setup('persistence', rabbitCallback);
-
-//require('./lib/paymentQuery');
-//require('./lib/typeSum');
-//require('./lib/timedService');
-//require('posable-customer-config-plugin')().merchantBatchLookup();
 
 
 function rabbitCallback(err, res) {

@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
         resultsArray.forEach(function(merchant){
             var internalID = merchant.internalID;
             logPlugin.debug('Sending Batch Command to Rabbit');
-            wascallyRabbit.raiseNewBatchCommand(internalID, internalID);
+            wascallyRabbit.calculateBatchTotals(internalID, internalID);
         });
     });
 });
