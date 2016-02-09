@@ -23,7 +23,7 @@ function createBatchPersistence(msg) {
         } else {
             logPlugin.debug('Message starting batch procedure');
             createBatch(id);
-            msg.ack;
+            wascallyRabbit.rabbitDispose(msg, null);
         }
 
     } catch (err) {
