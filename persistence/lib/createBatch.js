@@ -2,11 +2,10 @@ var Batch = require('../models/batch').model;
 var logPlugin = require('posable-logging-plugin');
 var paymentQuery = require('./paymentQuery');
 
-var createBatch = function(internalID) {
+var createBatch = function(id) {
 
     try {
-
-        logPlugin.debug('Starting createBatch process for internalID : ' + internalID);
+        logPlugin.debug('Starting createBatch process for internalID : ' + id);
 
         var mongooseBatch = new Batch();
 
@@ -14,7 +13,7 @@ var createBatch = function(internalID) {
 
         tempBatchID = mongooseBatch._id;
 
-        mongooseBatch.internalID = internalID;
+        mongooseBatch.internalID = id;
         mongooseBatch.createdAt = new Date();
         mongooseBatch.status = "inProgress";
 
@@ -24,7 +23,7 @@ var createBatch = function(internalID) {
             } else {
                 logPlugin.debug('Batch : ' + mongooseBatch._id + 'was saved as inProgress');
 
-                paymentQuery(internalID, tempBatchID, callback);
+                paymentQuery(id, tempBatchID, callback);
             }
         });
 
