@@ -13,16 +13,17 @@ router.post('/', function(req, res) {
     logPlugin.debug(requestID + " -Transactions Post received with content type of " + req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
-
-    if (statusObject.isOK) {checkPostToken(req, statusObject, continuePost);}
+//if ...... parse header for token
+//    if (statusObject.isOK) {checkPostToken(token, statusObject, continuePost);} make this all asynch
 
     function continuePost(err, statusObject) {
 
         if (err) {
-            statusObject.isOK = false;
-            statusObject['error'] = {
-                error: {message: "System Error with Token Authentication"}
-            }
+            // review and fix this code.
+            //statusObject.isOK = false;
+            //if (!statusObject.error) statusObject['error'] = {
+            //    error: {code: 500, message: "System Error with Token Authentication"}
+            //}
         }
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}

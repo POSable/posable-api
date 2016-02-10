@@ -6,7 +6,6 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var authenticatePost = function (req, statusObject, callback) {
     try {
         logPlugin.debug('Starting authenticatePost Module');
-        var internalErr = null;
         if (req.headers.jwtoken === null || req.headers.jwtoken === undefined) {
 
             var err = new Error('Missing json web token');
@@ -15,10 +14,12 @@ var authenticatePost = function (req, statusObject, callback) {
             statusObject['error'] = {
                 error: {code: 400, message: "Missing json web token"}
             };
+            // set process next tick here
             return exitAuthPost(err, statusObject);
         }
         var jwtoken = req.headers.jwtoken;
 
+            // eventualy 'posable' key is changed to a configurable variable.
         jwt.verify(jwtoken, 'posable', verifyCallback);
 
     } catch(err) {
@@ -27,11 +28,13 @@ var authenticatePost = function (req, statusObject, callback) {
         statusObject['error'] = {
             error: {code: 400, message: "System Error in Authenticate Post"}
         };
-        internalErr = err;
-        console.log(internalErr)
-        return callback(internalErr, statusObject);
+        // set process next tick here
+        return exitAuthPost(err, statusObject);
     }
+
+    // callbacks below
     function verifyCallback(err, decoded) {
+        // decoded is the body of the jwt token...decoded.
 
         if (err) {
             logPlugin.error(err);
@@ -47,7 +50,7 @@ var authenticatePost = function (req, statusObject, callback) {
     function merchantLookupCallback(err, merchant) {
         var merchantError;
         if (err) {
-            merchantError = err
+            merchantError = err;
             logPlugin.error(err);
             statusObject.isOK = false;
             statusObject['error'] = {
