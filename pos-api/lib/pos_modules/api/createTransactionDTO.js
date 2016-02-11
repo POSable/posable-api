@@ -11,6 +11,10 @@ var createTransactionDTO = function (req, statusObject) {
             if (req.headers['content-type'] === "application/xml") {
                 transactionDTO = req.body;
                 transactionDTO.transaction.payments = transactionDTO.transaction.payments.payment;
+                //in xml a single payment will not be parsed into an array. This is forced below.
+                if ( Object.prototype.toString.call(transactionDTO.transaction.payments) === '[object Object]') {
+                    transactionDTO.transaction.payments = [transactionDTO.transaction.payments];
+                }
             } else {
                 transactionDTO = req.body;
             }
