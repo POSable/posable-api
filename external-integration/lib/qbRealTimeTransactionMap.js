@@ -1,9 +1,6 @@
-var post = require('./cloudElementsClient');
-var logPlugin = require('posable-logging-plugin');
-var deposit = require('./qbDepositAccount');
 var getCardID = require('./getCardID');
 
-var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
+var qbRealTimeTransactionMap = function(msg, paymentMap, depositObj) {
 
     var array = msg.body.data.transactionPayments;
     var sale = {};
@@ -60,9 +57,10 @@ var realTimeTransactionMap = function(msg, paymentMap, depositObj) {
         "applyTaxAfterDiscount": false,
         "txnDate": new Date()
     };
+
     return salesReceipt;
 
 
 };
 
-module.exports = realTimeTransactionMap;
+module.exports = qbRealTimeTransactionMap;

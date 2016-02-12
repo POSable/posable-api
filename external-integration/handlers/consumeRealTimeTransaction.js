@@ -24,9 +24,11 @@ var handleRealTimeTransaction = function(msg) {
             if(err) {
                 wascallyRabbit.rabbitDispose(msg, err);
             } else {
+
                 if(merchant.batchType === 'batch') {
                     wascallyRabbit.rabbitDispose(msg, err);
                 } else {
+
                     accountingMap(msg, merchant);
                 }
             }

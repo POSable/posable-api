@@ -4,7 +4,6 @@ var updateRequest = require('./persistRequest').updateRequest;
 var post = require('./cloudElementsClient');
 var wascallyRabbit = require('posable-wascally-wrapper');
 
-
 var postProcedure = function(msg, merchant, salesReceipt, callback) {
 
     persistRequest(salesReceipt, merchant, msg, postToExternal);
