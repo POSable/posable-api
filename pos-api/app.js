@@ -10,6 +10,7 @@ var fullTransactions = require('./routes/fullTransactions');
 //var errorHandling = require('./lib/pos_modules/errorHandling');
 
 var app = express();
+app.use(express.static('public'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
