@@ -14,13 +14,16 @@ var authenticatePost = function (req, statusObject, callback) {
             statusObject['error'] = {
                 error: {code: 400, message: "Missing json web token"}
             };
-            // set process next tick here
-            return exitAuthPost(err, statusObject);
         }
-        var jwtoken = req.headers.jwtoken;
 
+        if (statusObject.isOK) {
+            var jwtoken = req.headers.jwtoken;
             // eventualy 'posable' key is changed to a configurable variable.
-        jwt.verify(jwtoken, 'posable', verifyCallback);
+            jwt.verify(jwtoken, 'posable', verifyCallback);
+        } else {
+            // keep function asynchronous
+            process.nextTick(function () {return exitAuthPost(err, statusObject)});
+        }
 
     } catch(err) {
         logPlugin.error(err);
@@ -28,8 +31,8 @@ var authenticatePost = function (req, statusObject, callback) {
         statusObject['error'] = {
             error: {code: 400, message: "System Error in Authenticate Post"}
         };
-        // set process next tick here
-        return exitAuthPost(err, statusObject);
+        // keep function asynchronous
+        process.nextTick(function () {return exitAuthPost(err, statusObject)});
     }
 
     // callbacks below

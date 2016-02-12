@@ -19,11 +19,11 @@ router.post('/', function(req, res) {
     function continuePost(err, statusObject) {
 
         if (err) {
-            // review and fix this code.
-            //statusObject.isOK = false;
-            //if (!statusObject.error) statusObject['error'] = {
-            //    error: {code: 500, message: "System Error with Token Authentication"}
-            //}
+            statusObject.isOK = false;
+            // ensure there is an error message with the status object - but dont overight it if it already exists.
+            if (!statusObject.error) statusObject['error'] = {
+                error: {code: 500, message: "System Error with Token Authentication"}
+            }
         }
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}

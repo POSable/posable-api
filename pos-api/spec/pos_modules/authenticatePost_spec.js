@@ -15,22 +15,24 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
             spyOn(statusObject.success, 'push').and.throwError("Catch this System Error - Pass to Callback");
         });
 
-        it("Should log and error and return the callback with an error for header.token equal to null", function () {
+        it("Should log and error and return the callback with an error for header.token equal to null", function (done) {
             callback = function (internalErr, statusObject) {
                 expect(internalErr.message).toEqual('Missing json web token' );
                 expect(statusObject.isOK).toBe(false);
                 expect(testLogPlugin.error).toHaveBeenCalledWith(new Error('Missing json web token'));
+                done();
             };
             var req = {headers: {jwtoken: null}};
             testStub(testLogPlugin, testConfigPlugin);
             checkPostToken(req, statusObject, callback);
         });
 
-        it("Should log and error and return the callback with an error for header.token equal to undefined", function () {
+        it("Should log and error and return the callback with an error for header.token equal to undefined", function (done) {
             callback = function (internalErr, statusObject) {
                 expect(internalErr.message).toEqual('Missing json web token');
                 expect(statusObject.isOK).toBe(false);
                 expect(testLogPlugin.error).toHaveBeenCalled();
+                done();
             };
             var req = {headers: {jwtoken: undefined}};
             testStub(testLogPlugin, testConfigPlugin);
