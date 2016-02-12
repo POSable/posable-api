@@ -88,8 +88,8 @@ describe("test persistence-service", function() {
         beforeEach(function () {
             spyOn(testMapping, 'testMapTransaction').and.returnValue({save: function (callback) {callback()}});
             spyOn(testLogPlugin, 'error');
-            spyOn(testLogPlugin, 'debug');
-            spyOn(testDispose, 'testRabbitDispose').and.throwError('This is a testing Error - Please Catch Me!');
+            spyOn(testLogPlugin, 'debug').and.throwError('This is a testing Error - Please Catch Me!');
+            spyOn(testDispose, 'testRabbitDispose');
 
             var setTestStubs = require('../handlers/createTransactionPersistence').testingStub;
             setTestStubs(testMapping, testValidate, testLogPlugin, testDispose);
@@ -97,8 +97,7 @@ describe("test persistence-service", function() {
 
         it("when LogPlugin.debug fails", function () {
             try {
-                persistTransaction(testTransactionMsg);
-                throw new Error('Stop changing my code!')
+                persistTransaction(testTransactionMsg);e
             } catch (err) {
                 expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testTransactionMsg, new Error( 'This is a testing Error - Please Catch Me!'));
                 expect(testLogPlugin.error).toHaveBeenCalled();
