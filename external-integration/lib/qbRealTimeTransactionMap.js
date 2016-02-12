@@ -1,6 +1,6 @@
 var post = require('./cloudElementsClient');
 var logPlugin = require('posable-logging-plugin');
-var deposit = require('./depositAccount');
+var deposit = require('./qbDepositAccount');
 var getCardID = require('./getCardID');
 
 var realTimeTransactionMap = function(msg, paymentMap, depositObj) {

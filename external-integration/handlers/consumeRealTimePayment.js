@@ -1,11 +1,11 @@
-var realTimePaymentMap = require('../lib/realTimeTransactionMap');
+var realTimePaymentMap = require('../lib/qbRealTimeTransactionMap');
 var post = require('../lib/cloudElementsClient');
 var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 var err = null;
 var cardTypeMap = require('../lib/cardTypeMap');
-var depositAccount = require('../lib/depositAccount');
+var depositAccount = require('../lib/qbDepositAccount');
 
 var handleRealTimePayment = function(msg) {
     try {
