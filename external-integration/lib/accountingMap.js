@@ -8,7 +8,7 @@ var accountingMap = function(msg, merchant) {
     } if(merchant.accountingClient === 'xero') {
         xeroRequestMap(msg, merchant);
     } else {
-    //    do something with msg when accountingClient is not found
+        //    do something with msg when accountingClient is not found
     }
 };
 
