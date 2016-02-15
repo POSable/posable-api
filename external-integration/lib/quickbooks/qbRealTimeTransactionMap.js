@@ -1,4 +1,4 @@
-var getCardID = require('./getCardID');
+var getCardID = require('./../getCardID');
 
 var qbRealTimeTransactionMap = function(msg, paymentMap, depositObj) {
 

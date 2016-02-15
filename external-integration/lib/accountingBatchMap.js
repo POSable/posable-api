@@ -1,5 +1,5 @@
-var qbBatchRequestMap = require('./qbBatchRequestMap');
-var xeroBatchRequestMap = require('./xeroBatchRequestMap');
+var qbBatchRequestMap = require('./quickbooks/qbBatchRequestMap');
+var xeroBatchRequestMap = require('./xero/xeroBatchRequestMap');
 
 var accountingBatchMap = function(msg, merchant) {
 

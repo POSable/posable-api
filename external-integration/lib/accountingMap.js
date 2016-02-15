@@ -1,5 +1,5 @@
-var qbRequestMap = require('./qbRequestMap');
-var xeroRequestMap = require('./xeroRequestMap');
+var qbRequestMap = require('./quickbooks/qbRequestMap');
+var xeroRequestMap = require('./xero/xeroRequestMap');
 
 var accountingMap = function(msg, merchant) {
 

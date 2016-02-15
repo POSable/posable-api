@@ -1,4 +1,4 @@
-var getCardID = require('./getCardID');
+var getCardID = require('./../getCardID');
 
 var xeroRealTimeTransactionMap = function(msg, paymentMap, depositObj) {
 

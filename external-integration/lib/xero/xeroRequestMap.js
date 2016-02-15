@@ -1,26 +1,26 @@
-var cardTypeMap = require('./cardTypeMap');
+var cardTypeMap = require('./../cardTypeMap');
 var xeroDepositAccount = require('./xeroDepositAccount');
-var xeroBatchMap = require('./qbBatchMap');
-var postProcedure = require('./postProcedure');
+var XeroRealTimeTransactionMap = require('./xeroRealTimeTransactionMap');
+var postProcedure = require('./../postProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 
-var handleSyncError = function(msg, err){
+var handleError = function(msg, err){
     err.deadLetter = true;
     logPlugin.error(err);
     wascallyRabbit.rabbitDispose(msg, err);
 };
 
-var qbBatchRequestMap = function (msg, merchant) {
+var xeroRequestMap = function (msg, merchant) {
     // Create CE sales receipt (all sync)
     try {
         var type = cardTypeMap(merchant);
         var depositObj = xeroDepositAccount(merchant);
-        var salesReceipt = xeroBatchMap(msg, type, depositObj);
+        var salesReceipt = XeroRealTimeTransactionMap(msg, type, depositObj);
 
         postProcedure(msg, merchant, salesReceipt, function(err) {
             if (err) {
-                handleSyncError(msg, err);
+                handleError(msg, err);
             } else {
                 wascallyRabbit.rabbitDispose(msg, null);
             }
@@ -32,4 +32,4 @@ var qbBatchRequestMap = function (msg, merchant) {
 };
 
 
-module.exports = qbBatchRequestMap;
+module.exports = xeroRequestMap;
