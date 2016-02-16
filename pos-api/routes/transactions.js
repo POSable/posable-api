@@ -13,8 +13,8 @@ router.post('/', function(req, res) {
     logPlugin.debug(requestID + " -Transactions Post received with content type of " + req.headers['content-type']);
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
-//if ...... parse header for token
-//    if (statusObject.isOK) {checkPostToken(token, statusObject, continuePost);} make this all asynch
+
+    if (statusObject.isOK) {checkPostToken(statusObject, continuePost);}
 
     function continuePost(err, statusObject) {
 
