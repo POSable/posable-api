@@ -1,7 +1,6 @@
 var jwt = require('jsonwebtoken');
-var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
-var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
+var configPlugin = require('posable-customer-config-plugin');
 
 var authenticatePost = function (req, statusObject, callback) {
     try {
