@@ -1,7 +1,7 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var merchantSearch = require('../lib/merchantSearch');
-var requestMap = require('../lib/requestMap');
+var accountingMap = require('../lib/accountingMap');
 
 var testingStub = function(testLodPlugin, testDispose) {
     logPlugin = testLodPlugin;
@@ -24,10 +24,12 @@ var handleRealTimeTransaction = function(msg) {
             if(err) {
                 wascallyRabbit.rabbitDispose(msg, err);
             } else {
+
                 if(merchant.batchType === 'batch') {
                     wascallyRabbit.rabbitDispose(msg, err);
                 } else {
-                    requestMap(msg, merchant);
+
+                    accountingMap(msg, merchant);
                 }
             }
         });

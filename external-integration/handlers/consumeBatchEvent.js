@@ -1,4 +1,4 @@
-var batchRequestMap = require('../lib/batchRequestMap');
+var accountingBatchMap = require('../lib/accountingBatchMap');
 var merchantSearch = require('../lib/merchantSearch');
 var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
@@ -10,7 +10,7 @@ var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testBat
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
     merchantSearch = testConfigPlugin.merchantSearch;
-    batchRequestMap = testBatchRequestMap;
+    qbBatchRequestMap = testBatchRequestMap;
 };
 
 var handleSyncError = function(msg, err){
@@ -29,7 +29,7 @@ var handleBatch = function(msg) {
                 wascallyRabbit.rabbitDispose(msg, err);
             } else {
                 logPlugin.debug('Merchant search finished');
-                batchRequestMap(msg, merchant);
+                accountingBatchMap(msg, merchant);
             }
         });
     } catch(err) {
