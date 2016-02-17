@@ -23,6 +23,6 @@
     "posable-wascally-wrapper": "git+ssh://git@github.com:POSable/posable-wascally-wrapper.git"
   },
   "devDependencies": {
-    "jasmine": "^2.4.0"
+    "jasmine": "^2.3.2"
   }
 }
