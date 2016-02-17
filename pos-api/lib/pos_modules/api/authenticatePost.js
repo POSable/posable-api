@@ -1,6 +1,6 @@
 var jwt = require('jsonwebtoken');
 var logPlugin = require('posable-logging-plugin');
-var configPlugin = require('posable-customer-config-plugin');
+var configPlugin = require('posable-customer-config-plugin')(); // <-- Parenthesis required
 
 var authenticatePost = function (req, statusObject, callback) {
     try {
@@ -31,6 +31,7 @@ var authenticatePost = function (req, statusObject, callback) {
             error: {code: 400, message: "System Error in Authenticate Post"}
         };
         // keep function asynchronous
+
         process.nextTick(function () {return exitAuthPost(err, statusObject)});
     }
 
@@ -46,7 +47,7 @@ var authenticatePost = function (req, statusObject, callback) {
             };
             return exitAuthPost(err, statusObject);
         }
-        configPlugin.merchantLookup(decoded.internalID, logPlugin, merchantLookupCallback);
+        configPlugin.merchantLookup(decoded.internalID, merchantLookupCallback);
     }
 
     function merchantLookupCallback(err, merchant) {
@@ -58,9 +59,9 @@ var authenticatePost = function (req, statusObject, callback) {
             statusObject['error'] = {
                 error: {code: 500, message: 'System error searching merchant records'}
             };
-        } else if (merchant === null || merchant === undefined) {
+        } else if (merchant === null || merchant === undefined || merchant.internalID === undefined) {
             merchantError = new Error('No merchant record found');
-            logPlugin.error(merchantError);
+            logPlugin.debug(merchantError);
             statusObject.isOK = false;
             statusObject['error'] = {
                 error: {code: 400, message: 'No merchant record found'}

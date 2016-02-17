@@ -1,6 +1,5 @@
-var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
-var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
+var configPlugin = require('posable-customer-config-plugin')();
 
 var merchantSearch = function(id, callback) {
     var searchError = undefined;
@@ -12,8 +11,9 @@ var merchantSearch = function(id, callback) {
         return callback(idError); // Stops procedure for invalid ID
     }
 
-    configPlugin.merchantLookup(id, logPlugin, function(err, merchant) {
+    configPlugin.merchantLookup(id, function(err, merchant) {
         if (err) {
+            logPlugin.error(err);
             searchError = err;
         } else if (merchant === null) {
             searchError = new Error('Merchant NOT found');

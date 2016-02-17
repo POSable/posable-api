@@ -44,7 +44,7 @@ describe("Test 'authenticatePost' module & 'checkPostToken' function", function(
         var jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiRGF0YUNhcCIsImludGVybmFsSUQiOjEsImlhdCI6MTQ1MDE5NjY3OH0.I1r9k_-20pTiAYrEo3LZ1BUPqbtG8fP4hRZe1gC_RE8";
         var req = {headers: {jwtoken: jwt}}; //hard coded token
         var testLogPlugin = {error: function (text) {console.log(text)}, debug: function (text) {console.log(text)}};
-        var testConfigPlugin = {merchantLookup: function(Id, Log, merchantLookupCallback){merchantLookupCallback(undefined, {})}};
+        var testConfigPlugin = {merchantLookup: function(Id, merchantLookupCallback){merchantLookupCallback(null, {internalID: 2})}};
 
         beforeEach(function () {
             statusObject = {isOK: true, success: []};

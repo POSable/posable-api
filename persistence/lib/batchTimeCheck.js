@@ -1,5 +1,4 @@
 var typeSum = require('./typeSum');
-var lookup = require('posable-customer-config-plugin');
 
 var batchTimeLookup = function(batchMerchantsArray) {
     try {
