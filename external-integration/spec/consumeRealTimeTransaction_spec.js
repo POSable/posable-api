@@ -25,13 +25,13 @@ describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction'
             }
         });
 
-        //it("disposes the message with dead letter set to true", function () {
-        //    try {
-        //        handleRealTimeTransaction(testMsg);
-        //    } catch (err) {
-        //        expect(err.deadLetter).toBe(true);
-        //    }
-        //});
+        it("disposes the message with dead letter set to true", function () {
+            try {
+                handleRealTimeTransaction(testMsg);
+            } catch (err) {
+                expect(err.deadLetter).toBe(true);
+            }
+        });
 
         it("logs the system error.", function () {
             try {

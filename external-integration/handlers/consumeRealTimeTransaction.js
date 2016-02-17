@@ -6,7 +6,7 @@ var accountingMap = require('../lib/accountingMap');
 var testingStub = function(testLogPlugin, testDispose) {
     logPlugin = testLogPlugin;
     wascallyRabbit = testDispose;
-    requestMap = function () {};
+    accountingMap = function () {};
 };
 
 var handleError = function(msg, err){
@@ -35,6 +35,7 @@ var handleRealTimeTransaction = function(msg) {
         });
 
     } catch(err) {
+        err.deadLetter = true;
         handleError(msg, err);
         throw err;
     }
