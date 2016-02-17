@@ -31,6 +31,12 @@ describe("Test 'consumeBatchEvent' module & 'handleBatch' function", function() 
         });
 
 
+        it('logs that asych function merchantSearch finished and calls accountingBatchMap', function() {
+            handleBatchEvent(testMsg);
+            expect(testLogPlugin.debug).toHaveBeenCalledWith('Merchant search finished');
+        });
+
+
         it('logs that asych function merchanSearch finished and calls accountingBatchMap for a batch merchant', function() {
             handleBatchEvent(testMsg);
             expect(testObject.accountingBatchMap).toHaveBeenCalled();

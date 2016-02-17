@@ -1,10 +1,9 @@
 var accountingBatchMap = require('../lib/accountingBatchMap');
 var merchantSearch = require('../lib/merchantSearch');
-var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
-var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
 var wascallyRabbit = require('posable-wascally-wrapper');
 var postProcedure = require('../lib/postProcedure');
+
 
 var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testAccountingBatchMap) {
     logPlugin = testLodPlugin;

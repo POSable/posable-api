@@ -108,13 +108,13 @@ var createErrorPersist = require('./handlers/createErrorPersist').createErrorPer
 var createBatchPersistence = require('./handlers/createBatchPersistence').createBatchPersistence;
 
 //Setup Database Connection
+var env = require('./common').config();
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
     console.log('connected');
 });
-var env = require('./common').config();
 mongoose.connect(env['mongoose_connection']);
 
 
