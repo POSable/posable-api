@@ -7,7 +7,7 @@ describe("Test 'consumeBatchEvent' module & 'handleBatch' function", function() 
         var testDispose = {rabbitDispose: function (arg1, arg2) {return {msg: arg1, error: arg2}}};
         var testConfigPlugin = {merchantSearch: function (id, callback) {
             callback (undefined, merchant)}};
-        var testObject = {batchRequestMap: function(msg, merchant) {
+        var testObject = {accountingBatchMap: function(msg, merchant) {
         }};
 
         beforeEach (function () {
@@ -15,9 +15,9 @@ describe("Test 'consumeBatchEvent' module & 'handleBatch' function", function() 
             spyOn(testDispose, 'rabbitDispose');
             spyOn(testLogPlugin, 'error');
             spyOn(testConfigPlugin, 'merchantSearch').and.callThrough();
-            spyOn(testObject, 'batchRequestMap').and.callThrough();
+            spyOn(testObject, 'accountingBatchMap').and.callThrough();
             var setTestStubs = require('../handlers/consumeBatchEvent').testingStub;
-            setTestStubs(testLogPlugin, testDispose, testConfigPlugin, testObject.batchRequestMap);
+            setTestStubs(testLogPlugin, testDispose, testConfigPlugin, testObject.accountingBatchMap);
         });
 
         it('finds the id in the message and logs it', function() {
@@ -30,14 +30,14 @@ describe("Test 'consumeBatchEvent' module & 'handleBatch' function", function() 
             expect(testConfigPlugin.merchantSearch).toHaveBeenCalled();
         });
 
-        it('logs that asych function merchantSearch finished and calls batchRequestMap', function() {
+        it('logs that asych function merchantSearch finished and calls accountingBatchMap', function() {
             handleBatchEvent(testMsg);
             expect(testLogPlugin.debug).toHaveBeenCalledWith('Merchant search finished');
         });
 
-        it('logs that asych function merchanSearch finished and calls batchRequestMap for a batch merchant', function() {
+        it('logs that asych function merchanSearch finished and calls accountingBatchMap for a batch merchant', function() {
             handleBatchEvent(testMsg);
-            expect(testObject.batchRequestMap).toHaveBeenCalled();
+            expect(testObject.accountingBatchMap).toHaveBeenCalled();
 
         });
 
