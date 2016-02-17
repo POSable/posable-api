@@ -3,8 +3,8 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 var merchantSearch = require('../lib/merchantSearch');
 var accountingMap = require('../lib/accountingMap');
 
-var testingStub = function(testLodPlugin, testDispose) {
-    logPlugin = testLodPlugin;
+var testingStub = function(testLogPlugin, testDispose) {
+    logPlugin = testLogPlugin;
     wascallyRabbit = testDispose;
     requestMap = function () {};
 };

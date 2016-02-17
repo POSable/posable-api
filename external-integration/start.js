@@ -119,11 +119,11 @@ wascallyRabbit.setup('external-integration', rabbitCallback);
 console.log('Starting Connection to Mongoose DB');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
-//db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log('Mongoose DB connected');
-});
+db.on('error', function(err) { logPlugin.debug(err); });
+db.once('open', function () { logPlugin.debug('Mongoose DB connected'); });
 mongoose.connect(env['mongoose_connection']);
+
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection'], env['redis_connection'], logPlugin);
 
 
 function rabbitCallback(err, res) {

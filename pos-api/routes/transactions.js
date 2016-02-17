@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
+var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authenticatePost;
 var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
@@ -14,7 +14,7 @@ router.post('/', function(req, res) {
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
 
-    if (statusObject.isOK) {checkPostToken(statusObject, continuePost);}
+    if (statusObject.isOK) {checkPostToken(req, statusObject, continuePost);}
 
     function continuePost(err, statusObject) {
 
