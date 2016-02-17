@@ -4,11 +4,12 @@ var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var postProcedure = require('../lib/postProcedure');
 
-var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testaccountingBatchMap) {
+
+var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testAccountingBatchMap) {
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
     merchantSearch = testConfigPlugin.merchantSearch;
-    accountingBatchMap = testaccountingBatchMap;
+    accountingBatchMap = testAccountingBatchMap;
 };
 
 var handleSyncError = function(msg, err){
