@@ -115,13 +115,13 @@ wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handl
 wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
 wascallyRabbit.setup('external-integration', rabbitCallback);
 
-////Setup Database Connection
-//console.log('Starting Connection to Mongoose DB');
-//var mongoose = require('mongoose');
-//var db = mongoose.connection;
-//db.on('error', function(err) { logPlugin.debug(err); });
-//db.once('open', function () { logPlugin.debug('Mongoose DB connected'); });
-//mongoose.createConnection(env['mongoose_connection']);
+//Setup Database Connection
+console.log('Starting Connection to Mongoose DB');
+var mongoose = require('mongoose');
+var db = mongoose.connection;
+db.on('error', function(err) { logPlugin.debug(err); });
+db.once('open', function () { logPlugin.debug('Mongoose DB connected'); });
+mongoose.createConnection(env['mongoose_connection']);
 
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection'], env['redis_connection'], logPlugin);
 
