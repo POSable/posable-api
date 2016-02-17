@@ -1,5 +1,15 @@
 var logPlugin = require('posable-logging-plugin');
-var configPlugin = require('posable-customer-config-plugin')();
+var node_env = process.env.NODE_ENV || 'development';
+var env = require('../common').config();
+var envReddisPath;
+// this is a work around for local machines without reddis installed.
+if (process.env.NODE_ENV !== 'development') {
+    envReddisPath = "";
+} else {
+    envReddisPath = env['redis_connection']
+}
+
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection'], envReddisPath, logPlugin);
 
 var merchantSearch = function(id, callback) {
     var searchError = undefined;
