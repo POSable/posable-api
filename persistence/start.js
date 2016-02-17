@@ -107,7 +107,7 @@ var createTransactionPersistence = require('./handlers/createTransactionPersiste
 var createErrorPersist = require('./handlers/createErrorPersist').createErrorPersist;
 var createBatchPersistence = require('./handlers/createBatchPersistence').createBatchPersistence;
 
-Setup Database Connection
+//Setup Database Connection
 var env = require('./common').config();
 var mongoose = require('mongoose');
 var db = mongoose.connection;
