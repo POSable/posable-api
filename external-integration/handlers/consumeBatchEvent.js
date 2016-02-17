@@ -6,11 +6,11 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_conne
 var wascallyRabbit = require('posable-wascally-wrapper');
 var postProcedure = require('../lib/postProcedure');
 
-var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testBatchRequestMap) {
+var testingStub = function(testLodPlugin, testDispose, testConfigPlugin, testAccountingBatchMap) {
     logPlugin = testLodPlugin;
     wascallyRabbit = testDispose;
     merchantSearch = testConfigPlugin.merchantSearch;
-    qbBatchRequestMap = testBatchRequestMap;
+    accountingBatchMap = testAccountingBatchMap;
 };
 
 var handleSyncError = function(msg, err){
