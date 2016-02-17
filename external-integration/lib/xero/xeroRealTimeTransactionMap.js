@@ -19,7 +19,7 @@ var xeroRealTimeTransactionMap = function(msg, paymentMap, depositObj) {
             "Description": "Bacon",
             "AccountCode": "4000",
             "Quantity": 1,
-            "UnitAmount": 2
+            "UnitAmount": payment.amount
         };
         lineItems.push(sale)
     });
@@ -30,14 +30,13 @@ var xeroRealTimeTransactionMap = function(msg, paymentMap, depositObj) {
             "ContactID": "bfb38ca8-a0fc-4f37-b48b-d46c303702ac"
         },
         "BankAccount": {
-            "AccountID": "8aaeb073-f199-420c-a205-1cbe77864bac"
+            "AccountID": depositObj.depositAccountID
 
         },
         "Date": new Date(),
         "LineAmountTypes": "Exclusive",
         "Type": "SPEND"
     };
-
 
     return salesReceipt;
 
