@@ -16,35 +16,28 @@ var xeroRealTimeTransactionMap = function(msg, paymentMap, depositObj) {
         total += payment.amount;
 
         sale = {
-            "TaxType": "NONE",
-            "ItemCode": "Bacon",
-            "TaxAmount": 0,
             "Description": "Bacon",
             "AccountCode": "4000",
-            "LineAmount": 2,
             "Quantity": 1,
-            "UnitAmount": 2,
-            "LineItemID": ""
+            "UnitAmount": 2
         };
         lineItems.push(sale)
     });
 
     var salesReceipt = {
         "LineItems": lineItems,
-        "Reference": "",
-        "HasAttachments": false,
+        "Contact" : {
+            "ContactID": "bfb38ca8-a0fc-4f37-b48b-d46c303702ac"
+        },
         "BankAccount": {
-            "AccountID": "8aaeb073-f199-420c-a205-1cbe77864bac",
-            "Name": "Blah Blah Account"
+            "AccountID": "8aaeb073-f199-420c-a205-1cbe77864bac"
+
         },
         "Date": new Date(),
         "LineAmountTypes": "Exclusive",
-        "CurrencyCode": "USD",
-        "Type": "SPEND",
-        "TotalTax": 0,
-        "Total": total
-
+        "Type": "SPEND"
     };
+
 
     return salesReceipt;
 
