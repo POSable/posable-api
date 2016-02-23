@@ -14,12 +14,12 @@ router.get('/', function(req, res) {
     logPlugin.debug("Lets do this thing!");
     lookup().merchantBatchTrigger(function (err, docs) {
         resultsArray = docs;
-        //console.log(resultsArray);
+        console.log(resultsArray);
 
         resultsArray.forEach(function(merchant){
             var internalID = merchant.internalID;
             logPlugin.debug('Sending Batch Command to Rabbit');
-            wascallyRabbit.calculateBatchTotals(internalID, internalID);
+            //wascallyRabbit.calculateBatchTotals(internalID, internalID);
 
             Completed.update({ internalID: internalID }, { $set: { date: new Date() }}, function(err, raw) {
                 if (err) logPlugin.error("The completed batch update response Error from mongo is : " + err);
@@ -30,6 +30,3 @@ router.get('/', function(req, res) {
 });
 
 module.exports = router;
-
-
-Tank.update({ _id: id }, { $set: { size: 'large' }}, callback);
