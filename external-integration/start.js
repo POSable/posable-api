@@ -112,7 +112,7 @@ db.on('error', function(err) { logPlugin.debug(err); });
 db.once('open', function () { logPlugin.debug('Mongoose DB connected'); });
 mongoose.createConnection(env['mongoose_connection']);
 
-var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection'], env['redis_connection'], logPlugin);
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
 
 //Require Handlers
 var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
