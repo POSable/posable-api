@@ -31,7 +31,7 @@ var env = require('../lib/pos_modules/common').config();
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setup('pos-api', rabbitCallback);
 
-var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection'], env['redis_connection'], logPlugin);
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
 
 var app = require('../app');
 var debug = require('debug')('pos-api:server');
