@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var env = require('./common').config();
 
 var healthcheck = require('./routes/healthcheck');
 var app = express();
@@ -102,18 +103,6 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
 console.log('Logging Setup Complete');
 
-//Require Handlers
-var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
-var handleRealTimeTransaction = require('./handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
-
-//Setup RabbitMQ
-console.log('Starting Connection to RabbitMQ');
-var env = require('./common').config();
-wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
-wascallyRabbit.setQSubscription('service.externalIntegration');
-wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
-wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
-wascallyRabbit.setup('external-integration', rabbitCallback);
 
 //Setup Database Connection
 console.log('Starting Connection to Mongoose DB');
@@ -125,6 +114,20 @@ mongoose.createConnection(env['mongoose_connection']);
 
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection'], env['redis_connection'], logPlugin);
 
+//Require Handlers
+var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
+var handleRealTimeTransaction = require('./handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
+
+//Setup RabbitMQ
+console.log('Starting Connection to RabbitMQ');
+wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
+wascallyRabbit.setQSubscription('service.externalIntegration');
+wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
+wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
+wascallyRabbit.setup('external-integration', rabbitCallback);
+
+
+
 function rabbitCallback(err, res) {
     if (err) {
         logPlugin.error(err);
@@ -133,4 +136,6 @@ function rabbitCallback(err, res) {
         logPlugin.debug(res);
     }
 }
+
+
 
