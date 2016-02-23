@@ -23,11 +23,9 @@ var sendResponse = function (res, statusObject, requestID) {
                 });
             }
         } else {
-            console.log(res);
             if (res.req.headers['content-type'] === 'application/xml') {
                 res.status(statusObject.error.error.code || 400);
                 res.setHeader('content-type', 'application/xml');
-                console.log(res.headers)
                 res.send(o2x({
                     '?xml version="1.0" encoding="utf-8"?': null,
                     status: statusObject.error.error.code,
