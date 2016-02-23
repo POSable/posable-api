@@ -1,6 +1,7 @@
 var jwt = require('jsonwebtoken');
 var logPlugin = require('posable-logging-plugin');
-var configPlugin = require('posable-customer-config-plugin')(); // <-- Parenthesis required
+var configPlugin = require('posable-customer-config-plugin')();
+
 
 var authenticatePost = function (req, statusObject, callback) {
     try {

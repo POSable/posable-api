@@ -13,10 +13,10 @@ var cloudElementsClient = function(salesReceipt, merchant, externalPost, callbac
                 'Authorization': merchant.cloudElemAPIKey
             },
             body: JSON.stringify(salesReceipt)
+
         }, function(err, response, salesReceipt){
-            logPlugin.debug("CE response code: " + response.statusCode);
             if (err) {
-                logPlugin.debug(err);
+                logPlugin.error(err);
                 callback(err, null, null, null);
             } else if (response.statusCode === 200) {
                 logPlugin.debug('Successful post to CE');
@@ -29,8 +29,8 @@ var cloudElementsClient = function(salesReceipt, merchant, externalPost, callbac
         });
 
     } catch (err) {
-        logPlugin.debug(err);
-        callback(err);
+        logPlugin.error(err);
+        throw err;
     }
 };
 

@@ -6,7 +6,6 @@ var accountingMap = require('../lib/accountingMap');
 var testingStub = function(testLogPlugin, testDispose) {
     logPlugin = testLogPlugin;
     wascallyRabbit = testDispose;
-    requestMap = function () {};
 };
 
 var handleError = function(msg, err){
@@ -20,17 +19,15 @@ var handleRealTimeTransaction = function(msg) {
         var id = msg.body.internalID;
 
         merchantSearch(id, function(err, merchant){
-
-            if(err) {
-                wascallyRabbit.rabbitDispose(msg, err);
+            if (err) {
+                // Error connecting to database, retry with error
+                handleError(msg, err);
+            } else if (merchant.batchType === 'batch') {
+                // Merchant found but handler discards batch clients
+                wascallyRabbit.rabbitDispose(msg, null);
             } else {
-
-                if(merchant.batchType === 'batch') {
-                    wascallyRabbit.rabbitDispose(msg, err);
-                } else {
-
-                    accountingMap(msg, merchant);
-                }
+                // Real-time merchant found, map for sales receipt
+                accountingMap(msg, merchant);
             }
         });
 

@@ -18,15 +18,17 @@ var xeroRequestMap = function (msg, merchant) {
         var depositObj = xeroDepositAccount(merchant);
         var salesReceipt = XeroRealTimeTransactionMap(msg, type, depositObj);
 
-        postProcedure(msg, merchant, salesReceipt, function(err) {
+        postProcedure(msg, merchant, salesReceipt, function(err, externalPost) {
             if (err) {
                 handleError(msg, err);
             } else {
+                logPlugin.debug('ExternalPost: ' + externalPost.externalPostID + 'Posted and updated successfully');
                 wascallyRabbit.rabbitDispose(msg, null);
             }
         });
 
     } catch (err) {
+        logPlugin.error(err);
         throw err;
     }
 };

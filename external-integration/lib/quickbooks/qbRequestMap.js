@@ -18,15 +18,17 @@ var qbRequestMap = function (msg, merchant) {
         var depositObj = qbDepositAccount(merchant);
         var salesReceipt = qbRealTimeTransactionMap(msg, type, depositObj);
 
-        postProcedure(msg, merchant, salesReceipt, function(err) {
+        postProcedure(msg, merchant, salesReceipt, function(err, externalPost) {
             if (err) {
                 handleError(msg, err);
             } else {
+                logPlugin.debug('ExternalPost: ' + externalPost.externalPostID + 'Posted and updated successfully');
                 wascallyRabbit.rabbitDispose(msg, null);
             }
         });
 
     } catch (err) {
+        logPlugin.error(err);
         throw err;
     }
 };
