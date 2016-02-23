@@ -2,7 +2,6 @@ var logPlugin = require('posable-logging-plugin');
 var request = require('request');
 
 var cloudElementsClient = function(salesReceipt, merchant, externalPost, callback) {
-    console.log(salesReceipt);
     try {
         logPlugin.debug('Start Cloud Elements Client posting function');
         request({
