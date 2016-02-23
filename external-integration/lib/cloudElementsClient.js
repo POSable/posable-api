@@ -23,6 +23,7 @@ var cloudElementsClient = function(salesReceipt, merchant, externalPost, callbac
                 callback(null, response, externalPost, salesReceipt);
             } else {
                 logPlugin.debug("CloudElem response code: " + response.statusCode);
+                logPlugin.debug("CloudElem response code: " + response.body);
                 var newError = new Error("Failed post to CE");
                 callback(newError, response, externalPost, null);
             }
