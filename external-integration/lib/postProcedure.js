@@ -2,7 +2,6 @@ var logPlugin = require('posable-logging-plugin');
 var persistRequest = require('./persistRequest').persistRequest;
 var updateRequest = require('./persistRequest').updateRequest;
 var post = require('./cloudElementsClient');
-var wascallyRabbit = require('posable-wascally-wrapper');
 
 var postProcedure = function(msg, merchant, salesReceipt, callback) {
 
@@ -10,8 +9,9 @@ var postProcedure = function(msg, merchant, salesReceipt, callback) {
 
     function postToExternal(err, salesReceipt, merchant, externalPost) {
         if (err) {
+            // Error saving request, exit with error
             logPlugin.error(err);
-            return callback(err); // Stops procedure if request does NOT save
+            return callback(err);
         } else {
             post(salesReceipt, merchant, externalPost, updateRequestWithResponse);
         }
@@ -19,9 +19,11 @@ var postProcedure = function(msg, merchant, salesReceipt, callback) {
 
     function updateRequestWithResponse(err, response, externalPost, salesReceipt) {
         if (err) {
+            // Error posting request or updating externalPost, exit with error
             logPlugin.error(err);
-            return callback(err); // Stops procedure if post fails
+            return callback(err, null);
         } else {
+            // Request posted and externalPost updated
             updateRequest(externalPost, response, salesReceipt, callback);  // <- Passes to original callback
         }
     }
