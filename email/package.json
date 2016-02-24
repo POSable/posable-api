@@ -9,18 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.2.32",
-    "bunyan": "^1.5.1",
-    "debug": "^2.2.0",
-    "express": "^4.13.3",
-    "nodemailer": "^1.10.0",
-    "path": "^0.12.7",
+    "aws-sdk": "2.2.32",
+    "bunyan": "1.5.1",
+    "debug": "2.2.0",
+    "express": "4.13.3",
+    "path": "0.12.7",
     "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
   },
   "devDependencies": {
     "jasmine": "^2.3.2",
-    "nodemailer": "^1.10.0",
     "posable-logging-plugin": "git+ssh://git@github.com:POSable/posable-logPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
   }
