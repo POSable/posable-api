@@ -10,7 +10,7 @@ function reqHeaderTokenProvider (req, statusObject, logPlugin) {
                 error: {code: 400, message: "Missing json web token"}
             };
             token = undefined;
-            logPlugin.debug('Finished request header token provider');
+            logPlugin.debug('Finished request header token provider with errors');
 
         } else {
             token = req.headers.jwtoken;

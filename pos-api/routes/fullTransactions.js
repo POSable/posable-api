@@ -16,21 +16,13 @@ router.post('/', function(req, res) {
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
 
-    //if (req.headers.jwtoken === null || req.headers.jwtoken === undefined) {
-    //    var err = new Error('Missing json web token');
-    //    logPlugin.error(err);
-    //    statusObject.isOK = false;
-    //    statusObject['error'] = {
-    //        error: {code: 400, message: "Missing json web token"}
-    //    };
-    //} else {
+    var jwtokenRequest = reqHeaderTokenProvider(req, statusObject, logPlugin);
 
-    //    var jwtokenRequest = req.headers.jwtoken;
-    //}
-
-    var jwtokenRequest = reqHeaderTokenProvider(req, statusObject, logPlugin)
-
-    if (statusObject.isOK) {checkPostToken(jwtokenRequest, statusObject, continuePost);}
+    if (statusObject.isOK) {
+        checkPostToken(jwtokenRequest, statusObject, continuePost);
+    } else {
+        finalizePost();
+    }
 
     function continuePost(err, statusObject) {
 
@@ -39,13 +31,16 @@ router.post('/', function(req, res) {
             // ensure there is an error message with the status object - but dont overight it if it already exists.
             if (!statusObject.error) statusObject['error'] = {
                 error: {code: 500, message: "System Error with Token Authentication"}
-            }
+            };
+
+        }
+        if (statusObject.isOK) {
+            configPlugin.merchantLookup(statusObject.internalID, merchantLookupCallback)
+        } else {
+            finalizePost();
         }
 
-        if (statusObject.isOK) {configPlugin.merchantLookup(statusObject.internalID, merchantLookupCallback});
-
         function merchantLookupCallback(err, merchant) {
-            var merchantError;
             if (err) {
                 logPlugin.error(err);
                 statusObject.isOK = false;
@@ -53,16 +48,21 @@ router.post('/', function(req, res) {
                     error: {code: 500, message: 'System error searching merchant records'}
                 };
             } else if (merchant === null || merchant === undefined || merchant.internalID === undefined) {
-                logPlugin.debug(merchantError);
+                err = new Error('No merchant record found');
+                logPlugin.debug(err);
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     error: {code: 400, message: 'No merchant record found'}
                 };
             } else {
                 statusObject.merchant = merchant;
-                statusObject.success.push("authenticatePost");
+                statusObject.success.push("merchantLookup");
             }
+            continuePost2(statusObject);
         }
+    }
+
+    function continuePost2(statusObject) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
@@ -85,25 +85,25 @@ router.post('/', function(req, res) {
             wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, transactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
-                    error: {code: 500, message: "Internal error processing transaction"}
+                    error: {code: 500, message: "Internal error processing fullTransaction"}
                 };
                 finalizePost();
             })
         } else {
             finalizePost();
         }
+    }
 
-        function finalizePost() {
-            logPlugin.debug("Starting Finalize Post");
-            if (!statusObject.isOK && statusObject.merchant && statusObject.merchant.responseType === 'alt') {
-                logPlugin.debug("Sending Response to Alt Path");
-                wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).catch(function () {
-                    logPlugin.error("Error sending Request to Rabbit", err);
-                })
-            }
-            logPlugin.debug("Sending HTTP Response");
-            sendResponse(res, statusObject, requestID);
+    function finalizePost() {
+        logPlugin.debug("Starting Finalize Post");
+        if (!statusObject.isOK && statusObject.merchant && statusObject.merchant.responseType === 'alt') {
+            logPlugin.debug("Sending Response to Alt Path");
+            wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).catch(function () {
+                logPlugin.error("Error sending Request to Rabbit", err);
+            })
         }
+        logPlugin.debug("Sending HTTP Response");
+        sendResponse(res, statusObject, requestID);
     }
 });
 
