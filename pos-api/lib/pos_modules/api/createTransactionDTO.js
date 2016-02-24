@@ -5,6 +5,16 @@ var mapTransaction = require('./mapTransaction');
 var createTransactionDTO = function (req, statusObject) {
     try {
         var transactionDTO = {};
+        if (req.body === undefined || req.body === null || Object.keys(req.body).length === 0) {
+            var err = new Error('Missing request body');
+            logPlugin.error(err);
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                error: {code: 400, message: "Missing request body"}
+            };
+            return transactionDTO;
+        }
+
         logPlugin.debug('Starting Transaction Request Mapping');
         if (req.headers['content-type'] === "application/json" || req.headers['content-type'] === "application/xml") {
             // the following adjust the xml-parsed body
