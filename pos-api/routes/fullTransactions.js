@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var checkPostToken = require ('../lib/pos_modules/api/authenticatePost');
+var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authenticatePost;
 var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
@@ -20,8 +20,9 @@ router.post('/', function(req, res) {
 
         if (err) {
             statusObject.isOK = false;
-            statusObject['error'] = {
-                error: {message: "System Error with Token Authentication"}
+            // ensure there is an error message with the status object - but dont overight it if it already exists.
+            if (!statusObject.error) statusObject['error'] = {
+                error: {code: 500, message: "System Error with Token Authentication"}
             }
         }
 
@@ -56,7 +57,7 @@ router.post('/', function(req, res) {
 
         function finalizePost() {
             logPlugin.debug("Starting Finalize Post");
-            if (!statusObject.isOK && statusObject.merchant.responseType === 'alt') {
+            if (!statusObject.isOK && statusObject.merchant && statusObject.merchant.responseType === 'alt') {
                 logPlugin.debug("Sending Response to Alt Path");
                 wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).catch(function () {
                     logPlugin.error("Error sending Request to Rabbit", err);

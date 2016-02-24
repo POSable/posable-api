@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var env = require('./common').config();
 
 var healthcheck = require('./routes/healthcheck');
 var app = express();
@@ -102,28 +103,29 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
 console.log('Logging Setup Complete');
 
+
+//Setup Database Connection
+console.log('Starting Connection to Mongoose DB');
+var mongoose = require('mongoose');
+var db = mongoose.connection;
+db.on('error', function(err) { logPlugin.debug(err); });
+db.once('open', function () { logPlugin.debug('Mongoose DB connected'); });
+mongoose.createConnection(env['mongoose_connection']);
+
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
+
 //Require Handlers
 var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
 var handleRealTimeTransaction = require('./handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
-var env = require('./common').config();
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.externalIntegration');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
 wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
 wascallyRabbit.setup('external-integration', rabbitCallback);
 
-//Setup Database Connection
-console.log('Starting Connection to Mongoose DB');
-var mongoose = require('mongoose');
-var db = mongoose.connection;
-//db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log('Mongoose DB connected');
-});
-mongoose.connect(env['mongoose_connection']);
 
 
 function rabbitCallback(err, res) {
@@ -134,4 +136,6 @@ function rabbitCallback(err, res) {
         logPlugin.debug(res);
     }
 }
+
+
 

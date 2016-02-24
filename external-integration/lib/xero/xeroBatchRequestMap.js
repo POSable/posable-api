@@ -1,7 +1,7 @@
-var cardTypeMap = require('./cardTypeMap');
-var depositAccount = require('./depositAccount');
-var batchMap = require('./batchMap');
-var postProcedure = require('./postProcedure');
+var cardTypeMap = require('./../cardTypeMap');
+var xeroDepositAccount = require('./xeroDepositAccount');
+var xeroBatchMap = require('./../quickbooks/qbBatchMap');
+var postProcedure = require('./../postProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 
@@ -11,12 +11,12 @@ var handleSyncError = function(msg, err){
     wascallyRabbit.rabbitDispose(msg, err);
 };
 
-var batchRequestMap = function (msg, merchant) {
+var qbBatchRequestMap = function (msg, merchant) {
     // Create CE sales receipt (all sync)
     try {
         var type = cardTypeMap(merchant);
-        var depositObj = depositAccount(merchant);
-        var salesReceipt = batchMap(msg, type, depositObj);
+        var depositObj = xeroDepositAccount(merchant);
+        var salesReceipt = xeroBatchMap(msg, type, depositObj);
 
         postProcedure(msg, merchant, salesReceipt, function(err) {
             if (err) {
@@ -32,4 +32,4 @@ var batchRequestMap = function (msg, merchant) {
 };
 
 
-module.exports = batchRequestMap;
+module.exports = qbBatchRequestMap;

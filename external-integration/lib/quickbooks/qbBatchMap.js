@@ -1,9 +1,9 @@
-var post = require('./cloudElementsClient');
+var post = require('./../cloudElementsClient');
 var logPlugin = require('posable-logging-plugin');
-var deposit = require('./depositAccount');
-var getCardID = require('./getCardID');
+var deposit = require('./qbDepositAccount');
+var getCardID = require('./../getCardID');
 
-var batchMap = function(msg, paymentMap, depositObj) {
+var qbBatchMap = function(msg, paymentMap, depositObj) {
 
     var batch = msg.body.data;
 
@@ -113,4 +113,4 @@ var batchMap = function(msg, paymentMap, depositObj) {
 
 };
 
-module.exports = batchMap;
+module.exports = qbBatchMap;

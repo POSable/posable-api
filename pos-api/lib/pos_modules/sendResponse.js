@@ -25,13 +25,14 @@ var sendResponse = function (res, statusObject, requestID) {
         } else {
             if (res.req.headers['content-type'] === 'application/xml') {
                 res.status(statusObject.error.error.code || 400);
+                res.set('content-type', 'application/xml');
                 res.send(o2x({
                     '?xml version="1.0" encoding="utf-8"?': null,
-                    status: statusObject.error.error.code,
-                    error: statusObject.error
+                    error: statusObject.error,
                 }));
             } else {
                 res.status(statusObject.error.error.code || 400);
+                res.setHeader('content-type', 'application/json');
                 res.json({
                     error: statusObject.error
                 });

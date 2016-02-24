@@ -12,7 +12,7 @@ function persistRequest (cloudElemSR, merchant, msg, callback) {
     externalPost.save(function (err, externalPost) {
         if (err) {
             logPlugin.error(err);
-            return callback(err, null, null);
+            return callback(err, null, null, null);
         } else {
             logPlugin.debug('External post was saved');
             return callback(null, cloudElemSR, merchant, externalPost);

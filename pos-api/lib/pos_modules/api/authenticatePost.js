@@ -1,75 +1,92 @@
 var jwt = require('jsonwebtoken');
-var env = require('../common').config();
 var logPlugin = require('posable-logging-plugin');
-var configPlugin = require('posable-customer-config-plugin')(env['mongoose_connection']);
+var configPlugin = require('posable-customer-config-plugin')();
 
 
 var authenticatePost = function (req, statusObject, callback) {
-     var internalErr = null;
+    try {
+        logPlugin.debug('Starting authenticatePost Module');
+        if (req.headers.jwtoken === null || req.headers.jwtoken === undefined) {
 
-     try {
-         var jwtoken = req.headers.jwtoken;
-     } catch(err) {
-         logPlugin.error(err);
-         statusObject.isOK = false;
-         statusObject['error'] = {
-             error: {code: 400, message: "Missing json web token"}
-         };
-         internalErr = err;
-         return callback(internalErr, statusObject);
-     }
-
-     jwt.verify(jwtoken, 'posable', function(err, decoded) {
-         try {
-             if (err) {
-                 logPlugin.error(err);
-                 statusObject.isOK = false;
-                 statusObject['error'] = {
-                     error: {code: 400, message: "System error decrypting json web token"}
-                 };
-                 internalErr = err;
-                 return callback(internalErr, statusObject);
-             } else {
-                 configPlugin.merchantLookup(decoded.internalID, logPlugin, function(err, merchant) {
-                     try {
-                         if (err) {
-                             statusObject.isOK = false;
-                             statusObject['error'] = {
-                                 error: {code: 500, message: 'System error searching merchant records'}
-                             };
-                             internalErr = err;
-                         } else if (merchant === null) {
-                             statusObject.isOK = false;
-                             statusObject['error'] = {
-                                 error: {code: 400, message: 'No merchant record found'}
-                             };
-                         } else {
-                             statusObject.merchant = merchant;
-                             statusObject.success.push("authenticatePost");
-                         }
-                     } catch (err) {
-                         logPlugin.error(err);
-                         statusObject.isOK = false;
-                         statusObject['error'] = {
-                             error: {code: 400, message: "System Error when checking json web token secret"}
-                         };
-                         internalErr = err;
-                         return callback(internalErr, statusObject);
-                     }
-
-                     return callback(internalErr, statusObject);
-                 });
-             }
-         } catch (err) {
-             logPlugin.error(err);
-             statusObject.isOK = false;
-             statusObject['error'] = {
-                error: {code: 400, message: "System Error when checking json web token secret"}
+            var err = new Error('Missing json web token');
+            logPlugin.error(err);
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                error: {code: 400, message: "Missing json web token"}
             };
-             internalErr = err;
-             return callback(internalErr, statusObject);
-         }
-     });
+        }
+
+        if (statusObject.isOK) {
+            var jwtoken = req.headers.jwtoken;
+            // eventualy 'posable' key is changed to a configurable variable.
+            jwt.verify(jwtoken, 'posable', verifyCallback);
+        } else {
+            // keep function asynchronous
+            process.nextTick(function () {return exitAuthPost(err, statusObject)});
+        }
+
+    } catch(err) {
+        logPlugin.error(err);
+        statusObject.isOK = false;
+        statusObject['error'] = {
+            error: {code: 400, message: "System Error in Authenticate Post"}
+        };
+        // keep function asynchronous
+
+        process.nextTick(function () {return exitAuthPost(err, statusObject)});
+    }
+
+    // callbacks below
+    function verifyCallback(err, decoded) {
+        // decoded is the body of the jwt token...decoded.
+
+        if (err) {
+            logPlugin.error(err);
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                error: {code: 400, message: "System error decrypting json web token"}
+            };
+            return exitAuthPost(err, statusObject);
+        }
+        configPlugin.merchantLookup(decoded.internalID, merchantLookupCallback);
+    }
+
+    function merchantLookupCallback(err, merchant) {
+        var merchantError;
+        if (err) {
+            merchantError = err;
+            logPlugin.error(err);
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                error: {code: 500, message: 'System error searching merchant records'}
+            };
+        } else if (merchant === null || merchant === undefined || merchant.internalID === undefined) {
+            merchantError = new Error('No merchant record found');
+            logPlugin.debug(merchantError);
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                error: {code: 400, message: 'No merchant record found'}
+            };
+        } else {
+            statusObject.merchant = merchant;
+            statusObject.success.push("authenticatePost");
+        }
+        return exitAuthPost(merchantError, statusObject);
+    }
+
+    function exitAuthPost(internalErr, statusObject) {
+        if (statusObject.isOK) logPlugin.debug('Finished authenticatePost Module');
+        if (!statusObject.isOK) logPlugin.debug('Finished authenticatePost Module with errors');
+        return callback(internalErr, statusObject);
+    }
  };
 
-module.exports = authenticatePost;
+var testingStub = function (testLogPlugin, testConfigPlugin) {
+    logPlugin = testLogPlugin;
+    configPlugin = testConfigPlugin;
+};
+
+module.exports = {
+    authenticatePost: authenticatePost,
+    testingStub: testingStub
+};
