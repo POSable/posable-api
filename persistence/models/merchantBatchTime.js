@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var MerchantBatchTimeSchema = new mongoose.Schema({
     internalID: String,
-    batchTime: Number
+    batchTime: String
 });
 
 module.exports = {
