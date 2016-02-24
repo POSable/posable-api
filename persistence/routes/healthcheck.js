@@ -31,34 +31,16 @@ router.get('/', function(req, res) {
     function continueBatch(merchantBatches) {
 
         merchantBatches.forEach(function(merchant){
-            console.log('here');
 
             var internalID = merchant.internalID;
-            //logPlugin.debug('Sending Batch Command to Rabbit');
-            //wascallyRabbit.calculateBatchTotals(internalID, null);
-
-            //var date = new Date();
-
-            //var completed = new Completed;
-            //
-            //completed.internalID = internalID;
-            //completed.date = null;
-            //
-            //completed.save(function (err) {
-            //    if (err) {
-            //        logPlugin.error(err);
-            //    } else {
-            //        logPlugin.debug('Completd was saved');
-            //    }
-            //});
-
+            logPlugin.debug('Sending Batch Command to Rabbit');
+            wascallyRabbit.calculateBatchTotals(internalID, null);
 
             Completed.findOneAndUpdate({internalID: internalID}, { $set : { date: new Date() }}, {new: true}, function(err, raw) {
                 if (err) {
                     logPlugin.error("The completed batch update response Error from mongo is : " + err);
                 } else {
-                    console.log("raw : " + raw);
-                    //logPlugin.debug("The completed batch collection has been successfully updated : " + JSON.stringify(raw));
+                    logPlugin.debug("The completed batch collection has been successfully updated : " + JSON.stringify(raw));
                 }
             });
         });
