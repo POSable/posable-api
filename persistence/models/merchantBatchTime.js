@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var MerchantBatchTimeSchema = new mongoose.Schema({
-    internalID: String,
+    internalID: Number,
     batchTime: String
 });
 

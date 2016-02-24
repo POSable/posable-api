@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var CompletedSchema = new mongoose.Schema({
-    internalID: String,
+    internalID: Number,
     date: Date
 });
 

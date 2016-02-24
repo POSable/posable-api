@@ -5,7 +5,7 @@ var typeSum = require('../lib/typeSum');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var MerchantBatchTime = require('../models/merchantBatchTime').model;
 var Completed = require('../models/completed').model;
-var resultsArray = [];
+var merchantBatches = [];
 
 router.get('/', function(req, res) {
 
@@ -18,25 +18,53 @@ router.get('/', function(req, res) {
     console.log(currentTime);
 
     logPlugin.debug("Lets do this thing!");
-    MerchantBatchTime.find({ batchTime: { $gte: currentTime } }, {internalID: 1}, {}, function (err, resultsArray) {
+    MerchantBatchTime.find({ batchTime: "2330" }, {internalID: 1}, {}, function (err, resultsArray) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(resultsArray);
+            merchantBatches = resultsArray;
+            continueBatch(merchantBatches);
+        }
+    });
 
-        console.log(resultsArray);
+    function continueBatch(merchantBatches) {
 
-        resultsArray.forEach(function(merchant){
+        merchantBatches.forEach(function(merchant){
+            console.log('here');
+
             var internalID = merchant.internalID;
-            var record = merchant._id;
-            logPlugin.debug('Sending Batch Command to Rabbit');
-            wascallyRabbit.calculateBatchTotals(internalID, internalID);
+            //logPlugin.debug('Sending Batch Command to Rabbit');
+            //wascallyRabbit.calculateBatchTotals(internalID, null);
 
-            MerchantBatchTime.findByIdAndUpdate({ _id: record }, {completed: Date.now() }, {new: true}, function(err, raw) {
+            //var date = new Date();
+
+            //var completed = new Completed;
+            //
+            //completed.internalID = internalID;
+            //completed.date = null;
+            //
+            //completed.save(function (err) {
+            //    if (err) {
+            //        logPlugin.error(err);
+            //    } else {
+            //        logPlugin.debug('Completd was saved');
+            //    }
+            //});
+
+
+            Completed.findOneAndUpdate({internalID: internalID}, { $set : { date: new Date() }}, {new: true}, function(err, raw) {
                 if (err) {
                     logPlugin.error("The completed batch update response Error from mongo is : " + err);
                 } else {
-                    logPlugin.debug("The completed batch collection has been successfully updated : " + JSON.stringify(raw));
+                    console.log("raw : " + raw);
+                    //logPlugin.debug("The completed batch collection has been successfully updated : " + JSON.stringify(raw));
                 }
             });
         });
-    });
+
+    }
+
 });
 
 module.exports = router;
