@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authenticatePost;
+var reqHeaderTokenProvider = require ('../lib/pos_modules/api/reqHeaderTokenProvider');
 var createTransactionDTO = require('../lib/pos_modules/api/createTransactionDTO');
 var sendResponse =require('../lib/pos_modules/sendResponse');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 var uuid = require('node-uuid');
+var configPlugin = require('posable-customer-config-plugin')();
 
 router.post('/', function(req, res) {
     var requestID = uuid.v4();
@@ -14,7 +16,21 @@ router.post('/', function(req, res) {
     var statusObject = {isOK: true, success: []};
     var transactionDTO = {};
 
-    if (statusObject.isOK) {checkPostToken(req, statusObject, continuePost);}
+    //if (req.headers.jwtoken === null || req.headers.jwtoken === undefined) {
+    //    var err = new Error('Missing json web token');
+    //    logPlugin.error(err);
+    //    statusObject.isOK = false;
+    //    statusObject['error'] = {
+    //        error: {code: 400, message: "Missing json web token"}
+    //    };
+    //} else {
+
+    //    var jwtokenRequest = req.headers.jwtoken;
+    //}
+
+    var jwtokenRequest = reqHeaderTokenProvider(req, statusObject, logPlugin)
+
+    if (statusObject.isOK) {checkPostToken(jwtokenRequest, statusObject, continuePost);}
 
     function continuePost(err, statusObject) {
 
@@ -23,6 +39,28 @@ router.post('/', function(req, res) {
             // ensure there is an error message with the status object - but dont overight it if it already exists.
             if (!statusObject.error) statusObject['error'] = {
                 error: {code: 500, message: "System Error with Token Authentication"}
+            }
+        }
+
+        if (statusObject.isOK) {configPlugin.merchantLookup(statusObject.internalID, merchantLookupCallback});
+
+        function merchantLookupCallback(err, merchant) {
+            var merchantError;
+            if (err) {
+                logPlugin.error(err);
+                statusObject.isOK = false;
+                statusObject['error'] = {
+                    error: {code: 500, message: 'System error searching merchant records'}
+                };
+            } else if (merchant === null || merchant === undefined || merchant.internalID === undefined) {
+                logPlugin.debug(merchantError);
+                statusObject.isOK = false;
+                statusObject['error'] = {
+                    error: {code: 400, message: 'No merchant record found'}
+                };
+            } else {
+                statusObject.merchant = merchant;
+                statusObject.success.push("authenticatePost");
             }
         }
 
