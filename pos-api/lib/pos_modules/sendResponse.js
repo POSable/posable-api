@@ -28,7 +28,7 @@ var sendResponse = function (res, statusObject, requestID) {
                 res.set('content-type', 'application/xml');
                 res.send(o2x({
                     '?xml version="1.0" encoding="utf-8"?': null,
-                    error: statusObject.error,
+                    error: statusObject.error
                 }));
             } else {
                 res.status(statusObject.error.error.code || 400);

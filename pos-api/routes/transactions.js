@@ -9,6 +9,7 @@ var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 var uuid = require('node-uuid');
 var configPlugin = require('posable-customer-config-plugin')();
+var mapTransaction = require('../lib/pos_modules/api/mapTransaction');
 
 router.post('/', function(req, res) {
     var requestID = uuid.v4();
@@ -58,19 +59,20 @@ router.post('/', function(req, res) {
                 statusObject.merchant = merchant;
                 statusObject.success.push("merchantLookup");
             }
-            continuePost2(statusObject);
+            continueDTOandMapping(statusObject);
         }
     }
 
-    function continuePost2(statusObject) {
+    function continueDTOandMapping(statusObject) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
+        if (statusObject.isOK) {var mappedTransactionDTO =  mapTransaction(transactionDTO, statusObject);}
+
         if (statusObject.isOK) {
             logPlugin.debug('Starting Validation');
-
-            var valObject = validate.validateTransaction(transactionDTO);
-            if (valObject.isValid == false) {
+            var valObject = validate.validateTransaction(mappedTransactionDTO);
+            if (valObject.isValid === false) {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     error: {code: 400, message: valObject.message}
@@ -83,10 +85,10 @@ router.post('/', function(req, res) {
 
         if (statusObject.isOK) {
             logPlugin.debug('Sending Transaction Event to Rabbit');
-            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, transactionDTO).then(finalizePost, function() {
+            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(finalizePost, function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
-                    error: {code: 500, message: "Internal error processing transaction"}
+                    error: {code: 500, message: "Internal error processing fullTransaction"}
                 };
                 finalizePost();
             })
