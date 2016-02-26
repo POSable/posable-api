@@ -9,11 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.2.36",
-    "bunyan": "^1.6.0",
-    "debug": "*",
-    "express": "^4.13.4",
-    "path": "*",
+    "aws-sdk": "2.2.32",
+    "bunyan": "1.5.1",
+    "debug": "2.2.0",
+    "express": "4.13.3",
+    "path": "0.12.7",
     "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
   },

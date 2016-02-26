@@ -64,7 +64,7 @@ describe("sendResponse module", function(){
         describe("and sent with xml", function(){
             beforeEach(function(){
                 statusObject = {isOK: false, error: {error: {code: 400}}};
-                test_res = {req: {headers: { 'content-type' : 'application/xml'}}, status: function(){}, send: function(){}};
+                test_res = {req: {headers: { 'content-type' : 'application/xml'}}, status: function(){}, send: function(){}, set: function(){}};
                 spyOn(test_res, "status");
                 spyOn(test_res, "send");
             });
