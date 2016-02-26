@@ -18,13 +18,15 @@ var createTransactionDTO = function (req, statusObject) {
                 if (reqBodyIsEmpty()) return transactionDTO;
                 transactionDTO = req.body;
             }
+            statusObject.success.push("createTransactionDTO");
         } else {
             statusObject.isOK = false;
             statusObject['error'] = {
                 error: {code: 400, message: "Cannot read content-type in headers"}
             }
         }
-        logPlugin.debug('Transaction Request Mapping Successful');
+        logPlugin.debug('Transaction Request Mapping Finished');
+        return transactionDTO;
     } catch (err) {
         if (err) {
             logPlugin.error(err);
@@ -34,13 +36,6 @@ var createTransactionDTO = function (req, statusObject) {
             }
         }
     }
-    //if (statusObject.isOK === false) {
-    //    return transactionDTO;
-    //} else {
-    //    return mapTransaction(transactionDTO, statusObject);
-    //}
-
-    return transactionDTO;
 
     function reqBodyIsEmpty() {
 
