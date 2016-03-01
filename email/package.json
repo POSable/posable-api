@@ -13,6 +13,7 @@
     "bunyan": "1.5.1",
     "debug": "2.2.0",
     "express": "4.13.3",
+    "newrelic": "1.25.4",
     "path": "0.12.7",
     "posable-logging-plugin": "git+ssh://git@github.com/POSable/posable-logPlugin.git",
     "posable-wascally-wrapper": "git+ssh://git@github.com/POSable/posable-wascally-wrapper.git"
