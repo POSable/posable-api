@@ -3,51 +3,53 @@ var router = express.Router();
 var logPlugin = require('posable-logging-plugin');
 var typeSum = require('../lib/typeSum');
 var wascallyRabbit = require('posable-wascally-wrapper');
-var MerchantBatchTime = require('../models/merchantBatchTime').model;
+var mongooseMerchantBatchModel = require('../models/merchantBatchTime').model;
 var CompletedBatch = require('../models/completedBatch').model;
 var getQueuedMerchants = require('../lib/batchQuery');
-var merchantBatches = [];
+
 
 router.get('/', function(req, res) {
 
-    res.status(200).send('status: 200');
+    res.status(200).send('status: 200'); // for healthcheck
 
-    var queryCallback = function(err, result) {
-        logPlugin.debug('Starting Batch Query');
-        logPlugin.debug('Result : ' + JSON.stringify(result));
-        publishBatchRequest(result);
-    };
+    logPlugin.debug('Starting batch merchant query');
+    getQueuedMerchants(mongooseMerchantBatchModel, queryCallback);
 
-    getQueuedMerchants(queryCallback);
-
-    function publishBatchRequest(result) {
-
-        result.forEach(function(merchant){
-
-            var internalID = merchant.internalID;
-            logPlugin.debug('Sending Batch Command to Rabbit');
-            wascallyRabbit.calculateBatchTotals(internalID, null);
-
-            persistCompletedBatch(internalID)
-        });
+    function queryCallback(err, merchants) {
+        if (err) {
+            logPlugin.error(err);
+        } else {
+            logPlugin.debug('Finished query');
+            logPlugin.debug('Result : ' + JSON.stringify(merchants));
+            publishBatchRequest(merchants);
+        }
     }
 
-    function persistCompletedBatch(internalID) {
-
-        var completedBatch = new CompletedBatch();
-
-        completedBatch.internalID = internalID;
-        completedBatch.date = new Date();
-
-        completedBatch.save(function (err) {
-            if (err) {
-                logPlugin.error(err);
-            } else {
-                logPlugin.debug('Completed Batch Record was saved');
-            }
-        });
+    function publishBatchRequest(merchants) {
+        try {
+            merchants.forEach(function(merchant){
+                var internalID = merchant.internalID;
+                logPlugin.debug('Sending Batch Command to Rabbit');
+                wascallyRabbit.calculateBatchTotals(internalID, null);
+                persistCompletedBatch(internalID)
+            });
+        } catch (err) {
+            logPlugin.error(err);
+        }
     }
 
+        function persistCompletedBatch(internalID) {
+            var completedBatch = new CompletedBatch();
+            completedBatch.internalID = internalID;
+            completedBatch.date = new Date();
+            completedBatch.save(function (err) {
+                if (err) {
+                    logPlugin.error(err);
+                } else {
+                    logPlugin.debug('Completed Batch Record was saved');
+                }
+            });
+        }
 });
 
 module.exports = router;
