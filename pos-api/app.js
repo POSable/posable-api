@@ -5,8 +5,8 @@ var xmlparser = require('express-xml-bodyparser');
 //Routes
 var healthcheck = require('./routes/healthcheck');
 //var payments = require('./routes/payments');
-//var transactions = require('./routes/transactions');
-//var fullTransactions = require('./routes/fullTransactions');
+var transactions = require('./routes/transactions');
+var fullTransactions = require('./routes/fullTransactions');
 //var errorHandling = require('./lib/pos_modules/errorHandling');
 
 var app = express();
@@ -43,9 +43,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/payments', payments);
-//app.use('/transactions', transactions);
+app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
-//app.use('/fullTransactions', fullTransactions);
+app.use('/fullTransactions', fullTransactions);
 
 // catch 404 and forward to error handler - this crashed Elastic Beanstalk!!!
 //app.use(function(req, res, next) {

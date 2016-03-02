@@ -5,34 +5,34 @@ require('newrelic');
  * Module dependencies.
  */
 //LogPlugin Setup
-//console.log('Configuring Logs');
-//var bunyanLogger = require('../lib/pos_modules/log');
-//bunyanLogger.info('Started Logging');
-//
-//var logPlugin = require('posable-logging-plugin');
-//logPlugin.setFileLogger(bunyanLogger);
-//console.log('logPlugin Initialized');
-//
-//var wascallyRabbit = require('posable-wascally-wrapper');
-//logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
-//console.log('Logging Setup Complete');
-//
-////Setup RabbitMQ
-//function rabbitCallback(err, res) {
-//  if (err) {
-//    logPlugin.error(err);
-//    throw err;
-//  } else {
-//    logPlugin.debug(res);
-//  }
-//}
+console.log('Configuring Logs');
+var bunyanLogger = require('../lib/pos_modules/log');
+bunyanLogger.info('Started Logging');
 
-//console.log('Starting Connection to RabbitMQ');
-//var env = require('../lib/pos_modules/common').config();
-//wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
-//wascallyRabbit.setup('pos-api', rabbitCallback);
-//
-//var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
+var logPlugin = require('posable-logging-plugin');
+logPlugin.setFileLogger(bunyanLogger);
+console.log('logPlugin Initialized');
+
+var wascallyRabbit = require('posable-wascally-wrapper');
+logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
+console.log('Logging Setup Complete');
+
+//Setup RabbitMQ
+function rabbitCallback(err, res) {
+  if (err) {
+    logPlugin.error(err);
+    throw err;
+  } else {
+    logPlugin.debug(res);
+  }
+}
+
+console.log('Starting Connection to RabbitMQ');
+var env = require('../lib/pos_modules/common').config();
+wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
+wascallyRabbit.setup('pos-api', rabbitCallback);
+
+var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
 
 var app = require('../app');
 var debug = require('debug')('pos-api:server');
