@@ -108,22 +108,21 @@ logPlugin.setMsgLogger(wascallyRabbit, logPlugin.logLevels.error);
 console.log('Logging Setup Complete');
 
 var env = require('./common').config();
-console.log ("before sendMail");
+console.log ("Loading sendMail");
 var sendMail = require('./email').sendMail;
-console.log('after sendMail');
 
+// setting up wascally wrapper
+logPlugin.debug('Connecting to rabbitmq');
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.email');
 wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', sendMail);
 wascallyRabbit.setup('email', rabbitCallback);
 
-
-
 function rabbitCallback(err, res) {
     if (err) {
         logPlugin.error(err);
         throw err;
-    } else {
-        logPlugin.debug(res);
     }
+    logPlugin.debug('Successful connection to rabbitmq');
+    logPlugin.debug(res);
 }
