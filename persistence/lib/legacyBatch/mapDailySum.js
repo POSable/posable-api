@@ -1,4 +1,4 @@
-var DailySum = require('../models/batch').model;
+var DailySum = require('../../models/batch').model;
 var logPlugin = require('posable-logging-plugin');
 
 //going to need to dig out internalID here or maybe the dailySum handler and pass it

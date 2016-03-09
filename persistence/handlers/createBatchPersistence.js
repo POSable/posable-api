@@ -1,6 +1,6 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
-var createBatch = require('../lib/createBatch');
+var createBatch = require('../lib/legacyBatch/createBatch');
 
 var deadLetterErrorHandling = function (msg, error) {
     logPlugin.error(error);
@@ -22,7 +22,7 @@ function createBatchPersistence(msg) {
             deadLetterErrorHandling(msg, batchHandlerError);
         } else {
             logPlugin.debug('Message starting batch procedure');
-            createBatch(id);
+            //createBatch(id);
             wascallyRabbit.rabbitDispose(msg, null);
         }
 

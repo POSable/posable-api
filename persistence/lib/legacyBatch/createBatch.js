@@ -1,4 +1,4 @@
-var Batch = require('../models/batch').model;
+var Batch = require('../../models/batch').model;
 var logPlugin = require('posable-logging-plugin');
 var paymentQuery = require('./paymentQuery');
 

@@ -1,6 +1,6 @@
 // This file is not tested, currently ignored.
 
-var mapPayment = require('../lib/mapPayment');
+var mapPayment = require('../lib/legacyBatch/mapPayment');
 var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 var rabbitDispose = require('../lib/rabbitMsgDispose');

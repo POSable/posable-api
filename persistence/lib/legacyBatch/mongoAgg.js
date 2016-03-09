@@ -1,4 +1,4 @@
-var Transaction = require('../models/transaction').model;
+var Transaction = require('../../models/transaction').model;
 
 var getResults = function(internalID, batchID, paymentCallback) {
 

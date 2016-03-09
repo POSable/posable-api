@@ -1,10 +1,10 @@
-var Payment = require('../models/payment').model;
-var Transaction = require('../models/transaction').model;
+var Payment = require('../../models/payment').model;
+var Transaction = require('../../models/transaction').model;
 var logPlugin = require('posable-logging-plugin');
 
 var mapPayment = function(msg) {
     try {
-        logPlugin.debug('Start Payment Mapping')
+        logPlugin.debug('Start Payment Mapping');
         //console.log(msg.body.data.transaction.payments);
         var transaction = new Transaction();
         var payment = new Payment();
