@@ -1,8 +1,6 @@
-var MerchantBatchTime = require('../models/merchantBatchTime').model;
+var getQueuedMerchants = function (mongooseMerchantBatchModel, queryCallback) {
 
-var getQueuedMerchants = function(queryCallback) {
-
-    MerchantBatchTime.aggregate([
+    mongooseMerchantBatchModel.aggregate([
         {
             $lookup:
             {
