@@ -10,7 +10,7 @@ var configPlugin = require('posable-customer-config-plugin')();
 var createTransactionDTO = require('./api/createTransactionDTO');
 var mapTransaction = require('./api/mapTransaction');
 var sendResponse = require('./sendResponse');
-var checkErrorAltResponsePath = require('./checkErrorAltResponsePath');
+var checkErrorAltResponsePath = require('./checkErrorAltResponsePath').checkErrorAltResponsePath;
 // Var Extraction
 var transactionDTO = {};
 

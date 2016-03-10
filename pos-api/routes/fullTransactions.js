@@ -8,7 +8,7 @@ var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authent
 var reqHeaderTokenProvider = require ('../lib/pos_modules/api/reqHeaderTokenProvider');
 var processTransaction = require('../lib/pos_modules/processTransaction');
 var sendResponse = require('../lib/pos_modules/sendResponse');
-var checkErrorAltResponsePath = require('../lib/pos_modules/checkErrorAltResponsePath');
+var checkErrorAltResponsePath = require('../lib/pos_modules/checkErrorAltResponsePath').checkErrorAltResponsePath;
 // Var Extraction
 var router = express.Router();
 

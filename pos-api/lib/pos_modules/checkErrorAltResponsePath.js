@@ -14,7 +14,15 @@ var checkErrorAltResponsePath = function(req, statusObject) {
     } else {
         logPlugin.debug("NOT responding with alt error path");
     }
-    logPlugin.debug("Finished checking error alternate reponse path");
+    logPlugin.debug("Finished checking error alternate response path");
 };
 
-module.exports = checkErrorAltResponsePath;
+var testingStub = function (testLogPlugin, testWascallyRabbit) {
+    logPlugin = testLogPlugin;
+    wascallyRabbit = testWascallyRabbit
+};
+
+module.exports = {
+    checkErrorAltResponsePath: checkErrorAltResponsePath,
+    testingStub: testingStub
+}
