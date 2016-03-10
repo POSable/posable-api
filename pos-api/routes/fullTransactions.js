@@ -6,12 +6,11 @@ var logPlugin = require('posable-logging-plugin');
 // Modules
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authenticatePost;
 var reqHeaderTokenProvider = require ('../lib/pos_modules/api/reqHeaderTokenProvider');
-var processTransaction = require('../lib/pos_modules/processTransaction').processTransaction;
+var processTransaction = require('../lib/pos_modules/processTransaction');
 var sendResponse = require('../lib/pos_modules/sendResponse');
 var checkErrorAltResponsePath = require('../lib/pos_modules/checkErrorAltResponsePath');
 // Var Extraction
 var router = express.Router();
-
 
 router.post('/', function(req, res) {
     var requestID = uuid.v4();

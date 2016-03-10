@@ -1,21 +1,24 @@
 /**
  * Created by davidabramowitz on 3/9/16.
  */
-var createTransactionDTO = require('./api/createTransactionDTO');
-var sendResponse =require('./sendResponse');
-var checkErrorAltResponsePath = require('./checkErrorAltResponsePath');
+// POSable Plugins
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
-var configPlugin = require('posable-customer-config-plugin')();
-var mapTransaction = require('./api/mapTransaction');
 var logPlugin = require('posable-logging-plugin');
+var configPlugin = require('posable-customer-config-plugin')();
+// Modules
+var createTransactionDTO = require('./api/createTransactionDTO');
+var mapTransaction = require('./api/mapTransaction');
+var sendResponse = require('./sendResponse');
+var checkErrorAltResponsePath = require('./checkErrorAltResponsePath');
+// Var Extraction
 var transactionDTO = {};
 
 var processTransaction = function(req, res, statusObject, requestID) {
     logPlugin.debug("Starting processTransaction");
 
     if (statusObject.isOK) {
-        configPlugin.merchantLookup(statusObject.internalID, merchantLookupCallback)
+        configPlugin.merchantLookup(statusObject.internalID, merchantLookupCallback);
     } else {
         checkErrorAltResponsePath(req, statusObject);
         sendResponse(res, statusObject, requestID);
@@ -81,7 +84,4 @@ var processTransaction = function(req, res, statusObject, requestID) {
     }
 };
 
-module.exports = {
-    processTransaction: processTransaction,
-    checkErrorAltResponsePath: checkErrorAltResponsePath
-};
+module.exports = processTransaction;
