@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var logPlugin = require('posable-logging-plugin');
-var typeSum = require('../lib/legacyBatch/typeSum');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var mongooseMerchantBatchModel = require('../models/merchantBatchTime').model;
 var CompletedBatch = require('../models/completedBatch').model;
-var getQueuedMerchants = require('../lib/legacyBatch/batchQuery');
 
 
 router.get('/', function(req, res) {
