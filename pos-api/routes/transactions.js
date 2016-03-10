@@ -7,7 +7,8 @@ var logPlugin = require('posable-logging-plugin');
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authenticatePost;
 var reqHeaderTokenProvider = require ('../lib/pos_modules/api/reqHeaderTokenProvider');
 var processTransaction = require('../lib/pos_modules/processTransaction').processTransaction;
-var finalizePost = require('../lib/pos_modules/processTransaction').finalizePost;
+var checkErrorAltResponsePath = require('../lib/pos_modules/processTransaction').checkErrorAltResponsePath;
+var sendResponse = require('./sendResponse');
 // Var Extraction
 var router = express.Router();
 
@@ -21,7 +22,8 @@ router.post('/', function(req, res) {
     if (statusObject.isOK) {
         checkPostToken(jwtokenRequest, statusObject, checkPostTokenCallback);
     } else {
-        finalizePost(req, res, statusObject, requestID);
+        checkErrorAltResponsePath(req, statusObject);
+        sendResponse(res, statusObject, requestID);
     }
 
     function checkPostTokenCallback(err, statusObject) {

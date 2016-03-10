@@ -10,24 +10,27 @@ var mapTransaction = require('./api/mapTransaction');
 var logPlugin = require('posable-logging-plugin');
 var transactionDTO = {};
 
-var finalizePost = function(req, res, statusObject, requestID) {
-    logPlugin.debug("Starting Finalize Post");
+var checkErrorAltResponsePath = function(req, statusObject) {
+    logPlugin.debug("Checking error alternate response path");
     if (!statusObject.isOK && statusObject.merchant && statusObject.merchant.responseType === 'alt') {
-        logPlugin.debug("Sending Response to Alt Path");
+        logPlugin.debug("responding with alt error path");
         wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).catch(function (err) {
             logPlugin.error("Error sending Request to Rabbit", err);
         })
+    } else {
+        logPlugin.debug("NOT responding with alt error path");
     }
-    logPlugin.debug("Finished finalizePost and Sending HTTP Response");
-    sendResponse(res, statusObject, requestID);
+    logPlugin.debug("Finished checking error alternate reponse path");
 };
 
 var processTransaction = function(req, res, statusObject, requestID) {
+    logPlugin.debug("Starting processTransaction");
 
     if (statusObject.isOK) {
         configPlugin.merchantLookup(statusObject.internalID, merchantLookupCallback)
     } else {
-        finalizePost(req, res, statusObject, requestID);
+        checkErrorAltResponsePath(req, statusObject);
+        sendResponse(res, statusObject, requestID);
     }
 
     function merchantLookupCallback(err, merchant) {
@@ -73,21 +76,24 @@ var processTransaction = function(req, res, statusObject, requestID) {
 
         if (statusObject.isOK) {
             logPlugin.debug('Sending Transaction Event to Rabbit');
-            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(finalizePost(req, res, statusObject), requestID), function() {
+            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(sendResponse(res, statusObject, requestID), requestID), function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     error: {code: 500, message: "Internal error processing transaction"}
                 };
-                finalizePost(req, res, statusObject, requestID);
-            }
+                checkErrorAltResponsePath(req, statusObject);
+                sendResponse(res, statusObject, requestID);
+            };
+            logPlugin.debug('Finished processTransaction');
         } else {
-
-            finalizePost(req, res, statusObject, requestID);
+            logPlugin.debug('Finished processTransaction');
+            checkErrorAltResponsePath(req, statusObject);
+            sendResponse(res, statusObject, requestID);
         }
     }
 };
 
 module.exports = {
     processTransaction: processTransaction,
-    finalizePost: finalizePost
+    checkErrorAltResponsePath: checkErrorAltResponsePath
 };
