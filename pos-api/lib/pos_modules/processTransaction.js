@@ -11,7 +11,6 @@ var logPlugin = require('posable-logging-plugin');
 var transactionDTO = {};
 
 var finalizePost = function(req, res, statusObject, requestID) {
-console.log("**************",req, res, statusObject, requestID)
     logPlugin.debug("Starting Finalize Post");
     if (!statusObject.isOK && statusObject.merchant && statusObject.merchant.responseType === 'alt') {
         logPlugin.debug("Sending Response to Alt Path");
@@ -19,7 +18,7 @@ console.log("**************",req, res, statusObject, requestID)
             logPlugin.error("Error sending Request to Rabbit", err);
         })
     }
-    logPlugin.debug("Sending HTTP Response");
+    logPlugin.debug("Finished finalizePost and Sending HTTP Response");
     sendResponse(res, statusObject, requestID);
 };
 
