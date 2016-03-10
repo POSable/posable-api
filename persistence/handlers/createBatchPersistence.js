@@ -1,6 +1,6 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
-var createBatch = require('../lib/createBatch');
+//var createBatch = require('../lib/legacyBatch/createBatch');
 
 var deadLetterErrorHandling = function (msg, error) {
     logPlugin.error(error);
@@ -21,8 +21,8 @@ function createBatchPersistence(msg) {
             var batchHandlerError = new Error('Failed Batch Persistence Handler');
             deadLetterErrorHandling(msg, batchHandlerError);
         } else {
-            logPlugin.debug('Message starting batch procedure');
-            createBatch(id);
+            logPlugin.debug('Message starting batch procedure..... Is currently disabled');
+            //createBatch(id);
             wascallyRabbit.rabbitDispose(msg, null);
         }
 
