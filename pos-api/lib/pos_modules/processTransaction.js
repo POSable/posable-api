@@ -3,25 +3,13 @@
  */
 var createTransactionDTO = require('./api/createTransactionDTO');
 var sendResponse =require('./sendResponse');
+var checkErrorAltResponsePath = require('./checkErrorAltResponsePath');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var validate = require('posable-validation-plugin');
 var configPlugin = require('posable-customer-config-plugin')();
 var mapTransaction = require('./api/mapTransaction');
 var logPlugin = require('posable-logging-plugin');
 var transactionDTO = {};
-
-var checkErrorAltResponsePath = function(req, statusObject) {
-    logPlugin.debug("Checking error alternate response path");
-    if (!statusObject.isOK && statusObject.merchant && statusObject.merchant.responseType === 'alt') {
-        logPlugin.debug("responding with alt error path");
-        wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).catch(function (err) {
-            logPlugin.error("Error sending Request to Rabbit", err);
-        })
-    } else {
-        logPlugin.debug("NOT responding with alt error path");
-    }
-    logPlugin.debug("Finished checking error alternate reponse path");
-};
 
 var processTransaction = function(req, res, statusObject, requestID) {
     logPlugin.debug("Starting processTransaction");

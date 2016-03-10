@@ -7,8 +7,8 @@ var logPlugin = require('posable-logging-plugin');
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authenticatePost;
 var reqHeaderTokenProvider = require ('../lib/pos_modules/api/reqHeaderTokenProvider');
 var processTransaction = require('../lib/pos_modules/processTransaction').processTransaction;
-var checkErrorAltResponsePath = require('../lib/pos_modules/processTransaction').checkErrorAltResponsePath;
-var sendResponse = require('./sendResponse');
+var sendResponse = require('../lib/pos_modules/sendResponse');
+var checkErrorAltResponsePath = require('../lib/pos_modules/checkErrorAltResponsePath');
 // Var Extraction
 var router = express.Router();
 
