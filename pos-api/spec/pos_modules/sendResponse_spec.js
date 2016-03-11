@@ -3,7 +3,6 @@ describe("sendResponse module", function(){
     var sendResponse = require('../../lib/pos_modules/sendResponse');
     var statusObject = {};
     var test_res = {};
-    var test_err = {};
 
     describe("when isOK is true", function(){
         describe("and sent with xml", function(){

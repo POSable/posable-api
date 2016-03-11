@@ -71,7 +71,7 @@ describe("Test 'checkErrorAltResponsePath' module & 'checkErrorAltResponsePath' 
             spyOn(testLogPlugin, "error");
         });
 
-        it("Should log an error when wascaly is called", function () {
+        it("Should log an error when wascally is called", function () {
             testStub(testLogPlugin, testWascallyRabbit);
             checkErrorAltResponsePath(req, statusObject);
             expect(testWascallyRabbit.raiseErrorResponseEmailAndPersist).toHaveBeenCalled();

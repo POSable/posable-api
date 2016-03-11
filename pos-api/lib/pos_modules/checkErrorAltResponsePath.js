@@ -19,10 +19,10 @@ var checkErrorAltResponsePath = function(req, statusObject) {
 
 var testingStub = function (testLogPlugin, testWascallyRabbit) {
     logPlugin = testLogPlugin;
-    wascallyRabbit = testWascallyRabbit
+    wascallyRabbit = testWascallyRabbit;
 };
 
 module.exports = {
     checkErrorAltResponsePath: checkErrorAltResponsePath,
     testingStub: testingStub
-}
+};

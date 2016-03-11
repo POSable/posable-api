@@ -16,7 +16,6 @@ var transactionDTO = {};
 
 var processTransaction = function(req, res, statusObject, requestID) {
     logPlugin.debug("Starting processTransaction");
-
     if (statusObject.isOK) {
         configPlugin.merchantLookup(statusObject.internalID, merchantLookupCallback);
     } else {
@@ -49,12 +48,13 @@ var processTransaction = function(req, res, statusObject, requestID) {
 
         if (statusObject.isOK) {transactionDTO = createTransactionDTO(req, statusObject);}
 
-        if (statusObject.isOK) {var mappedTransactionDTO =  mapTransaction(transactionDTO, statusObject);}
+        if (statusObject.isOK) {var mappedTransactionDTO = mapTransaction(transactionDTO, statusObject);}
 
         if (statusObject.isOK) {
             logPlugin.debug('Starting Validation');
             var valObject = validate.validateTransaction(mappedTransactionDTO);
             if (valObject.isValid === false) {
+                logPlugin.error(valObject.message);
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     error: {code: 400, message: valObject.message}
@@ -67,14 +67,14 @@ var processTransaction = function(req, res, statusObject, requestID) {
 
         if (statusObject.isOK) {
             logPlugin.debug('Sending Transaction Event to Rabbit');
-            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(sendResponse(res, statusObject, requestID), requestID), function() {
+            wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(sendResponse(res, statusObject, requestID), function() {
                 statusObject.isOK = false;
                 statusObject['error'] = {
                     error: {code: 500, message: "Internal error processing transaction"}
                 };
                 checkErrorAltResponsePath(req, statusObject);
                 sendResponse(res, statusObject, requestID);
-            };
+            });
             logPlugin.debug('Finished processTransaction');
         } else {
             logPlugin.debug('Finished processTransaction');
@@ -84,4 +84,18 @@ var processTransaction = function(req, res, statusObject, requestID) {
     }
 };
 
-module.exports = processTransaction;
+var testingStub = function (testLogPlugin, testWascallyRabbit, testValidate, testConfigPlugin, testCreateTransactionDTO, testMapTransaction, testSendResponse, testCheckErrorAltResponsePath) {
+    logPlugin = testLogPlugin;
+    wascallyRabbit = testWascallyRabbit;
+    validate = testValidate;
+    configPlugin = testConfigPlugin;
+    createTransactionDTO = testCreateTransactionDTO;
+    mapTransaction = testMapTransaction;
+    sendResponse = testSendResponse;
+    checkErrorAltResponsePath = testCheckErrorAltResponsePath
+};
+
+module.exports = {
+    processTransaction: processTransaction,
+    testingStub: testingStub
+};
