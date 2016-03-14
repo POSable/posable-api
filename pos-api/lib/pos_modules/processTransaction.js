@@ -41,7 +41,7 @@ var processTransaction = function(req, res, statusObject, requestID) {
             statusObject.merchant = merchant;
             statusObject.success.push("merchantLookup");
         }
-        continueDTOandMapping(req, statusObject, requestID);
+        continueDTOandMapping();
     }
 
     function continueDTOandMapping() {
