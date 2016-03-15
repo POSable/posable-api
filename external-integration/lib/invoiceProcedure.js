@@ -1,12 +1,7 @@
-var cardTypeMap = require('./cardTypeMap');
-var qbDepositAccount = require('./depositAccount');
-
 var postProcedure = require('./postProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 var invoiceMap = require('./invoiceMap');
-
-var sampleData = require('./sampleObj');
 
 var handleError = function(msg, err){
     err.deadLetter = true;
@@ -14,7 +9,7 @@ var handleError = function(msg, err){
     wascallyRabbit.rabbitDispose(msg, err);
 };
 
-var invoiceProcedureMap = function (msg, merchant) {
+var invoiceProcedure = function (msg, merchant) {
     // Create CE invoice (all sync)
     try {
         var invoice = invoiceMap(msg, merchant);
@@ -27,12 +22,10 @@ var invoiceProcedureMap = function (msg, merchant) {
                 wascallyRabbit.rabbitDispose(msg, null);
             }
         });
-
     } catch (err) {
         logPlugin.error(err);
         throw err;
     }
 };
 
-
-module.exports = invoiceProcedureMap;
+module.exports = invoiceProcedure;

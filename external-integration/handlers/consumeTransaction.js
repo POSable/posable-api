@@ -1,7 +1,7 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var merchantSearch = require('../lib/merchantSearch');
-var invoiceProcedureMap = require('../lib/invoiceProcedureMap');
+var invoicePersistence = require('../lib/invoicePersistence');
 
 var testingStub = function(testLogPlugin, testDispose) {
     logPlugin = testLogPlugin;
@@ -23,8 +23,8 @@ var handleTransaction = function(msg) {
                 // Error connecting to database, retry with error
                 handleError(msg, err);
             } else {
-                // Sending to invoiceProcedureMap Map
-                invoiceProcedureMap(msg, merchant);
+                // Sending to invoicePersistence Map
+                invoicePersistence(msg, merchant);
             }
         });
 
