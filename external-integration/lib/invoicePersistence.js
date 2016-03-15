@@ -10,6 +10,7 @@ var invoicePersistence = function(msg) {
         invoiceItem.transactionID = msg.correlationId;
         invoiceItem.type = msg.correlationId;
         invoiceItem.amount = msg.correlationId;
+        invoiceItem.
 
         invoiceItem.save(function (err) {
             if (err) {
