@@ -7,7 +7,7 @@ var healthcheck = require('./routes/healthcheck');
 //var payments = require('./routes/payments');
 var transactions = require('./routes/transactions');
 var fullTransactions = require('./routes/fullTransactions');
-//var errorHandling = require('./lib/pos_modules/errorHandling');
+var getToken = require('./routes/getToken');
 
 var app = express();
 app.use(express.static('public'));
@@ -16,9 +16,8 @@ app.use(express.static('public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(bodyParser.json());
-
 //Will catch any JSON syntax issues
+app.use(bodyParser.json());
 
 app.use(function (error, req, res, next) {
     if (error instanceof SyntaxError) {
@@ -28,6 +27,7 @@ app.use(function (error, req, res, next) {
     }
     next(error);
 });
+
 try {
     app.use(xmlparser({
         explicitArray: false,
@@ -46,13 +46,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
 app.use('/fullTransactions', fullTransactions);
-
-// catch 404 and forward to error handler - this crashed Elastic Beanstalk!!!
-//app.use(function(req, res, next) {
-//  var err = new Error('Not Found');
-//    err.status = 404;
-//    errorHandling(err, res);
-//    next(err);
-//});
+app.use('getToken', getToken);
 
 module.exports = app;
