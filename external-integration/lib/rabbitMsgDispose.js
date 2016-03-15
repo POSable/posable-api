@@ -1,6 +1,3 @@
-/**
- * Created by davidabramowitz on 1/6/16.
- */
 var logPlugin = require('posable-logging-plugin');
 
 var msgDispose = function (msg, err) {
