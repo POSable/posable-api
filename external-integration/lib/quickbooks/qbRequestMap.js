@@ -4,6 +4,7 @@ var qbRealTimeTransactionMap = require('./qbRealTimeTransactionMap');
 var postProcedure = require('./../postProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
+var qbInvoiceRealTimeMap = require('./qbInvoiceRealTimeMap');
 
 var handleError = function(msg, err){
     err.deadLetter = true;
@@ -14,11 +15,12 @@ var handleError = function(msg, err){
 var qbRequestMap = function (msg, merchant) {
     // Create CE sales receipt (all sync)
     try {
-        var type = cardTypeMap(merchant);
-        var depositObj = qbDepositAccount(merchant);
-        var salesReceipt = qbRealTimeTransactionMap(msg, type, depositObj);
+        //var type = cardTypeMap(merchant);
+        //var depositObj = qbDepositAccount(merchant);
+        //var salesReceipt = qbRealTimeTransactionMap(msg, type, depositObj);
+        var qbInvoice = qbInvoiceRealTimeMap(msg);
 
-        postProcedure(msg, merchant, salesReceipt, function(err, externalPost) {
+        postProcedure(msg, merchant, qbInvoice, function(err, externalPost) {
             if (err) {
                 handleError(msg, err);
             } else {
