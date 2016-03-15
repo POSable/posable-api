@@ -1,10 +1,9 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var xmlparser = require('express-xml-bodyparser');
+require('body-parser-xml')(bodyParser);
 //Routes
 var healthcheck = require('./routes/healthcheck');
-//var payments = require('./routes/payments');
 var transactions = require('./routes/transactions');
 var fullTransactions = require('./routes/fullTransactions');
 var getToken = require('./routes/getToken');
@@ -15,6 +14,9 @@ app.use(express.static('public'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.use(bodyParser.json());
+app.use(bodyParser.xml({ xmlParseOptions: { explicitArray: false, trim: true }}));
 
 //Will catch any JSON syntax issues
 app.use(bodyParser.json());
@@ -27,17 +29,6 @@ app.use(function (error, req, res, next) {
     }
     next(error);
 });
-
-try {
-    app.use(xmlparser({
-        explicitArray: false,
-        normalize: false,
-        normalizeTags: false,
-        trim: true
-    }));
-} catch (err) {
-    console.log(err);
-}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));

@@ -5,27 +5,36 @@ var mapTransaction = function(dto, statusObject) {
             logPlugin.debug('Starting Transaction Property Mapping');
             var transaction = {};
             var dateTime;
-            if (dto.transaction.transactionDateTime.combinedDateTime) {
-                dateTime = dto.transaction.transactionDateTime.combinedDateTime;
+            if (dto.Transaction.TransactionDateTime.CombinedDateTime) {
+                dateTime = dto.Transaction.TransactionDateTime.CombinedDateTime;
             } else {
-                dateTime = dto.transaction.transactionDateTime.date + ' ' + dto.transaction.transactionDateTime.time;
+                dateTime = dto.Transaction.TransactionDateTime.Date + ' ' + dto.Transaction.TransactionDateTime.Time;
             }
-            transaction.transactionID = dto.transaction.transactionID;
-            transaction.merchantID = dto.transaction.merchantID;
-            transaction.terminalID = dto.transaction.terminalID;
-            transaction.cashierID = dto.transaction.cashierID;
+            transaction.transactionID = dto.Transaction.TransactionID;
+            transaction.internalID = statusObject.internalID;
+            transaction.isVoid = dto.Transaction.IsVoid;
+            transaction.isRefund = dto.Transaction.IsRefund;
+            transaction.merchantID = dto.Transaction.MerchantID;
+            transaction.registerID = dto.Transaction.RegisterID;
+            transaction.cashierID = dto.Transaction.CashierID;
             transaction.dateTime = dateTime;
+            transaction.discounts = dto.Transaction.Discounts;
+            transaction.subtotal = dto.Transaction.Subtotal;
+            transaction.taxes = dto.Transaction.Taxes;
+            transaction.total = dto.Transaction.Total;
+            transaction.customer = dto.Transaction.Customer;
+            transaction.inventoryItems = dto.Transaction.InventoryItems;
+            //transaction.customFields = dto.Transaction.CustomFields;
+
             transaction.transactionPayments = [];
-            dto.transaction.payments.forEach(function(paymentdto) {
+            dto.Transaction.Payments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
-                    uid : paymentdto.uid,
-                    dateTime : dateTime,
-                    paymentType : paymentdto.paymentType,
-                    amount : paymentdto.amount,
-                    tax : paymentdto.tax,
-                    cardType : paymentdto.creditCard.cardType,
-                    last4 : paymentdto.creditCard.last4,
-                    authCode : paymentdto.creditCard.authCode
+                    paymentID: paymentdto.PaymentID,
+                    paymentType : paymentdto.PaymentType,
+                    amount : paymentdto.Amount,
+                    cardType : paymentdto.CreditCard.CardType,
+                    last4 : paymentdto.CreditCard.Last4,
+                    authCode : paymentdto.CreditCard.AuthCode
                 })
             });
             logPlugin.debug('Transaction Property Mapping was Successful');

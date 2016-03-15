@@ -38,7 +38,7 @@ router.post('/', function(req, res) {
                 error: {code: 500, message: "System Error with Token Authentication"}
             };
         }
-      
+
     }
 
     var firstName = req.body.firstName;
