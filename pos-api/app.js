@@ -6,6 +6,7 @@ require('body-parser-xml')(bodyParser);
 var healthcheck = require('./routes/healthcheck');
 var transactions = require('./routes/transactions');
 var fullTransactions = require('./routes/fullTransactions');
+var getToken = require('./routes/getToken').router;
 
 var app = express();
 app.use(express.static('public'));
@@ -14,11 +15,11 @@ app.use(express.static('public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.xml({ xmlParseOptions: { explicitArray: false, trim: true }}));
 
 //Will catch any JSON syntax issues
+app.use(bodyParser.json());
 
 app.use(function (error, req, res, next) {
     if (error instanceof SyntaxError) {
@@ -36,5 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
 app.use('/fullTransactions', fullTransactions);
+app.use('/getToken', getToken);
 
 module.exports = app;
