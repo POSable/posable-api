@@ -1,107 +1,80 @@
-describe("test persistence-service", function() {
+var persistTransaction = require('../handlers/createTransactionPersistence').createTransactionPersistence;
+var setTestStubs = require('../handlers/createTransactionPersistence').testingStub;
+var testLogPlugin = {error: function (){}, debug: function (){}};
+var testDispose = {rabbitDispose: function (arg1, arg2) {return {msg: arg1, error: arg2}}};
+var testMsg;
+var testMapTransaction;
+var testValidate;
 
-    var persistTransaction = require('../handlers/createTransactionPersistence').createTransactionPersistence;
-    var testTransactionMsg = {};
-    var testMapping = {testMapTransaction: function () {}};
-    var testValidate = {validateTransaction: function () {}};
-    var testLogPlugin = {error: function (text) {console.log(text)}, debug: function (text) {console.log(text)}};
-    var testDispose = {testRabbitDispose: function (arg1, arg2) {return {msg: arg1, error: arg2}}};
-    var testMapTransMethod = {save: function (callback) {callback()}};
+describe("Transaction persistence", function() {
 
-    describe("code executes as expected", function() {
+    describe("saves and disposes of valid transaction messages by", function() {
 
         beforeEach(function () {
-            spyOn(testMapTransMethod, 'save').and.callThrough();
-            spyOn(testMapping, 'testMapTransaction').and.returnValue(testMapTransMethod);
-            spyOn(testValidate, 'validateTransaction').and.returnValue({isValid: true});
-            spyOn(testLogPlugin, 'error');
+            testMsg = {save: function(callback){return callback(null)}};
+            testMapTransaction = {mapTransaction: function (testMsg) {return testMsg}};
+            testValidate = {validateTransaction: function () {return {isValid: true}}};
+
+            spyOn(testMapTransaction, 'mapTransaction').and.callThrough();
+            spyOn(testValidate, 'validateTransaction').and.callThrough();
+            spyOn(testMsg, 'save').and.callThrough();
             spyOn(testLogPlugin, 'debug');
-            spyOn(testDispose, 'testRabbitDispose');
+            spyOn(testDispose, 'rabbitDispose');
 
-            var setTestStubs = require('../handlers/createTransactionPersistence').testingStub;
-            setTestStubs(testMapping, testValidate, testLogPlugin, testDispose);
+            setTestStubs(testMapTransaction, testValidate, testLogPlugin, testDispose);
+            persistTransaction(testMsg);
         });
 
-        it("maps the msg into a model and logs the success", function () {
-            persistTransaction(testTransactionMsg);
-            expect(testMapping.testMapTransaction).toHaveBeenCalledWith(testTransactionMsg);
-            expect(testLogPlugin.debug).toHaveBeenCalled();
+        it("mapping the msg to the transaction model", function () {
+            expect(testMapTransaction.mapTransaction).toHaveBeenCalledWith(testMsg);
         });
 
-        it("vaildates the transaction", function () {
-            persistTransaction(testTransactionMsg);
-            expect(testValidate.validateTransaction).toHaveBeenCalled();
+        it("validating the transaction before saving", function () {
+            expect(testValidate.validateTransaction).toHaveBeenCalledWith(testMsg);
         });
 
-        it("in the callback, it logs a successful save and disposes the message without an error", function () {
-            persistTransaction(testTransactionMsg);
-            expect(testLogPlugin.debug).toHaveBeenCalledWith('Transaction was saved');
-            expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testTransactionMsg, undefined);
-            expect(testMapTransMethod.save).toHaveBeenCalled();
+        it("saving the transaction", function () {
+            expect(testMsg.save).toHaveBeenCalled();
         });
 
+        it("disposing of the message", function () {
+            expect(testLogPlugin.debug).toHaveBeenCalledWith('Transaction saved');
+            expect(testDispose.rabbitDispose).toHaveBeenCalled();
+        });
     });
 
-    describe("fails mapping to model", function() {
+    describe("dead letters the transaction message", function () {
 
         beforeEach(function () {
-            spyOn(testMapping, 'testMapTransaction').and.returnValue(undefined);
-            spyOn(testValidate, 'validateTransaction');
+            testMapTransaction = {mapTransaction: function () { throw new Error('test mapping error')}};
             spyOn(testLogPlugin, 'error');
-            spyOn(testLogPlugin, 'debug');
-            spyOn(testDispose, 'testRabbitDispose');
+            spyOn(testDispose, 'rabbitDispose');
 
-            var setTestStubs = require('../handlers/createTransactionPersistence').testingStub;
-            setTestStubs(testMapping, testValidate, testLogPlugin, testDispose);
+            setTestStubs(testMapTransaction, null, testLogPlugin, testDispose);
+            persistTransaction(testMsg);
         });
 
-        it("when mapTransaction returns undefined it disposes the message with an error and logs an error", function () {
-            persistTransaction(testTransactionMsg);
-            expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testTransactionMsg, new Error( "Failed Transaction Persistence Model Mapping"));
+        it("when transaction mapping fails", function () {
             expect(testLogPlugin.error).toHaveBeenCalled();
+            expect(testDispose.rabbitDispose).toHaveBeenCalled();
         });
     });
 
-    describe("fails validation", function() {
+    describe("dead letters the transaction message", function() {
 
         beforeEach(function () {
-            spyOn(testMapping, 'testMapTransaction').and.returnValue(testMapTransMethod);
-            spyOn(testValidate, 'validateTransaction').and.returnValue({isValid: false});
+            testMapTransaction = {mapTransaction: function (testMsg) {return testMsg}};
+            testValidate = {validateTransaction: function () {return {isValid: false}}};
             spyOn(testLogPlugin, 'error');
-            spyOn(testLogPlugin, 'debug');
-            spyOn(testDispose, 'testRabbitDispose');
+            spyOn(testDispose, 'rabbitDispose');
 
-            var setTestStubs = require('../handlers/createTransactionPersistence').testingStub;
-            setTestStubs(testMapping, testValidate, testLogPlugin, testDispose);
+            setTestStubs(testMapTransaction, testValidate, testLogPlugin, testDispose);
+            persistTransaction(testMsg);
         });
 
-        it("when validation returns False for isValid property", function () {
-            persistTransaction(testTransactionMsg);
-            expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testTransactionMsg, new Error( "Failed Transaction Persistence Validation"));
+        it("when transaction validation fails", function () {
             expect(testLogPlugin.error).toHaveBeenCalled();
-        });
-
-    });
-
-    describe("creates a system error to be caught and thrown", function() {
-
-        beforeEach(function () {
-            spyOn(testMapping, 'testMapTransaction').and.returnValue({save: function (callback) {callback()}});
-            spyOn(testLogPlugin, 'error');
-            spyOn(testLogPlugin, 'debug').and.throwError('This is a testing Error - Please Catch Me!');
-            spyOn(testDispose, 'testRabbitDispose');
-
-            var setTestStubs = require('../handlers/createTransactionPersistence').testingStub;
-            setTestStubs(testMapping, testValidate, testLogPlugin, testDispose);
-        });
-
-        it("when LogPlugin.debug fails", function () {
-            try {
-                persistTransaction(testTransactionMsg);e
-            } catch (err) {
-                expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testTransactionMsg, new Error( 'This is a testing Error - Please Catch Me!'));
-                expect(testLogPlugin.error).toHaveBeenCalled();
-            }
+            expect(testDispose.rabbitDispose).toHaveBeenCalled();
         });
     });
 });

@@ -3,6 +3,7 @@ var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 
+
 var deadLetterErrorHandling = function (msg, error) {
     logPlugin.error(error);
     error.deadLetter = true;
@@ -10,50 +11,37 @@ var deadLetterErrorHandling = function (msg, error) {
 };
 
 function createTransactionPersistence(msg) {
+    logPlugin.debug('Received message from Rabbit, starting transaction persistence handler');
 
     try {
-        logPlugin.debug('Received message from Rabbit, Starting Transaction Persistence Handler');
-        var valTransaction;
         var transaction = mapTransaction(msg);
-        if (transaction === undefined) {
-            var mapError = new Error('Failed Transaction Persistence Model Mapping');
-            deadLetterErrorHandling(msg, mapError);
-        } else {
-            logPlugin.debug('Message Mapped to Model');
-            valTransaction = validate.validateTransaction(transaction);
-        }
+        var valTransObj = validate.validateTransaction(transaction);
 
-        if (valTransaction && valTransaction.isValid) {
-            logPlugin.debug('Passed Validation and Starting to Save to DB');
+        if (valTransObj.isValid) {
+            logPlugin.debug('Passed validation, saving to DB...');
             transaction.save(function (err) {
                 if (err) {
                     logPlugin.error(err);
                 } else {
-                    logPlugin.debug('Transaction was saved');
+                    logPlugin.debug('Transaction saved');
                 }
-                wascallyRabbit.rabbitDispose(msg, err);
+                wascallyRabbit.rabbitDispose(msg, err);  // <-- Disposes of message with option of retry
             });
-        } else if (valTransaction && !valTransaction.isValid) {
-            var valError = new Error('Failed Transaction Persistence Validation');
+        } else if (!valTransObj.isValid) {
+            var valError = new Error('Failed validation');
             deadLetterErrorHandling(msg, valError);
         }
     } catch (err) {
         deadLetterErrorHandling(msg, err);
-        throw err;
     }
 }
 
-var testingStub = function (testMapTransaction, testValidate, testLogPlugin, testRabbitDispose) {
-    mapTransaction = testMapTransaction.testMapTransaction;
-    validate = testValidate;
-    logPlugin = testLogPlugin;
-    wascallyRabbit.rabbitDispose = testRabbitDispose.testRabbitDispose;
+var testingStub = function (testMapTransaction, testValidate, testLogPlugin, testDispose) {
+    if (testMapTransaction) {mapTransaction = testMapTransaction.mapTransaction;}
+    if (testValidate) {validate = testValidate;}
+    if (testDispose) {wascallyRabbit.rabbitDispose = testDispose.rabbitDispose;}
+    if (testLogPlugin) {logPlugin = testLogPlugin;}
 };
-
-//
-// var testFailStub = function(){
-//     throw new Error('BOOM!');
-// };
 
 module.exports = {
     createTransactionPersistence: createTransactionPersistence,
