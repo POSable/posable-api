@@ -6,7 +6,7 @@ require('body-parser-xml')(bodyParser);
 var healthcheck = require('./routes/healthcheck');
 var transactions = require('./routes/transactions');
 var fullTransactions = require('./routes/fullTransactions');
-var getToken = require('./routes/getToken');
+var getToken = require('./routes/getToken').router;
 
 var app = express();
 app.use(express.static('public'));
@@ -37,6 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/transactions', transactions);
 app.use('/healthcheck', healthcheck);
 app.use('/fullTransactions', fullTransactions);
-app.use('getToken', getToken);
+app.use('/getToken', getToken);
 
 module.exports = app;
