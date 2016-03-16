@@ -1,24 +1,22 @@
-/**
- * Created by davidabramowitz on 1/12/16.
- */
-var Error = require('../models/error').model;
+var ErrorMsg = require('../models/error').model;
 var logPlugin = require('posable-logging-plugin');
 
 var mapError = function(msg) {
+    logPlugin.debug('Starting Error Property Mapping');
+
     try {
-        logPlugin.debug('Starting Error Property Mapping');
-        var errorMsg = new Error();
-        errorMsg.server = msg.server;
-        errorMsg.application = msg.application;
-        errorMsg.data = msg.data;
+        var errorMsg = new ErrorMsg();
+        errorMsg.server = msg.body.server;
+        errorMsg.application = msg.body.application;
+        errorMsg.data = msg.body.data;
+
+        logPlugin.debug('Error mapping successful');
+        return errorMsg;
 
     } catch (err) {
-        logPlugin.debug('System error in mapError');
         logPlugin.error(err);
-        return undefined;
+        throw new Error('Failed error mapping'); // <-- Throws error to handler
     }
-    logPlugin.debug('Error Property Mapping Finished');
-    return errorMsg;
 };
 
 module.exports = mapError;

@@ -104,7 +104,7 @@ console.log('Logging Setup Complete');
 //Require Handlers
 var createPaymentPersistence = require('./handlers/createPaymentPersistence');
 var createTransactionPersistence = require('./handlers/createTransactionPersistence').createTransactionPersistence;
-var createErrorPersist = require('./handlers/createErrorPersist').createErrorPersist;
+var createErrorPersistence = require('./handlers/createErrorPersistence').createErrorPersistence;
 var createBatchPersistence = require('./handlers/createBatchPersistence').createBatchPersistence;
 
 //Setup Database Connection
@@ -124,7 +124,7 @@ console.log('Starting Connection to RabbitMQ');
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.persistence');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', createTransactionPersistence);
-wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', createErrorPersist);
+wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', createErrorPersistence);
 wascallyRabbit.setHandler('persistence.command.calculateBatchTotals', createBatchPersistence);
 wascallyRabbit.setup('persistence', rabbitCallback);
 
