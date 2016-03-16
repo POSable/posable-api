@@ -1,78 +1,38 @@
-describe("test error persistence-service", function() {
+var persistError = require('../handlers/createErrorPersistence').createErrorPersistence;
+var setTestStubs = require('../handlers/createErrorPersistence').testingStub;
+var testLogPlugin = {error: function (){}, debug: function (){}};
+var testDispose = {rabbitDispose: function (arg1, arg2) {return {msg: arg1, error: arg2}}};
+var testMsg;
+var testMapError;
 
-    var persistError = require('../handlers/createErrorPersist').createErrorPersist;
-    var testErrorMsg = {body: {}};
-    var testMapping = {testMapError: function () {}};
-    var testLogPlugin = {error: function (text) {console.log(text)}, debug: function (text) {console.log(text)}};
-    var testDispose = {testRabbitDispose: function (arg1, arg2) {return {msg: arg1, error: arg2}}};
-    var testMapErrorMethod = {save: function (callback) {callback()}};
+describe("Error persistence", function() {
 
-    describe("code executes as expected", function() {
+    describe("saves and disposes of valid error messages by", function () {
 
-        beforeEach(function () {
-            spyOn(testMapErrorMethod, 'save').and.callThrough();
-            spyOn(testMapping, 'testMapError').and.returnValue(testMapErrorMethod);
-            spyOn(testLogPlugin, 'error');
+        beforeEach(function(){
+            testMsg = {save: function(callback){return callback(null)}};
+            testMapError = {mapError: function (testMsg) {return testMsg}};
+
+            spyOn(testMapError, 'mapError').and.callThrough();
+            spyOn(testMsg, 'save').and.callThrough();
             spyOn(testLogPlugin, 'debug');
-            spyOn(testDispose, 'testRabbitDispose');
+            spyOn(testDispose, 'rabbitDispose');
 
-            var setTestStubs = require('../handlers/createErrorPersist').testingStub;
-            setTestStubs(testMapping, testLogPlugin, testDispose);
+            setTestStubs(testMapError, testLogPlugin, testDispose);
+            persistError(testMsg);
         });
 
-        it("maps the msg into a model and logs the success", function () {
-            persistError(testErrorMsg);
-            expect(testMapping.testMapError).toHaveBeenCalledWith(testErrorMsg.body);
-            expect(testLogPlugin.debug).toHaveBeenCalled();
+        it("mapping the msg to the error model", function () {
+            expect(testMapError.mapError).toHaveBeenCalledWith(testMsg);
         });
 
-        it("in the callback, it logs a successful save and disposes the message without an error", function () {
-            persistError(testErrorMsg);
-            expect(testLogPlugin.debug).toHaveBeenCalledWith('Error saved successfully' );
-            expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testErrorMsg, undefined);
-            expect(testMapErrorMethod.save).toHaveBeenCalled();
+        it("saving the error", function () {
+            expect(testMsg.save).toHaveBeenCalled();
+            expect(testLogPlugin.debug).toHaveBeenCalledWith('Error saved');
         });
 
-    });
-
-    describe("fails mapping to model", function() {
-
-        beforeEach(function () {
-            spyOn(testMapping, 'testMapError').and.returnValue(undefined);
-            spyOn(testLogPlugin, 'error');
-            spyOn(testLogPlugin, 'debug');
-            spyOn(testDispose, 'testRabbitDispose');
-
-            var setTestStubs = require('../handlers/createErrorPersist').testingStub;
-            setTestStubs(testMapping, testLogPlugin, testDispose);
-        });
-
-        it("when mapError returns undefined it disposes the message with an error and logs an error", function () {
-            persistError(testErrorMsg);
-            expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testErrorMsg, new Error( "Failed Error Persistence Model Mapping"));
-            expect(testLogPlugin.error).toHaveBeenCalled();
-        });
-    });
-
-    describe("creates a system error to be caught and thrown", function() {
-
-        beforeEach(function () {
-            spyOn(testMapping, 'testMapError').and.returnValue({save: function (callback) {callback()}});
-            spyOn(testLogPlugin, 'error');
-            spyOn(testLogPlugin, 'debug');
-            spyOn(testDispose, 'testRabbitDispose').and.throwError('This is a testing Error - Please Catch Me!');
-
-            var setTestStubs = require('../handlers/createErrorPersist').testingStub;
-            setTestStubs(testMapping, testLogPlugin, testDispose);
-        });
-
-        it("when LogPlugin.debug fails", function () {
-            try {
-                persistError(testErrorMsg);
-            } catch (err) {
-                expect(testDispose.testRabbitDispose).toHaveBeenCalledWith(testErrorMsg, new Error( 'This is a testing Error - Please Catch Me!'));
-                expect(testLogPlugin.error).toHaveBeenCalled();
-            }
+        it("disposing of the message", function () {
+            expect(testDispose.rabbitDispose).toHaveBeenCalled();
         });
     });
 });
