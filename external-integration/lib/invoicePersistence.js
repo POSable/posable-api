@@ -3,8 +3,7 @@ var Invoice = require('../models/invoice').model;
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 
-var newInvoice = function(id, batchTime) {
-    var invoice = new Invoice();
+var populateInvoice = function(invoice, id, batchTime) {
     invoice.cloudElemID = null;
     invoice.internalID = id;
     invoice.finalizeAt = batchTime;
@@ -12,32 +11,40 @@ var newInvoice = function(id, batchTime) {
     return invoice
 };
 var addSaleItem = function(msg, invoice) {
-    var saleInvoiceItem = new InvoiceItem;
-    saleInvoiceItem.transactionID = msg.body.data.transactionID;
-    saleInvoiceItem.type = "sale";
-    saleInvoiceItem.amount = msg.body.data.amount;
-    invoice.invoiceItems.push(saleInvoiceItem);
+    if(msg.body.data.amount > 0) {
+        var saleInvoiceItem = new InvoiceItem;
+        saleInvoiceItem.transactionID = msg.body.data.transactionID;
+        saleInvoiceItem.type = "sale";
+        saleInvoiceItem.amount = msg.body.data.amount;
+        invoice.invoiceItems.push(saleInvoiceItem);
+    }
 };
 var addTaxItem = function(msg, invoice) {
-    var taxInvoiceItem = new InvoiceItem;
-    taxInvoiceItem.transactionID = msg.body.data.transactionID;
-    taxInvoiceItem.type = "tax";
-    taxInvoiceItem.amount = msg.body.data.amount;
-    invoice.invoiceItems.push(taxInvoiceItem);
+    if(msg.body.data.tax > 0) {
+        var taxInvoiceItem = new InvoiceItem;
+        taxInvoiceItem.transactionID = msg.body.data.transactionID;
+        taxInvoiceItem.type = "tax";
+        taxInvoiceItem.amount = msg.body.data.tax;
+        invoice.invoiceItems.push(taxInvoiceItem);
+    }
 };
 var addDiscountItem = function(msg, invoice) {
-    var discountInvoiceItem = new InvoiceItem;
-    discountInvoiceItem.transactionID = msg.body.data.transactionID;
-    discountInvoiceItem.type = "tax";
-    discountInvoiceItem.amount = msg.body.data.amount;
-    invoice.invoiceItems.push(discountInvoiceItem);
+    if(msg.body.data.amount > 0) {          //need dataModel    <----------------------
+        var discountInvoiceItem = new InvoiceItem;
+        discountInvoiceItem.transactionID = msg.body.data.transactionID;
+        discountInvoiceItem.type = "tax";
+        discountInvoiceItem.amount = msg.body.data.amount; //need dataModel
+        invoice.invoiceItems.push(discountInvoiceItem);
+    }
 };
 var addGiftCardItem = function(msg, invoice) {
-    var giftCardInvoiceItem = new InvoiceItem;
-    giftCardInvoiceItem.transactionID = msg.body.data.transactionID;
-    giftCardInvoiceItem.type = "tax";
-    giftCardInvoiceItem.amount = msg.body.data.amount;
-    invoice.invoiceItems.push(giftCardInvoiceItem);
+    if(msg.body.data.paymentType === 'gift') {
+        var giftCardInvoiceItem = new InvoiceItem;
+        giftCardInvoiceItem.transactionID = msg.body.data.transactionID;
+        giftCardInvoiceItem.type = "giftCard";
+        giftCardInvoiceItem.amount = msg.body.data.amount; //need dataModel
+        invoice.invoiceItems.push(giftCardInvoiceItem);
+    }
 };
 var invoiceSaveAndMsgDispose = function(msg, invoice) {
     invoice.save(function (err) {
@@ -59,11 +66,14 @@ var invoicePersistence = function(msg, merchant) {
         var id = merchant.internalID;
         var batchTime = merchant.batchTime;
 
+        var invoice = new Invoice();
+
         if(merchant.batchType === "batch") {
-            finalizeAt = batchTime;
+
             foundInvoice = null; // Write the find query
+
             if(!foundInvoice) {
-                newInvoice(id, finalizeAt);
+                populateInvoice(invoice, id, batchTime);
                 addSaleItem(msg, invoice);
                 addTaxItem(msg, invoice);
                 addDiscountItem(msg, invoice);
@@ -77,8 +87,9 @@ var invoicePersistence = function(msg, merchant) {
                 addGiftCardItem(msg, foundInvoice);
                 wascallyRabbit.rabbitDispose(msg, null);
             }
+
         } if(merchant.batchType === "real-time") {
-            newInvoice(id, finalizeAt);
+            populateInvoice(invoice, id, finalizeAt);
             addSaleItem(msg, invoice);
             addTaxItem(msg, invoice);
             addDiscountItem(msg, invoice);
