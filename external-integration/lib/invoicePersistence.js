@@ -61,6 +61,26 @@ var invoiceSaveAndMsgDispose = function(msg, foundInvoice) {
         wascallyRabbit.rabbitDispose(msg, err);
     });
 };
+function getInvoice(id){
+    Invoice.findOne(
+        {
+            internalID: id,
+            finalizeAt:
+            {
+                $gt: new Date()
+            },
+            cloudElemID: null
+        },
+        {},
+        function(err, result) {
+            if( err ) {
+                logPlugin.error(err);
+            } else {
+                logPlugin.debug('Invoice findOne complete. Results : ', result);
+            }
+        }
+    );
+}
 
 var invoicePersistence = function(msg, merchant) {
     try {
@@ -71,11 +91,12 @@ var invoicePersistence = function(msg, merchant) {
         var id = merchant.internalID;
         var batchTime = merchant.batchTime;
 
-        if(merchant.batchType === "batch") {
+        if (merchant.batchType === "batch") {
             finalizeAt = batchTime; //override this to merchant's batch time so the invoice stays open
 
             //if batch merchant's invoice already open for day, edit existing
-            foundInvoice = null; // Write the find query....This will be async and need to be put into a callback...
+            //This will be async and need to be put into a callback...
+            foundInvoice = getInvoice(id);
         }
 
         if (!foundInvoice) {
@@ -91,7 +112,6 @@ var invoicePersistence = function(msg, merchant) {
     } catch (err) {
         logPlugin.debug('System error in invoicePersistence');
         logPlugin.error(err);
-        return undefined;
     }
 
     logPlugin.debug('invoicePersistence Procedure Finished');

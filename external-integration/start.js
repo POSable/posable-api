@@ -125,7 +125,6 @@ wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handl
 wascallyRabbit.setup('external-integration', rabbitCallback);
 
 
-
 function rabbitCallback(err, res) {
     if (err) {
         logPlugin.error(err);
@@ -135,5 +134,5 @@ function rabbitCallback(err, res) {
     }
 }
 
-
+require('./lib/invoiceJob/timer');
 

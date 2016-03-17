@@ -1,4 +1,4 @@
-var postProcedure = require('./postProcedure');
+var postProcedure = require('./../postProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 var invoiceMap = require('./invoiceMap');
