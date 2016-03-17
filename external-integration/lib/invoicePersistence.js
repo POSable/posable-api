@@ -72,7 +72,7 @@ var invoicePersistence = function(msg, merchant) {
         var batchTime = merchant.batchTime;
 
         if(merchant.batchType === "batch") {
-            finalizeAt = batchTime; //override this to merchant's batch time so it stays open
+            finalizeAt = batchTime; //override this to merchant's batch time so the invoice stays open
 
             //if batch merchant's invoice already open for day, edit existing
             foundInvoice = null; // Write the find query....This will be async and need to be put into a callback...
