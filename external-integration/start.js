@@ -115,7 +115,7 @@ mongoose.createConnection(env['mongoose_connection']);
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
 
 //Require Handlers
-var handleRealTimeTransaction = require('./handlers/consumeTransaction').handleRealTimeTransaction;
+var handleRealTimeTransaction = require('./handlers/consumeTransaction').handleTransaction;
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');

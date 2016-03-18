@@ -2,6 +2,7 @@ var InvoiceItem = require('../models/invoiceItem').model;
 var Invoice = require('../models/invoice').model;
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
+var makePayments = require('./paymentJob/makePayments');
 
 var populateInvoice = function(invoice, id, batchTime) {
     invoice.cloudElemID = null;
@@ -28,7 +29,7 @@ var addTaxItem = function(msg, invoice) {
     }
 };
 var addDiscountItem = function(msg, invoice) {
-    if(msg.body.data.amount > 0) {          //need dataModel    <---------------------- Need to map at POS-API level
+    if(msg.body.data.discount > 0) {          //need dataModel    <---------------------- Need to map at POS-API level
         var discountInvoiceItem = new InvoiceItem();
         discountInvoiceItem.transactionID = msg.body.data.transactionID;
         discountInvoiceItem.type = "discount";
@@ -107,6 +108,7 @@ var invoicePersistence = function(msg, merchant) {
 
         //set all line item functions on either new or found (db) invoice
         addInvoiceItems(msg, foundInvoice);
+        makePayments(msg, foundInvoice);
         invoiceSaveAndMsgDispose(msg, foundInvoice);
 
     } catch (err) {
