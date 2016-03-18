@@ -1,40 +1,41 @@
 var logPlugin = require('posable-logging-plugin');
 
 var mapTransaction = function(dto, statusObject) {
+        // All dto keys need to be lowercase
         try {
             logPlugin.debug('Starting Transaction Property Mapping');
             var transaction = {};
             var dateTime;
-            if (dto.Transaction.TransactionDateTime.CombinedDateTime) {
-                dateTime = dto.Transaction.TransactionDateTime.CombinedDateTime;
+            if (dto.transaction.transactiondatetime.combineddatetime) {
+                dateTime = dto.transaction.transactiondatetime.combineddatetime;
             } else {
-                dateTime = dto.Transaction.TransactionDateTime.Date + ' ' + dto.Transaction.TransactionDateTime.Time;
+                dateTime = dto.transaction.transactiondatetime.date + ' ' + dto.transaction.transactiondatetime.time;
             }
-            transaction.transactionID = dto.Transaction.TransactionID;
+            transaction.transactionID = dto.transaction.transactionid;
             transaction.internalID = statusObject.internalID;
-            transaction.isVoid = dto.Transaction.IsVoid;
-            transaction.isRefund = dto.Transaction.IsRefund;
-            transaction.merchantID = dto.Transaction.MerchantID;
-            transaction.registerID = dto.Transaction.RegisterID;
-            transaction.cashierID = dto.Transaction.CashierID;
+            transaction.isVoid = dto.transaction.isvoid;
+            transaction.isRefund = dto.transaction.isrefund;
+            transaction.merchantID = dto.transaction.merchantid;
+            transaction.registerID = dto.transaction.registeruid;
+            transaction.cashierID = dto.transaction.cashierid;
             transaction.dateTime = dateTime;
-            transaction.discounts = dto.Transaction.Discounts;
-            transaction.subtotal = dto.Transaction.Subtotal;
-            transaction.taxes = dto.Transaction.Taxes;
-            transaction.total = dto.Transaction.Total;
-            transaction.customer = dto.Transaction.Customer;
-            transaction.inventoryItems = dto.Transaction.InventoryItems;
-            //transaction.customFields = dto.Transaction.CustomFields;
+            transaction.discounts = dto.transaction.discounts;
+            transaction.subtotal = dto.transaction.subtotal;
+            transaction.taxes = dto.transaction.taxes;
+            transaction.total = dto.transaction.total;
+            transaction.customer = dto.transaction.customer;
+            transaction.inventoryItems = dto.transaction.inventoryitems;
+            //transaction.customFields = dto.transaction.customfields;
 
             transaction.transactionPayments = [];
-            dto.Transaction.Payments.forEach(function(paymentdto) {
+            dto.transaction.payments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
-                    paymentID: paymentdto.PaymentID,
-                    paymentType : paymentdto.PaymentType,
-                    amount : paymentdto.Amount,
-                    cardType : paymentdto.CreditCard.CardType,
-                    last4 : paymentdto.CreditCard.Last4,
-                    authCode : paymentdto.CreditCard.AuthCode
+                    paymentID: paymentdto.paymentid,
+                    paymentType : paymentdto.paymenttype,
+                    amount : paymentdto.amount,
+                    cardType : paymentdto.creditcard.cardtype,
+                    last4 : paymentdto.creditcard.last4,
+                    authCode : paymentdto.creditcard.authcode
                 })
             });
             logPlugin.debug('Transaction Property Mapping was Successful');
