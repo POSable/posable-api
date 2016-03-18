@@ -31,7 +31,7 @@ var invoiceMap = function() {
 
     sampleData.forEach(function(item){
 
-        var itemRef = 12; //the default for sales
+        var itemRef = 12; //the default for sales     <------- this is where you pull in iDs from Config
         if (item.type === "tax") {
             itemRef = 31;
         } if (item.type === "discount") {

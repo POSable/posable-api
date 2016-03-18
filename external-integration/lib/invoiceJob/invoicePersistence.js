@@ -1,8 +1,8 @@
-var InvoiceItem = require('../models/invoiceItem').model;
-var Invoice = require('../models/invoice').model;
+var InvoiceItem = require('../../models/invoiceItem').model;
+var Invoice = require('../../models/invoice').model;
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
-var makePayments = require('./paymentJob/makePayments');
+var makePayments = require('./../paymentJob/makePayments');
 
 var populateInvoice = function(invoice, id, batchTime) {
     invoice.cloudElemID = null;

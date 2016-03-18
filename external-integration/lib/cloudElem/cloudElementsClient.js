@@ -1,7 +1,7 @@
 var logPlugin = require('posable-logging-plugin');
 var request = require('request');
 
-var cloudElementsClient = function(salesReceipt, merchant, externalPost, callback) {
+var cloudElementsClient = function(payload, merchant, externalPost, callback) {
     try {
         logPlugin.debug('Start Cloud Elements Client posting function');
         request({
@@ -12,15 +12,15 @@ var cloudElementsClient = function(salesReceipt, merchant, externalPost, callbac
                 'Content-Type': 'application/json',
                 'Authorization': merchant.cloudElemAPIKey
             },
-            body: JSON.stringify(salesReceipt)
+            body: JSON.stringify(payload)
 
-        }, function(err, response, salesReceipt){
+        }, function(err, response, payload){
             if (err) {
                 logPlugin.error(err);
                 callback(err, null, null, null);
             } else if (response.statusCode === 200) {
                 logPlugin.debug('Successful post to CE');
-                callback(null, response, externalPost, salesReceipt);
+                callback(null, response, externalPost, payload);
             } else {
                 logPlugin.debug("CloudElem response code: " + response.statusCode);
                 logPlugin.debug("CloudElem response code: " + response.body);

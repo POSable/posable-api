@@ -1,14 +1,14 @@
 var postProcedure = require('./../cloudElem/postProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
-var invoiceMap = require('./invoiceMap');
+var paymentReceiptMap = require('./paymentReceiptMap');
 
 var invoiceProcedure = function () {
-    // Create CE invoice (all sync)
+    // Create CE paymentReceipt (all sync)
     try {
-        var invoice = invoiceMap();
+        var paymentReceipt = paymentReceiptMap();
 
-        postProcedure(msg, merchant, invoice, function(err, externalPost) {
+        postProcedure(msg, merchant, paymentReceipt, function(err, externalPost) {
             if (err) {
                 logPlugin.error(err);
             } else {

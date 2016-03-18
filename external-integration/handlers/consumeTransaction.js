@@ -1,7 +1,7 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
-var merchantSearch = require('../lib/merchantSearch');
-var invoicePersistence = require('../lib/invoicePersistence');
+var merchantSearch = require('../lib/common/merchantSearch');
+var invoicePersistence = require('../lib/invoiceJob/invoicePersistence');
 
 var testingStub = function(testLogPlugin, testDispose) {
     logPlugin = testLogPlugin;

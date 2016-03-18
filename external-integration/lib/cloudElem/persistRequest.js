@@ -1,13 +1,13 @@
-var ExternalPost = require('../models/externalPost').model;
+var ExternalPost = require('../../models/externalPost').model;
 var logPlugin = require('posable-logging-plugin');
 
-function persistRequest (cloudElemSR, merchant, msg, callback) {
+function persistRequest (qbInvoice, merchant, msg, callback) {
     var externalPost = new ExternalPost();
 
     externalPost.requestID = msg.properties.correlationId;
     externalPost.merchantID = merchant.merchantID;
     externalPost.requestDateTime = Date.now();
-    externalPost.postBody = cloudElemSR;
+    externalPost.postBody = qbInvoice;
 
     externalPost.save(function (err, externalPost) {
         if (err) {
@@ -15,13 +15,13 @@ function persistRequest (cloudElemSR, merchant, msg, callback) {
             return callback(err, null, null, null);
         } else {
             logPlugin.debug('External post was saved');
-            return callback(null, cloudElemSR, merchant, externalPost);
+            return callback(null, qbInvoice, merchant, externalPost);
         }
     });
 }
 
-function updateRequest (externalPost, response, salesReceipt, callback) {
-    var objectID = JSON.parse(salesReceipt);
+function updateRequest (externalPost, response, qbInvoice, callback) {
+    var objectID = JSON.parse(qbInvoice);
 
     externalPost.update({
         responseDateTime: Date.now(),
