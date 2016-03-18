@@ -1,6 +1,6 @@
 describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction' function", function() {
-    var handleRealTimeTransaction = require('../handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
-    var setTestStubs = require('../handlers/consumeRealTimeTransaction').testingStub;
+    var handleRealTimeTransaction = require('../handlers/consumeTransaction').handleRealTimeTransaction;
+    var setTestStubs = require('../handlers/consumeTransaction').testingStub;
     var testLogPlugin = {error: function (text) {console.log(text)}, debug: function (text) {console.log(text)}};
     var testDispose ={rabbitDispose: function (arg1, arg2) {return {msg: arg1, error: arg2}}};
     var testMsg = {body: {internalID: 1}};

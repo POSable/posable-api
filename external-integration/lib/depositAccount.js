@@ -1,4 +1,4 @@
-var qbDepositAccount = function(merchant) {
+var depositAccount = function(merchant) {
 
     var depositDetails = {};
 
@@ -11,4 +11,4 @@ var qbDepositAccount = function(merchant) {
 
 };
 
-module.exports = qbDepositAccount;
+module.exports = depositAccount;

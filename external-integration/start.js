@@ -115,17 +115,14 @@ mongoose.createConnection(env['mongoose_connection']);
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
 
 //Require Handlers
-var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
-var handleRealTimeTransaction = require('./handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
+var handleRealTimeTransaction = require('./handlers/consumeTransaction').handleTransaction;
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.externalIntegration');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
-wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
 wascallyRabbit.setup('external-integration', rabbitCallback);
-
 
 
 function rabbitCallback(err, res) {
@@ -137,5 +134,5 @@ function rabbitCallback(err, res) {
     }
 }
 
-
+require('./lib/invoiceJob/timer');
 
