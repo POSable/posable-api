@@ -9,17 +9,16 @@ var handleError = function(msg, err){
     wascallyRabbit.rabbitDispose(msg, err);
 };
 
-var invoiceProcedure = function (msg, merchant) {
+var invoiceProcedure = function () {
     // Create CE invoice (all sync)
     try {
-        var invoice = invoiceMap(msg, merchant);
+        var invoice = invoiceMap();
 
         postProcedure(msg, merchant, invoice, function(err, externalPost) {
             if (err) {
-                handleError(msg, err);
+                logPlugin.error(err);
             } else {
                 logPlugin.debug('ExternalPost: ' + externalPost.externalPostID + 'Posted and updated successfully');
-                wascallyRabbit.rabbitDispose(msg, null);
             }
         });
     } catch (err) {
