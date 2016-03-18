@@ -30,7 +30,6 @@ var handleTransaction = function(msg) {
 
     } catch(err) {
         handleError(msg, err);
-        throw err;
     }
 };
 

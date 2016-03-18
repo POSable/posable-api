@@ -105,12 +105,14 @@ console.log('Logging Setup Complete');
 
 
 //Setup Database Connection
-console.log('Starting Connection to Mongoose DB');
+var env = require('./common').config();
 var mongoose = require('mongoose');
 var db = mongoose.connection;
-db.on('error', function(err) { logPlugin.debug(err); });
-db.once('open', function () { logPlugin.debug('Mongoose DB connected'); });
-mongoose.createConnection(env['mongoose_connection']);
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+    console.log('connected');
+});
+mongoose.connect(env['mongoose_connection']);
 
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
 
@@ -134,5 +136,5 @@ function rabbitCallback(err, res) {
     }
 }
 
-require('./lib/invoiceJob/timer');
+//require('./lib/invoiceJob/timer');
 
