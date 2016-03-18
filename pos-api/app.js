@@ -16,7 +16,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(bodyParser.json());
-app.use(bodyParser.xml({ xmlParseOptions: { explicitArray: false, trim: true }}));
+app.use(bodyParser.xml({ xmlParseOptions: { explicitArray: false, normalizeTags: true, trim: true }}));
 
 //Will catch any JSON syntax issues
 app.use(bodyParser.json());
