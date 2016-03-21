@@ -21,6 +21,7 @@ var invoiceProcedure = function (invoiceToBeBatched) {
                         logPlugin.error(err);
                     } else {
                         logPlugin.debug('ExternalPost: ' + externalPost.externalPostID + 'Posted and updated successfully');
+                        //Prob need to update the Invoice as being posted here
                     }
                 });
             }
