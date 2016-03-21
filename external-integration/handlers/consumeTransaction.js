@@ -1,6 +1,6 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
-var merchantSearch = require('../lib/common/merchantSearch');
+var invoiceMerchantSearch = require('../lib/common/merchantSearch');
 var invoicePersistence = require('../lib/invoiceJob/invoicePersistence');
 
 var testingStub = function(testLogPlugin, testDispose) {
@@ -18,7 +18,7 @@ var handleTransaction = function(msg) {
         logPlugin.debug('Starting Transaction Handler');
         var id = msg.body.internalID;
 
-        merchantSearch(id, function(err, merchant){
+        invoiceMerchantSearch(id, function(err, merchant){
             if (err) {
                 // Error connecting to database, retry with error
                 handleError(msg, err);

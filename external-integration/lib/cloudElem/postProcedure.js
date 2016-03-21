@@ -4,9 +4,9 @@ var updateRequest = require('./persistRequest').updateRequest;
 var post = require('./cloudElementsClient');
 var paymentReceiptProcedure = require('./../paymentJob/paymentReceiptProcedure');
 
-var postProcedure = function(msg, merchant, payload, callback) {
+var postProcedure = function(merchant, payload, callback) {
 
-    persistRequest(payload, merchant, msg, postToExternal);
+    persistRequest(payload, merchant, postToExternal);
 
     function postToExternal(err, payload, merchant, externalPost) {
         if (err) {

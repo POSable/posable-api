@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var env = require('./common').config();
 
 var healthcheck = require('./routes/healthcheck');
 var app = express();

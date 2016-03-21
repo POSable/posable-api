@@ -11,7 +11,7 @@ var merchantSearch = function(id, callback) {
         return callback(idError, null); // Stops procedure for invalid ID
     }
 
-    configPlugin.merchantLookup(id, function(err, merchant) {
+    configPlugin.merchantInvoiceConfig(id, function(err, merchant) {
         if (err) {
             // Error connecting to database, exit with error
             logPlugin.error(err);

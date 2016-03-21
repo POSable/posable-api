@@ -1,10 +1,9 @@
 var ExternalPost = require('../../models/externalPost').model;
 var logPlugin = require('posable-logging-plugin');
 
-function persistRequest (qbInvoice, merchant, msg, callback) {
+function persistRequest (qbInvoice, merchant, callback) {
     var externalPost = new ExternalPost();
 
-    externalPost.requestID = msg.properties.correlationId;
     externalPost.merchantID = merchant.merchantID;
     externalPost.requestDateTime = Date.now();
     externalPost.postBody = qbInvoice;

@@ -2,19 +2,31 @@ var postProcedure = require('./../cloudElem/postProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 var invoiceMap = require('./invoiceMap');
+var invoiceMerchantSearch = require('../lib/common/merchantSearch');
 
-var invoiceProcedure = function () {
-    // Create CE invoice (all sync)
+
+var invoiceProcedure = function (invoiceToBeBatched) {
     try {
-        var invoice = invoiceMap();
+        var id = invoiceToBeBatched.internalID;
 
-        postProcedure(msg, merchant, invoice, function(err, externalPost) {
+        invoiceMerchantSearch(id, function(err, merchant){
             if (err) {
+                // Error connecting to database
                 logPlugin.error(err);
             } else {
-                logPlugin.debug('ExternalPost: ' + externalPost.externalPostID + 'Posted and updated successfully');
+                var invoice = invoiceMap();
+
+                postProcedure(merchant, invoice, function(err, externalPost) {
+                    if (err) {
+                        logPlugin.error(err);
+                    } else {
+                        logPlugin.debug('ExternalPost: ' + externalPost.externalPostID + 'Posted and updated successfully');
+                    }
+                });
             }
         });
+
+
     } catch (err) {
         logPlugin.error(err);
         throw err;
