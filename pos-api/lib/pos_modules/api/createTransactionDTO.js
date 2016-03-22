@@ -14,11 +14,14 @@ var createTransactionDTO = function (req, statusObject) {
             };
             return transactionDTO;
         }
-        transactionDTO = req.body;
+
+        if (contentType === "application/json") { transactionDTO = keysToLowerCase(req.body); }
+
         if (contentType === "application/xml") {
-            var xmlPayments = transactionDTO.Transaction.Payments.Payment;
-            if (xmlPayments.length > 1) { transactionDTO.Transaction.Payments = xmlPayments; }
-            else { transactionDTO.Transaction.Payments = [xmlPayments]; }}  // <-- forces single xml payments into array
+            transactionDTO = req.body;
+            var xmlPayments = transactionDTO.transaction.payments.payment;
+            if (xmlPayments.length > 1) { transactionDTO.transaction.payments = xmlPayments; }
+            else { transactionDTO.transaction.payments = [xmlPayments]; }}  // <-- forces single xml payments into array
         statusObject.success.push("createTransactionDTO");
         logPlugin.debug('Transaction Request Mapping Finished');
 
@@ -42,6 +45,19 @@ var createTransactionDTO = function (req, statusObject) {
             };
             return true;
         }
+    }
+    // Formats all JSON keys to lowercase
+    function keysToLowerCase (obj) {
+        var keys = Object.keys(obj);
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            if (obj[key] instanceof Object) { keysToLowerCase(obj[key]); }
+            if (key !== key.toLowerCase()) {
+                obj[key.toLowerCase()] = obj[key];
+                delete obj[key];
+            }
+        }
+        return obj;
     }
 };
 

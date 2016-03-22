@@ -116,9 +116,9 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_confi
 
 //Require Handlers
 var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
-var handleRealTimeTransaction = require('./handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
 var consumeVoidExtInt = require('./handlers/consumeVoidExtInt').consumeVoidExtInt;
 var consumeRefundExtInt = require('./handlers/consumeRefundExtInt').consumeRefundExtInt;
+var handleRealTimeTransaction = require('./handlers/consumeTransaction').handleTransaction;
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
@@ -139,5 +139,5 @@ function rabbitCallback(err, res) {
     }
 }
 
-
+require('./lib/invoiceJob/timer');
 

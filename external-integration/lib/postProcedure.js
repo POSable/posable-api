@@ -3,28 +3,28 @@ var persistRequest = require('./persistRequest').persistRequest;
 var updateRequest = require('./persistRequest').updateRequest;
 var post = require('./cloudElementsClient');
 
-var postProcedure = function(msg, merchant, salesReceipt, callback) {
+var postProcedure = function(msg, merchant, qbInvoice, callback) {
 
-    persistRequest(salesReceipt, merchant, msg, postToExternal);
+    persistRequest(qbInvoice, merchant, msg, postToExternal);
 
-    function postToExternal(err, salesReceipt, merchant, externalPost) {
+    function postToExternal(err, qbInvoice, merchant, externalPost) {
         if (err) {
             // Error saving request, exit with error
             logPlugin.error(err);
             return callback(err);
         } else {
-            post(salesReceipt, merchant, externalPost, updateRequestWithResponse);
+            post(qbInvoice, merchant, externalPost, updateRequestWithResponse);
         }
     }
 
-    function updateRequestWithResponse(err, response, externalPost, salesReceipt) {
+    function updateRequestWithResponse(err, response, externalPost, qbInvoice) {
         if (err) {
             // Error posting request or updating externalPost, exit with error
             logPlugin.error(err);
             return callback(err, null);
         } else {
             // Request posted and externalPost updated
-            updateRequest(externalPost, response, salesReceipt, callback);  // <- Passes to original callback
+            updateRequest(externalPost, response, qbInvoice, callback);  // <- Passes to original callback
         }
     }
 };
