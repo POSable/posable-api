@@ -54,6 +54,6 @@ function createRefundPersistence(msg) {
 
 module.exports = {
     createRefundPersistence: createRefundPersistence,
-    testingStub: testingStub
+    //testingStub: testingStub
 };
 

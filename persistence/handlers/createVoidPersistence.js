@@ -54,6 +54,6 @@ function createVoidPersistence(msg) {
 
 module.exports = {
     createVoidPersistence: createVoidPersistence,
-    testingStub: testingStub
+    //testingStub: testingStub
 };
 
