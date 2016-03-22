@@ -21,10 +21,11 @@ function persistRequest (qbInvoice, merchant, callback) {
 
 function updateRequest (externalPost, response, qbInvoice, callback) {
     var objectID = JSON.parse(qbInvoice);
+    var cloudElemID = response.headers['elements-request-id'];
 
     externalPost.update({
         responseDateTime: Date.now(),
-        externalPostID: response.headers['elements-request-id'],
+        externalPostID: cloudElemID,
         externalObjectID: objectID["id"],
         responseStatus: response.statusCode
     }, function (err, externalPost) {
@@ -33,7 +34,7 @@ function updateRequest (externalPost, response, qbInvoice, callback) {
             return callback(err, null);
         } else {
             logPlugin.debug('Successfully updated externalPost');
-            return callback(null, externalPost);
+            return callback(null, cloudElemID);
         }
     });
 }

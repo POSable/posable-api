@@ -1,9 +1,9 @@
 var logPlugin = require('posable-logging-plugin');
 var request = require('request');
 
-var cloudElementsClient = function(payload, merchant, externalPost, callback) {
+var postInvoiceCloudElementsClient = function(payload, merchant, externalPost, callback) {
     try {
-        logPlugin.debug('Start Cloud Elements Client posting function');
+        logPlugin.debug('Start Cloud Elements Client Invoice posting function');
         request({
             url: 'https://qa.cloud-elements.com/elements/api-v2/hubs/finance/invoices',
             method: 'POST',
@@ -35,4 +35,4 @@ var cloudElementsClient = function(payload, merchant, externalPost, callback) {
     }
 };
 
-module.exports = cloudElementsClient;
+module.exports = postInvoiceCloudElementsClient;
