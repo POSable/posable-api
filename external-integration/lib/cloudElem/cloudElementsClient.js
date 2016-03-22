@@ -5,7 +5,7 @@ var cloudElementsClient = function(payload, merchant, externalPost, callback) {
     try {
         logPlugin.debug('Start Cloud Elements Client posting function');
         request({
-            url: 'https://qa.cloud-elements.com:443/elements/api-v2/hubs/finance/sales-receipts',
+            url: 'https://qa.cloud-elements.com/elements/api-v2/hubs/finance/invoices',
             method: 'POST',
             headers: {
                 'User-Agent': 'request',

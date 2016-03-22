@@ -29,7 +29,7 @@ var addTaxItem = function(msg, invoice) {
     }
 };
 var addDiscountItem = function(msg, invoice) {
-    if(msg.body.data.discount > 0) {          //need dataModel    <---------------------- Need to map at POS-API level
+    if(msg.body.data.amount > 0) {          //need dataModel    <---------------------- Need to map at POS-API level
         var discountInvoiceItem = new InvoiceItem();
         discountInvoiceItem.transactionID = msg.body.data.transactionID;
         discountInvoiceItem.type = "discount";
@@ -107,7 +107,7 @@ var invoicePersistence = function(msg, merchant) {
         }
 
         //set all line item functions on either new or found (db) invoice
-        addInvoiceItems(msg, foundInvoice);
+        addInvoiceItems(msg, foundInvoice);     //Why are invoiceItems not being shoved into array?
         makePayments(msg, foundInvoice);
         invoiceSaveAndMsgDispose(msg, foundInvoice);
 

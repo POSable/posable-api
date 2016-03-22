@@ -3,6 +3,8 @@ var persistRequest = require('./persistRequest').persistRequest;
 var updateRequest = require('./persistRequest').updateRequest;
 var post = require('./cloudElementsClient');
 var paymentReceiptProcedure = require('./../paymentJob/paymentReceiptProcedure');
+var updateInvoiceCloudElemID = require('./../invoiceJob/updateInvoiceCloudElemID');
+
 
 var postProcedure = function(merchant, payload, callback) {
 
@@ -27,6 +29,9 @@ var postProcedure = function(merchant, payload, callback) {
 
             //Send response to paymentReceiptProcedure
             paymentReceiptProcedure(response);
+
+            //Mark Invoice as sent
+            //updateInvoiceCloudElemID(response);
 
             // Request posted and externalPost updated
             updateRequest(externalPost, response, payload, callback);  // <- Passes to original callback
