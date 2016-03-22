@@ -12,22 +12,21 @@ var invoiceProcedure = function (invoiceToBePosted) {
         var id = invoiceToBePosted.internalID;
         var invoiceID = invoiceToBePosted._id;
 
-        invoiceMerchantSearch(id, function(err, merchantArray){
+        invoiceMerchantSearch(id, function(err, merchConfig){
             if (err) {
                 // Error connecting to database
                 logPlugin.error(err);
             } else {
-                var merchConfig = merchantArray[0];  //fix this shit so it's not in an array
                 var invoice = invoiceMap(merchConfig);
 
-                 postInvoiceProcedure(merchConfig, invoice, function(err, cloudElemID) {
+                 postInvoiceProcedure(merchConfig, invoice, function(err, qbInvoiceID) {
                      if (err) {
                          logPlugin.error(err);
                      } else {
-                         logPlugin.debug('ExternalPost: ' + cloudElemID + ' Posted and updated successfully');
+                         logPlugin.debug('ExternalPost: ' + qbInvoiceID + ' Posted and updated successfully');
 
                          //Mark Invoice as sent
-                         updateInvoiceCloudElemID(invoiceID, cloudElemID);
+                         updateInvoiceCloudElemID(invoiceID, qbInvoiceID);
 
                          //Send response to paymentReceiptProcedure
                          //paymentReceiptProcedure(merchConfig, externalPost.externalPostID);

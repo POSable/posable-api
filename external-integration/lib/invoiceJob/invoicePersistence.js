@@ -4,18 +4,18 @@ var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var makePayments = require('./../paymentJob/makePayments');
 
-var populateInvoice = function(invoice, id, batchTime) {
+var populateInvoice = function(invoice, id) {
     invoice.cloudElemID = null;
     invoice.internalID = id;
-    invoice.finalizeAt = batchTime;
+    //invoice.finalizeAt = invoice.finalizeAt;
     invoice.invoiceItems = [];
 };
 var addSaleItem = function(msg, invoice) {
-    if(msg.body.data.amount > 0) {
+    if( msg.body.data.subtotal > 0) {
         var saleInvoiceItem = new InvoiceItem();
         saleInvoiceItem.transactionID = msg.body.data.transactionID;
         saleInvoiceItem.type = "sale";
-        saleInvoiceItem.amount = msg.body.data.amount;
+        saleInvoiceItem.amount =  msg.body.data.subtotal;
         invoice.invoiceItems.push(saleInvoiceItem);
     }
 };
@@ -29,7 +29,7 @@ var addTaxItem = function(msg, invoice) {
     }
 };
 var addDiscountItem = function(msg, invoice) {
-    if(msg.body.data.amount > 0) {          //need dataModel    <---------------------- Need to map at POS-API level
+    if(msg.body.data.amount > 0) {          //need dataModel    <------------ Need to map at POS-API level
         var discountInvoiceItem = new InvoiceItem();
         discountInvoiceItem.transactionID = msg.body.data.transactionID;
         discountInvoiceItem.type = "discount";
@@ -62,7 +62,7 @@ var invoiceSaveAndMsgDispose = function(msg, foundInvoice) {
         wascallyRabbit.rabbitDispose(msg, err);
     });
 };
-function getInvoice(id){
+function getInvoice(id, callback){
     Invoice.findOne(
         {
             internalID: id,
@@ -76,8 +76,10 @@ function getInvoice(id){
         function(err, result) {
             if( err ) {
                 logPlugin.error(err);
+                callback(err, null);
             } else {
                 logPlugin.debug('Invoice findOne complete. Results : ', result);
+                callback(null, result);
             }
         }
     );
@@ -88,36 +90,51 @@ var invoicePersistence = function(msg, merchant) {
         logPlugin.debug('Starting InvoiceItem Mapping');
 
         var foundInvoice = null;
-        var finalizeAt = Date.now(); //if real time, never gets over-ridden
         var id = merchant.internalID;
-        var batchTime = merchant.batchTime;
 
         if (merchant.batchType === "batch") {
-            finalizeAt = batchTime; //override this to merchant's batch time so the invoice stays open
-
             //if batch merchant's invoice already open for day, edit existing
             //This will be async and need to be put into a callback...
-            foundInvoice = getInvoice(id);
+            getInvoice(id, function (err, foundInvoice) {
+                if (err) {
+                    logPlugin.error(err);
+                } else {
+                    finishInvoice(foundInvoice);
+                }
+            })
+        } else {
+            finishInvoice(null);
         }
-
-        if (!foundInvoice) {
-            //either realtime merch or batch merch's first transaction
-            foundInvoice = new Invoice();
-            populateInvoice(foundInvoice, id, finalizeAt);
-        }
-
-        //set all line item functions on either new or found (db) invoice
-        addInvoiceItems(msg, foundInvoice);     //Why are invoiceItems not being shoved into array?
-        makePayments(msg, foundInvoice);
-        invoiceSaveAndMsgDispose(msg, foundInvoice);
-
     } catch (err) {
         logPlugin.debug('System error in invoicePersistence');
         logPlugin.error(err);
     }
 
-    logPlugin.debug('invoicePersistence Procedure Finished');
+    function finishInvoice(invoice) {
+        if (!foundInvoice) {
+            //either realtime merch or batch merch's first transaction
+            foundInvoice = new Invoice();
+            foundInvoice.finalizeAt = merchant.batchType === "batch" ? merchant.batchTime : Date.now();
+            populateInvoice(foundInvoice, id);
+        }
 
+        //set all line item functions on either new or found (db) invoice
+        addInvoiceItems(msg, foundInvoice);
+        makePayments(msg, foundInvoice);
+        invoiceSaveAndMsgDispose(msg, foundInvoice);
+        logPlugin.debug('invoicePersistence Procedure Finished');
+    }
+};
+
+var calcTime = function(batchTime) { //batchTime will be '20:15'  <---- fix this in UTC mil time
+    //Parse 20:15 into 'batchHour' (20) and 'batchMin (15)
+    //Set 'dtNow' = Date.now();
+    //set 'tstDate' as new Date(dtNow.getYear, dtNow.getMonth, dtNow.getDay, batchHour, batchMin);
+
+    // -- if tstDate now represents batch date/time for TODAY - if past it already, sset for tomorrow
+    //if Date.now() > tstDate
+        //tstDate = tstDate + 1 day
+    //return tstDate
 };
 
 module.exports = invoicePersistence;
