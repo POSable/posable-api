@@ -115,7 +115,7 @@ mongoose.createConnection(env['mongoose_connection']);
 var configPlugin = require('posable-customer-config-plugin')(env['mongoose_config_connection'], env['redis_connection'], logPlugin);
 
 //Require Handlers
-var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
+
 var consumeVoidExtInt = require('./handlers/consumeVoidExtInt').consumeVoidExtInt;
 var consumeRefundExtInt = require('./handlers/consumeRefundExtInt').consumeRefundExtInt;
 var handleRealTimeTransaction = require('./handlers/consumeTransaction').handleTransaction;
@@ -127,7 +127,6 @@ wascallyRabbit.setQSubscription('service.externalIntegration');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
 wascallyRabbit.setHandler('posapi.event.receivedCreateVoidRequest', consumeVoidExtInt);
 wascallyRabbit.setHandler('posapi.event.receivedCreateRefundRequest', consumeRefundExtInt);
-wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
 wascallyRabbit.setup('external-integration', rabbitCallback);
 
 function rabbitCallback(err, res) {
