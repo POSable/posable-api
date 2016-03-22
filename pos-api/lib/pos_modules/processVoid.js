@@ -2,7 +2,6 @@
  * Created by davidabramowitz on 3/21/16.
  */
 var wascallyRabbit = require('posable-wascally-wrapper');
-var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 var configPlugin = require('posable-customer-config-plugin')();
 // Modules
@@ -13,7 +12,6 @@ var checkErrorAltResponsePath = require('./checkErrorAltResponsePath').checkErro
 var processVoid = function (req, res, statusObject, requestID) {
     logPlugin.debug("Starting processVoid");
     if (statusObject.isOK) {
-        console.log("*****", statusObject.internalID)
         configPlugin.merchantLookup(statusObject.internalID, merchantLookupCallback);
     } else {
         checkErrorAltResponsePath(req, statusObject);
@@ -60,7 +58,7 @@ var processVoid = function (req, res, statusObject, requestID) {
             sendResponse(res, statusObject, requestID);
         }
     }
-}
+};
 
 var testingStub = function (testLogPlugin, testWascallyRabbit, testConfigPlugin, testSendResponse, testCheckErrorAltResponsePath) {
     logPlugin = testLogPlugin;
