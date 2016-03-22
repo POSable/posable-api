@@ -7,10 +7,7 @@ var logPlugin = require('posable-logging-plugin');
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authenticatePost;
 var reqHeaderTokenProvider = require ('../lib/pos_modules/api/reqHeaderTokenProvider');
 var processTransaction = require('../lib/pos_modules/processTransaction').processTransaction;
-var processVoid = require ('../lib/pos_modules/processVoid').processVoid;
-var processRefund = require ('../lib/pos_modules/processRefund').processRefund;
 var sendResponse = require('../lib/pos_modules/sendResponse');
-var sendVoidRefundErrorResponse = require ('../lib/pos_modules/sendVoidRefundErrorResponse').sendErrorResponse;
 var checkErrorAltResponsePath = require('../lib/pos_modules/checkErrorAltResponsePath').checkErrorAltResponsePath;
 
 // Var Extraction
@@ -38,13 +35,7 @@ router.post('/', function(req, res) {
                 error: {code: 500, message: "System Error with Token Authentication"}
             };
         }
-        var isVoid = (req.body.Transaction.IsVoid === 'true') || false;
-        var isRefund = (req.body.Transaction.IsRefund === 'true') || false;
-        // Checking both IsVoid and IsRefund is true should happen first.
-        if(isVoid && isRefund) return sendVoidRefundErrorResponse(req, res, statusObject, requestID);
-        if(isVoid) processVoid(req, res, statusObject, requestID);
-        if(isRefund) processRefund(req, res, statusObject, requestID);
-        if(!isVoid && !isRefund) processTransaction(req, res, statusObject, requestID);
+        processTransaction(req, res, statusObject, requestID);
     }
 });
 

@@ -6,7 +6,7 @@
 describe("Test 'processTransaction' module & 'processTransaction' function", function() {
     var processTransaction = require('../../lib/pos_modules/processTransaction').processTransaction;
     var statusObject = {};
-    var req = {body: {test: "testing my body!"}};
+    var req = {body: {test: "testing my body!", transaction: {isvoid: false, isrefund: false}}};
     var res = {};
     var requestID = 1;
     var merchant = {responseType:'alt', internalID: 1};
