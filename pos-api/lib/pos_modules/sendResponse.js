@@ -14,7 +14,7 @@ var sendResponse = function (res, statusObject, requestID) {
                     '?xml version="1.0" encoding="utf-8"?': null,
                     status: 200,
                     requestID: requestID,
-                    message: "Transactions passed all internal checks and posted successfully"
+                    message: "Passed all internal checks and posted successfully"
                 }));
             } else {
                 logPlugin.debug("returning JSON");
@@ -23,7 +23,7 @@ var sendResponse = function (res, statusObject, requestID) {
                 res.json({
                     status: 200,
                     requestID: requestID,
-                    message: "Transactions passed all internal checks and posted successfully"
+                    message: "Passed all internal checks and posted successfully"
                 });
             }
         } else {
