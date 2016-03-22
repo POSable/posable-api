@@ -117,16 +117,18 @@ var configPlugin = require('posable-customer-config-plugin')(env['mongoose_confi
 //Require Handlers
 var handleBatch = require('./handlers/consumeBatchEvent').handleBatch;
 var handleRealTimeTransaction = require('./handlers/consumeRealTimeTransaction').handleRealTimeTransaction;
+var consumeVoidExtInt = require('./handlers/consumeVoidExtInt').consumeVoidExtInt;
+var consumeRefundExtInt = require('./handlers/consumeRefundExtInt').consumeRefundExtInt;
 
 //Setup RabbitMQ
 console.log('Starting Connection to RabbitMQ');
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.externalIntegration');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', handleRealTimeTransaction);
+wascallyRabbit.setHandler('posapi.event.receivedCreateVoidRequest', consumeVoidExtInt);
+wascallyRabbit.setHandler('posapi.event.receivedCreateRefundRequest', consumeRefundExtInt);
 wascallyRabbit.setHandler('persistence.event.calculatedFinancialDailySummary', handleBatch);
 wascallyRabbit.setup('external-integration', rabbitCallback);
-
-
 
 function rabbitCallback(err, res) {
     if (err) {
