@@ -1,26 +1,41 @@
-var postProcedure = require('./../postProcedure');
+var postInvoiceProcedure = require('./../cloudElem/postInvoiceProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 var invoiceMap = require('./invoiceMap');
+var invoiceMerchantSearch = require('../common/merchantSearch');
+var updateInvoiceCloudElemID = require('./../invoiceJob/updateInvoiceCloudElemID');
+var paymentReceiptProcedure = require('./../paymentJob/paymentReceiptProcedure');
 
-var handleError = function(msg, err){
-    err.deadLetter = true;
-    logPlugin.error(err);
-    wascallyRabbit.rabbitDispose(msg, err);
-};
 
-var invoiceProcedure = function () {
-    // Create CE invoice (all sync)
+var invoiceProcedure = function (invoiceToBePosted) {
     try {
-        var invoice = invoiceMap();
+        var id = invoiceToBePosted.internalID;
+        var invoiceID = invoiceToBePosted._id;
 
-        postProcedure(msg, merchant, invoice, function(err, externalPost) {
+        invoiceMerchantSearch(id, function(err, merchConfig){
             if (err) {
+                // Error connecting to database
                 logPlugin.error(err);
             } else {
-                logPlugin.debug('ExternalPost: ' + externalPost.externalPostID + 'Posted and updated successfully');
+                var invoice = invoiceMap(merchConfig);
+
+                 postInvoiceProcedure(merchConfig, invoice, function(err, qbInvoiceID) {
+                     if (err) {
+                         logPlugin.error(err);
+                     } else {
+                         logPlugin.debug('ExternalPost: ' + qbInvoiceID + ' Posted and updated successfully');
+
+                         //Mark Invoice as sent
+                         updateInvoiceCloudElemID(invoiceID, qbInvoiceID);
+
+                         //Send response to paymentReceiptProcedure
+                         //paymentReceiptProcedure(merchConfig, externalPost.externalPostID);
+                     }
+                 });
             }
         });
+
+
     } catch (err) {
         logPlugin.error(err);
         throw err;

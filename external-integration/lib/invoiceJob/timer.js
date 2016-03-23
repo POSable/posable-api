@@ -6,7 +6,7 @@ var timer = function() {
         function kickoff() {
             invoiceQuery();
         }
-        setInterval(function(){ kickoff() }, 3000);
+        setInterval(function(){ kickoff() }, 10000);
 
     } catch (err) {
         logPlugin.error(err);

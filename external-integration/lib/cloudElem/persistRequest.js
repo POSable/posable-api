@@ -1,13 +1,12 @@
-var ExternalPost = require('../models/externalPost').model;
+var ExternalPost = require('../../models/externalPost').model;
 var logPlugin = require('posable-logging-plugin');
 
-function persistRequest (cloudElemSR, merchant, msg, callback) {
+function persistRequest (qbInvoice, merchant, callback) {
     var externalPost = new ExternalPost();
 
-    externalPost.requestID = msg.properties.correlationId;
     externalPost.merchantID = merchant.merchantID;
     externalPost.requestDateTime = Date.now();
-    externalPost.postBody = cloudElemSR;
+    externalPost.postBody = qbInvoice;
 
     externalPost.save(function (err, externalPost) {
         if (err) {
@@ -15,17 +14,20 @@ function persistRequest (cloudElemSR, merchant, msg, callback) {
             return callback(err, null, null, null);
         } else {
             logPlugin.debug('External post was saved');
-            return callback(null, cloudElemSR, merchant, externalPost);
+            return callback(null, qbInvoice, merchant, externalPost);
         }
     });
 }
 
-function updateRequest (externalPost, response, salesReceipt, callback) {
-    var objectID = JSON.parse(salesReceipt);
+function updateRequest (externalPost, response, qbInvoice, callback) {
+    var objectID = JSON.parse(qbInvoice);
+    var cloudElemPostID = response.headers['elements-request-id'];
+    var qbInvoiceID = JSON.parse(response.body).id;
+
 
     externalPost.update({
         responseDateTime: Date.now(),
-        externalPostID: response.headers['elements-request-id'],
+        externalPostID: cloudElemPostID,
         externalObjectID: objectID["id"],
         responseStatus: response.statusCode
     }, function (err, externalPost) {
@@ -34,7 +36,7 @@ function updateRequest (externalPost, response, salesReceipt, callback) {
             return callback(err, null);
         } else {
             logPlugin.debug('Successfully updated externalPost');
-            return callback(null, externalPost);
+            return callback(null, qbInvoiceID);
         }
     });
 }

@@ -1,32 +1,32 @@
 var logPlugin = require('posable-logging-plugin');
 var persistRequest = require('./persistRequest').persistRequest;
 var updateRequest = require('./persistRequest').updateRequest;
-var post = require('./cloudElementsClient');
+var postInvoice = require('./postInvoiceCloudElementsClient');
 
-var postProcedure = function(msg, merchant, qbInvoice, callback) {
+var postInvoiceProcedure = function(merchant, payload, callback) {
 
-    persistRequest(qbInvoice, merchant, msg, postToExternal);
+    persistRequest(payload, merchant, postToExternal);
 
-    function postToExternal(err, qbInvoice, merchant, externalPost) {
+    function postToExternal(err, payload, merchant, externalPost) {
         if (err) {
             // Error saving request, exit with error
             logPlugin.error(err);
             return callback(err);
         } else {
-            post(qbInvoice, merchant, externalPost, updateRequestWithResponse);
+            postInvoice(payload, merchant, externalPost, updateRequestWithResponse);
         }
     }
 
-    function updateRequestWithResponse(err, response, externalPost, qbInvoice) {
+    function updateRequestWithResponse(err, response, externalPost, payload) {
         if (err) {
             // Error posting request or updating externalPost, exit with error
             logPlugin.error(err);
             return callback(err, null);
         } else {
             // Request posted and externalPost updated
-            updateRequest(externalPost, response, qbInvoice, callback);  // <- Passes to original callback
+            updateRequest(externalPost, response, payload, callback);  // <- Passes to original callback
         }
     }
 };
 
-module.exports = postProcedure;
+module.exports = postInvoiceProcedure;
