@@ -7,11 +7,11 @@ var merchantSearch = function(id, callback) {
 
     // Initial ID Check
     if (id === undefined) {
-        var idError = new Error('Msg internalID is undefined.  Msg rejected from RTT handler');
+        var idError = new Error('Msg internalID is undefined.');
         return callback(idError, null); // Stops procedure for invalid ID
     }
 
-    configPlugin.merchantLookup(id, function(err, merchant) {
+    configPlugin.merchantInvoiceConfig(id, function(err, merchant) {
         if (err) {
             // Error connecting to database, exit with error
             logPlugin.error(err);
@@ -23,6 +23,7 @@ var merchantSearch = function(id, callback) {
             searchError.deadLetter = true;
             return callback(searchError, merchant);
         } else {
+            console.log(merchant);
             logPlugin.debug('Merchant found, search complete');
             return callback(null, merchant);
         }

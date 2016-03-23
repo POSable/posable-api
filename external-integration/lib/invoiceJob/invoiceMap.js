@@ -2,48 +2,52 @@
 
 var invoiceMap = function() {
 
-    //var array = msg.body.data.transactionPayments;
     var lineDetail = {};
     var line = [];
 
     var sampleData = [
         {
-            transactionID:"123987",
-            amount:200.00,
+            transactionID:"111111",
+            amount:2015.00,
             type:"sales" //sales/tax/gift/discount
         },
         {
-            transactionID:"123987",
-            amount:15.87,
+            transactionID:"111111",
+            amount:226.87,
             type:"tax"
         },
         {
-            transactionID:"123987",
-            amount:20.15,
+            transactionID:"111111",
+            amount:200.15,
             type:"discount"
         },
         {
-            transactionID:"123987",
-            amount:1.05,
+            transactionID:"111111",
+            amount:10.05,
             type:"giftCard"
         }
     ];
 
     sampleData.forEach(function(item){
 
-        var itemRef = 12; //the default for sales
+        var itemRef = 36; //the default for sales     <------- this is where you pull in iDs from Config --no hardcode
+        var itemRefName = "Credit Card Sales";
         if (item.type === "tax") {
-            itemRef = 31;
-        } if (item.type === "discount") {
-            itemRef = 32;
-        } if (item.type === "giftCard") {
             itemRef = 33;
+            itemRefName = "Tax";
+        } if (item.type === "discount") {
+            itemRef = 34;
+            itemRefName = "Discounts";
+        } if (item.type === "giftCard") {
+            itemRef = 35;
+            itemRefName = "Gift Cards";
         }
 
         lineDetail = {
 
             "salesItemLineDetail": {
                 "itemRef": {
+                    "name": itemRefName,
                     "value": itemRef
                 }
             },
@@ -59,12 +63,10 @@ var invoiceMap = function() {
 
     var invoice = {
         "customerRef": {
-            "value": "2"  //needed from config
+            "value": "4"  //needed from config
         },
         "line": line
     };
-
-    //console.log(invoice);
 
     return invoice;
 

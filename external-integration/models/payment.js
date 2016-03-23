@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var Payment = new mongoose.Schema({
-    InvoiceID: String,
+    invoiceID: String,
     transactionID: String,
     paymentType: String,
     amount: Number
