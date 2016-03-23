@@ -4,10 +4,10 @@ var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var makePayments = require('./../paymentJob/makePayments');
 
-var populateInvoice = function(invoice, id) {
+var populateInvoice = function(invoice, id, batchTime) {
     invoice.cloudElemID = null;
     invoice.internalID = id;
-    //invoice.finalizeAt = invoice.finalizeAt;
+    invoice.finalizeAt = batchTime;
     invoice.invoiceItems = [];
 };
 var addSaleItem = function(msg, invoice) {
@@ -114,8 +114,14 @@ var invoicePersistence = function(msg, merchant) {
         if (!foundInvoice) {
             //either realtime merch or batch merch's first transaction
             foundInvoice = new Invoice();
-            foundInvoice.finalizeAt = merchant.batchType === "batch" ? merchant.batchTime : Date.now();
-            populateInvoice(foundInvoice, id);
+            var batchTime;
+            if(merchant.batchType === "batch"){
+                batchTime = calcTime(merchant);
+
+            } else {
+                batchTime = new Date();
+            }
+            populateInvoice(foundInvoice, id, batchTime);
         }
 
         //set all line item functions on either new or found (db) invoice
@@ -126,15 +132,28 @@ var invoicePersistence = function(msg, merchant) {
     }
 };
 
-var calcTime = function(batchTime) { //batchTime will be '20:15'  <---- fix this in UTC mil time
-    //Parse 20:15 into 'batchHour' (20) and 'batchMin (15)
-    //Set 'dtNow' = Date.now();
-    //set 'tstDate' as new Date(dtNow.getYear, dtNow.getMonth, dtNow.getDay, batchHour, batchMin);
+var calcTime = function(merchant) {
+    var batchTime;
+    var dateNow = new Date();
+    var testDate = new Date(dateNow.getUTCFullYear(), dateNow.getUTCMonth(), dateNow.getUTCDate(), merchant.batchHour, merchant.batchMin);
 
-    // -- if tstDate now represents batch date/time for TODAY - if past it already, sset for tomorrow
-    //if Date.now() > tstDate
-        //tstDate = tstDate + 1 day
-    //return tstDate
+    if(dateNow > testDate) {
+        batchTime = testDate;
+    } else {
+        batchTime = testDate.setDate(testDate.getUTCDate() + 1);
+    }
+    console.log("#######", batchTime);
+    return batchTime
 };
 
 module.exports = invoicePersistence;
+
+//batchTime will be '20:15'  <---- fix this in UTC mil time
+//Parse 20:15 into 'batchHour' (20) and 'batchMin (15)
+//Set 'dtNow' = Date.now();
+//set 'tstDate' as new Date(dtNow.getYear, dtNow.getMonth, dtNow.getDay, batchHour, batchMin);
+
+// -- if tstDate now represents batch date/time for TODAY - if past it already, sset for tomorrow
+//if Date.now() > tstDate
+//tstDate = tstDate + 1 day
+//return tstDate
