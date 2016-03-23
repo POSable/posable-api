@@ -37,7 +37,7 @@ var postGetToken = function(req, res) {
                 error: {code: 500, message: "System Error with Token Authentication"}
             };
         }
-        configPlugin.getToken(req.body.GetToken, configPluginCallback);
+        configPlugin.getToken(req.body.gettoken, configPluginCallback);
     }
     function configPluginCallback(err, token) {
         if (err) {
