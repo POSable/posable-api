@@ -22,6 +22,23 @@ var invoiceSaveAndMsgDispose = function(msg, foundInvoice) {
         wascallyRabbit.rabbitDispose(msg, err);
     });
 };
+
+var calcTime = function(merchant) {
+    var batchTime;
+    var dateNow = new Date();
+    var testDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), merchant.batchHour, merchant.batchMin);
+    var day = 1000 * 60 * 60 * 24;
+    var milliseconds = testDate.getTime();
+    var tomorrow = milliseconds + day;
+
+    if(dateNow > testDate) {
+        batchTime = testDate;
+    } else {
+        batchTime = new Date(tomorrow);
+    }
+    return batchTime
+};
+
 function getInvoice(id, callback){
     Invoice.findOne(
         {
@@ -91,21 +108,7 @@ var invoicePersistence = function(msg, merchant) {
     }
 };
 
-var calcTime = function(merchant) {
-    var batchTime;
-    var dateNow = new Date();
-    var testDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), merchant.batchHour, merchant.batchMin);
-    var day = 1000 * 60 * 60 * 24;
-    var milliseconds = testDate.getTime();
-    var tomorrow = milliseconds + day;
 
-    if(dateNow > testDate) {
-        batchTime = testDate;
-    } else {
-        batchTime = new Date(tomorrow);
-    }
-    return batchTime
-};
 
 module.exports = invoicePersistence;
 
