@@ -1,3 +1,6 @@
+var logPlugin = require('posable-logging-plugin');
+var InvoiceItem = require('../../models/invoiceItem').model;
+
 var addSaleItem = function(msg, invoice) {
     if( msg.body.data.subtotal > 0) {
         var saleInvoiceItem = new InvoiceItem();
@@ -8,7 +11,7 @@ var addSaleItem = function(msg, invoice) {
     }
 };
 var addTaxItem = function(msg, invoice) {
-    if(msg.body.data.tax > 0) {
+    if(msg.body.data.taxes.tax.taxamount > 0) {
         var taxInvoiceItem = new InvoiceItem();
         taxInvoiceItem.transactionID = msg.body.data.transactionID;
         taxInvoiceItem.type = "tax";
@@ -29,14 +32,27 @@ var addGiftCardItem = function(msg, invoice) {
     if(msg.body.data.paymentType === 'gift') {
         var giftCardInvoiceItem = new InvoiceItem();
         giftCardInvoiceItem.transactionID = msg.body.data.transactionID;
-        giftCardInvoiceItem.type = "giftCard";
+
         giftCardInvoiceItem.amount = msg.body.data.amount; //need dataModel
         invoice.invoiceItems.push(giftCardInvoiceItem);
     }
 };
+
 var addInvoiceItems = function(msg, foundInvoice) {
-    addSaleItem(msg, foundInvoice);
-    addTaxItem(msg, foundInvoice);
-    addDiscountItem(msg, foundInvoice);
-    addGiftCardItem(msg, foundInvoice);
+    try {
+        addSaleItem(msg, foundInvoice);
+        addTaxItem(msg, foundInvoice);
+        addDiscountItem(msg, foundInvoice);
+        addGiftCardItem(msg, foundInvoice);
+
+    } catch (err) {
+        logPlugin.error(err);
+    }
 };
+
+module.exports = addInvoiceItems;
+
+
+
+
+
