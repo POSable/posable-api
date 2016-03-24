@@ -19,15 +19,25 @@ var mapTransaction = function(dto, statusObject) {
             transaction.registerID = dto.transaction.registeruid;
             transaction.cashierID = dto.transaction.cashierid;
             transaction.dateTime = dateTime;
-            transaction.discounts = dto.transaction.discounts;
             transaction.subtotal = dto.transaction.subtotal;
-            transaction.taxes = dto.transaction.taxes;
             transaction.total = dto.transaction.total;
             transaction.customer = dto.transaction.customer;
             transaction.inventoryItems = dto.transaction.inventoryitems;
-            //transaction.customFields = dto.transaction.customfields;
-
+            transaction.discounts = [];
+            transaction.taxes = [];
             transaction.transactionPayments = [];
+            dto.transaction.discounts.forEach(function(discount) {
+                    transaction.discounts.push({
+                    discountDescription: discount.discountdescription,
+                    discountAmount : discount.discountamount
+                })
+            });
+            dto.transaction.taxes.forEach(function(tax) {
+                transaction.taxes.push({
+                    taxDescription: tax.taxdescription,
+                    taxAmount : tax.taxamount
+                })
+            });
             dto.transaction.payments.forEach(function(paymentdto) {
                 transaction.transactionPayments.push({
                     paymentID: paymentdto.paymentid,
@@ -38,6 +48,7 @@ var mapTransaction = function(dto, statusObject) {
                     authCode : paymentdto.creditcard.authcode
                 })
             });
+
             logPlugin.debug('Transaction Property Mapping was Successful');
         } catch (err) {
             logPlugin.error(err);
