@@ -11,11 +11,11 @@ var kickOffProcedure = function(resultArray) {
 var invoiceQuery = function() {
     try {
         Invoice.find({
-            //    finalizeAt:
-            //{
-            //    $gt: new Date()
-            //},
-            cloudElemID: null
+                //finalizeAt:
+                //    {
+                //        $lt: new Date()
+                //    },
+                cloudElemID: null
         },
         {},
         function(err, result) {

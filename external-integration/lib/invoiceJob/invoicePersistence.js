@@ -10,48 +10,7 @@ var populateInvoice = function(invoice, id, batchTime) {
     invoice.finalizeAt = batchTime;
     invoice.invoiceItems = [];
 };
-var addSaleItem = function(msg, invoice) {
-    if( msg.body.data.subtotal > 0) {
-        var saleInvoiceItem = new InvoiceItem();
-        saleInvoiceItem.transactionID = msg.body.data.transactionID;
-        saleInvoiceItem.type = "sale";
-        saleInvoiceItem.amount =  msg.body.data.subtotal;
-        invoice.invoiceItems.push(saleInvoiceItem);
-    }
-};
-var addTaxItem = function(msg, invoice) {
-    if(msg.body.data.tax > 0) {
-        var taxInvoiceItem = new InvoiceItem();
-        taxInvoiceItem.transactionID = msg.body.data.transactionID;
-        taxInvoiceItem.type = "tax";
-        taxInvoiceItem.amount = msg.body.data.tax;
-        invoice.invoiceItems.push(taxInvoiceItem);
-    }
-};
-var addDiscountItem = function(msg, invoice) {
-    if(msg.body.data.amount > 0) {          //need dataModel    <------------ Need to map at POS-API level
-        var discountInvoiceItem = new InvoiceItem();
-        discountInvoiceItem.transactionID = msg.body.data.transactionID;
-        discountInvoiceItem.type = "discount";
-        discountInvoiceItem.amount = msg.body.data.amount; //need dataModel
-        invoice.invoiceItems.push(discountInvoiceItem);
-    }
-};
-var addGiftCardItem = function(msg, invoice) {
-    if(msg.body.data.paymentType === 'gift') {
-        var giftCardInvoiceItem = new InvoiceItem();
-        giftCardInvoiceItem.transactionID = msg.body.data.transactionID;
-        giftCardInvoiceItem.type = "giftCard";
-        giftCardInvoiceItem.amount = msg.body.data.amount; //need dataModel
-        invoice.invoiceItems.push(giftCardInvoiceItem);
-    }
-};
-var addInvoiceItems = function(msg, foundInvoice) {
-    addSaleItem(msg, foundInvoice);
-    addTaxItem(msg, foundInvoice);
-    addDiscountItem(msg, foundInvoice);
-    addGiftCardItem(msg, foundInvoice);
-};
+
 var invoiceSaveAndMsgDispose = function(msg, foundInvoice) {
     foundInvoice.save(function (err) {
         if (err) {
@@ -117,7 +76,6 @@ var invoicePersistence = function(msg, merchant) {
             var batchTime;
             if(merchant.batchType === "batch"){
                 batchTime = calcTime(merchant);
-
             } else {
                 batchTime = new Date();
             }
@@ -136,7 +94,7 @@ var calcTime = function(merchant) {
     var batchTime;
     var dateNow = new Date();
     var testDate = new Date(dateNow.getUTCFullYear(), dateNow.getUTCMonth(), dateNow.getUTCDate(), merchant.batchHour, merchant.batchMin);
-
+    console.log("$$$$$$$$$", testDate);
     if(dateNow > testDate) {
         batchTime = testDate;
     } else {
