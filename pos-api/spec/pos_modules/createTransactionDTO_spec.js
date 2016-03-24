@@ -26,7 +26,7 @@ describe("Test 'createTransactionDTO' module & 'createTransactionDTO' function",
     describe("Request content-type is xml", function(){
 
         beforeEach(function() {
-            req = {body: {test: "value", transaction: {payments: {payment: []}}}, headers: {'content-type': "application/xml"}};
+            req = {body: {test: "value", transaction: {payments: {payment: []}, discounts: {discount: []}, taxes: {tax: []}}}, headers: {'content-type': "application/xml"}};
             statusObject = {isOK: true, success: []};
         });
 
