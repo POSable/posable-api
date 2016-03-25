@@ -7,7 +7,6 @@ var mapPayloadAudit = function(msg) {
     try {
         var payloadAudit = new PayloadAudit();
         payloadAudit.payload = msg.body;
-        });
 
         logPlugin.debug('PayloadAudit mapping successful');
         return payloadAudit;
