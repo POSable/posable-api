@@ -1,5 +1,3 @@
-//var sampleData = require('./sampleObj');
-
 var invoiceMap = function(invoiceToBePosted, merchConfig) {
 
     var lineDetail = {};
@@ -16,39 +14,26 @@ var invoiceMap = function(invoiceToBePosted, merchConfig) {
         } if (item.type === "discount") {
             itemRef = merchConfig.discountLineItemID;
             itemRefName = "Discounts";
+            itemAmount *= -1
         } if (item.type === "giftCard") {
             itemRef = merchConfig.giftLineItemID;
             itemRefName = "Gift Cards";
+            itemAmount *= -1
         }
 
-        if (item.type === "discount" || item.type === "giftCard") {
-            lineDetail = {
-                "discountLineDetail": {
-                    "discountRef": {
-                        "name": itemRefName,
-                        "value": itemRef
-                    }
-                },
-                "description": "Transaction ID : " + item.transactionID,
-                "detailType": "DISCOUNT_LINE_DETAIL",
-                "amount": itemAmount
+        lineDetail = {
 
-            };
-        } else {
-            lineDetail = {
+            "salesItemLineDetail": {
+                "itemRef": {
+                    "name": itemRefName,
+                    "value": itemRef
+                }
+            },
+            "description": "Transaction ID : " + item.transactionID,
+            "detailType": "SALES_ITEM_LINE_DETAIL",
+            "amount": itemAmount
 
-                "salesItemLineDetail": {
-                    "itemRef": {
-                        "name": itemRefName,
-                        "value": itemRef
-                    }
-                },
-                "description": "Transaction ID : " + item.transactionID,
-                "detailType": "SALES_ITEM_LINE_DETAIL",
-                "amount": itemAmount
-
-            };
-        }
+        };
 
         line.push(lineDetail);
 
