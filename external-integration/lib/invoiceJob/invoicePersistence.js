@@ -28,8 +28,8 @@ var calcTime = function(merchant) {
     var dateNow = new Date();
     var testDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), merchant.batchHour, merchant.batchMin);
     var day = 1000 * 60 * 60 * 24;
-    var milliseconds = testDate.getTime();
-    var tomorrow = milliseconds + day;
+    var today = testDate.getTime();
+    var tomorrow = today + day;
 
     if(dateNow > testDate) {
         batchTime = testDate;
