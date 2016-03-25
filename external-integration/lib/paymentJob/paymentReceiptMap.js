@@ -1,4 +1,5 @@
 var paymentReceiptMap = function(merchConfig, qbInvoiceID, paymentsArray) {
+    console.log(qbInvoiceID, typeof qbInvoiceID);
 
     var lineDetail = {};
     var line = [];
@@ -12,7 +13,7 @@ var paymentReceiptMap = function(merchConfig, qbInvoiceID, paymentsArray) {
             "amount": payment.amount,
             "linkedTxn": [
                 {
-                    "txnId": qbInvoiceID,
+                    "txnId": "671",  //you are going to need to strip out the pipe 0
                     "txnType": "Invoice"
                 }
             ]
@@ -28,12 +29,13 @@ var paymentReceiptMap = function(merchConfig, qbInvoiceID, paymentsArray) {
             "value": merchConfig.accountingCustomerID
         },
         "depositToAccountRef": {
-            "value": merchConfig.depositAccountID
+            "value": "4"
         },
         "line": line,
         "paymentMethodRef": {
             "value": "3"  //add these into the insert statement and map --- quit slacking
-        }
+        },
+        "totalAmt": 50.00 //add up total payments
     };
     console.log(paymentMap);
     return paymentMap;

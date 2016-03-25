@@ -12,8 +12,7 @@ var paymentQuery = function(merchConfig, qbInvoiceID, internalInvoiceID) {
                 if( err ) {
                     logPlugin.error(err);
                 } else {
-                    console.log('*****', result);
-                    //logPlugin.debug('Found Payments to be sent. Results : ', result);
+                    logPlugin.debug('Found Payments to be sent. Results : ', result);
                     paymentReceiptProcedure(result, qbInvoiceID, merchConfig)
                 }
             }
