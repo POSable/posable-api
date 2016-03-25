@@ -5,33 +5,11 @@ var invoiceMap = function(invoiceToBePosted, merchConfig) {
     var lineDetail = {};
     var line = [];
 
-    var sampleData = [
-        {
-            transactionID:"111111",
-            amount:2015.00,
-            type:"sales" //sales/tax/gift/discount
-        },
-        {
-            transactionID:"111111",
-            amount:226.87,
-            type:"tax"
-        },
-        {
-            transactionID:"111111",
-            amount:200.15,
-            type:"discount"
-        },
-        {
-            transactionID:"111111",
-            amount:10.05,
-            type:"giftCard"
-        }
-    ];
-
-    sampleData.forEach(function(item){
+    invoiceToBePosted.invoiceItems.forEach(function(item){
 
         var itemRef = merchConfig.salesLineItemID;
         var itemRefName = "Credit Card Sales";
+        var itemAmount = item.amount;
         if (item.type === "tax") {
             itemRef = merchConfig.taxLineItemID;
             itemRefName = "Tax";
@@ -43,19 +21,34 @@ var invoiceMap = function(invoiceToBePosted, merchConfig) {
             itemRefName = "Gift Cards";
         }
 
-        lineDetail = {
+        if (item.type === "discount" || item.type === "giftCard") {
+            lineDetail = {
+                "discountLineDetail": {
+                    "discountRef": {
+                        "name": itemRefName,
+                        "value": itemRef
+                    }
+                },
+                "description": "Transaction ID : " + item.transactionID,
+                "detailType": "DISCOUNT_LINE_DETAIL",
+                "amount": itemAmount
 
-            "salesItemLineDetail": {
-                "itemRef": {
-                    "name": itemRefName,
-                    "value": itemRef
-                }
-            },
-            "description": "Transaction ID : " + item.transactionID,
-            "detailType": "SALES_ITEM_LINE_DETAIL",
-            "amount": item.amount
+            };
+        } else {
+            lineDetail = {
 
-        };
+                "salesItemLineDetail": {
+                    "itemRef": {
+                        "name": itemRefName,
+                        "value": itemRef
+                    }
+                },
+                "description": "Transaction ID : " + item.transactionID,
+                "detailType": "SALES_ITEM_LINE_DETAIL",
+                "amount": itemAmount
+
+            };
+        }
 
         line.push(lineDetail);
 
@@ -67,9 +60,33 @@ var invoiceMap = function(invoiceToBePosted, merchConfig) {
         },
         "line": line
     };
-
+    console.log(invoice);
     return invoice;
 
 };
 
 module.exports = invoiceMap;
+
+
+//var sampleInvoiceItemData = [
+//    {
+//        transactionID:"111111",
+//        amount:2015.00,
+//        type:"sales"
+//    },
+//    {
+//        transactionID:"111111",
+//        amount:226.87,
+//        type:"tax"
+//    },
+//    {
+//        transactionID:"111111",
+//        amount:200.15,
+//        type:"discount"
+//    },
+//    {
+//        transactionID:"111111",
+//        amount:10.05,
+//        type:"giftCard"
+//    }
+//];

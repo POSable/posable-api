@@ -28,14 +28,14 @@ var mapTransaction = function(dto, statusObject) {
             transaction.transactionPayments = [];
             dto.transaction.discounts.forEach(function(discount) {
                     transaction.discounts.push({
-                    discountDescription: discount.discountdescription,
-                    discountAmount : discount.discountamount
+                    discountDescription: discount.discount.discountdescription,
+                    discountAmount : discount.discount.discountamount
                 })
             });
             dto.transaction.taxes.forEach(function(tax) {
                 transaction.taxes.push({
-                    taxDescription: tax.taxdescription,
-                    taxAmount : tax.taxamount
+                    taxDescription: tax.tax.taxdescription,
+                    taxAmount : tax.tax.taxamount
                 })
             });
             dto.transaction.payments.forEach(function(paymentdto) {
@@ -57,7 +57,7 @@ var mapTransaction = function(dto, statusObject) {
                 error: {code: 400, message: "Transaction Map was not successfully completed from Post Body"}
             }
         }
-        return transaction;
+    return transaction;
     };
 
 module.exports = mapTransaction;
