@@ -46,9 +46,9 @@ var addInvoiceItems = function(msg, foundInvoice) {
     try {
 
         addSaleItem(msg, foundInvoice);
-        addTaxItem(msg, foundInvoice);
-        addDiscountItem(msg, foundInvoice);
-        addGiftCardItem(msg, foundInvoice);
+        //addTaxItem(msg, foundInvoice);
+        //addDiscountItem(msg, foundInvoice);
+        //addGiftCardItem(msg, foundInvoice);
 
     } catch (err) {
         logPlugin.error(err);
