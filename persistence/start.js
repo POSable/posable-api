@@ -104,10 +104,9 @@ console.log('Logging Setup Complete');
 //Require Handlers
 var createPaymentPersistence = require('./handlers/createPaymentPersistence');
 var createTransactionPersistence = require('./handlers/createTransactionPersistence').createTransactionPersistence;
+var payloadAuditPersistence = require('./handlers/payloadAuditPersistence').payloadAuditPersistence;
 var createErrorPersistence = require('./handlers/createErrorPersistence').createErrorPersistence;
 var createBatchPersistence = require('./handlers/createBatchPersistence').createBatchPersistence;
-var createVoidPersistence = require('./handlers/createVoidPersistence').createVoidPersistence;
-var createRefundPersistence = require('./handlers/createRefundPersistence').createRefundPersistence;
 
 //Setup Database Connection
 var env = require('./common').config();
@@ -126,8 +125,9 @@ console.log('Starting Connection to RabbitMQ');
 wascallyRabbit.setEnvConnectionValues(env['wascally_connection_parameters']);
 wascallyRabbit.setQSubscription('service.persistence');
 wascallyRabbit.setHandler('posapi.event.receivedCreateTransactionRequest', createTransactionPersistence);
-wascallyRabbit.setHandler('posapi.event.receivedCreateVoidRequest', createVoidPersistence);
-wascallyRabbit.setHandler('posapi.event.receivedCreateRefundRequest', createRefundPersistence);
+wascallyRabbit.setHandler('posapi.event.receivedCreateVoidRequest', createTransactionPersistence);
+wascallyRabbit.setHandler('posapi.event.receivedCreateRefundRequest', createTransactionPersistence);
+wascallyRabbit.setHandler('posapi.event.receivedCreatePayloadAudit', payloadAuditPersistence);
 wascallyRabbit.setHandler('posapi.event.receivedBadApiRequest', createErrorPersistence);
 wascallyRabbit.setHandler('persistence.command.calculateBatchTotals', createBatchPersistence);
 wascallyRabbit.setup('persistence', rabbitCallback);

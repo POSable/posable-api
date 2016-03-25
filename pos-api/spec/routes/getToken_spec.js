@@ -19,21 +19,23 @@ describe("Test 'getToken' route ", function() {
             testLogPlugin = {error: function (text) {console.log(text)}, debug: function (text) {console.log(text)}};
             testConfigPlugin = {getToken: function(reqbodyGetToken, configPluginCallback) {configPluginCallback(undefined, token)}};
             testSendResponse = function (){};
-            testObject = {testReqHeaderTokenProvider: function(req, statusObject, logPlugin) {}, testCheckPostToken: function(jwtokenRequest, statusObject, checkPostTokenCallback) {checkPostTokenCallback(undefined, statusObject)}};
+            testObject = {testReqHeaderTokenProvider: function(req, statusObject, logPlugin) {}, testCreatePayloadAuditMessage: function() {}, testCheckPostToken: function(jwtokenRequest, statusObject, checkPostTokenCallback) {checkPostTokenCallback(undefined, statusObject)}};
             res = {send: function() {}, set: function() {}, status: function() {}};
 
             spyOn(testObject, 'testReqHeaderTokenProvider').and.returnValue({});
             spyOn(testObject, 'testCheckPostToken').and.callThrough();
             spyOn(testConfigPlugin, 'getToken').and.callThrough();
+            spyOn(testObject,'testCreatePayloadAuditMessage').and.returnValue({});
             spyOn(res, 'send');
 
-            testingStub(testLogPlugin, testConfigPlugin, testSendResponse, testObject.testCheckPostToken, testObject.testReqHeaderTokenProvider);
+            testingStub(testLogPlugin, testConfigPlugin, testSendResponse, testObject.testCheckPostToken, testObject.testReqHeaderTokenProvider, testObject.testCreatePayloadAuditMessage);
         });
 
-        it("Should call reqHeaderTokenProvider, checkPostToken, configPlugin.getToken and res.send", function () {
+        it("Should call reqHeaderTokenProvider, checkPostToken, createPayloadAuditMessage, configPlugin.getToken and res.send", function () {
             postGetToken(req, res);
             expect(testObject.testReqHeaderTokenProvider).toHaveBeenCalled();
             expect(testObject.testCheckPostToken).toHaveBeenCalled();
+            expect(testObject.testCreatePayloadAuditMessage).toHaveBeenCalled();
             expect(testConfigPlugin.getToken).toHaveBeenCalled();
             expect(res.send).toHaveBeenCalled();
         });
