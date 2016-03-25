@@ -2,7 +2,6 @@
  * Created by davidabramowitz on 3/10/16.
  */
 
-
 describe("Test 'processTransaction' module & 'processTransaction' function", function() {
     var processTransaction = require('../../lib/pos_modules/processTransaction').processTransaction;
     var statusObject = {};
