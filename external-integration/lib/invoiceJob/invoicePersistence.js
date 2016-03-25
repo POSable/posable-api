@@ -26,7 +26,12 @@ var invoiceSaveAndMsgDispose = function(msg, foundInvoice) {
 var calcTime = function(merchant) {
     var batchTime;
     var dateNow = new Date();
-    var testDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate(), merchant.batchHour, merchant.batchMin);
+    var testDate = new Date(dateNow.getFullYear(),
+                            dateNow.getMonth(),
+                            dateNow.getDate(),
+                            merchant.batchHour,
+                            merchant.batchMin);
+    // Millisecond Math
     var day = 1000 * 60 * 60 * 24;
     var today = testDate.getTime();
     var tomorrow = today + day;

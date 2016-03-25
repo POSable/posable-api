@@ -44,7 +44,7 @@ var addGiftCardItem = function(msg, invoice) {
 
 var addInvoiceItems = function(msg, foundInvoice) {
     try {
-        console.log("***********", msg.body.data);
+
         addSaleItem(msg, foundInvoice);
         addTaxItem(msg, foundInvoice);
         addDiscountItem(msg, foundInvoice);
