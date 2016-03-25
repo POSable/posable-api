@@ -1,30 +1,42 @@
-var paymentReceiptMap = function(responsefromCloudElem) {
+var paymentReceiptMap = function(merchConfig, qbInvoiceID, paymentsArray) {
 
-    var payment = {
-        "customerRef": {  //need to map in the value but this is the proper post object
-            "value": "1"
+    var lineDetail = {};
+    var line = [];
+
+    paymentsArray.forEach(function(payment) {
+
+
+
+        lineDetail = {
+
+            "amount": payment.amount,
+            "linkedTxn": [
+                {
+                    "txnId": qbInvoiceID,
+                    "txnType": "Invoice"
+                }
+            ]
+        };
+
+        line.push(lineDetail);
+
+    });
+
+
+    var paymentMap = {
+        "customerRef": {
+            "value": merchConfig.accountingCustomerID
         },
         "depositToAccountRef": {
-            "value": "4"
+            "value": merchConfig.depositAccountID
         },
-        "line": [
-            {
-                "amount": 50.00,
-                "linkedTxn": [
-                    {
-                        "txnId": "469",
-                        "txnType": "Invoice"
-                    }
-                ]
-            }
-        ],
+        "line": line,
         "paymentMethodRef": {
-            "value": "3"
-        },
-        "totalAmt": 50.00,
-        "txnDate": "2016-03-18"
+            "value": "3"  //add these into the insert statement and map --- quit slacking
+        }
     };
-    return payment;
+    console.log(paymentMap);
+    return paymentMap;
 };
 
 

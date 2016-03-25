@@ -12,8 +12,9 @@ var makePayments = function(msg, invoice) {
 
         payment.amount = paymentItem.amount;
         payment.invoiceID = invoice._id;
-        payment.paymentType = paymentItem.cardType;  //this is working for credit only, need diff mapping for cash
+        payment.paymentType = paymentItem.paymentType;
         payment.transactionID = transactionID;
+        payment.cardType = paymentItem.cardType;
 
         payment.save(function (err) {
             if (err) {
