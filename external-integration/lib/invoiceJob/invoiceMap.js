@@ -1,6 +1,6 @@
 //var sampleData = require('./sampleObj');
 
-var invoiceMap = function() {
+var invoiceMap = function(invoiceToBePosted, merchConfig) {
 
     var lineDetail = {};
     var line = [];
@@ -30,16 +30,16 @@ var invoiceMap = function() {
 
     sampleData.forEach(function(item){
 
-        var itemRef = 36; //the default for sales     <------- this is where you pull in iDs from Config --no hardcode
+        var itemRef = merchConfig.salesLineItemID;
         var itemRefName = "Credit Card Sales";
         if (item.type === "tax") {
-            itemRef = 33;
+            itemRef = merchConfig.taxLineItemID;
             itemRefName = "Tax";
         } if (item.type === "discount") {
-            itemRef = 34;
+            itemRef = merchConfig.discountLineItemID;
             itemRefName = "Discounts";
         } if (item.type === "giftCard") {
-            itemRef = 35;
+            itemRef = merchConfig.giftLineItemID;
             itemRefName = "Gift Cards";
         }
 
@@ -63,7 +63,7 @@ var invoiceMap = function() {
 
     var invoice = {
         "customerRef": {
-            "value": "4"  //needed from config
+            "value": merchConfig.accountingCustomerID
         },
         "line": line
     };

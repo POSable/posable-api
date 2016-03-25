@@ -3,55 +3,15 @@ var Invoice = require('../../models/invoice').model;
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var makePayments = require('./../paymentJob/makePayments');
+var addInvoiceItems = require('./addInvoiceItems');
 
-var populateInvoice = function(invoice, id) {
+var populateInvoice = function(invoice, id, batchTime) {
     invoice.cloudElemID = null;
     invoice.internalID = id;
-    //invoice.finalizeAt = invoice.finalizeAt;
+    invoice.finalizeAt = batchTime;
     invoice.invoiceItems = [];
 };
-var addSaleItem = function(msg, invoice) {
-    if( msg.body.data.subtotal > 0) {
-        var saleInvoiceItem = new InvoiceItem();
-        saleInvoiceItem.transactionID = msg.body.data.transactionID;
-        saleInvoiceItem.type = "sale";
-        saleInvoiceItem.amount =  msg.body.data.subtotal;
-        invoice.invoiceItems.push(saleInvoiceItem);
-    }
-};
-var addTaxItem = function(msg, invoice) {
-    if(msg.body.data.tax > 0) {
-        var taxInvoiceItem = new InvoiceItem();
-        taxInvoiceItem.transactionID = msg.body.data.transactionID;
-        taxInvoiceItem.type = "tax";
-        taxInvoiceItem.amount = msg.body.data.tax;
-        invoice.invoiceItems.push(taxInvoiceItem);
-    }
-};
-var addDiscountItem = function(msg, invoice) {
-    if(msg.body.data.amount > 0) {          //need dataModel    <------------ Need to map at POS-API level
-        var discountInvoiceItem = new InvoiceItem();
-        discountInvoiceItem.transactionID = msg.body.data.transactionID;
-        discountInvoiceItem.type = "discount";
-        discountInvoiceItem.amount = msg.body.data.amount; //need dataModel
-        invoice.invoiceItems.push(discountInvoiceItem);
-    }
-};
-var addGiftCardItem = function(msg, invoice) {
-    if(msg.body.data.paymentType === 'gift') {
-        var giftCardInvoiceItem = new InvoiceItem();
-        giftCardInvoiceItem.transactionID = msg.body.data.transactionID;
-        giftCardInvoiceItem.type = "giftCard";
-        giftCardInvoiceItem.amount = msg.body.data.amount; //need dataModel
-        invoice.invoiceItems.push(giftCardInvoiceItem);
-    }
-};
-var addInvoiceItems = function(msg, foundInvoice) {
-    addSaleItem(msg, foundInvoice);
-    addTaxItem(msg, foundInvoice);
-    addDiscountItem(msg, foundInvoice);
-    addGiftCardItem(msg, foundInvoice);
-};
+
 var invoiceSaveAndMsgDispose = function(msg, foundInvoice) {
     foundInvoice.save(function (err) {
         if (err) {
@@ -62,6 +22,28 @@ var invoiceSaveAndMsgDispose = function(msg, foundInvoice) {
         wascallyRabbit.rabbitDispose(msg, err);
     });
 };
+
+var calcTime = function(merchant) {
+    var batchTime;
+    var dateNow = new Date();
+    var testDate = new Date(dateNow.getFullYear(),
+                            dateNow.getMonth(),
+                            dateNow.getDate(),
+                            merchant.batchHour,
+                            merchant.batchMin);
+    // Millisecond Math
+    var day = 1000 * 60 * 60 * 24;
+    var today = testDate.getTime();
+    var tomorrow = today + day;
+
+    if(dateNow > testDate) {
+        batchTime = testDate;
+    } else {
+        batchTime = new Date(tomorrow);
+    }
+    return batchTime
+};
+
 function getInvoice(id, callback){
     Invoice.findOne(
         {
@@ -114,8 +96,13 @@ var invoicePersistence = function(msg, merchant) {
         if (!foundInvoice) {
             //either realtime merch or batch merch's first transaction
             foundInvoice = new Invoice();
-            foundInvoice.finalizeAt = merchant.batchType === "batch" ? merchant.batchTime : Date.now();
-            populateInvoice(foundInvoice, id);
+            var batchTime;
+            if(merchant.batchType === "batch"){
+                batchTime = calcTime(merchant);
+            } else {
+                batchTime = new Date();
+            }
+            populateInvoice(foundInvoice, id, batchTime);
         }
 
         //set all line item functions on either new or found (db) invoice
@@ -126,15 +113,8 @@ var invoicePersistence = function(msg, merchant) {
     }
 };
 
-var calcTime = function(batchTime) { //batchTime will be '20:15'  <---- fix this in UTC mil time
-    //Parse 20:15 into 'batchHour' (20) and 'batchMin (15)
-    //Set 'dtNow' = Date.now();
-    //set 'tstDate' as new Date(dtNow.getYear, dtNow.getMonth, dtNow.getDay, batchHour, batchMin);
 
-    // -- if tstDate now represents batch date/time for TODAY - if past it already, sset for tomorrow
-    //if Date.now() > tstDate
-        //tstDate = tstDate + 1 day
-    //return tstDate
-};
 
 module.exports = invoicePersistence;
+
+

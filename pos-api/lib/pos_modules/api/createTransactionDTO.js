@@ -19,9 +19,21 @@ var createTransactionDTO = function (req, statusObject) {
 
         if (contentType === "application/xml") {
             transactionDTO = req.body;
+
             var xmlPayments = transactionDTO.transaction.payments.payment;
+            var xmlTaxes = transactionDTO.transaction.taxes.tax;
+            var xmlDiscounts = transactionDTO.transaction.discounts.discount;
+
             if (xmlPayments.length > 1) { transactionDTO.transaction.payments = xmlPayments; }
-            else { transactionDTO.transaction.payments = [xmlPayments]; }}  // <-- forces single xml payments into array
+            else { transactionDTO.transaction.payments = [xmlPayments]; }  // <-- forces single xml payments into array
+
+            if (xmlTaxes.length > 1) { transactionDTO.transaction.taxes = xmlTaxes; }
+            else { transactionDTO.transaction.taxes = [xmlTaxes]; }  // <-- forces single xml taxes into array
+
+            if (xmlDiscounts.length > 1) { transactionDTO.transaction.discounts = xmlDiscounts; }
+            else { transactionDTO.transaction.discounts = [xmlDiscounts]; }  // <-- forces single xml discounts into array
+        }
+
         statusObject.success.push("createTransactionDTO");
         logPlugin.debug('Transaction Request Mapping Finished');
 
