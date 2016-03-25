@@ -17,7 +17,7 @@ var invoiceProcedure = function (invoiceToBePosted) {
                 // Error connecting to database
                 logPlugin.error(err);
             } else {
-                var invoice = invoiceMap(merchConfig);
+                var invoice = invoiceMap(invoiceToBePosted, merchConfig);
 
                  postInvoiceProcedure(merchConfig, invoice, function(err, qbInvoiceID) {
                      if (err) {
