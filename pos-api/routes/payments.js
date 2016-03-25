@@ -70,10 +70,11 @@ router.post('/', function(req, res) {
             console.log("in finalize post");
             if (true) {
                 console.log("before send to rabbit");
-                wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).then(sendResponse(res, statusObject), function(){
-                    console.log("error sending req to rabbit");
-                    sendResponse(res, statusObject);
-                })
+                // dont invoke the function in the promise below!!!!
+                //wascallyRabbit.raiseErrorResponseEmailAndPersist(statusObject.merchant.internalID, req.body).then(sendResponse(res, statusObject), function(){
+                //    console.log("error sending req to rabbit");
+                //    sendResponse(res, statusObject);
+                //})
 
             } else {
                 console.log("Response Type", statusObject);

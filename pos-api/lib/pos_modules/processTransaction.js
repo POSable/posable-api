@@ -66,31 +66,36 @@ var processTransaction = function(req, res, statusObject, requestID) {
             }
         }
 
+        var wascallySuccessCallback = function() {
+            logPlugin.debug('Finished processTransaction');
+            sendResponse(res, statusObject, requestID);
+        };
+
+        var wascallyErrorCallback = function() {
+            statusObject.isOK = false;
+            statusObject['error'] = {
+                error: {code: 500, message: "Internal error processing transaction"}
+            };
+            checkErrorAltResponsePath(req, statusObject);
+            logPlugin.debug('Finished processTransaction with errors in wascally');
+            sendResponse(res, statusObject, requestID);
+        };
+
         if (statusObject.isOK) {
             logPlugin.debug('Sending Transaction Event to Rabbit');
             var isVoid = (req.body.transaction.isvoid === 'true') || false;
             var isRefund = (req.body.transaction.isrefund === 'true') || false;
             // Checking both IsVoid and IsRefund is true should happen first.
             if(isVoid && isRefund) return sendVoidRefundErrorResponse(req, res, statusObject, requestID);
-            if(isVoid) wascallyRabbit.raiseNewVoidEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(sendResponse(res, statusObject, requestID), wascallyCallback);
-            if(isRefund) wascallyRabbit.raiseNewRefundEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(sendResponse(res, statusObject, requestID), wascallyCallback);
-            if(!isVoid && !isRefund) wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(sendResponse(res, statusObject, requestID), wascallyCallback);
+            if(isVoid) wascallyRabbit.raiseNewVoidEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(wascallySuccessCallback, wascallyErrorCallback);
+            if(isRefund) wascallyRabbit.raiseNewRefundEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(wascallySuccessCallback, wascallyErrorCallback);
+            if(!isVoid && !isRefund) wascallyRabbit.raiseNewTransactionEvent(statusObject.merchant.internalID, requestID, mappedTransactionDTO).then(wascallySuccessCallback, wascallyErrorCallback);
         } else {
-            logPlugin.debug('Finished processTransaction');
+            logPlugin.debug('Finished processTransaction with errors');
             checkErrorAltResponsePath(req, statusObject);
             sendResponse(res, statusObject, requestID);
         }
     }
-};
-
-var wascallyCallback = function() {
-    statusObject.isOK = false;
-    statusObject['error'] = {
-        error: {code: 500, message: "Internal error processing transaction"}
-    };
-    checkErrorAltResponsePath(req, statusObject);
-    sendResponse(res, statusObject, requestID);
-    logPlugin.debug('Finished processTransaction');
 };
 
 var testingStub = function (testLogPlugin, testWascallyRabbit, testValidate, testConfigPlugin, testCreateTransactionDTO, testMapTransaction, testSendResponse, testCheckErrorAltResponsePath) {

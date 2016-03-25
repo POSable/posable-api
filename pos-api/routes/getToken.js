@@ -13,6 +13,7 @@ var sendResponse = require('../lib/pos_modules/sendResponse');
 var checkErrorAltResponsePath = require('../lib/pos_modules/checkErrorAltResponsePath').checkErrorAltResponsePath;
 var checkPostToken = require ('../lib/pos_modules/api/authenticatePost').authenticatePost;
 var reqHeaderTokenProvider = require ('../lib/pos_modules/api/reqHeaderTokenProvider');
+var createPayloadAuditMessage = require('../lib/pos_modules/createPayloadAuditMessage').createPayloadAuditMessage;
 // Var Extraction
 var router = express.Router();
 
@@ -37,8 +38,10 @@ var postGetToken = function(req, res) {
                 error: {code: 500, message: "System Error with Token Authentication"}
             };
         }
+        createPayloadAuditMessage(req, statusObject, requestID);
         configPlugin.getToken(req.body.gettoken, configPluginCallback);
     }
+
     function configPluginCallback(err, token) {
         if (err) {
             logPlugin.error(err);
@@ -65,12 +68,13 @@ var postGetToken = function(req, res) {
 
 router.post('/', postGetToken);
 
-var testingStub = function (testLogPlugin, testConfigPlugin, testSendResponse, testCheckPostToken, testReqHeaderTokenProvider) {
+var testingStub = function (testLogPlugin, testConfigPlugin, testSendResponse, testCheckPostToken, testReqHeaderTokenProvider, testCreatePayloadAuditMessage) {
     logPlugin = testLogPlugin;
     configPlugin = testConfigPlugin;
     sendResponse = testSendResponse;
     checkPostToken = testCheckPostToken;
     reqHeaderTokenProvider = testReqHeaderTokenProvider;
+    createPayloadAuditMessage = testCreatePayloadAuditMessage;
 };
 
 module.exports = {
