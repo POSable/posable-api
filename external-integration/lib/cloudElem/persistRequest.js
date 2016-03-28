@@ -23,7 +23,7 @@ function updateRequest (externalPost, response, qbInvoice, callback) {
     var objectID = JSON.parse(qbInvoice);
     var cloudElemPostID = response.headers['elements-request-id'];
     var qbInvoiceID = JSON.parse(response.body).id;
-
+    qbInvoiceID = qbInvoiceID.slice(0,-2);
 
     externalPost.update({
         responseDateTime: Date.now(),

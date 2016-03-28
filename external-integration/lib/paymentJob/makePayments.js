@@ -8,22 +8,28 @@ var makePayments = function(msg, invoice) {
     var paymentsArray = msg.body.data.transactionPayments;
     
     paymentsArray.forEach(function(paymentItem) {
-        var payment = new Payment();
 
-        payment.amount = paymentItem.amount;
-        payment.invoiceID = invoice._id;
-        payment.paymentType = paymentItem.paymentType;
-        payment.transactionID = transactionID;
-        payment.cardType = paymentItem.cardType;
+        if(paymentItem.paymentType !== "Gift") {
+            var payment = new Payment();
 
-        payment.save(function (err) {
-            if (err) {
-                logPlugin.error(err);
+            payment.amount = paymentItem.amount;
+            payment.invoiceID = invoice._id;
+            payment.transactionID = transactionID;
+
+            if(paymentItem.paymentType === "Credit") {
+                payment.paymentType = paymentItem.cardType;
             } else {
-                logPlugin.debug('Payment was saved');
+                payment.paymentType = paymentItem.paymentType;
             }
-        });
 
+            payment.save(function (err) {
+                if (err) {
+                    logPlugin.error(err);
+                } else {
+                    logPlugin.debug('Payment was saved');
+                }
+            });
+        }
     });
 
 };
