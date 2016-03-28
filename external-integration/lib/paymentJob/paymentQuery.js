@@ -33,13 +33,11 @@ var paymentQuery = function(merchConfig, qbInvoiceID, internalInvoiceID) {
                     paymentReceiptProcedure(result, qbInvoiceID, merchConfig)
                 }
             }
-
         );
 
     } catch (err) {
         logPlugin.error(err);
     }
-
 };
 
 module.exports = paymentQuery;
