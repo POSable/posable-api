@@ -22,8 +22,7 @@ var invoiceQuery = function() {
             if( err ) {
                 logPlugin.error(err);
             } else {
-                //console.log('*****', result);
-                //logPlugin.debug('Found invoices that need to be completed. Results : ', result);
+                //logPlugin.debug('Found invoices that need to be completed. Results : ' + result);
                 kickOffProcedure(result)
             }
         }

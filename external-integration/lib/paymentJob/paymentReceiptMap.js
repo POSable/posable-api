@@ -1,20 +1,10 @@
-var sumPaymentsByType = require('./sumPaymentsByType');
+var paymentReceiptMap = function(merchConfig, qbInvoiceID, payment) {
 
-var paymentReceiptMap = function(merchConfig, qbInvoiceID, paymentsArray) {
-
-    var lineDetail = {};
     var line = [];
-    var total = 0;
 
-    paymentsArray.forEach(function(typeSum) {
+        var lineDetail = {
 
-        var summedPayments = sumPaymentsByType(payment);
-
-        total += typeSum.value;
-
-        lineDetail = {
-
-            "amount": typeSum.value,
+            "amount": payment.amount,
             "linkedTxn": [
                 {
                     "txnId": qbInvoiceID,  //this is without the pipe 0
@@ -24,8 +14,6 @@ var paymentReceiptMap = function(merchConfig, qbInvoiceID, paymentsArray) {
         };
 
         line.push(lineDetail);
-    });
-
 
     var paymentMap = {
         "customerRef": {
@@ -36,13 +24,12 @@ var paymentReceiptMap = function(merchConfig, qbInvoiceID, paymentsArray) {
         },
         "line": line,
         "paymentMethodRef": {
-            "value": merchConfig.creditAccountID
+            "value": merchConfig.creditAccountID //fix Me........
         },
-        "totalAmt": total
+        "totalAmt": payment.amount
     };
     console.log(paymentMap);
     return paymentMap;
 };
-
 
 module.exports = paymentReceiptMap;

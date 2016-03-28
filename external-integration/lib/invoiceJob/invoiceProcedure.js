@@ -23,7 +23,7 @@ var invoiceProcedure = function (invoiceToBePosted) {
                      if (err) {
                          logPlugin.error(err);
                      } else {
-                         logPlugin.debug('ExternalPost: ' + qbInvoiceID + ' Posted and updated successfully');
+                         logPlugin.debug('ExternalPost of Invoice : ' + qbInvoiceID + ' Posted and updated successfully');
 
                          //Mark Invoice as sent
                          updateInvoiceCloudElemID(internalInvoiceID, qbInvoiceID);
