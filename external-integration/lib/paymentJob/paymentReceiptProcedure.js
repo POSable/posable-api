@@ -12,8 +12,6 @@ var paymentReceiptProcedure = function (paymentsArray, qbInvoiceID, merchConfig)
         paymentsArray.forEach(function(payment) {
             var paymentReceipt = paymentReceiptMap(merchConfig, qbInvoiceID, payment);
 
-            // You running into an async issue while posting all the payments at once  Make callback when ready? maybe....
-
             postPaymentProcedure(merchConfig, paymentReceipt, function(err, qbPaymentID) {
                 if (err) {
                     logPlugin.error(err);
