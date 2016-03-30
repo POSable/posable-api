@@ -8,21 +8,29 @@ var makePayments = function(msg, invoice) {
     var paymentsArray = msg.body.data.transactionPayments;
     
     paymentsArray.forEach(function(paymentItem) {
-        var payment = new Payment();
 
-        payment.amount = paymentItem.amount;
-        payment.invoiceID = invoice._id;
-        payment.paymentType = paymentItem.cardType;  //this is working for credit only, need diff mapping for cash
-        payment.transactionID = transactionID;
+        if(paymentItem.paymentType !== "Gift") {
+            var payment = new Payment();
 
-        payment.save(function (err) {
-            if (err) {
-                logPlugin.error(err);
+            payment.amount = paymentItem.amount;
+            payment.invoiceID = invoice._id;
+            payment.transactionID = transactionID;
+            payment.cloudElemID = null;
+
+            if(paymentItem.paymentType === "Credit") {
+                payment.paymentType = paymentItem.cardType;
             } else {
-                logPlugin.debug('Payment was saved');
+                payment.paymentType = paymentItem.paymentType;
             }
-        });
 
+            payment.save(function (err) {
+                if (err) {
+                    logPlugin.error(err);
+                } else {
+                    logPlugin.debug('Payment was saved');
+                }
+            });
+        }
     });
 
 };

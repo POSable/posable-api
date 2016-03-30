@@ -60,7 +60,7 @@ function getInvoice(id, callback){
                 logPlugin.error(err);
                 callback(err, null);
             } else {
-                logPlugin.debug('Invoice findOne complete. Results : ', result);
+                logPlugin.debug('Invoice findOne complete. Results : ' + result);
                 callback(null, result);
             }
         }

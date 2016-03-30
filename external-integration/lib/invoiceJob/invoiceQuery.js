@@ -15,15 +15,14 @@ var invoiceQuery = function() {
                 //    {
                 //        $lt: new Date()
                 //    },
-                cloudElemID: null
+                cloudElemID: null // OR postedpayments: false
         },
         {},
         function(err, result) {
             if( err ) {
                 logPlugin.error(err);
             } else {
-                //console.log('*****', result);
-                //logPlugin.debug('Found invoices that need to be completed. Results : ', result);
+                //logPlugin.debug('Found invoices that need to be completed. Results : ' + result);
                 kickOffProcedure(result)
             }
         }

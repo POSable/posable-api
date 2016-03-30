@@ -1,31 +1,35 @@
-var paymentReceiptMap = function(responsefromCloudElem) {
+var paymentReceiptMap = function(merchConfig, qbInvoiceID, payment) {
 
-    var payment = {
-        "customerRef": {  //need to map in the value but this is the proper post object
-            "value": "1"
+    var line = [];
+
+        var lineDetail = {
+
+            "amount": payment.amount,
+            "linkedTxn": [
+                {
+                    "txnId": qbInvoiceID,  //this is without the pipe 0
+                    "txnType": "Invoice"
+                }
+            ]
+        };
+
+        line.push(lineDetail);
+
+    var paymentMap = {
+        "customerRef": {
+            "value": merchConfig.accountingCustomerID
         },
         "depositToAccountRef": {
-            "value": "4"
+            "value": merchConfig.depositAccountID
         },
-        "line": [
-            {
-                "amount": 50.00,
-                "linkedTxn": [
-                    {
-                        "txnId": "469",
-                        "txnType": "Invoice"
-                    }
-                ]
-            }
-        ],
+        "line": line,
         "paymentMethodRef": {
-            "value": "3"
+            "value": merchConfig.creditAccountID //fix Me........
         },
-        "totalAmt": 50.00,
-        "txnDate": "2016-03-18"
+        "totalAmt": payment.amount
     };
-    return payment;
+    console.log(paymentMap);
+    return paymentMap;
 };
-
 
 module.exports = paymentReceiptMap;

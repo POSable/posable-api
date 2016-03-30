@@ -19,7 +19,7 @@ var postInvoiceCloudElementsClient = function(payload, merchant, externalPost, c
                 logPlugin.error(err);
                 callback(err, null, null, null);
             } else if (response.statusCode === 200) {
-                logPlugin.debug('Successful post to CE');
+                logPlugin.debug('Successful post to Cloud Elements with Status Code of 200');
                 callback(null, response, externalPost, payload);
             } else {
                 logPlugin.debug("CloudElem response code: " + response.statusCode);

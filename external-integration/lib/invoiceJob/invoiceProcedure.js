@@ -3,14 +3,14 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 var invoiceMap = require('./invoiceMap');
 var invoiceMerchantSearch = require('../common/merchantSearch');
-var updateInvoiceCloudElemID = require('./../invoiceJob/updateInvoiceCloudElemID');
-var paymentReceiptProcedure = require('./../paymentJob/paymentReceiptProcedure');
+var updateInvoiceCloudElemID = require('./updateInvoiceCloudElemID');
+var kickoffPaymentProcedure = require('../paymentJob/paymentQuery');
 
 
 var invoiceProcedure = function (invoiceToBePosted) {
     try {
         var id = invoiceToBePosted.internalID;
-        var invoiceID = invoiceToBePosted._id;
+        var internalInvoiceID = invoiceToBePosted._id;
 
         invoiceMerchantSearch(id, function(err, merchConfig){
             if (err) {
@@ -23,13 +23,13 @@ var invoiceProcedure = function (invoiceToBePosted) {
                      if (err) {
                          logPlugin.error(err);
                      } else {
-                         logPlugin.debug('ExternalPost: ' + qbInvoiceID + ' Posted and updated successfully');
+                         logPlugin.debug('ExternalPost of Invoice : ' + qbInvoiceID + ' Posted and updated successfully');
 
-                         //Mark Invoice as sent
-                         updateInvoiceCloudElemID(invoiceID, qbInvoiceID);
+                         //Mark Invoice as complete
+                         updateInvoiceCloudElemID(internalInvoiceID, qbInvoiceID);
 
-                         //Send response to paymentReceiptProcedure
-                         //paymentReceiptProcedure(merchConfig, externalPost.externalPostID);
+                         //Send response to paymentQuery
+                         kickoffPaymentProcedure(merchConfig, qbInvoiceID, internalInvoiceID);
                      }
                  });
             }
