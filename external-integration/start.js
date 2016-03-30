@@ -139,5 +139,5 @@ function rabbitCallback(err, res) {
     }
 }
 
-require('./lib/invoiceJob/timer');
+require('./legacyLib/invoiceJob/timer');
 
