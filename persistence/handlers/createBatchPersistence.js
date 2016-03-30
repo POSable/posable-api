@@ -1,6 +1,6 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
-//var createBatch = require('../lib/legacyBatch/createBatch');
+//var createBatch = require('../legacyLib/legacyBatch/createBatch');
 
 var deadLetterErrorHandling = function (msg, error) {
     logPlugin.error(error);

@@ -2,7 +2,7 @@
  * Created by davidabramowitz on 3/22/16.
  */
 
-//var mapTransaction = require('../lib/mapTransaction');
+//var mapTransaction = require('../legacyLib/mapTransaction');
 //var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
 //var wascallyRabbit = require('posable-wascally-wrapper');
