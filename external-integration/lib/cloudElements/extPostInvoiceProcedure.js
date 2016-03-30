@@ -20,7 +20,7 @@ var extPostInvoiceProcedure = function(extPostInvoiceToBePosted) {
                     var qbInvoiceID = JSON.parse(response.body).id;
                     qbInvoiceID = qbInvoiceID.slice(0,-2);
 
-                    updateExtPost();
+                    updateExtPost(extPostInvoiceToBePosted, qbInvoiceID);
                 }
             })
         }
