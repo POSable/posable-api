@@ -4,7 +4,6 @@ var logPlugin = require('posable-logging-plugin');
 var invoiceMap = require('./invoiceMap');
 var invoiceMerchantSearch = require('../common/merchantSearch');
 var updateInvoiceCloudElemID = require('./updateInvoiceCloudElemID');
-var kickoffPaymentProcedure = require('../paymentJob/paymentQuery');
 
 
 var invoiceProcedure = function (invoiceToBePosted) {
@@ -28,8 +27,6 @@ var invoiceProcedure = function (invoiceToBePosted) {
                          //Mark Invoice as complete
                          updateInvoiceCloudElemID(internalInvoiceID, qbInvoiceID);
 
-                         //Send response to paymentQuery
-                         kickoffPaymentProcedure(merchConfig, qbInvoiceID, internalInvoiceID);
                      }
                  });
             }

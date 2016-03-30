@@ -8,7 +8,8 @@ var ExternalPost = new mongoose.Schema({
     requestDateTime: Date,
     responseDateTime: Date,
     responseStatus: String,
-    postBody: Object
+    postBody: Object,
+    type: String
 });
 
 module.exports = {

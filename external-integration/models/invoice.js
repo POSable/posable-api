@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 var Invoice = new mongoose.Schema({
     finalizeAt: Date,
-    cloudElemID: String,
+    extPostID: String,
+    paymentsSent: {type: Boolean, default: false},
     internalID: Number,
     invoiceItems: [mongoose.model('InvoiceItem').schema]
 });
