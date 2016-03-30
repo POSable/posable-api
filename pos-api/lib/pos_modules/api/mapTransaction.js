@@ -16,7 +16,7 @@ var mapTransaction = function(dto, statusObject) {
             transaction.isVoid = dto.transaction.isvoid;
             transaction.isRefund = dto.transaction.isrefund;
             transaction.merchantID = dto.transaction.merchantid;
-            transaction.registerID = dto.transaction.registeruid;
+            transaction.registerID = dto.transaction.registerid;
             transaction.cashierID = dto.transaction.cashierid;
             transaction.dateTime = dateTime;
             transaction.subtotal = dto.transaction.subtotal;
@@ -28,25 +28,33 @@ var mapTransaction = function(dto, statusObject) {
             transaction.transactionPayments = [];
             dto.transaction.discounts.forEach(function(discount) {
                     transaction.discounts.push({
-                    discountDescription: discount.discount.discountdescription,
-                    discountAmount : discount.discount.discountamount
+                    discountDescription: discount.discountdescription,
+                    discountAmount : discount.discountamount
                 })
             });
             dto.transaction.taxes.forEach(function(tax) {
                 transaction.taxes.push({
-                    taxDescription: tax.tax.taxdescription,
-                    taxAmount : tax.tax.taxamount
+                    taxDescription: tax.taxdescription,
+                    taxAmount : tax.taxamount
                 })
             });
             dto.transaction.payments.forEach(function(paymentdto) {
-                transaction.transactionPayments.push({
-                    paymentID: paymentdto.paymentid,
-                    paymentType : paymentdto.paymenttype,
-                    amount : paymentdto.amount,
-                    cardType : paymentdto.creditcard.cardtype,
-                    last4 : paymentdto.creditcard.last4,
-                    authCode : paymentdto.creditcard.authcode
-                })
+                if (paymentdto.paymenttype.toLowerCase() === 'credit' || paymentdto.paymenttype.toLowerCase() === 'debit') {
+                    transaction.transactionPayments.push({
+                        paymentID: paymentdto.paymentid,
+                        paymentType: paymentdto.paymenttype,
+                        amount: paymentdto.amount,
+                        cardType: paymentdto.creditcard.cardtype,
+                        last4: paymentdto.creditcard.last4,
+                        authCode: paymentdto.creditcard.authcode
+                    })
+                } else {
+                    transaction.transactionPayments.push({
+                        paymentID: paymentdto.paymentid,
+                        paymentType : paymentdto.paymenttype,
+                        amount : paymentdto.amount
+                    })
+                }
             });
 
             logPlugin.debug('Transaction Property Mapping was Successful');
