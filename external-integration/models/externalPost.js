@@ -2,9 +2,8 @@ var mongoose = require('mongoose');
 
 var ExternalPost = new mongoose.Schema({
     requestID: String,
-    externalPostID: String,
-    externalObjectID: String,
-    merchantID: String,
+    quickbooksID: String,
+    internalID: String,
     requestDateTime: Date,
     responseDateTime: Date,
     responseStatus: String,
