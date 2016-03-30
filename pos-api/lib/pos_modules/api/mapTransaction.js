@@ -39,14 +39,22 @@ var mapTransaction = function(dto, statusObject) {
                 })
             });
             dto.transaction.payments.forEach(function(paymentdto) {
-                transaction.transactionPayments.push({
-                    paymentID: paymentdto.paymentid,
-                    paymentType : paymentdto.paymenttype,
-                    amount : paymentdto.amount,
-                    cardType : paymentdto.creditcard.cardtype,
-                    last4 : paymentdto.creditcard.last4,
-                    authCode : paymentdto.creditcard.authcode
-                })
+                if (paymentdto.paymenttype.toLowerCase() === 'credit' || paymentdto.paymenttype.toLowerCase() === 'debit') {
+                    transaction.transactionPayments.push({
+                        paymentID: paymentdto.paymentid,
+                        paymentType: paymentdto.paymenttype,
+                        amount: paymentdto.amount,
+                        cardType: paymentdto.creditcard.cardtype,
+                        last4: paymentdto.creditcard.last4,
+                        authCode: paymentdto.creditcard.authcode
+                    })
+                } else {
+                    transaction.transactionPayments.push({
+                        paymentID: paymentdto.paymentid,
+                        paymentType : paymentdto.paymenttype,
+                        amount : paymentdto.amount
+                    })
+                }
             });
 
             logPlugin.debug('Transaction Property Mapping was Successful');
