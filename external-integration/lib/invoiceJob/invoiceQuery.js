@@ -15,7 +15,7 @@ var invoiceQuery = function() {
                 //    {
                 //        $lt: new Date()
                 //    },
-                cloudElemID: null
+                cloudElemID: null // OR postedpayments: false
         },
         {},
         function(err, result) {

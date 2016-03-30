@@ -1,12 +1,12 @@
 var ExternalPost = require('../../models/externalPost').model;
 var logPlugin = require('posable-logging-plugin');
 
-function persistRequest (qbInvoice, merchant, callback) {
+function persistRequest (payload, merchant, callback) {
     var externalPost = new ExternalPost();
 
     externalPost.merchantID = merchant.merchantID;
     externalPost.requestDateTime = Date.now();
-    externalPost.postBody = qbInvoice;
+    externalPost.postBody = payload;
 
     externalPost.save(function (err, externalPost) {
         if (err) {
@@ -14,7 +14,7 @@ function persistRequest (qbInvoice, merchant, callback) {
             return callback(err, null, null, null);
         } else {
             logPlugin.debug('External post was saved');
-            return callback(null, qbInvoice, merchant, externalPost);
+            return callback(null, payload, merchant, externalPost);
         }
     });
 }

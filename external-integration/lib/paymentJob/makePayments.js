@@ -15,6 +15,7 @@ var makePayments = function(msg, invoice) {
             payment.amount = paymentItem.amount;
             payment.invoiceID = invoice._id;
             payment.transactionID = transactionID;
+            payment.cloudElemID = null;
 
             if(paymentItem.paymentType === "Credit") {
                 payment.paymentType = paymentItem.cardType;

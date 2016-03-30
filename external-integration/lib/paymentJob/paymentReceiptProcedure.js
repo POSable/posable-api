@@ -5,11 +5,15 @@ var paymentReceiptMap = require('./paymentReceiptMap');
 var invoiceMerchantSearch = require('../common/merchantSearch');
 var paymentQuery = require('./paymentQuery');
 var forEachAsync = require('forEachAsync').forEachAsync;
+var updatePaymentCloudElemID = require('./updatePaymentCloudElemID');
 
 var paymentReceiptProcedure = function (paymentsArray, qbInvoiceID, merchConfig) {
     // This is kicked off by the successful Invoice Post Procedure and Payment Query
     try {
         forEachAsync(paymentsArray, function(next, payment) {
+            console.log("YYYYYYYYYY", payment);
+            //var internalPaymentID = payment._id;
+
             var paymentReceipt = paymentReceiptMap(merchConfig, qbInvoiceID, payment);
 
             postPaymentProcedure(merchConfig, paymentReceipt, function(err, qbPaymentID) {
@@ -17,7 +21,10 @@ var paymentReceiptProcedure = function (paymentsArray, qbInvoiceID, merchConfig)
                     logPlugin.error(err);
                 } else {
                     logPlugin.debug('ExternalPost of Payment: ' + qbPaymentID + ' Posted and Updated successfully');
-                    //logPlugin.debug('Async fun');
+
+                    //Mark Payment as complete
+                    updatePaymentCloudElemID(internalPaymentID, qbPaymentID);
+
                     next();
                 }
             });
@@ -25,10 +32,10 @@ var paymentReceiptProcedure = function (paymentsArray, qbInvoiceID, merchConfig)
             logPlugin.debug('All Done with forEachAsync Posting');
         });
 
-    } catch (err) {
-        logPlugin.error(err);
-        throw err;
-    }
+} catch (err) {
+    logPlugin.error(err);
+    throw err;
+}
 };
 
 module.exports = paymentReceiptProcedure;

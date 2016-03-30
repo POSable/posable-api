@@ -3,7 +3,7 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 var invoiceMap = require('./invoiceMap');
 var invoiceMerchantSearch = require('../common/merchantSearch');
-var updateInvoiceCloudElemID = require('./../invoiceJob/updateInvoiceCloudElemID');
+var updateInvoiceCloudElemID = require('./updateInvoiceCloudElemID');
 var kickoffPaymentProcedure = require('../paymentJob/paymentQuery');
 
 
@@ -25,7 +25,7 @@ var invoiceProcedure = function (invoiceToBePosted) {
                      } else {
                          logPlugin.debug('ExternalPost of Invoice : ' + qbInvoiceID + ' Posted and updated successfully');
 
-                         //Mark Invoice as sent
+                         //Mark Invoice as complete
                          updateInvoiceCloudElemID(internalInvoiceID, qbInvoiceID);
 
                          //Send response to paymentQuery
