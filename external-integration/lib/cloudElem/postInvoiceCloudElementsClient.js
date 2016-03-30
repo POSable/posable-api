@@ -29,6 +29,7 @@ var postInvoiceCloudElementsClient = function(payload, merchant, externalPost, c
             }
         });
 
+
     } catch (err) {
         logPlugin.error(err);
         throw err;
