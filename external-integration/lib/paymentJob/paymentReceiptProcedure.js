@@ -56,15 +56,12 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, extP
                 }
             });
 
+        })
 
-        }).then(function(){
-            logPlugin.debug('All Done with forEachAsync Posting');
-        });
-
-} catch (err) {
-    logPlugin.error(err);
-    throw err;
-}
+    } catch (err) {
+        logPlugin.error(err);
+        throw err;
+    }
 };
 
 module.exports = paymentReceiptProcedure;

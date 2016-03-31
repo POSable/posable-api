@@ -10,21 +10,28 @@ var kickOffProcedure = function(resultArray) {
 
 var paymentQuery = function() {
     try {
-        Invoice.find({
-                extPostID: !null,
-                //join extPost.ceid !null
-                paymentsSent: false
-            },
-            {},
-            function(err, result) {
-                if( err ) {
-                    logPlugin.error(err);
-                } else {
-                    //logPlugin.debug('Found invoices that need to be completed. Results : ' + result);
-                    kickOffProcedure(result)
+        db.invoices.aggregate(
+            [
+                {
+                    $match:
+                    {
+                        paymentsSent: false,
+                        extPostID:
+                        {
+                            $not: null
+                        }
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: "external posts",
+                        localField: "extPostID",
+                        foreignField: "_id",
+                        as: "post_docs"
+                    }
                 }
-            }
-
+            ]
         )
 
     } catch (err) {
