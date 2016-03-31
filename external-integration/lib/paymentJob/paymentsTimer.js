@@ -1,4 +1,4 @@
-var paymentQuery = require('./invoiceQuery');
+var paymentQuery = require('./paymentQuery');
 var logPlugin = require('posable-logging-plugin');
 
 var timer = function() {

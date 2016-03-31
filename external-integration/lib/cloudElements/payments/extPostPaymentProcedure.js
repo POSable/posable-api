@@ -1,5 +1,4 @@
 var logPlugin = require('posable-logging-plugin');
-var postInvoice = require('./postInvoiceCloudElementsClient');
 var merchantSearch = require('../../common/merchantSearch');
 var postExtPostPayment = require('./../cloudElementsClient');
 var updateExtPost = require('./../updateExtPost');

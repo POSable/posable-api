@@ -3,7 +3,7 @@ var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 var invoiceMap = require('./invoiceMap');
 var invoiceMerchantSearch = require('../common/merchantSearch');
-var updateExtPostID = require('./updateInvoiceCloudElemID');
+var updateExtPostID = require('./updateExtPostID');
 
 
 var invoiceProcedure = function (invoiceToBePosted) {
