@@ -51,27 +51,3 @@ var invoiceMap = function(invoiceToBePosted, merchConfig) {
 };
 
 module.exports = invoiceMap;
-
-
-//var sampleInvoiceItemData = [
-//    {
-//        transactionID:"111111",
-//        amount:2015.00,
-//        type:"sales"
-//    },
-//    {
-//        transactionID:"111111",
-//        amount:226.87,
-//        type:"tax"
-//    },
-//    {
-//        transactionID:"111111",
-//        amount:200.15,
-//        type:"discount"
-//    },
-//    {
-//        transactionID:"111111",
-//        amount:10.05,
-//        type:"giftCard"
-//    }
-//];

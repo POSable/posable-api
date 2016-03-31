@@ -1,13 +1,13 @@
-var paymentReceiptMap = function(merchConfig, qbInvoiceID, payment) {
+var paymentReceiptMap = function(merchConfig, extPostID, typeSum) {
 
     var line = [];
 
         var lineDetail = {
 
-            "amount": payment.amount,
+            "amount": typeSum.amount,
             "linkedTxn": [
                 {
-                    "txnId": qbInvoiceID,  //this is without the pipe 0
+                    "txnId": extPostID,  //this is without the pipe 0
                     "txnType": "Invoice"
                 }
             ]
@@ -26,7 +26,7 @@ var paymentReceiptMap = function(merchConfig, qbInvoiceID, payment) {
         "paymentMethodRef": {
             "value": merchConfig.creditAccountID //fix Me........
         },
-        "totalAmt": payment.amount
+        "totalAmt": typeSum.amount
     };
     console.log(paymentMap);
     return paymentMap;

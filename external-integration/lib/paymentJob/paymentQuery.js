@@ -1,39 +1,31 @@
+var paymentAggregation = require('./paymentAggregation');
 var logPlugin = require('posable-logging-plugin');
-var Payment = require('../../models/payment').model;
-var paymentReceiptProcedure = require('./paymentReceiptProcedure');
+var Invoice = require('../../models/invoice').model;
 
-var paymentQuery = function(merchConfig, qbInvoiceID, internalInvoiceID) {
+var kickOffProcedure = function(resultArray) {
+    resultArray.forEach(function(invoiceToBeAggregated){
+        paymentAggregation(invoiceToBeAggregated)
+    })
+};
+
+var paymentQuery = function() {
     try {
-        Payment.aggregate(
-            [
-                {
-                    $match:
-                    {
-                        "invoiceID" : internalInvoiceID.toString()
-                    }
-                },
-                {
-                    $group :
-                    {
-                        _id:
-                        {
-                            paymentType : "$paymentType"
-                        },
-                        amount :
-                        {
-                            $sum : "$amount"
-                        }
-                    }
-                }
-            ], function(err, result) {
+        Invoice.find({
+                extPostID: !null,
+                //join extPost.ceid !null
+                paymentsSent: false
+            },
+            {},
+            function(err, result) {
                 if( err ) {
                     logPlugin.error(err);
                 } else {
-                    logPlugin.debug('Found Payments to be sent. Results : ' + result);
-                    paymentReceiptProcedure(result, qbInvoiceID, merchConfig)
+                    //logPlugin.debug('Found invoices that need to be completed. Results : ' + result);
+                    kickOffProcedure(result)
                 }
             }
-        );
+
+        )
 
     } catch (err) {
         logPlugin.error(err);

@@ -1,22 +1,18 @@
-var invoiceProcedure = require('./invoiceProcedure');
+var extPostInvoiceProcedure = require('./extPostInvoiceProcedure');
 var logPlugin = require('posable-logging-plugin');
-var Invoice = require('../../models/invoice').model;
+var ExternalPost = require('../../../models/externalPost').model;
 
 var kickOffProcedure = function(resultArray) {
-    resultArray.forEach(function(invoiceToBePosted){
-        invoiceProcedure(invoiceToBePosted)
+    resultArray.forEach(function(extPostInvoiceToBePosted){
+        extPostInvoiceProcedure(extPostInvoiceToBePosted)
     })
 };
 
 var invoiceQuery = function() {
     try {
-        Invoice.find({
-                //finalizeAt:
-                //    {
-                //        $lt: new Date()
-                //    },
-                extPostID: null,
-                paymentsSent: false
+        ExternalPost.find({
+                type: "Invoice",
+                extObjID: null
             },
             {},
             function(err, result) {

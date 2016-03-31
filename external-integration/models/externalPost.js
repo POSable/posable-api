@@ -2,13 +2,13 @@ var mongoose = require('mongoose');
 
 var ExternalPost = new mongoose.Schema({
     requestID: String,
-    externalPostID: String,
-    externalObjectID: String,
-    merchantID: String,
+    extObjID: String,
+    internalID: String,
     requestDateTime: Date,
     responseDateTime: Date,
     responseStatus: String,
-    postBody: Object
+    postBody: Object,
+    type: String
 });
 
 module.exports = {

@@ -69,8 +69,3 @@ var addInvoiceItems = function(msg, foundInvoice) {
 };
 
 module.exports = addInvoiceItems;
-
-
-
-
-

@@ -1,31 +1,31 @@
 var logPlugin = require('posable-logging-plugin');
 var request = require('request');
 
-var postInvoiceCloudElementsClient = function(payload, merchant, externalPost, callback) {
+var cloudElementsClient = function(extPost, merchConfig, postString, callback) {
     try {
-        logPlugin.debug('Start Cloud Elements Client Invoice posting function');
+        logPlugin.debug('Start Cloud Elements Client posting function');
         request({
-            url: 'https://qa.cloud-elements.com/elements/api-v2/hubs/finance/invoices',
+            url: postString,
             method: 'POST',
             headers: {
                 'User-Agent': 'request',
                 'Content-Type': 'application/json',
-                'Authorization': merchant.cloudElemAPIKey
+                'Authorization': merchConfig.cloudElemAPIKey
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(extPost.postBody)
 
-        }, function(err, response, payload){
+        }, function(err, response){
             if (err) {
                 logPlugin.error(err);
-                callback(err, null, null, null);
+                callback(err, null);
             } else if (response.statusCode === 200) {
                 logPlugin.debug('Successful post to Cloud Elements with Status Code of 200');
-                callback(null, response, externalPost, payload);
+                callback(null, response);
             } else {
                 logPlugin.debug("CloudElem response code: " + response.statusCode);
                 logPlugin.debug("CloudElem response code: " + response.body);
                 var newError = new Error("Failed post to CE");
-                callback(newError, response, externalPost, null);
+                callback(newError, null);
             }
         });
 
@@ -35,4 +35,4 @@ var postInvoiceCloudElementsClient = function(payload, merchant, externalPost, c
     }
 };
 
-module.exports = postInvoiceCloudElementsClient;
+module.exports = cloudElementsClient;

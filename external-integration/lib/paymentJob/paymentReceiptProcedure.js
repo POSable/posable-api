@@ -1,33 +1,62 @@
-var postPaymentProcedure = require('./../cloudElem/postPaymentProcedure');
+var finishPaymentProcedure = require('./finishPaymentProcedure');
 var wascallyRabbit = require('posable-wascally-wrapper');
 var logPlugin = require('posable-logging-plugin');
 var paymentReceiptMap = require('./paymentReceiptMap');
-var invoiceMerchantSearch = require('../common/merchantSearch');
-var paymentQuery = require('./paymentQuery');
+var merchantSearch = require('../common/merchantSearch');
 var forEachAsync = require('forEachAsync').forEachAsync;
-var updatePaymentCloudElemID = require('./updatePaymentCloudElemID');
+var Invoice = require('../../models/invoice').model;
 
-var paymentReceiptProcedure = function (paymentsArray, qbInvoiceID, merchConfig) {
-    // This is kicked off by the successful Invoice Post Procedure and Payment Query
+var updateInvoicePaymentsSent = function(internalInvoiceID) {
+    Invoice.findOneAndUpdate(
+        {
+            _id: internalInvoiceID
+        },
+        {
+            $set:
+            {
+                paymentsSent: true
+            }
+        },
+        function(err, doc) {
+            if (err) {
+                logPlugin.error("The invoice update response Error from mongo is : " + err);
+            }else {
+                logPlugin.debug("The invoice has been successfully updated paymentsSent === true : " + JSON.stringify(doc));
+            }
+        }
+
+    )
+};
+
+
+var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, extPostID, internalInvoiceID) {
+
     try {
-        forEachAsync(paymentsArray, function(next, payment) {
-            console.log("YYYYYYYYYY", payment);
-            //var internalPaymentID = payment._id;
+        summedPaymentTypeArray.forEach(function(typeSum) {
 
-            var paymentReceipt = paymentReceiptMap(merchConfig, qbInvoiceID, payment);
-
-            postPaymentProcedure(merchConfig, paymentReceipt, function(err, qbPaymentID) {
+            merchantSearch(internalID, function(err, merchConfig){
                 if (err) {
+                    // Error connecting to database
                     logPlugin.error(err);
                 } else {
-                    logPlugin.debug('ExternalPost of Payment: ' + qbPaymentID + ' Posted and Updated successfully');
 
-                    //Mark Payment as complete
-                    updatePaymentCloudElemID(internalPaymentID, qbPaymentID);
+                    var paymentReceipt = paymentReceiptMap(merchConfig, extPostID, typeSum);
 
-                    next();
+                    finishPaymentProcedure(merchConfig, paymentReceipt, function(err, paymentExtPostID) {
+                        if (err) {
+                            logPlugin.error(err);
+                        } else {
+                            logPlugin.debug('ExternalPost of Payment: ' + paymentExtPostID);
+
+                            //Mark Invoice and paymentsSent === true
+                            updateInvoicePaymentsSent(internalInvoiceID);
+
+                        }
+                    });
                 }
             });
+
+
         }).then(function(){
             logPlugin.debug('All Done with forEachAsync Posting');
         });

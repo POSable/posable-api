@@ -6,7 +6,7 @@ var makePayments = require('./../paymentJob/makePayments');
 var addInvoiceItems = require('./addInvoiceItems');
 
 var populateInvoice = function(invoice, id, batchTime) {
-    invoice.cloudElemID = null;
+    invoice.extPostID = null;
     invoice.internalID = id;
     invoice.finalizeAt = batchTime;
     invoice.invoiceItems = [];
