@@ -6,7 +6,7 @@ var finishInvoiceProcedure = function(merchant, invoice, callback) {
 
     var externalPost = new ExternalPost();
 
-    externalPost.merchantID = merchant.internalID;
+    externalPost.internalID = merchant.internalID;
     externalPost.postBody = invoice;
     externalPost.type = "Invoice";
 

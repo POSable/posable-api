@@ -1,7 +1,7 @@
 var logPlugin = require('posable-logging-plugin');
 var request = require('request');
 
-var cloudElementsClient = function(payload, merchConfig, postString, callback) {
+var cloudElementsClient = function(extPost, merchConfig, postString, callback) {
     try {
         logPlugin.debug('Start Cloud Elements Client posting function');
         request({
@@ -12,7 +12,7 @@ var cloudElementsClient = function(payload, merchConfig, postString, callback) {
                 'Content-Type': 'application/json',
                 'Authorization': merchConfig.cloudElemAPIKey
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(extPost.postBody)
 
         }, function(err, response){
             if (err) {

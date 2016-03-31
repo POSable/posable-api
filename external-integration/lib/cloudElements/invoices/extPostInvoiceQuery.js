@@ -12,7 +12,7 @@ var invoiceQuery = function() {
     try {
         ExternalPost.find({
                 type: "Invoice",
-                quickbooksID: null
+                extObjID: null
             },
             {},
             function(err, result) {

@@ -6,7 +6,7 @@ var finishPaymentProcedure = function(merchConfig, paymentReceipt, callback) {
 
     var externalPost = new ExternalPost();
 
-    externalPost.merchantID = merchant.internalID;
+    externalPost.internalID = merchant.internalID;
     externalPost.postBody = paymentReceipt;
     externalPost.type = "Payment";
 
