@@ -1,6 +1,6 @@
 var extPostInvoiceProcedure = require('./extPostInvoiceProcedure');
 var logPlugin = require('posable-logging-plugin');
-var ExternalPost = require('../../models/externalPost').model;
+var ExternalPost = require('../../../models/externalPost').model;
 
 var kickOffProcedure = function(resultArray) {
     resultArray.forEach(function(extPostInvoiceToBePosted){

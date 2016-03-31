@@ -139,5 +139,7 @@ function rabbitCallback(err, res) {
     }
 }
 
-require('./legacyLib/invoiceJob/timer');
+//Timers Kickoff
+require('./lib/invoiceJob/timer');
+require('./lib/cloudElements/cloudElemTimer');
 
