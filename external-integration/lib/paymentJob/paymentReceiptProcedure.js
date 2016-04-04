@@ -32,7 +32,7 @@ var updateInvoicePaymentsSent = function(internalInvoiceID) {
 var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, cloudElemID, internalInvoiceID) {
 
     try {
-        summedPaymentTypeArray.forEach(function(typeSum) {
+        forEachAsync(summedPaymentTypeArray, function(next, typeSum) {
 
             merchantSearch(internalID, function(err, merchConfig){
                 if (err) {
@@ -50,7 +50,7 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, clou
 
                             //Mark Invoice and paymentsSent === true
                             updateInvoicePaymentsSent(internalInvoiceID);
-
+                            next();
                         }
                     });
                 }
