@@ -8,7 +8,7 @@ var timer = function() {
             extPostInvoiceQuery();
             extPostPaymentQuery();
         }
-        setInterval(function(){ kickoff() }, 10000);
+        setInterval(function(){ kickoff() }, 30000);
 
     } catch (err) {
         logPlugin.error(err);

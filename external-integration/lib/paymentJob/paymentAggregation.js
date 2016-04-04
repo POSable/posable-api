@@ -4,7 +4,6 @@ var paymentReceiptProcedure = require('./paymentReceiptProcedure');
 
 var paymentQuery = function(invoiceToBeAggregated) {
     var internalID = invoiceToBeAggregated.internalID;
-    var extPostID = invoiceToBeAggregated.extPostID;
     var internalInvoiceID = invoiceToBeAggregated._id;
     var cloudElemID = invoiceToBeAggregated.cloudElemID;
 

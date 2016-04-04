@@ -32,17 +32,17 @@ var updateInvoicePaymentsSent = function(internalInvoiceID) {
 var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, cloudElemID, internalInvoiceID) {
 
     try {
-        forEachAsync(summedPaymentTypeArray, function(next, typeSum) {
 
-            merchantSearch(internalID, function(err, merchConfig){
-                if (err) {
-                    // Error connecting to database
-                    logPlugin.error(err);
-                } else {
+        merchantSearch(internalID, function(err, merchConfig) {
+            if (err) {
+                // Error connecting to database
+                logPlugin.error(err);
+            } else {
+                forEachAsync(summedPaymentTypeArray, function (next, typeSum) {
 
                     var paymentReceipt = paymentReceiptMap(merchConfig, cloudElemID, typeSum);
 
-                    finishPaymentProcedure(merchConfig, paymentReceipt, function(err, paymentExtPostID) {
+                    finishPaymentProcedure(merchConfig, paymentReceipt, function (err, paymentExtPostID) {
                         if (err) {
                             logPlugin.error(err);
                         } else {
@@ -53,9 +53,11 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, clou
                             next();
                         }
                     });
-                }
-            });
+                }).then(function () {
+                    logPlugin.debug('All Done with forEachAsync Posting');
+                })
 
+            }
         })
 
     } catch (err) {
