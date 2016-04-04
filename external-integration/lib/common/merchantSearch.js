@@ -23,8 +23,8 @@ var merchantSearch = function(id, callback) {
             searchError.deadLetter = true;
             return callback(searchError, merchant);
         } else {
-            console.log(merchant);
-            logPlugin.debug('Merchant found, search complete');
+            //console.log(merchant);
+            //logPlugin.debug('Merchant found, search complete');
             return callback(null, merchant);
         }
     });
