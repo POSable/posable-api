@@ -143,4 +143,5 @@ function rabbitCallback(err, res) {
 require('./lib/invoiceJob/invoiceTimer');
 require('./lib/paymentJob/paymentTimer');
 require('./lib/cloudElements/cloudElemTimer');
+require('./lib/refundJob/refundTimer');
 

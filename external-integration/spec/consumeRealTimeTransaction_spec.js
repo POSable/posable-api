@@ -33,12 +33,12 @@ describe("Test 'consumeRealTimeTransaction' module & 'handleRealTimeTransaction'
         //    }
         //});
 
-        it("logs the system error.", function () {
-            try {
-                handleRealTimeTransaction(testMsg);
-            } catch (err) {
-                expect(testLogPlugin.error).toHaveBeenCalledWith(err);
-            }
-        });
+        //it("logs the system error.", function () {
+        //    try {
+        //        handleRealTimeTransaction(testMsg);
+        //    } catch (err) {
+        //        expect(testLogPlugin.error).toHaveBeenCalledWith(err);
+        //    }
+        //});
     });
 });

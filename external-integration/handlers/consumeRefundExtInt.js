@@ -1,59 +1,51 @@
-/**
- * Created by davidabramowitz on 3/22/16.
- */
-
-//var mapTransaction = require('../legacyLib/mapTransaction');
-//var validate = require('posable-validation-plugin');
 var logPlugin = require('posable-logging-plugin');
-//var wascallyRabbit = require('posable-wascally-wrapper');
-//
-//
-//var deadLetterErrorHandling = function (msg, error) {
-//    logPlugin.error(error);
-//    error.deadLetter = true;
-//    wascallyRabbit.rabbitDispose(msg, error);
-//};
+var wascallyRabbit = require('posable-wascally-wrapper');
+var refundMerchantSearch = require('../lib/common/merchantSearch');
+var refundPersistence = require('../lib/refundJob/refundPersistence');
+
+var deadLetterErrorHandling = function (msg, err) {
+    logPlugin.error(err);
+    err.deadLetter = true;
+    wascallyRabbit.rabbitDispose(msg, err);
+};
+
+var handleError = function(msg, err){
+    logPlugin.error(err);
+    wascallyRabbit.rabbitDispose(msg, err);
+};
+
 
 function consumeRefundExtInt(msg) {
-    logPlugin.debug('Received message from Rabbit, starting refund persistence handler');
+    try {
+        logPlugin.debug('Starting refund handler');
+        var id = msg.body.internalID;
 
-    msg.ack();
+        refundMerchantSearch(id, function(err, merchant){
+            if (err) {
+                // Error searching to database, retry
+                handleError(msg, err);
+            } else {
+                // Merchant found, sending to persistence
+                refundPersistence(msg, merchant, function(err) {
+                    if (err) {
+                        // Error saving to database, retry
+                        handleError(msg, err);
+                    } else {
+                        // Refund saved, ack message
+                        logPlugin.debug('Refund handler finished');
+                        wascallyRabbit.rabbitDispose(msg, null);
+                    }
+                });
+            }
+        });
 
+    } catch(err) {
+        deadLetterErrorHandling(msg, err);
+    }
 }
 
-
-//    try {
-//        var transaction = mapTransaction(msg);
-//        var valTransObj = validate.validateTransaction(transaction);
-//
-//        if (valTransObj.isValid) {
-//            logPlugin.debug('Passed validation, saving to DB...');
-//            transaction.save(function (err) {
-//                if (err) {
-//                    logPlugin.error(err);
-//                } else {
-//                    logPlugin.debug('Transaction saved');
-//                }
-//                wascallyRabbit.rabbitDispose(msg, err);  // <-- Disposes of message with option of retry
-//            });
-//        } else if (!valTransObj.isValid) {
-//            var valError = new Error('Failed validation');
-//            deadLetterErrorHandling(msg, valError);
-//        }
-//    } catch (err) {
-//        deadLetterErrorHandling(msg, err);
-//    }
-//}
-
-//var testingStub = function (testMapTransaction, testValidate, testLogPlugin, testDispose) {
-//    if (testMapTransaction) {mapTransaction = testMapTransaction.mapTransaction;}
-//    if (testValidate) {validate = testValidate;}
-//    if (testDispose) {wascallyRabbit.rabbitDispose = testDispose.rabbitDispose;}
-//    if (testLogPlugin) {logPlugin = testLogPlugin;}
-//};
-
 module.exports = {
-    consumeRefundExtInt: consumeRefundExtInt,
+    consumeRefundExtInt: consumeRefundExtInt
     //testingStub: testingStub
 };
 
