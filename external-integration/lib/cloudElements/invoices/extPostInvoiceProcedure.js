@@ -2,6 +2,7 @@ var logPlugin = require('posable-logging-plugin');
 var invoiceMerchantSearch = require('../../common/merchantSearch');
 var postExtPostInvoice = require('./../cloudElementsClient');
 var updateExtPost = require('./../updateExtPost');
+var updateInvoice = require('./updateInvoice');
 
 var extPostInvoiceProcedure = function(extPostInvoiceToBePosted) {
     var internalID = extPostInvoiceToBePosted.internalID;
@@ -16,11 +17,13 @@ var extPostInvoiceProcedure = function(extPostInvoiceToBePosted) {
                 if (err) {
                     logPlugin.error(err);
                 } else {
+                    var internalInvoiceID = extPostInvoiceToBePosted.internalObjID;
                     var statusCode = response.status;
                     var qbInvoiceID = JSON.parse(response.body).id;
                     qbInvoiceID = qbInvoiceID.slice(0,-2);
 
                     updateExtPost(extPostInvoiceToBePosted, qbInvoiceID, statusCode);
+                    updateInvoice(internalInvoiceID, qbInvoiceID);
                 }
             })
         }

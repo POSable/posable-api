@@ -141,7 +141,7 @@ function rabbitCallback(err, res) {
 
 //Timers Kickoff
 require('./lib/invoiceJob/invoiceTimer');
-require('./lib/paymentJob/paymentsTimer');
+require('./lib/paymentJob/paymentTimer');
 require('./lib/cloudElements/cloudElemTimer');
 require('./lib/refundJob/refundTimer');
 

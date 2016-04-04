@@ -5,6 +5,7 @@ var Invoice = new mongoose.Schema({
     extPostID: String,
     paymentsSent: {type: Boolean, default: false},
     internalID: Number,
+    cloudElemID: String,
     invoiceItems: [mongoose.model('InvoiceItem').schema]
 });
 

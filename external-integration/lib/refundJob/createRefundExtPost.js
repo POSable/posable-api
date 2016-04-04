@@ -14,14 +14,16 @@ var createRefundExtPost = function(refund, callback){
                 var newRefundReceipt = refundReceiptMap(merchConfig, refundPayment);
 
                 refund.refundItems.forEach(function(refundItem){
-                    if (refundItem.amount > refundPayment.amount) {
-                        addReceiptLine(refundItem.type, refundPayment.amount);
-                        refundItem.amount = refundItem.amount - refundPayment.amount;
-                        refundPayment.amount = 0;
-                    } else {
-                        addReceiptLine(refundItem.type, refundItem.amount);
-                        refundPayment.amount = refundPayment.amount - refundItem.amount;
-                        refundItem.amount = 0;
+                    if (refundItem.amount > 0 && refundPayment.amount > 0) {
+                        if (refundItem.amount >= refundPayment.amount) {
+                            addReceiptLine(refundItem.type, refundPayment.amount);
+                            refundItem.amount = refundItem.amount - refundPayment.amount;
+                            refundPayment.amount = 0;
+                        } else {
+                            addReceiptLine(refundItem.type, refundItem.amount);
+                            refundPayment.amount = refundPayment.amount - refundItem.amount;
+                            refundItem.amount = 0;
+                        }
                     }
 
                     // Helper, placed here to have access to loop variables
@@ -39,7 +41,6 @@ var createRefundExtPost = function(refund, callback){
                 });
 
                 var externalPost = new ExternalPost();
-
                 externalPost.internalID = refund.internalID;
                 externalPost.postBody = newRefundReceipt;
                 externalPost.type = "Refund";

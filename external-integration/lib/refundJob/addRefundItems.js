@@ -5,7 +5,7 @@ var addSaleItem = function(msg, refund) {
     if (msg.body.data.subtotal > 0) {
         var saleRefundItem = new RefundItem();
         saleRefundItem.transactionID = msg.body.data.transactionID;
-        saleRefundItem.type = "sale";
+        saleRefundItem.type = "sales";
         saleRefundItem.amount =  msg.body.data.subtotal;
         refund.refundItems.push(saleRefundItem);
     }
