@@ -11,8 +11,8 @@ var kickOffProcedure = function(resultArray) {
 var paymentQuery = function() {
     try {
         Invoice.find({
-                extPostID: !null,
-                //join extPost.ceid !null
+                extPostID: {$ne : null},
+                cloudElemID: {$ne : null},
                 paymentsSent: false
             },
             {},
@@ -20,7 +20,7 @@ var paymentQuery = function() {
                 if( err ) {
                     logPlugin.error(err);
                 } else {
-                    //logPlugin.debug('Found invoices that need to be completed. Results : ' + result);
+                    //logPlugin.debug('Found payments that need to be completed. Results : ' + result);
                     kickOffProcedure(result)
                 }
             }

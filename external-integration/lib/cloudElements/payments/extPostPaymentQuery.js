@@ -11,15 +11,15 @@ var kickOffProcedure = function(resultArray) {
 var paymentQuery = function() {
     try {
         ExternalPost.find({
-                type: "Payment"
-                //extObjID: null
+                type: "Payment",
+                extObjID: null
             },
             {},
             function(err, result) {
                 if( err ) {
                     logPlugin.error(err);
                 } else {
-                    logPlugin.debug('Found payments that need to be completed. Results : ' + result);
+                    //logPlugin.debug('Found payments that need to be completed. Results : ' + result);
                     kickOffProcedure(result)
                 }
             }

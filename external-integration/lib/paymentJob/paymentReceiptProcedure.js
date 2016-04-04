@@ -29,20 +29,20 @@ var updateInvoicePaymentsSent = function(internalInvoiceID) {
 };
 
 
-var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, extPostID, internalInvoiceID) {
+var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, cloudElemID, internalInvoiceID) {
 
     try {
-        summedPaymentTypeArray.forEach(function(typeSum) {
 
-            merchantSearch(internalID, function(err, merchConfig){
-                if (err) {
-                    // Error connecting to database
-                    logPlugin.error(err);
-                } else {
+        merchantSearch(internalID, function(err, merchConfig) {
+            if (err) {
+                // Error connecting to database
+                logPlugin.error(err);
+            } else {
+                forEachAsync(summedPaymentTypeArray, function (next, typeSum) {
 
-                    var paymentReceipt = paymentReceiptMap(merchConfig, extPostID, typeSum);
+                    var paymentReceipt = paymentReceiptMap(merchConfig, cloudElemID, typeSum);
 
-                    finishPaymentProcedure(merchConfig, paymentReceipt, function(err, paymentExtPostID) {
+                    finishPaymentProcedure(merchConfig, paymentReceipt, function (err, paymentExtPostID) {
                         if (err) {
                             logPlugin.error(err);
                         } else {
@@ -50,21 +50,20 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, extP
 
                             //Mark Invoice and paymentsSent === true
                             updateInvoicePaymentsSent(internalInvoiceID);
-
+                            next();
                         }
                     });
-                }
-            });
+                }).then(function () {
+                    logPlugin.debug('All Done with forEachAsync Posting');
+                })
 
+            }
+        })
 
-        }).then(function(){
-            logPlugin.debug('All Done with forEachAsync Posting');
-        });
-
-} catch (err) {
-    logPlugin.error(err);
-    throw err;
-}
+    } catch (err) {
+        logPlugin.error(err);
+        throw err;
+    }
 };
 
 module.exports = paymentReceiptProcedure;

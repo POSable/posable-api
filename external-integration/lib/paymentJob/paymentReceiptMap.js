@@ -1,4 +1,4 @@
-var paymentReceiptMap = function(merchConfig, extPostID, typeSum) {
+var paymentReceiptMap = function(merchConfig, cloudElemID, typeSum) {
 
     var line = [];
 
@@ -7,7 +7,7 @@ var paymentReceiptMap = function(merchConfig, extPostID, typeSum) {
             "amount": typeSum.amount,
             "linkedTxn": [
                 {
-                    "txnId": extPostID,  //this is without the pipe 0
+                    "txnId": cloudElemID,  //this is without the pipe 0
                     "txnType": "Invoice"
                 }
             ]
