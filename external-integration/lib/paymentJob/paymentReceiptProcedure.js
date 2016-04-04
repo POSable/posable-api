@@ -46,7 +46,7 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, clou
                         if (err) {
                             logPlugin.error(err);
                         } else {
-                            logPlugin.debug('ExternalPost of Payment: ' + paymentExtPostID);
+                            logPlugin.debug('ExternalPost of type Payment saved successfully with ID : ' + paymentExtPostID);
 
                             //Mark Invoice and paymentsSent === true
                             updateInvoicePaymentsSent(internalInvoiceID);

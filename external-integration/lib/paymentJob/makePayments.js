@@ -17,9 +17,9 @@ var makePayments = function(msg, invoice) {
             payment.transactionID = transactionID;
 
             if(paymentItem.paymentType === "Credit") {
-                payment.paymentType = paymentItem.cardType;
+                payment.paymentType = paymentItem.cardType.toLowerCase();
             } else {
-                payment.paymentType = paymentItem.paymentType;
+                payment.paymentType = paymentItem.paymentType.toLowerCase();
             }
 
             payment.save(function (err) {
