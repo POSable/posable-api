@@ -29,7 +29,7 @@ var updateInvoicePaymentsSent = function(internalInvoiceID) {
 };
 
 
-var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, extPostID, internalInvoiceID) {
+var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, cloudElemID, internalInvoiceID) {
 
     try {
         summedPaymentTypeArray.forEach(function(typeSum) {
@@ -40,7 +40,7 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, extP
                     logPlugin.error(err);
                 } else {
 
-                    var paymentReceipt = paymentReceiptMap(merchConfig, extPostID, typeSum);
+                    var paymentReceipt = paymentReceiptMap(merchConfig, cloudElemID, typeSum);
 
                     finishPaymentProcedure(merchConfig, paymentReceipt, function(err, paymentExtPostID) {
                         if (err) {

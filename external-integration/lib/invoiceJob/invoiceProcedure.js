@@ -18,7 +18,7 @@ var invoiceProcedure = function (invoiceToBePosted) {
             } else {
                 var invoice = invoiceMap(invoiceToBePosted, merchConfig);
 
-                finishInvoiceProcedure(merchConfig, invoice, function(err, extPostID) {
+                finishInvoiceProcedure(merchConfig, invoice, internalInvoiceID, function(err, extPostID) {
                     if (err) {
                         logPlugin.error(err);
                     } else {

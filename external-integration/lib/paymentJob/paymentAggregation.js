@@ -6,6 +6,7 @@ var paymentQuery = function(invoiceToBeAggregated) {
     var internalID = invoiceToBeAggregated.internalID;
     var extPostID = invoiceToBeAggregated.extPostID;
     var internalInvoiceID = invoiceToBeAggregated._id;
+    var cloudElemID = invoiceToBeAggregated.cloudElemID;
 
     try {
         Payment.aggregate(
@@ -34,7 +35,7 @@ var paymentQuery = function(invoiceToBeAggregated) {
                     logPlugin.error(err);
                 } else {
                     logPlugin.debug('Found Payments to be sent. Results : ' + result);
-                    paymentReceiptProcedure(result, internalID, extPostID, internalInvoiceID)
+                    paymentReceiptProcedure(result, internalID, cloudElemID, internalInvoiceID)
                 }
             }
         );

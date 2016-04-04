@@ -8,9 +8,10 @@ var ExternalPost = new mongoose.Schema({
     responseDateTime: Date,
     responseStatus: String,
     postBody: Object,
-    type: String
+    type: String,
+    internalObjID: String
 });
 
 module.exports = {
-    model : mongoose.model('External Post', ExternalPost)
+    model : mongoose.model('ExternalPost', ExternalPost)
 };

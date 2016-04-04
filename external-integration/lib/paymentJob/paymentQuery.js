@@ -10,28 +10,21 @@ var kickOffProcedure = function(resultArray) {
 
 var paymentQuery = function() {
     try {
-        db.invoices.aggregate(
-            [
-                {
-                    $match:
-                    {
-                        paymentsSent: false,
-                        extPostID:
-                        {
-                            $not: null
-                        }
-                    }
-                },
-                {
-                    $lookup:
-                    {
-                        from: "external posts",
-                        localField: "extPostID",
-                        foreignField: "_id",
-                        as: "post_docs"
-                    }
+        Invoice.find({
+                extPostID: {$ne : null},
+                cloudElemID: {$ne : null},
+                paymentsSent: false
+            },
+            {},
+            function(err, result) {
+                if( err ) {
+                    logPlugin.error(err);
+                } else {
+                    //logPlugin.debug('Found payments that need to be completed. Results : ' + result);
+                    kickOffProcedure(result)
                 }
-            ]
+            }
+
         )
 
     } catch (err) {
