@@ -21,7 +21,7 @@ var updateInvoicePaymentsSent = function(internalInvoiceID) {
             if (err) {
                 logPlugin.error("The invoice update response Error from mongo is : " + err);
             }else {
-                logPlugin.debug("The invoice has been successfully updated paymentsSent === true : " + JSON.stringify(doc));
+                //logPlugin.debug("The invoice has been successfully updated paymentsSent === true : " + JSON.stringify(doc));
             }
         }
 
@@ -38,7 +38,7 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, clou
                 // Error connecting to database
                 logPlugin.error(err);
             } else {
-                forEachAsync(summedPaymentTypeArray, function (next, typeSum) {
+                summedPaymentTypeArray.forEach(function(typeSum) {
 
                     var paymentReceipt = paymentReceiptMap(merchConfig, cloudElemID, typeSum);
 
@@ -50,11 +50,9 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, clou
 
                             //Mark Invoice and paymentsSent === true
                             updateInvoicePaymentsSent(internalInvoiceID);
-                            next();
+
                         }
                     });
-                }).then(function () {
-                    logPlugin.debug('All Done with forEachAsync Posting');
                 })
 
             }

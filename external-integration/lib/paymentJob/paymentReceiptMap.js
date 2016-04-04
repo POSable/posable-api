@@ -24,7 +24,7 @@ var paymentReceiptMap = function(merchConfig, cloudElemID, typeSum) {
         },
         "line": line,
         "paymentMethodRef": {
-            "value": merchConfig.creditAccountID //fix Me........
+            "value": merchConfig.checkAccountID //fix Me........
         },
         "totalAmt": typeSum.amount
     };

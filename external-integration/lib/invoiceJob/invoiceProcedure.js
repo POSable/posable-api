@@ -22,7 +22,7 @@ var invoiceProcedure = function (invoiceToBePosted) {
                     if (err) {
                         logPlugin.error(err);
                     } else {
-                        logPlugin.debug('ExternalPost of Invoice saved successfully with ID : ' + extPostID );
+                        logPlugin.debug('ExternalPost of type Invoice saved successfully with ID : ' + extPostID );
 
                         //Mark Invoice as complete and saved to Ext Post
                         updateExtPostID(internalInvoiceID, extPostID);

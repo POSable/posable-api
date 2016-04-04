@@ -20,7 +20,7 @@ var updateInvoice = function(internalInvoiceID, cloudElemID) {
                 if (err) {
                     logPlugin.error("The invoice update response Error from mongo is : " + err);
                 }else {
-                    logPlugin.debug("The invoice has been successfully updated with the cloudElemID : " + JSON.stringify(doc.extPostID));
+                    logPlugin.debug("The invoice has been successfully updated with the cloudElemID : " + JSON.stringify(doc.cloudElemID));
                 }
             }
         )

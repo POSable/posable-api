@@ -3,7 +3,7 @@ var merchantSearch = require('../../common/merchantSearch');
 var postExtPostPayment = require('./../cloudElementsClient');
 var updateExtPost = require('./../updateExtPost');
 
-var extPostPaymentProcedure = function(extPostPaymentToBePosted) {
+var extPostPaymentProcedure = function(extPostPaymentToBePosted, callback) {
     var internalID = extPostPaymentToBePosted.internalID;
     var postString = 'https://qa.cloud-elements.com/elements/api-v2/hubs/finance/payments';
 
@@ -21,6 +21,7 @@ var extPostPaymentProcedure = function(extPostPaymentToBePosted) {
                     extObjID = extObjID.slice(0,-2);
 
                     updateExtPost(extPostPaymentToBePosted, extObjID, statusCode);
+                    callback(null, extObjID);
                 }
             })
         }

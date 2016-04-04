@@ -3,7 +3,7 @@ var request = require('request');
 
 var cloudElementsClient = function(extPost, merchConfig, postString, callback) {
     try {
-        logPlugin.debug('Start Cloud Elements Client posting function');
+        logPlugin.debug('Starting Cloud Elements Client posting function');
         request({
             url: postString,
             method: 'POST',
