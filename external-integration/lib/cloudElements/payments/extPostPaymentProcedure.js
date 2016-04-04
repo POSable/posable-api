@@ -21,7 +21,7 @@ var extPostPaymentProcedure = function(extPostPaymentToBePosted, callback) {
                     extObjID = extObjID.slice(0,-2);
 
                     updateExtPost(extPostPaymentToBePosted, extObjID, statusCode);
-                    callback(null, extObjID);
+                    //callback(null, extObjID);
                 }
             })
         }
