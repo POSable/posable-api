@@ -11,10 +11,10 @@ var kickOffProcedure = function(resultArray) {
 var invoiceQuery = function() {
     try {
         Invoice.find({
-                //finalizeAt:
-                //    {
-                //        $lt: new Date()
-                //    },
+                finalizeAt:
+                    {
+                        $lt: new Date()
+                    },
                 extPostID: null,
                 paymentsSent: false
             },

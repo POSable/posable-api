@@ -31,6 +31,7 @@ var calcTime = function(merchant) {
                             dateNow.getDate(),
                             merchant.batchHour,
                             merchant.batchMin);
+
     // Millisecond Math
     var day = 1000 * 60 * 60 * 24;
     var today = testDate.getTime();
@@ -41,7 +42,7 @@ var calcTime = function(merchant) {
     } else {
         batchTime = new Date(tomorrow);
     }
-    return batchTime
+    return batchTime.toISOString()
 };
 
 function getInvoice(id, callback){
@@ -50,17 +51,16 @@ function getInvoice(id, callback){
             internalID: id,
             finalizeAt:
             {
-                $gt: new Date()
+                $gt: (new Date()).toISOString()
             },
             cloudElemID: null
         },
-        {},
         function(err, result) {
             if( err ) {
                 logPlugin.error(err);
                 callback(err, null);
             } else {
-                //logPlugin.debug('Invoice findOne complete. Results : ' + result);
+                logPlugin.debug('Invoice findOne complete. Results : ' + result);
                 callback(null, result);
             }
         }
@@ -92,7 +92,7 @@ var invoicePersistence = function(msg, merchant) {
         logPlugin.error(err);
     }
 
-    function finishInvoice(invoice) {
+    function finishInvoice(foundInvoice) {
         if (!foundInvoice) {
             //either realtime merch or batch merch's first transaction
             foundInvoice = new Invoice();
