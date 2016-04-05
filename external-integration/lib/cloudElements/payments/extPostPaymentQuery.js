@@ -1,7 +1,7 @@
 var extPostPaymentProcedure = require('./extPostPaymentProcedure');
 var logPlugin = require('posable-logging-plugin');
 var ExternalPost = require('../../../models/externalPost').model;
-var forEachAsync = require('forEachAsync').forEachAsync;
+//var forEachAsync = require('forEachAsync').forEachAsync;
 
 //var kickOffProcedure = function(resultArray) {
 //    forEachAsync(resultArray, function(next, extPostPaymentToBePosted){
