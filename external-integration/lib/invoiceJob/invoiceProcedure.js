@@ -32,7 +32,6 @@ var invoiceProcedure = function (invoiceToBePosted) {
             }
         });
 
-
     } catch (err) {
         logPlugin.error(err);
         throw err;

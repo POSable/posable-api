@@ -113,8 +113,6 @@ var invoicePersistence = function(msg, merchant) {
     }
 };
 
-
-
 module.exports = invoicePersistence;
 
 

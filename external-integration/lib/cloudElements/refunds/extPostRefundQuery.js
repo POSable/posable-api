@@ -24,7 +24,6 @@ var refundQuery = function() {
                 }
             }
         )
-
     } catch (err) {
         logPlugin.error(err);
     }

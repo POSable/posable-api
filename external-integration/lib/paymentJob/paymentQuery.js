@@ -24,7 +24,6 @@ var paymentQuery = function() {
                     kickOffProcedure(result)
                 }
             }
-
         )
 
     } catch (err) {

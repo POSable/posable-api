@@ -54,7 +54,6 @@ var paymentReceiptProcedure = function (summedPaymentTypeArray, internalID, clou
                         }
                     });
                 })
-
             }
         })
 

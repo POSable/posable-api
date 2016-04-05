@@ -28,9 +28,6 @@ var extPostInvoiceProcedure = function(extPostInvoiceToBePosted) {
             })
         }
     });
-
-
-
 };
 
 module.exports = extPostInvoiceProcedure;

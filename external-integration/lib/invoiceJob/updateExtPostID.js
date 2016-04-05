@@ -25,7 +25,6 @@ var updateInvoiceCloudElemID = function(internalInvoiceID, extPostID) {
                 }
             }
         )
-
     } catch (err) {
         logPlugin.error(err);
     }

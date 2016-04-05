@@ -3,7 +3,6 @@ var Invoice = require('../../../models/invoice').model;
 
 var updateInvoice = function(internalInvoiceID, cloudElemID) {
     try{
-
         Invoice.findOneAndUpdate(
             {
                 _id: internalInvoiceID},
@@ -24,7 +23,6 @@ var updateInvoice = function(internalInvoiceID, cloudElemID) {
                 }
             }
         )
-
     } catch (err) {
         logPlugin.error(err);
     }

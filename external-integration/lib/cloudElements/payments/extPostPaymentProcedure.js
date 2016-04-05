@@ -26,9 +26,6 @@ var extPostPaymentProcedure = function(extPostPaymentToBePosted, callback) {
             })
         }
     });
-
-
-
 };
 
 module.exports = extPostPaymentProcedure;

@@ -36,9 +36,7 @@ var paymentQuery = function() {
                     kickOffProcedure(result)
                 }
             }
-
         )
-
     } catch (err) {
         logPlugin.error(err);
     }
