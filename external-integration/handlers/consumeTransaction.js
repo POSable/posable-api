@@ -1,5 +1,6 @@
 var logPlugin = require('posable-logging-plugin');
 var wascallyRabbit = require('posable-wascally-wrapper');
+var configPlugin = require('posable-customer-config-plugin');
 var invoiceMerchantSearch = require('../lib/common/merchantSearch');
 var invoicePersistence = require('../lib/invoiceJob/invoicePersistence');
 
@@ -17,6 +18,13 @@ var handleTransaction = function(msg) {
     try {
         logPlugin.debug('Starting Transaction Handler');
         var id = msg.body.internalID;
+        var merchantLookupCallback = function(err, merchant) {
+            if (merchant.accountingIsReady === false) {
+                logPlugin.debug('Merchant Data Not ready for External Integration Accounting');
+                return wascallyRabbit.rabbitDispose(msg);
+            }
+        };
+        configPlugin.merchantLookup(id, merchantLookupCallback);
 
         invoiceMerchantSearch(id, function(err, merchant){
             if (err) {
